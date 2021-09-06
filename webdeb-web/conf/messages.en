@@ -25,7 +25,6 @@ title.navbar.prod=WebDeb
 navbar.style.dev=default
 navbar.style.qa=inverse
 navbar.style.prod=default
-test=test
 #
 # General purpose
 #
