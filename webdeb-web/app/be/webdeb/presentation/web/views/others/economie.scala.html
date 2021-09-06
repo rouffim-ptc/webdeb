@@ -1,0 +1,110 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Theme page about économie.
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title>Politiques d'économie et d'emploi à Bruxelles @Messages("general.metatitle")</title>
+    <meta name="description" content="Vous trouverez ci-dessous des liens vers pages de la plateforme WebDeb. Dans ces pages, vous pourrez voir la liste des textes à propos des débats sur l'économie et l'emploi, et des informations sur les principaux acteurs qui interviennent dans ces débats.">
+}
+
+
+@main(user, scripts) {
+    <div class="row">
+
+        <div id="webdeb-theme-presentation" class="col-12">
+            <br>
+            <h2 class="small-margin">Politiques d'économie et d'emploi à Bruxelles</h2>
+            <hr class="hr-xs-sensible">
+            <div class="col-12 no-padding">
+                <h4>
+                    Vous trouverez ci-dessous des liens vers pages de la plateforme WebDeb. Dans ces pages, vous pourrez voir la liste des textes à propos des débats sur l'économie et l'emploi, et des informations sur les principaux acteurs qui interviennent dans ces débats.
+                </h4>
+
+                <div class="col-12 col-sm-6" style="padding-left : 0;padding-right : 15px">
+                    <h3>Textes sur l'économie et l'emploi à Bruxelles</h3>
+                    <ul style="font-size:18px">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/tag?id=117452&pane=4" class="primary">Textes du débat sur le commerce</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/tag?id=117655&pane=4" class="primary">Textes du débat sur l'activation des chômeurs</a></li>
+                        <hr class="hr-small">
+                    </ul>
+                </div>
+
+                <div class="col-12 col-sm-6 no-padding">
+                    <h3>Personnes et organisations intervenant à propos de l'économie et de l'emploi à Bruxelles</h3>
+                    <h5>Ces liens vous donnent accès à la liste (encore incomplète) des dirigeants de ces organisations. En cliquant sur les noms de ces dirigeants, vous pourrez obtenir davantage d'informations sur eux (cependant encore incomplètes). N'héitez pas à compléter ou corriger les informations sur ces personnes ou ces organisations.</h5>
+                    <ul style="font-size:18px">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2181&pane=0" class="primary">Gouvernement de la Région de Bruxelles-Capitale</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=6389&pane=0" class="primary">Didier Gosuin, ministre de l'économie et de l'emploi</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=10082&pane=0" class="primary">Cabinet de Didier Gosuin</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2618&pane=0" class="primary">Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123228&pane=0" class="primary">Commission des Affaires économiques et de l'Emploi du Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=29027&pane=0" class="primary">Service Public Régional de Bruxelles</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=114253&pane=0" class="primary">Bruxelles Economie et Emploi</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=122770&pane=0" class="primary">Conseil Economique et Social de la Région de Bruxelles-capitale</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=122895&pane=0" class="primary">ACTIRIS</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2287&pane=0" class="primary">Bruxelles Formation</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=118436&pane=0" class="primary">1819.Brussels</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2476&pane=0" class="primary">BECI - Chambre de Commerce et Union des Entreprises de Bruxelles</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123531&pane=0" class="primary">UNIZO - Unie van Zelfstandige Ondernemers</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123534&pane=0" class="primary">Fédération Horeca Bruxelles</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123535&pane=0" class="primary">FGTB-Bruxelles</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123536&pane=0" class="primary">CSC-Bruxelles-Hall-Vilvorde</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123537&pane=0" class="primary">CGSLB-Bruxelles</a></li>
+                        <hr class="hr-small">
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

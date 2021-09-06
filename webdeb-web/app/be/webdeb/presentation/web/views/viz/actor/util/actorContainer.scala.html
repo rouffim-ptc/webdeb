@@ -1,0 +1,70 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Text container
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.toolbar.contributionActionsDiv
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorThumbnail
+@import be.webdeb.presentation.web.controllers.viz.EActionType
+
+@import be.webdeb.presentation.web.views.html.viz.common.util.contributionContainerCount
+@(
+        actor: ActorHolder,
+        user : WebdebUser,
+        withActions : Boolean = true,
+        subActionType : EActionType = null,
+        pane : Integer = -1
+)
+
+<div class="actor actor-@actor.getId contribution-container col-12" data-id="@actor.getId" data-pane="@pane">
+
+    <div class="contribution-container-header">
+        <div class="d-flex align-items-center justify-content-between contribution-title-head pr-3 pl-3">
+            <span class="flex-grow-1"></span>
+
+            @contributionContainerCount(actor, subActionType)
+
+            <div class="d-flex justify-content-end" style="width: 85px">
+                @if(withActions) {
+                    @contributionActionsDiv(EContributionType.ACTOR, user, false)
+                }
+            </div>
+        </div>
+
+        <div class="m-0">
+            <a class="actor-title" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(actor.getId, pane, 0)">
+                @actorThumbnail(actor.getId, actor.getFullname, actor.getSomeAvatar)
+            </a>
+        </div>
+    </div>
+
+    <hr>
+
+</div>
+

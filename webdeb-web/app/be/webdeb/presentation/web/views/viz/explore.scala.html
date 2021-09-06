@@ -1,0 +1,262 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Search page. Contains a search bar. When going directly here (without being redirected from a prefilled-search),
+* will display overviews of results (using a switch on concrete type of ContributionHolder)
+*
+* @param elements a list of contribution holders to be displayed
+* @param user the user profile data
+*
+* @author Julien Mathieu (original design)
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.views.html.browse.searchbar
+@import be.webdeb.presentation.web.views.html.mainBrowse
+@import be.webdeb.presentation.web.views.html.browse.defaultResult
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, breadcrumb, inlineform, hiddenFormField, message, noResultMessage, scrollTopWrapper}
+
+@import helper._
+
+@import be.webdeb.core.api.contributor.EContributionVisibility
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.browse.searchResult
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.account.AdvicesForm
+@import be.webdeb.presentation.web.controllers.browse.EOverviewType
+@import be.webdeb.presentation.web.views.html.viz.admin.advicesdiv
+@import be.webdeb.presentation.web.views.html.util.countContributions
+@import be.webdeb.presentation.web.views.html.browse.card.contributionsCardContainer
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.contributor.Group
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+@import be.webdeb.core.api.contribution.EOrderBy
+@import be.webdeb.presentation.web.views.html.util.waitingContainer
+@(
+        pane : EContributionType,
+        advices : AdvicesForm,
+        values : ValuesHelper,
+        user : WebdebUser
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+@scripts = {
+    <title>@Messages("welcome.index.1.title") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")</title>
+    <meta name="description" content="@Messages("welcome.slogan.3") @Messages("welcome.slogan.4")">
+
+    <meta property="og:title" content="@Messages("welcome.index.1.title") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")" />
+    <meta property="og:description" content="@Messages("welcome.slogan.3") @Messages("welcome.slogan.4")" />
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.index().absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable.png").absoluteURL()" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/explore_styles.css")">
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                let container = $('.explore-container');
+                let p = new Pager($("#latest_entries").find('.showall'), 8, '#latest_entries-pager', undefined, false);
+
+                p.reset();
+
+                $('.contributionDescription').each(function(){
+                    if($(this).height() > 78){
+                        $(this).css('height', '78px');
+                        $(this).css('justify-content', 'initial');
+                    }
+                });
+
+                handlerListeners();
+
+
+                initPopularScroller(@EContributionType.DEBATE.id(), container, 6);
+                initPopularScroller(@EContributionType.ACTOR_PERSON.id(), container, 8);
+                initPopularScroller(@EContributionType.ACTOR.id(), container, 8);
+                initPopularScroller(@EContributionType.TAG.id(), container, 12);
+                initPopularScroller(@EContributionType.TEXT.id(), container, 12);
+            });
+
+            function handlerListeners(){
+                let manageContributionsToExploresBtns = $('.manageContributionsToExplore');
+
+                manageContributionsToExploresBtns.on('click', function(){
+                    editContributionsToExplore($(this).data('contribution-type')).done(function(modal){
+                        loadAndShowModal($('#modal-anchor'), modal);
+                    }).fail(function(){
+                        console.log("Error with manage contributions to explore modal");
+                    });
+                });
+
+                let manageAdvicesBtn = $('.manageAdvices');
+
+                manageAdvicesBtn.on('click', function(){
+                    editAdvices().done(function(modal){
+                        loadAndShowModal($('#modal-anchor'), modal);
+                    }).fail(function(){
+                        console.log("Error with manage edit advices modal");
+                    });
+                });
+            }
+
+            function initPopularScroller(ctype, container, step) {
+                container = container.find('.popular-' + ctype + '-container');
+
+                if( container.find('.results-container').exists()) {
+                    container.scrollerPager(
+                            [ctype, 0],
+                            getPopularEntries, {
+                                step : step
+                            }
+                    );
+                }
+
+            }
+    </script>
+}
+
+@editContributionsToExplore(contributionType: EContributionType) = {
+    @if(user.getERole.id > EContributorRole.OWNER.id){
+        <button class="btn btn-link primary manageContributionsToExplore" data-contribution-type="@contributionType.id">
+            <i class="fa fa-cogs fixed-size"></i>
+        </button>
+    }
+}
+
+@editAdvices() = {
+    @if(user.getERole.id > EContributorRole.OWNER.id){
+        <button class="btn btn-link primary manageAdvices">
+            <i class="fa fa-cogs fixed-size"></i>
+        </button>
+    }
+}
+
+@orderBy(ctype: EContributionType) = {
+    <div class="dropdown mb-2 order-container">
+        <button class="btn btn-link secondary reversed dropdown-toggle" type="button" id="dropdownMenuSortButton-@ctype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-sort"></i> @Messages("general.order.title")
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuSortButton-@ctype">
+            <button class="dropdown-item order-btn" data-order="@EOrderBy.POPULARITY.id()">@Messages("general.order.popular.title")</button>
+            <button class="dropdown-item order-btn" data-order="@EOrderBy.RELEVANCE.id()">@Messages("general.order.relevance.title")</button>
+            <button class="dropdown-item order-btn" data-order="@EOrderBy.VERSION_DESC.id()">@Messages("general.order.version.desc.title")</button>
+            @* <button class="dropdown-item order-btn" data-order="@EOrderBy.VERSION_ASC.id()">@Messages("general.order.version.asc.title")</button> *@
+        </div>
+    </div>
+}
+
+@main(user, scripts, Html(""), "", "viz.index") {
+
+    <div class="container-fluid pt-3 background_grey">
+
+        <div class="container">
+            <div class="row">
+                <div class="d-flex justify-content-between align-items-center reversed-flex flex-column-sm col-12">
+                    <div>
+                        <h2 class="color_green">@Messages("welcome.index.1.title")</h2>
+                        <img class="webdeb-logo mt-3" src="@routes.Assets.at("images/webdeb.png")" alt="WebDeb">
+                        <p class="pb-2 text-header">
+                            @Html(Messages("welcome.index.1.subtitle"))
+                        </p>
+                    </div>
+                    <img class="explore_img presentation_img" src="@routes.Assets.at("images/home/explorer.svg")" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container mt-3 explore-container">
+
+        <div class="row align-items-center justify-content-center">
+            <div class=" col-12">
+
+                @navpillMenu("mb-2", "explore-tab"){
+                    @navpillMenuItem(EContributionType.DEBATE.id().toString, Messages("viz.actor.citations.debates.title"), pane == EContributionType.DEBATE)
+                    @navpillMenuItem(EContributionType.ACTOR_PERSON.id().toString, Messages("contribution.viz.persons.title"), pane == EContributionType.ACTOR_PERSON)
+                    @navpillMenuItem(EContributionType.ACTOR.id().toString, Messages("contribution.viz.org.title"), pane == EContributionType.ACTOR)
+                    @navpillMenuItem(EContributionType.TAG.id().toString, Messages("viz.actor.citations.tags.title"), pane == EContributionType.TAG)
+                    @navpillMenuItem(EContributionType.TEXT.id().toString, Messages("viz.actor.citations.texts.title"), pane == EContributionType.TEXT)
+                }
+
+                @navContent("mt-3") {
+                    @navContentItem(EContributionType.DEBATE.id().toString, pane == EContributionType.DEBATE, "popular-" + EContributionType.DEBATE.id() + "-container") {
+
+                        @orderBy(EContributionType.DEBATE)
+
+                        <div class="results-container d-flex flex-wrap justify-content-between contribution-card-container three">
+                        </div>
+
+                        @waitingContainer()
+                    }
+                    @navContentItem(EContributionType.ACTOR_PERSON.id().toString, pane == EContributionType.ACTOR_PERSON, "popular-" + EContributionType.ACTOR_PERSON.id() + "-container") {
+
+                        @orderBy(EContributionType.ACTOR_PERSON)
+
+                        <div class="results-container d-flex flex-wrap justify-content-between contribution-card-container four">
+                        </div>
+
+                        @waitingContainer()
+                    }
+                    @navContentItem(EContributionType.ACTOR.id().toString, pane == EContributionType.ACTOR, "popular-" + EContributionType.ACTOR.id() + "-container") {
+
+                        @orderBy(EContributionType.ACTOR)
+
+                        <div class="results-container d-flex flex-wrap justify-content-between contribution-card-container four">
+                        </div>
+
+                        @waitingContainer()
+                    }
+                    @navContentItem(EContributionType.TAG.id().toString, pane == EContributionType.TAG, "popular-" + EContributionType.TAG.id() + "-container") {
+
+                        @orderBy(EContributionType.TAG)
+
+                        <div class="results-container d-flex flex-wrap justify-content-between contribution-card-container three">
+                        </div>
+
+                        @waitingContainer()
+                    }
+                    @navContentItem(EContributionType.TEXT.id().toString, pane == EContributionType.TEXT, "popular-" + EContributionType.TEXT.id() + "-container") {
+
+                        @orderBy(EContributionType.TEXT)
+
+                        <div class="results-container d-flex flex-wrap justify-content-between contribution-card-container three">
+                        </div>
+
+                        @waitingContainer()
+                    }
+                }
+
+            </div>
+        </div>
+
+        <div class="mb-3"></div>
+
+    </div>
+
+}

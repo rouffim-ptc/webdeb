@@ -1,0 +1,189 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Comme text form field with citation and test
+*
+* @param form a text or citation form
+* @param values the values factory
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+
+@import be.webdeb.presentation.web.views.html.util.{noerrorForm, helpbubble, hiddenField, hiddenFormField, inlineform}
+@import be.webdeb.presentation.web.views.html.entry.actor.authordiv
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.fileInput
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@(
+        form: Form[_],
+        helper : ContributionHelper,
+        user : WebdebUser,
+        prefix: String = "",
+        complete: Boolean = true
+)
+
+@unknownDate() = {
+    <div class="input-group-prepend input-group-action2">
+        <div class="input-group-text">
+            <i class="fas fa-question-circle"></i>&nbsp;
+            @Messages("text.label.unknownpubdate")
+        </div>
+        <input type="text" class="control-form d-none" name="unknownPubDate" id="unknownPubDate"
+        value="@form(prefix + "unknownPubDate").value">
+    </div>
+}
+
+@hiddenFormField(form(prefix + "id"))
+@hiddenFormField(form(prefix + "externalTextId"))
+@hiddenFormField(form(prefix + "contributor"))
+@hiddenFormField(form(prefix + "lang"))
+@hiddenFormField(form(prefix + "version"))
+@hiddenFormField(form(prefix + "inGroup"))
+@hiddenFormField(form(prefix + "isNotSame"))
+@hiddenFormField(form(prefix + "mayViewContent"))
+@hiddenFormField(form(prefix + "textSourceType"))
+@hiddenFormField(form(prefix + "isOnInternet"))
+
+<div id="isAdmin" class="d-none" data-admin="@(user.getERole.id() >= EContributorRole.OWNER.id())">
+
+</div>
+
+<div class="row">
+
+    @if(complete) {
+        <div id="urldiv" class="col-12" style="display: none;">
+            @textInput(
+                form(prefix + "url"),
+                Messages("text.label.url"),
+                Messages("text.place.url"),
+                null, null,
+                Messages("text.help.url")
+            )
+        </div>
+    }else{
+        <div id="urldiv" class="col-12">
+            @textInput(
+                form(prefix + "url2"),
+                Messages("text.label.url"),
+                Messages("text.place.url"),
+                null, null,
+                Messages("text.help.url")
+            )
+        </div>
+    }
+
+
+    <div class="col-12">
+        @textInput(
+            form(prefix + "title"),
+            Messages("text.label.title"),
+            Messages("text.place.title"),
+            prefix == null || prefix == ""
+        )
+    </div>
+
+    @if(complete) {
+        <div class="col-12 help-inline">
+            <button id="show_title_translations" type="button" class="btn btn-sm btn-link secondary" data-toggle="collapse" data-target="#titles">
+                @Messages("text.titles.show") &nbsp;
+                <span class="fa fa-chevron-down"></span>
+            </button>
+        </div>
+    }
+</div>
+
+@if(complete) {
+    <div id="titles" class="row mt-2 collapse @(if(form.errors.keySet.exists(k => k.startsWith(prefix + "titles"))) "in")">
+
+        <label class="col-12 control-label">@Messages("text.titles.title")</label>
+
+        <div class="controls col-12">
+        @repeatWithIndex(form(prefix + "titles"), min = 1) { (title, i) =>
+            @entryFlexFormGroup(prefix + "titles_".concat(i.toString)) {
+                <div class="col-md-4 input-field">
+                @selectInput(
+                    form(title.name.concat(".lang")),
+                    helper.getLanguages(ctx.lang.code),
+                    Messages("text.title.lang.label"),
+                    Messages("actor.place.namelang")
+                )
+                </div>
+                <div class="col-md-6 input-field">
+                @textInput(
+                    form(title.name.concat(".name")),
+                    Messages("text.title.name.label"),
+                    Messages("text.title.place.name")
+                )
+                </div>
+            }
+        }
+        </div>
+    </div>
+}
+
+<div class="mt-2"></div>
+
+@authordiv(form, (prefix + "authors"), "text.label.author", false)
+
+<div class="row">
+    <div id="publicationDateGroup" class="col-12 mt-2 mb-0">
+        @textInput(
+            form(prefix + "publicationDate"),
+            Messages("text.label.publicationDate"),
+            Messages("text.place.publicationDate"),
+            null, null,
+            Messages("text.help.publicationDate"),
+            helpbubble("bubble.title","bubble.entry.text.publication"),
+            null, null, null,
+            unknownDate()
+        )
+    </div>
+
+    <div class="col-12">
+        @selectInput(
+            form(prefix + "textType"),
+            helper.getTextTypes(ctx.lang.code),
+            Messages("text.label.textType"),
+            Messages("text.place.textType"),
+            null, null,
+            helpbubble("bubble.title","bubble.entry.text.textType")
+        )
+    </div>
+
+    <div class="col-12">
+        @textInput(
+            form(prefix + "sourceTitle"),
+            Messages("text.label.sourceTitle"),
+            Messages("text.place.sourceTitle"),
+            null, null, null,
+            helpbubble("bubble.title","bubble.entry.text.sourceTitle")
+        )
+    </div>
+</div>

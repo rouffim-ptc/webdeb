@@ -1,0 +1,69 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial template to choose a group
+*
+* @param group the selected group
+* @param slim true if the pill-button must be slim
+* @param selector determine if the button is used to be a link in a list or not
+* @param selector determine if the name of the group must be limited or not
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contributor.Group
+
+@(
+        group : Group,
+        slim : Boolean,
+        selector : Boolean,
+        limiter : Boolean
+)
+
+<span class="badge picker-mid-size p-2 @if(group.determineBackgroundLightness()){colorPicker-background-bright}else{colorPicker-background-dark}" style="background-color: #@group.getGroupColor">
+    <i class="fas fa-users fixed-size"></i>
+    <span class="pager-text-to-sort @if(group.getGroupId == Group.getGroupPublic){pager-text-put-first}">
+
+        @if(group.getGroupName.isEmpty){
+            @Messages("general.group")
+        } else {
+            @if(!slim && !limiter){
+                @group.getGroupName
+            } else {
+                <span class="d-none d-lg-inline">
+                @if(slim && group.getGroupName.length > 15) {
+                    @group.getGroupName.substring(0, 15)...
+                } else {
+                    @if(limiter && group.getGroupName.length > 30) {
+                        @group.getGroupName.substring(0, 30)...
+                    } else {
+                        @group.getGroupName
+                    }
+                }
+                </span>
+                <span class="d--inline d-lg-none">@Messages("general.group")</span>
+            }
+        }
+    </span>
+    @if(!selector) {
+        <b class="caret"></b>
+    }
+</span>

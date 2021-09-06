@@ -1,0 +1,59 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Button from navigation bar that handles the language switch
+*
+* @author Fabian Gilson
+*@
+
+
+@()
+
+@box(code : String, last : Boolean) = {
+    @if(lang.code != code){
+        <a class="dropdown-item" href="@be.webdeb.presentation.web.controllers.routes.Application.language(code)">
+            <img alt="@code" src="@routes.Assets.at("images/picto/flag-" + code + ".png")"> @Messages("menu.lang." + code)
+        </a>
+
+        @if(!last){
+            <div class="dropdown-divider"></div>
+        }
+    }
+}
+
+@separator(code : String) = {
+    @if(lang.code != "fr"){
+        <div class="dropdown-divider"></div>
+    }
+}
+
+<li>
+    <a href="#" id="navbarDropdownLang" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="mr-1">@Messages("menu.lang")</span>
+        <img height="20" alt="current" class="hidden-xs mr-1 mb-1" src="@routes.Assets.at("images/picto/flag-"+lang.code+".png")">
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownLang">
+        @box("fr", false)
+
+        @box("en", false)
+
+        @box("nl", true)
+    </div>
+</li>

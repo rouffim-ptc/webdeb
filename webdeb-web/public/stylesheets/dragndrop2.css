@@ -1,0 +1,250 @@
+/*
+ * WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+ *
+ * List of the contributors to the development of WebDeb: see AUTHORS file.
+ * Description and complete License: see LICENSE file.
+ *
+ * This program (WebDeb) is free software:
+ * you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program (see COPYING file).  If not,
+ * see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+.contribution-panel > div{
+    margin-right: 5px;
+}
+
+.contribution-title > div {
+    padding : 10px;
+}
+
+.classifier{
+    border : 1px solid silver;
+}
+
+.classifier-title{
+    margin-left: 0.5em;
+}
+
+.classifier-container {
+    display: flex;
+}
+
+.shade_classifier{
+    flex-grow: 1;
+}
+
+.shade_classifier{
+    border-left-width: 10px;
+    border-left-style: solid;
+}
+
+.shade_classifier.justify {
+    border-color: green;
+}
+
+.shade_classifier.opposes {
+    border-color: red;
+}
+
+.classify-none {
+    border-color: grey;
+}
+
+.shade_classifier.justify .shade_classifier-title{
+    background-color: #2a8637;
+}
+
+.shade_classifier.opposes .shade_classifier-title{
+    background-color: #df0008;
+}
+
+.shade_classifier.none .shade_classifier-title{
+    background-color: #919191;
+}
+
+.shade_classifier .shade_classifier-title{
+    min-height: 45px;
+}
+
+.shade_classifier-title span {
+    color : white;
+}
+
+.context-classify-container .category {
+    background-color: white;
+}
+
+.context-classify-container .category .category {
+    margin-left : 20px;
+}
+
+.context-classify-container .category-container .nav-tabs {
+    background-color: silver;
+    padding-left: 35px;
+    border-bottom: 0.5px solid gray;
+}
+
+.context-classify-container .category-container .nav-link {
+    color : #333 !important;
+}
+
+.context-classify-container .category-container > .category-container-tab:not(:first-child) {
+    display: none;
+}
+
+.context-classify-container .category-title {
+     background-color: #e3e3e3;
+     border-top : 0.5px solid #555;
+     border-bottom : 0.5px solid #555;
+     font-size: 19px;
+}
+
+.context-classify-container .argument-title {
+    font-size: 17px;
+}
+
+.context-classify-tool.unclassified .category > .category-title{
+    display: none !important;
+}
+
+.context-classify-container .category .category .category-title{
+    background-color: #999;
+    border-left : 1px solid grey;
+}
+
+.context-classify-container .category-container {
+    border-right : 1px solid grey;
+    border-bottom : 7px solid #aaaaaa;
+}
+
+.context-classify-container .category .category > .category-container {
+    border-bottom : 0;
+}
+
+.context-classify-container .category-list{
+    background-color: white;
+    padding-top : 10px;
+    min-height : 100px;
+}
+
+.context-classify-container .category-container-justify {
+    background-color: #2a8637;
+}
+.context-classify-container .category-container-justify .shaded-element {
+    color : #2a8637;
+}
+
+.context-classify-container .category-container-opposes {
+    background-color: #df0008;
+}
+.context-classify-container .category-container-opposes .shaded-element {
+    color : #df0008;
+}
+
+.context-classify-container .nb-arguments, .context-classify-container .nb-citations {
+    min-width: 42px;
+    text-align: right;
+}
+
+.context-classify-container .dropdown {
+    margin-right: 5px;
+}
+.context-classify-container .dropdown:last-of-type {
+    margin-right: 0;
+}
+
+.context-classify-container .argument-container > .citation {
+    margin-left : 30px;
+}
+
+.context-classify-container .argument-container > .argument {
+    margin-left : 30px;
+}
+
+.context-classify-container .argument-title, .context-classify-container  .citation {
+    background-color: white;
+}
+
+.context-classify-container .argument-title {
+    border-top : 0.5px solid grey;
+    border-bottom : 0.5px solid grey;
+}
+.context-classify-container .argument-title span {
+    color : #222;
+}
+
+.context-classify-container .argument-container, .context-classify-container .citation-container{
+    background-color: silver;
+}
+
+.context-classify-container .citation-container > .citation {
+    margin-left : 30px;
+}
+
+.context-classify-container .citation-container > .citation:first-child {
+    border-top : 0.5px solid grey;
+}
+
+.context-classify-container .citation:not(:last-child), .context-classify-container .category-list > .citation:first-child:last-child {
+    border-bottom : 0.5px solid grey;
+}
+
+.context-classify-container .citation-title {
+    color : inherit;
+}
+.context-classify-container .citation-title span{
+    color : #444;
+}
+
+.context-classify-container .category-list > .citation:first-child, .context-classify-container .argument + .citation  {
+    border-top : 0.5px solid grey;
+}
+
+
+.dropdown-toggle-simple:after {
+    content: none
+}
+
+.fa-points{
+    position : relative;
+    bottom : 5px;
+}
+
+.context-classify-container .contribution-title {
+    cursor: pointer;
+}
+
+.context-classify-container .unselectable, .context-classify-container .unselectable * {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.color-white {
+    color : white;
+}
+
+.color-white:hover, .color-white:active {
+    color : #e7e7e7;
+}
+
+.shaded-classifier-div {
+    width: 50%;
+}
+
+.shaded-classifier-div > div:nth-child(2) {
+    margin-top: 1px;
+}

@@ -1,0 +1,134 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal page to select among existing groups for a contributor
+*
+* @param user the current user profile data
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contributor.Group
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+@import be.webdeb.presentation.web.views.html.util.groupChooseButtonSelector
+@import be.webdeb.presentation.web.views.html.util.filterFollowedBtn
+@import be.webdeb.core.api.contributor.EContributionVisibility
+@(
+        user : WebdebUser
+)
+
+
+@emptyModalframe("change-scope-modal", false, "default", "", false) {
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                var modal = $('#change-scope-modal');
+
+                // on ubuntu firefox button seems to be hidden
+                modal.find('.notfollowed-group').addClass("filtered");
+                toggleFollowedGroups(modal);
+
+                // change current scope when button is clicked
+                modal.find('.btn-group-choose').on('click', function () {
+                    changeScope($(this).data('value')).done(function (data) {
+                        // reload page content
+                        document.location.href = data;
+                    }).fail(function (jqXHR) {
+                        // show error message in responseText
+                        showMessage(jqXHR.responseText, $('#msg-div'));
+                    });
+                    hideAndDestroyModal(modal);
+                });
+
+            });
+    </script>
+
+    <div class="modal-header">
+        <h5 class="modal-title small-caps text-muted">
+            @Messages("group.change.modal.title")
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row mb-3">
+                @if(user.getERole.id > EContributorRole.VIEWER.id){
+                    <p class="instructions pl-3 pr-3">@Html(Messages("group.change.modal.desc",
+                        be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.index))
+                    </p>
+
+                    <p>
+                        @Messages("group.change.modal.subtitle")
+                        @groupChooseButtonSelector(user.getGroup, false, false, false)
+                    </p>
+
+                    <ul class="list-unstyled pageable col-12 p-0">
+
+                        <li>
+                            <div class="btn-group-choose p-2" data-value="@user.getPublicGroup.getGroupId">
+
+                                <span class="mr-1" style="color : #@user.getPublicGroup.getGroupColor">  <i class="fas fa-users fixed-size"></i> </span>
+
+                                <span class="group-name mr-1">@user.getPublicGroup.getGroupName</span>
+
+                                <span class="d-none d-md-inline text-muted small-font">
+                                    @Messages("group.visibility." + user.getPublicGroup.getContributionVisibility.id)
+                                </span>
+                            </div>
+                            <hr class="hr-small">
+                        </li>
+
+                        @for(group <- user.getSubscriptions) {
+                            @if(group.getGroup.getGroupId != Group.getGroupPublic){
+                                <li class="@if(!group.isFollowed){notfollowed-group}" @if(!group.isFollowed){style="display:none"}>
+                                    <div class="btn-group-choose p-2" data-value="@group.getGroup.getGroupId">
+
+                                        <span class="mr-1" style="color : #@group.getGroup.getGroupColor">  <i class="fas fa-users fixed-size"></i> </span>
+
+                                        <span class="group-name mr-1">@group.getGroup.getGroupName</span>
+
+                                        <span class="d-none d-md-inline text-muted small-font">
+                                            @Messages("group.visibility." + group.getGroup.getContributionVisibility.id)
+                                        </span>
+                                    </div>
+
+                                    <hr class="hr-small">
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                    <div class="col-12">
+                        @filterFollowedBtn()
+                    </div>
+                }else{
+                    <p><a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.login" class="primary">@Messages("menu.signin")</a></p>
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,90 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Argument fake container
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.api.contribution.link.EJustificationLinkShade
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationJustificationLinkForm
+@import java.util
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.toolbar.contributionActionsDiv
+@import be.webdeb.presentation.web.controllers.viz.EContributionActionType
+@import be.webdeb.presentation.web.views.html.util.displayNbContributions
+@import be.webdeb.presentation.web.controllers.entry.tag.TagCategoryHolder
+@import be.webdeb.presentation.web.controllers.entry.ContextContributionHolder
+@(
+        defaultTitle : String,
+        contextId : Long,
+        subContextId : Long,
+        nbCitations : Integer,
+        categoryId : Long,
+        shade : EJustificationLinkShade,
+        user : WebdebUser,
+        show: Boolean = false,
+        withActions : Boolean = true
+)
+
+<div class="argument contribution-container"    data-context="@contextId"
+                                                data-sub-context="@subContextId"
+                                                data-category="@categoryId"
+                                                data-shade="@shade.id()">
+
+    <div class="contribution-container-header contribution-container-collapse argument-citations-btn ml-3"
+        data-toggle="collapse" aria-expanded="@show" data-citations="@nbCitations" style="height: 40px">
+
+        <h5 class="m-0 flex-grow-1">
+            <span class="argument-title-fake">@defaultTitle</span>
+        </h5>
+
+        <span class="ml-2 d-none d-sm-block"></span>
+
+        @if(withActions) {
+            @contributionActionsDiv(EContributionType.ARGUMENT, user, true, scala.collection.mutable.Set(EContributionActionType.ADD))
+        }
+
+        @if(nbCitations > 0) {
+            @displayNbContributions(nbCitations, EContributionType.CITATION, shade.toStyleName)
+        }
+
+        <span class="ml-1 mr-2"><i class="fas fa-chevron-down"></i></span>
+
+    </div>
+
+    <div class="contribution-container-content collapse @if(show){show}">
+
+        <hr>
+
+        <div class="argument-citations-container pl-2 pr-1">
+
+        </div>
+
+    </div>
+
+    <hr>
+
+</div>
+

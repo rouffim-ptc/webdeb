@@ -1,0 +1,491 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <UniversitŽ catholique de Louvain (UCL), Belgique ; UniversitŽ de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial page with all fields to encode/update an actor
+*
+* @param actorForm the form to fill in the new actor
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+* @param map the message map (may be null)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorForm
+@import be.webdeb.presentation.web.views.html.util.helpButton
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, funkyCheckbox, helpbubble, hiddenField, hiddenFormField, inlineform, noerrorForm, selectWithOptgroup}
+@import be.webdeb.presentation.web.views.html.entry.actor.affiliationdiv
+@import be.webdeb.presentation.web.views.html.entry.place.placediv
+@import helper._
+
+@import be.webdeb.core.api.actor.EAffiliationSubtype
+@import be.webdeb.core.api.actor.EActorType
+
+@import be.webdeb.presentation.web.views.html.entry.tag.tagSimpleDiv
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.addrmButtons
+
+@import be.webdeb.presentation.web.views.html.entry.picture.picturediv
+
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepform
+@(
+    actorForm: Form[ActorForm],
+    helper : ContributionHelper,
+    map : java.util.Map[String, String]
+)
+
+<div class="row">
+    <div class="col-12 d-flex">
+      <div class="instructions flex-grow-1">@Messages("general.required.fields")</div>
+      @helpButton("entry.actor", false)
+    </div>
+</div>
+
+<hr>
+
+<fieldset>
+  @* all needed hidden fields *@
+  @hiddenFormField(actorForm("id"))
+  @hiddenFormField(actorForm("lang"))
+  @hiddenFormField(actorForm("isDisambiguated"))
+  @hiddenFormField(actorForm("version"))
+  @hiddenFormField(actorForm("inGroup"))
+  @hiddenFormField(actorForm("avatarString"))
+  @hiddenField("previousCall", "previousCall", "")
+
+  <div class="step-form-container">
+
+    @stepform(true){
+      @* select type of actor if we do not have an id, or actortype is unset*@
+      <div class="row @(if(actorForm("id").value != "-1" && actorForm("actortype").value != "-1") "d-none")">
+
+        <div class="col-12 control-label">
+          @Messages("actor.label.actortype")
+        </div>
+
+        <div class="col-12">
+          <div id="b-actortype" class="funkyradio inline mt-2">
+            <div class="funkyradio-primary">
+              <input id="actortype-0" type="checkbox" name="actortype-0" value="0"
+                @if(actorForm("actortype").value == "0"){checked="checked"}>
+              <label for="actortype-0">@Messages("actor.label.actortype.0")</label>
+            </div>
+            <div class="funkyradio-primary">
+              <input id="actortype-1" type="checkbox" name="actortype-1" value="1"
+                @if(actorForm("actortype").value == "1"){checked="checked"}>
+              <label for="actortype-1">@Messages("actor.label.actortype.1")</label>
+            </div>
+           @hiddenFormField(actorForm("actortype"))
+          </div>
+
+          <div id="actortype-error">
+            @mapErrors(actorForm, "actortype", false)
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="person" style="display: none">
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-8 col-sm-12 col-12">
+          @textInput(
+            actorForm("crossref"),
+            Messages("actor.label.crossref"),
+            null, null, null, null,
+            helpbubble("bubble.title", "bubble.entry.actor.url")
+          )
+          </div>
+          <div class="col-md-4 col-sm-12 col-12 input-field">
+            <label for="picture">@Messages("general.label.pic")</label>
+            @picturediv(actorForm, "avatarForm.filename")
+          </div>
+
+        </div>
+
+        <div class="row mt-2">
+          <label class="col-12 control-label">@Messages("actor.label.fullname", helper.getLanguage(ctx.lang.code, ctx.lang.code))</label>
+          <div class="entry input-group input-group-border smaller-font ml-0 ml-md-3">
+            <div class="col-md-4 col-sm-6 col-12 input-field">
+            @textInput(
+              actorForm("name.first"),
+              Messages("actor.label.name"),
+              null, null, null, null,
+              helpbubble("bubble.title", "bubble.entry.actor.firstname")
+            )
+            </div>
+            <div class="col-md-4 col-sm-6 col-12 input-field">
+            @textInput(
+              actorForm("name.last"),
+              Messages("actor.label.lastname"),
+              null, null, null, null,
+              helpbubble("bubble.title", "bubble.entry.actor.lastname")
+            )
+            </div>
+            <div class="col-md-4 col-sm-6 col-12 input-field">
+            @textInput(
+              actorForm("name.pseudo"),
+              Messages("actor.label.pseudo"),
+              null, null, null, null,
+              helpbubble("bubble.title", "bubble.entry.actor.pseudo")
+            )
+            </div>
+
+            @mapErrors(actorForm, "name.")
+
+            @hiddenField("name_lang", "name.lang", ctx.lang.code)
+          </div>
+        </div>
+
+      </div>
+
+      <div class="org" style="display: none">
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-8 col-12 input-field">
+          @textInput(
+            actorForm("orgcrossref"),
+            Messages("actor.label.orgcrossref"),
+            null, null, null, null,
+            helpbubble("bubble.title", "bubble.entry.actor.url")
+          )
+          </div>
+
+          <div class="col-md-4 col-sm-12 col-12 input-field">
+            <label for="picture">@Messages("general.label.pic")</label>
+            @picturediv(actorForm, "orgAvatarForm.filename")
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-8 input-field">
+          @textInput(
+            actorForm("orgname.last"),
+            Messages("actor.label.orgname", helper.getLanguage(ctx.lang.code, ctx.lang.code)),
+            null, null, null, null,
+            helpbubble("bubble.title", "bubble.entry.actor.orgname")
+          )
+
+          </div>
+          <div class="col-sm-4 input-field">
+            @textInput(
+              actorForm("orgname.first"),
+              Messages("actor.label.acronym"),
+              null, null, null, null,
+              helpbubble("bubble.title","bubble.entry.actor.acro")
+            )
+            <p class="visible-xs"></p>
+          </div>
+
+          @mapErrors(actorForm, "orgname.")
+        </div>
+
+        @hiddenField("orgname_lang", "orgname.lang", ctx.lang.code)
+
+      </div>
+    }
+
+    @stepform(true){
+      <div class="person" style="display: none">
+
+        <div class="row">
+          <div class="col-md-6 input-field">
+          @textInput(
+            actorForm("birthdate"),
+            Messages("actor.label.birthdate"),
+            Messages("actor.place.date"),
+            null, null, null,
+            helpbubble("bubble.title", "bubble.entry.actor.birthdate")
+          )
+          </div>
+          <div class="col-md-6 input-field">
+          @textInput(
+            actorForm("deathdate"),
+            Messages("actor.label.deathdate"),
+            Messages("actor.place.date"),
+            null, null, null,
+            helpbubble("bubble.title", "bubble.entry.actor.deathdate")
+          )
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 input-field">
+          @selectInput(
+            actorForm("residence"),
+            helper.getCountries(ctx.lang.code),
+            Messages("actor.label.residence"),
+            Messages("actor.place.residence"),
+            null, null,
+            helpbubble("bubble.title", "bubble.entry.actor.residence")
+          )
+          </div>
+          <div class="col-12 input-field mt-2">
+            <label for="b-gender">@Messages("actor.label.gender")</label>
+            <div id="b-gender" class="funkyradio d-flex flex-column flex-sm-row">
+            @for((k,v) <- helper.getGenders(ctx.lang.code)) {
+              <div class="form-group funkyradio-primary mr-4">
+                <input id="gender-@k" type="checkbox" value="@k">
+                <label for="gender-@k">@v</label>
+              </div>
+            }
+            </div>
+            @hiddenFormField(actorForm("gender"))
+          </div>
+        </div>
+
+        <hr>
+
+        <div id="spellings" class="row">
+
+          <label class="col-12 control-label">@Messages("actor.label.spellings")</label>
+
+          <div class="controls col-12">
+            @repeatWithIndex(actorForm("allnames"), min = 1) { (name, i) =>
+              @entryFlexFormGroup("actornames_".concat(i.toString.concat("_names"))) {
+                <div class="col-lg-3 col-md-12 col-sm-6 input-field">
+                @selectInput(
+                  actorForm(name.name.concat(".lang")),
+                  helper.getLanguages(ctx.lang.code),
+                  Messages("actor.label.namelang"),
+                  Messages("actor.place.namelang"),
+                  null, null,
+                  helpbubble("bubble.title", "bubble.entry.actor.placelang")
+                )
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 input-field">
+                @textInput(
+                  actorForm(name.name.concat(".first")),
+                  Messages("actor.label.name")
+                )
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 input-field">
+                @textInput(
+                  actorForm(name.name.concat(".last")),
+                  Messages("actor.label.lastname")
+                )
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 input-field">
+                @textInput(
+                  actorForm(name.name.concat(".pseudo")),
+                  Messages("actor.label.pseudo")
+                )
+                </div>
+              }
+
+              @mapErrors(actorForm, name.name.toString)
+            }
+            <p class="help-inline">@Messages("actor.help.spellings")</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="org" style="display: none">
+
+        <div class="row">
+          <div class="col-sm-6 col-12 input-field">
+          @textInput(
+            actorForm("officialNumber"),
+            Messages("actor.label.officialnumber"),
+            null, null, null, null,
+            helpbubble("bubble.title", "bubble.entry.actor.officialnumber")
+          )
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6 input-field">
+            @textInput(
+              actorForm("creationDate"),
+              Messages("actor.label.creation"),
+              Messages("actor.place.date")
+            )
+            <p class="visible-xs"></p>
+          </div>
+          <div class=" col-sm-6 input-field">
+          @textInput(
+            actorForm("terminationDate"),
+            Messages("actor.label.termination"),
+            Messages("actor.place.date")
+          )
+          </div>
+        </div>
+
+        <hr>
+
+        <div id="orgspellings" class="row">
+          <label class="col-12 control-label">@Messages("actor.label.spellings")</label>
+
+          <div class="controls col-12">
+            @repeatWithIndex(actorForm("allorgnames"), min = 1) { (name, i) =>
+              @entryFlexFormGroup("actororgnames__".concat(i.toString.concat("_names"))){
+                <div class="col-md-3 col-sm-12 input-field">
+                @selectInput(
+                  actorForm(name.name.concat(".lang")),
+                  helper.getLanguages(ctx.lang.code),
+                  Messages("actor.label.namelang"),
+                  Messages("actor.place.namelang")
+                )
+                </div>
+                <div class="col-md-6 col-sm-9 input-field">
+                @textInput(
+                  actorForm(name.name.concat(".last")),
+                  Messages("actor.label.orgname.simple")
+                )
+                </div>
+                <div class="col-md-3 col-sm-3 input-field">
+                @textInput(
+                  actorForm(name.name.concat(".first")),
+                  Messages("actor.label.acronym"),
+                  null, null, null, null,
+                  helpbubble("bubble.title","bubble.entry.actor.acro")
+                )
+                </div>
+              }
+
+              @mapErrors(actorForm, "orgname.", true, false, "Date")
+            }
+            <p class="help-inline">@Messages("actor.help.spellings")</p>
+          </div>
+        </div>
+
+        <div id="oldnames" class="row">
+          <label class="col-12 control-label">@Messages("actor.label.oldnames")
+            @helpbubble("bubble.title", "bubble.entry.actor.showoldnames.org")</label>
+
+          <div class="controls col-12">
+            @repeatWithIndex(actorForm("oldorgnames"), min = 1) { (name, i) =>
+              @entryFlexFormGroup("oldnames_".concat(i.toString.concat("_names"))){
+                <div class="col-md-3 col-sm-12 input-field">
+                @selectInput(
+                  actorForm(name.name.concat(".lang")),
+                  helper.getLanguages(ctx.lang.code),
+                  Messages("actor.label.namelang"),
+                  Messages("actor.place.namelang")
+                )
+                </div>
+                <div class="col-md-6 col-sm-9 input-field">
+                @textInput(
+                  actorForm(name.name.concat(".last")),
+                  Messages("actor.label.orgname.simple"),
+                  null, null, null, null,
+                  helpbubble("bubble.title", "bubble.entry.actor.orgname")
+                )
+                </div>
+                <div class="col-md-3 col-sm-3 input-field">
+                @textInput(
+                  actorForm(name.name.concat(".first")),
+                  Messages("actor.label.acronym"),
+                  null, null, null, null,
+                  helpbubble("bubble.title","bubble.entry.actor.acro")
+                )
+                </div>
+              }
+
+              @mapErrors(actorForm, name.name.toString)
+            }
+            <p class="help-inline">@Messages("actor.help.oldnames")</p>
+          </div>
+        </div>
+      </div>
+    }
+
+    @stepform(true){
+      <div class="person" id="person_@actorForm("id").value" style="display: none">
+        @affiliationdiv(actorForm, "affiliationsForm", "actor.label.affiliation.person", EActorType.PERSON, EAffiliationSubtype.AFFILIATION, true, helper)
+      </div>
+
+      <div class="org" style="display: none">
+        @tagSimpleDiv(actorForm, "tags", "actor.tags", false, false)
+
+        <div class="mt-3"></div>
+
+        <label for="places">@Messages("actor.label.headoffice")</label>
+        @placediv(actorForm, "actor.label.headoffice", false)
+      </div>
+    }
+
+    @stepform(true){
+      <div class="person" id="person_@actorForm("id").value" style="display: none">
+        @affiliationdiv(actorForm, "qualificationsForm", "actor.label.affiliation.qualification", EActorType.PERSON, EAffiliationSubtype.AFFILIATION, true, helper, "mt-3 pt-3 pb-3", "#e1e1e1")
+      </div>
+
+      <div class="org" style="display: none">
+        <div class="row mt-3">
+          <label class="col-12" for="b-statuses">@Messages("actor.label.legal")</label>
+          <div id="b-statuses" class="col-12 funkyradio">
+          @for((k,v) <- helper.getLegalStatuses(ctx.lang.code)) {
+            <div class="form-group funkyradio-primary pl-2">
+              <input id="status-@k" type="checkbox" value="@k">
+              <label for="status-@k">@v</label>
+            </div>
+          }
+          </div>
+          @hiddenFormField(actorForm("legalStatus"))
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <label class="col-12 control-label">@Messages("actor.label.sector")</label>
+
+          <div class="col-12">
+            <div class="row funkyradio pl-2" id="sectordiv">
+            @for((k, v) <- helper.getBusinessSectors(ctx.lang.code)) {
+              <div class="col-sm-6 col-12">
+              @checkbox(
+                actorForm("allSectors[" + k + "]"),
+                '_label -> v,
+                '_name -> "allSectors[".concat(k).concat("]")
+              )(handler = funkyCheckbox, implicitly[Messages])
+              </div>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    @stepform(true){
+      <div class="person" id="person_@actorForm("id").value" style="display: none">
+        @affiliationdiv(actorForm, "parentsForm", "actor.label.affiliation.filiation", EActorType.PERSON, EAffiliationSubtype.FILIATION, true, helper, "mt-3")
+      </div>
+
+      <div class="org" style="display: none">
+        @affiliationdiv(actorForm, "orgaffiliationsForm", "actor.label.affiliation.org", EActorType.ORGANIZATION, EAffiliationSubtype.AFFILIATED, true, helper)
+      </div>
+    }
+
+  </div>
+</fieldset>
+
+<div id="error-image" class="alert alert-fixed alert-danger" style="display: none">
+  <a href="#" class="close" data-dismiss="alert">&times;</a>
+  <strong>@Messages("danger")</strong> @Messages("actor.label.pic.error")
+</div>

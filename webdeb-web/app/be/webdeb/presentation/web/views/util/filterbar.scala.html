@@ -1,0 +1,103 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable filter. Build a filter bar (collapsable) with a list of keys and their respective values.
+* Will be used to hide elements with the .filterable-item class based on their data-filterable values.
+*
+* @param filters the map with the key-value pairs
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+* @see ContributionHelper.buildFilters()
+* @see assets/javascripts/webdeb-filter.js
+*@
+
+
+@import scala.collection.JavaConversions._
+@import be.webdeb.presentation.web.controllers.entry.{EFilterName, EFilterType}
+@import be.webdeb.presentation.web.views.html.util.{filterbarTree}
+
+@import be.webdeb.presentation.web.controllers.entry.FilterTree
+@(
+    filters : java.util.Map[EFilterName, java.util.List[FilterTree]]
+)
+
+<div class="vertical_filter" style="display:none">
+
+
+  <script type="text/javascript">
+          $(document).ready(function() {
+            managePlaceTree("place-tree");
+          });
+  </script>
+
+  <div class="col-12" style="margin:10px 0">
+    <span class="text-muted small-caps">@Messages("general.filter.title")</span>
+    <span class="pull-right" style="margin-top:4px">
+      <button class="small-font close close_filter"><i class="fa fa-times"></i></button>
+    </span>
+  </div>
+
+  <ul class="js-filter filter">
+    @if(filters.get(EFilterName.FILTERID) != null && !filters.get(EFilterName.FILTERID).isEmpty && filters.get(EFilterName.FILTERID).get(0).getName != null){
+      @for((k, list) <- filters) {
+        @if(!list.isEmpty && k != EFilterName.FILTERID &&
+                (list.get(0).getFilter == EFilterType.RANGE || (list.get(0).getFilter == EFilterType.BOX && list.size > 1)
+                || (list.get(0).getFilter == EFilterType.TREE && !list.get(0).isAlone))) {
+          <li class="filter--item  filter--item__has_sub_filter">
+            <label class="filter--link" title="@Messages("general.filter.title." + k)">
+              <span class="filter--icon @Messages("general.filter.icon." + k)"></span>
+              <span class="filter--label">@Messages("general.filter.label." + k)</span>
+            </label>
+
+            <ul class="sub_filter">
+              @for((element, i) <- list.zipWithIndex) {
+                <li class="sub_filter--item col-12 no-padding">
+                  @element.getFilter match {
+                    case EFilterType.RANGE => {
+                      <div class="sub_filter--range-link col-12" >
+                        <div class="slider" data-filter-name="@k"></div>
+                        <input class="hidden" name="current_min" value="@element.getName.split(",")(0)">
+                        <input class="hidden" name="current_max" value="@element.getName.split(",")(1)">
+                        <input class="hidden" name="min" value="@element.getName.split(",")(0)">
+                        <input class="hidden" name="max" value="@element.getName.split(",")(1)">
+                      </div>
+                    }
+                    case EFilterType.BOX => {
+                      <div class="sub_filter--basic_item funkyradio smaller-font">
+                        <div class="funkyradio-primary col-12">
+                          <input id="f-@k-@i-@filters.get(EFilterName.FILTERID).get(0).getName" type="checkbox" value="@element.getName" data-filter-name="@k">
+                          <label for="f-@k-@i-@filters.get(EFilterName.FILTERID).get(0).getName" class="forcewrap" style="width : 240px" title="@element.getName">@element.getName</label>
+                          @if(element.getNbOccurs > 0){<span class="sub_filter-item-count pull-right" data-count="@element.getNbOccurs">(@element.getNbOccurs)</span>}
+                        </div>
+                      </div>
+                    }
+                    case EFilterType.TREE => {
+                      @filterbarTree(element.getTree, filters.get(EFilterName.FILTERID).get(0).getName, k.toString, k.toString+"-tree", 0, element.isLinkedHierarchy(), false)
+                    }
+                    case _ => { @* ignore unknown keys *@ }
+                  }
+                </li>
+              }
+            </ul>
+          </li>
+        }
+      }
+    }
+  </ul>
+</div>

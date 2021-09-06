@@ -1,0 +1,136 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Edition modal page to update details about an argument dictionary
+*
+* @param argumentForm the form to fill the argument dictionary
+* @param helper helper class to fetch predefined values from (types, ...)
+* @param user the user profile
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe, message, bootstrapInput, hiddenFormField, inlineform}
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentDictionaryForm
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.hiddenField
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@(
+        argumentForm: Form[ArgumentDictionaryForm],
+        helper : ContributionHelper,
+        user : WebdebUser,
+        map : java.util.Map[String,String]
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            let modal = $("#modal-argument-dictionary");
+
+            modal.find('button[name="submit"]').on("click", function(){
+                let form = modal.find("#argument-dictionary-form");
+                doSaveArgumentDictionary(form.find("#id").val(), form);
+            });
+        });
+
+        /**
+         * Save an argument dictionary from a form
+         *
+         * param argId the argument dictionary id to save
+         * param form the form with all details about the argument dictionary
+         */
+        function doSaveArgumentDictionary(argId, form){
+            let modal = $("#modal-argument-dictionary");
+
+            saveArgumentDictionary(argId, form).done(function () {
+                hideAndDestroyModal(modal);
+                slideDefaultSuccessMessage();
+                triggerReloadVizEvent()
+            }).fail(function (xhr) {
+                hideAndDestroyModal(modal);
+                slideDefaultErrorMessage();
+            });
+        }
+</script>
+
+<div id="msg-div">
+    @message(map)
+</div>
+
+@emptyModalframe("modal-argument-dictionary", false, "form", "", false) {
+
+    <div class="modal-header">
+        <h5 class="modal-title small-caps text-muted">
+            @Messages("entry.dictionary.header")&nbsp;
+            <span class="text-primary">@argumentForm("title").value</span>
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <form id="argument-dictionary-form" method="post" enctype="multipart/form-data"  autocomplete="off">
+                <fieldset class="row">
+                    @hiddenFormField(argumentForm("id"))
+                    @hiddenFormField(argumentForm("contributor"))
+                    @hiddenFormField(argumentForm("lang"))
+                    @hiddenFormField(argumentForm("version"))
+                    @hiddenFormField(argumentForm("inGroup"))
+                    @hiddenField("previousCall", "previousCall", "")
+
+                    <div class="col-12 input-field">
+                        @textareaInput(
+                            argumentForm("title"),
+                            Messages("entry.dictionary.title.label"),
+                            null,
+                            true,
+                            2
+                        )
+                    </div>
+                    <div class="col-12 input-field">
+                        @selectInput(
+                            argumentForm("language"),
+                            helper.getLanguages(ctx.lang.code),
+                            Messages("text.title.lang.label"),
+                            Messages("actor.place.namelang"),
+                            true
+                        )
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="flex-grow-1">
+            <button id="cancel-btn" type="button" name="cancel" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+        </div>
+        <button type ="button" name="submit" class="btn btn-primary">
+            @Messages("entry.dictionary.modify")
+        </button>
+    </div>
+
+}

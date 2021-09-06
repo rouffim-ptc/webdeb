@@ -1,0 +1,472 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Main index page of the webdeb platform for unlogged people with a special navbar.
+*
+* @param user the user profile data
+* @param actors an example holder object containing a list of actors, arguments and topics
+* @param map the message map
+*
+* @author Julien Mathieu
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.toolbar.{languagebox, toolbox}
+@import be.webdeb.presentation.web.views.html.util.message
+
+@import be.webdeb.core.api.contribution.EContributionType
+@(
+        user : WebdebUser,
+        occursMap : java.util.Map[EContributionType, Long],
+        map: java.util.Map[String, String]
+)
+
+  @scripts = {
+    <title>@Messages("welcome.index.title") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")</title>
+    <meta name="description" content="@Messages("welcome.slogan.3") @Messages("welcome.slogan.4")">
+
+    <meta property="og:title" content="@Messages("welcome.index.title") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")" />
+    <meta property="og:description" content="@Messages("welcome.index.1.subtitle") @Messages("welcome.index.2.subtitle") @Messages("welcome.index.3.subtitle")" />
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.tour().absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable.png").absoluteURL()" />
+
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,900,700," rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/index_styles.css")">
+
+    <script type="text/javascript">
+
+            $(document).ready(function() {
+
+              $('div.footer').hide();
+
+              $(".count_content").countJs({
+                duration : 1600
+              });
+
+              /*$(window).scrollJs({
+                duration : 400,
+                navbar : $(".fond")
+              });*/
+            });
+
+            /*!
+         * Count.js performs a count up for numbers
+         * https://github.com/martini224
+         *
+         * Includes jquery.js
+         * https://jquery.com/
+         */
+            (function(e) { e.fn.countJs = function (options) {
+
+              let eOptions,
+                      container = $(this),
+                      lock = false;
+
+              initOptions();
+              initListeners();
+
+              function initOptions(){
+                // handle passed options to countJs
+                if (options !== null && typeof(options) !== 'undefined') {
+                  eOptions = {
+                    // Duration of the count up
+                    duration : isNaN(options.duration) ? 1500 : options.duration
+                  };
+                } else {
+                  eOptions = {
+                    duration : 1500
+                  };
+                }
+              }
+
+              function initListeners(){
+                doCount();
+                // Triggered when the user scrolls the page
+                $(window).scroll(function(event){
+                  doCount();
+                });
+              }
+
+              function doCount(){
+                // Check that the count up has not be done and that the count container is visible for the user
+                if(!lock && $(window).scrollTop() + $(window).height() > (container.offset().top - container.height())){
+                  lock = true;
+
+                  $('.count-number').each(function() {
+                    // that = this is used because this change with the context. Here we want to keep each item that
+                    // have the class count-number
+                    let that = $(this),
+                            countTo = that.attr('data-count');
+
+                    $({ countNum: that.text()}).animate({
+                      countNum: countTo
+                    },{
+                      duration: 1500,
+                      easing:'linear',
+                      step: function() {
+                        // here if we used this instead of that, that would refer to the animate function context
+                        // rather than the element with the class count-number.
+                        that.text(Math.floor(this.countNum));
+                      },
+                      complete: function() {
+                        that.text(this.countNum);
+                      }
+                    });
+                  });
+                }
+              }
+
+            };}(jQuery));
+
+            /*!
+         * Scroll.js performs an automatic scroll to differents page elements
+         * https://github.com/martini224
+         *
+         * Includes jquery.js
+         * https://jquery.com/
+         */
+            (function(e) { e.fn.scrollJs = function (options) {
+
+              let eOptions,
+                      container = $(this),
+                      scrollType,
+                      scrollables,
+                      iScrollable,
+                      position,
+                      lock;
+
+              initScroll();
+              initOptions();
+              initListeners();
+
+              function initScroll(){
+                // The type of scroll varying with the screen type
+                scrollType = getScrollType();
+                // the array of elements that will be scrolled
+                scrollables = $(scrollType);
+                // the index of the previous array
+                iScrollable = 0;
+                // the current scroll position in the container, set to 0
+                position = 0;
+                // use to not consume the scroll event each time it s triggered
+                lock = false;
+                // ensure that the scroll is 0
+                animateScroll(0, 0);
+              }
+
+              function initOptions(){
+                // handle passed options to scrollJs
+                if (options !== null && typeof(options) !== 'undefined') {
+                  eOptions = {
+                    // Duration of the scroll animation
+                    duration : isNaN(options.duration) ? 400 : options.duration,
+                    // it is used if a navbar is used but not scrolled
+                    navbarHeight : options.navbar instanceof jQuery && options.navbar.exists() ? Math.round(options.navbar.height()) : 0
+                  };
+                } else {
+                  eOptions = {
+                    duration : 400,
+                    navbarHeight : 0
+                  };
+                }
+              }
+
+              function initListeners(){
+                container.scroll(function(event){
+                  if(!lock){
+                    lock = true;
+
+                    let currentElement = $(scrollables[iScrollable]);
+                    // if this condition is true, user scroll down. Otherwhise he scroll up.
+                    let scrollDown = (container.scrollTop() > position);
+                    let nextIndex = (scrollDown ?
+                            getNextScrollableIndex(scrollables, iScrollable) : getPrevScrollableIndex(scrollables, iScrollable));
+                    if(nextIndex > -1){
+                      iScrollable = nextIndex;
+                      let nextElement = $(scrollables[iScrollable]);
+
+                      let currentPosition = Math.round(currentElement.offset().top);
+                      let nextPosition = Math.round(nextElement.offset().top);
+
+                      let scrollTop = nextPosition - eOptions.navbarHeight;
+
+                      let windowHeight = Math.round($( window ).height());
+                      let currentHeight = Math.round(currentElement.height() + eOptions.navbarHeight);
+
+                      // Compute the prospective part of the current element that could be not displayed
+                      let residual = Math.abs(windowHeight - (currentHeight - (position - (currentPosition - eOptions.navbarHeight))));
+
+                      // If the user scroll down and there is a residue, the scrollTop value must be changed
+                      if(scrollDown && residual > 0){
+                        scrollTop = position + (residual < windowHeight ? residual : windowHeight);
+                        iScrollable--;
+                      }
+
+                      animateScroll(scrollTop, eOptions.duration);
+                    }
+                    // Set a lock for a couple of ms to ensure that the scroll animation is finished
+                    setTimeout(function(){position = Math.round(container.scrollTop());lock = false;}, eOptions.duration + 100);
+                  }
+                });
+
+                /**
+                 * When the screen is resize, ensure that the scrollType is the same. Otherwise, reset the scroll to the top
+                 */
+                container.resize(function(){
+                  if(getScrollType() !== scrollType) {
+                    initScroll();
+                  }
+                });
+              }
+
+              /**
+               * Do the scroll animation
+               *
+               * param top the top position where the animation must gone
+               * param duration the duration of the animation
+               */
+              function animateScroll(top, duration){
+                $('body,html').animate({scrollTop: top}, duration);
+              }
+
+              /**
+               * Get the type of scroll depending of the screen type (refer to bootstrap screen values)
+               *
+               * returns {string}
+               */
+              function getScrollType(){
+                if(container.width() >= 1200){
+                  return ".scroll-sm";
+                }else if(container.width() >= 992){
+                  return ".scroll-sm";
+                }else if(container.width() >= 768){
+                  return ".scroll-sm";
+                }else{
+                  return ".scroll-xs";
+                }
+              }
+
+              /**
+               * Get next scrollable element if any
+               *
+               * param scrollables the array of scrollables elements
+               * param iScrollable the current index of the array that point the current element
+               * returns {*}
+               */
+              function getNextScrollableIndex(scrollables, iScrollable){
+                if(iScrollable + 1 < scrollables.length){
+                  return iScrollable + 1;
+                }
+                return -1;
+              }
+
+              /**
+               * Get previous scrollable element if any
+               *
+               * param scrollables the array of scrollables elements
+               * param iScrollable the current index of the array that point the current element
+               * returns {*}
+               */
+              function getPrevScrollableIndex(scrollables, iScrollable){
+                if(iScrollable - 1 >= 0){
+                  return iScrollable - 1;
+                }
+                return -1;
+              }
+
+            };}(jQuery));
+
+    </script>
+  }
+
+  @count(c : Long) = {
+    @if(c != null) {
+      @if(c > 10000) {
+        @(c - 10000)
+      } else {
+        @if(c > 1000) {
+          @(c - 1000)
+        } else {
+          @if(c > 100) {
+            @(c - 100)
+          } else {
+            0
+          }
+        }
+      }
+    }
+  }
+
+  @countDiv(contributionType : EContributionType) = {
+    <a class="count-link d-flex flex-column justify-content-around align-items-center mt-4" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.index(contributionType.id)">
+      <p class="mb-1"><i class="@Messages("browse.search.tip." + contributionType)"></i></p>
+      <p class="timer count-title count-number" data-count="@occursMap.get(contributionType)" data-speed="100">@count(occursMap.get(contributionType))</p>
+      <p class="count-name">@Messages("general.filter.ctype." + contributionType.id)s</p>
+    </a>
+  }
+
+  @main(user, scripts) {
+
+    @message(flash)
+    @message(map)
+
+    <div class="index-page">
+      <section class="col-12 index-header background_grey p-3 text-center d-flex flex-column justify-content-around align-items-center">
+        <div class="slogan">
+          <img class="slogan_img" src="@routes.Assets.at("images/webdeb.png")" alt="WebDeb">
+          <h2 class="slogan_txt">
+            <span class="color_blue">@Messages("welcome.slogan.1") </span>
+            <span class="color_green">@Messages("welcome.slogan.2")</span>
+          </h2>
+        </div>
+        <div>
+          <h4 class="color_blue sub_slogan mb-4">@Messages("welcome.slogan.3")
+          </h4>
+          <h4 class="color_green sub_slogan pt-2">@Messages("welcome.slogan.4")
+          </h4>
+        </div>
+      </section>
+
+      <div class="col-12 whatis_content background_white p-2">
+        <div class="col-12 d-flex flex-wrap justify-content-between align-items-center m-auto">
+          <div class="whatis_content_block">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h2 class="color_blue">@Messages("welcome.index.whatis.1")</h2>
+                <img class="webdeb-logo mt-3" src="@routes.Assets.at("images/webdeb.png")" alt="WebDeb">
+              </div>
+            </div>
+          </div>
+
+          <div class="whatis_content_block">
+            <img class="collective_img" src="@routes.Assets.at("images/home/collective.svg")" alt="">
+          </div>
+
+          <div class="whatis_content_block">
+            <H3>
+            @Messages("welcome.index.whatis.2")
+
+            </H3>
+            <p>
+            @Messages("welcome.index.whatis.3")
+            </p>
+          </div>
+          <div class="whatis_content_block">
+            <h3>
+            @Messages("welcome.index.whatis.4")
+            </h3>
+            <p>
+            @Messages("welcome.index.whatis.5")
+            </p>
+          </div>
+          <div class="whatis_content_block">
+            <h3>
+            @Messages("welcome.index.whatis.6")
+            </h3>
+            <p>
+            @Html(Messages("welcome.index.whatis.7"))
+            </p>
+          </div>
+          <div class="whatis_content_block">
+            <h3>
+            @Messages("welcome.index.whatis.8")
+            </h3>
+            <p>
+            @Messages("welcome.index.whatis.9")
+            </p>
+          </div>
+          <div class="whatis_content_block">
+            <h3>
+            @Messages("welcome.index.whatis.10")
+            </h3>
+            <p>
+            @Messages("welcome.index.whatis.11")
+            </p>
+          </div>
+          <div class="whatis_content_block">
+            <h3>
+            @Messages("welcome.index.whatis.12")
+            </h3>
+            <p>
+            @Messages("welcome.index.whatis.13")
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <section class="col-12 show_content background_grey d-flex flex-column justify-content-around pt-5 pb-5">
+        <div class="mt-4 mb-5">
+          <div class="d-flex justify-content-center flex-column-sm">
+            <h2 class="color_green pr-3">@Messages("welcome.index.whatshows.1")</h2>
+            <img class="webdeb-logo" src="@routes.Assets.at("images/webdeb.png")" alt="WebDeb">
+          </div>
+
+          <div class="d-flex justify-content-center flex-column-sm">
+
+            <div class="d-flex flex-column justify-content-center mr-0 mr-md-1">
+              <div class="mt-2">
+                <a href="https://webdeb.be/viz/actor?id=5510&pane=2&pov=0">
+                  <div class="btn">@Messages("welcome.index.whatshows.2")</div>
+                </a>
+              </div>
+              <div class="mt-2">
+                <a href="https://webdeb.be/viz/actor?id=2181&pane=3&pov=0">
+                  <div class="btn">@Messages("welcome.index.whatshows.3")</div>
+                </a>
+              </div>
+              <div class="mt-2">
+                <a href="https://webdeb.be/viz/actor?id=11780&pane=2&pov=0">
+                  <div class="btn">@Messages("welcome.index.whatshows.4")</div>
+                </a>
+              </div>
+            </div>
+
+            <div class="d-flex flex-column justify-content-center ml-0 ml-md-1">
+              <div class="mt-2">
+                <a href="https://webdeb.be/viz/debate/179714?pane=1&pov=0">
+                  <div class="btn">@Messages("welcome.index.whatshows.5")</div>
+                </a>
+              </div>
+              <div class="mt-2">
+                <a href="https://webdeb.be/viz/debate/179714?pane=1">
+                  <div class="btn">@Messages("welcome.index.whatshows.6")</div>
+                </a>
+              </div>
+              <div class="mt-2">
+                <a href="https://webdeb.be/viz/debate/179714?pane=2">
+                  <div class="btn">@Messages("welcome.index.whatshows.7")</div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="col-12 count_content background_white color_grey d-flex justify-content-around align-items-center flex-column-sm pt-5 pb-5">
+        @countDiv(EContributionType.DEBATE)
+        @countDiv(EContributionType.ACTOR)
+        @countDiv(EContributionType.TAG)
+        @countDiv(EContributionType.TEXT)
+      </section>
+    </div>
+  }

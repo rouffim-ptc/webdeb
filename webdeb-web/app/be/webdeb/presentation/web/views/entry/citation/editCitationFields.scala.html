@@ -1,0 +1,347 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <UniversitŽ catholique de Louvain (UCL), Belgique ; UniversitŽ de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial page with all fields to encode/update a citation
+*
+* @param citationForm the form with the citation's details (possibly pre-filled)
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+* @param user the current user profile
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+@import helper._
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.util.{funkyCheckbox, helpbubble, hiddenField, hiddenFormField, helpButton, publishInGroup}
+
+@import be.webdeb.presentation.web.views.html.entry.place.placediv
+@import be.webdeb.presentation.web.views.html.entry.picture.picturediv
+@import be.webdeb.presentation.web.views.html.entry.tag.tagdiv
+
+@import be.webdeb.presentation.web.views.html.util.form.baseInput
+@import be.webdeb.presentation.web.views.html.util.form.checkboxInput
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.urlInput
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.addrmButtons
+
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepform
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepformOption
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepformOptionChoice
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepformOptionChoices
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepformOptionsChoices
+
+@import be.webdeb.presentation.web.views.html.entry.actor.authordiv
+@import be.webdeb.presentation.web.views.html.entry.actor.authorsimplediv
+@import views.html.helper.repeatWithIndex
+
+@import be.webdeb.core.api.text.ETextSourceType
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.views.html.entry.text.editTextMainFields
+
+@import be.webdeb.presentation.web.controllers.entry.citation.EAuthorType
+@import be.webdeb.core.api.actor.EActorType
+@(
+        citationForm: Form[CitationForm],
+        helper : ContributionHelper,
+        user : WebdebUser,
+        map : java.util.Map[String,String]
+)
+
+@citationPreview() = {
+    <div class="preview mb-4">
+        <div class="d-flex align-items-center p-2" style="background-color: #b3dcdc;">
+            <div class="mr-2">
+                <i class="@Messages("browse.search.tip.CITATION")"></i>
+            </div>
+            <div class="flex-grow-1 font-italic">
+                <span>"<span class="citation-preview">@citationForm("workingExcerpt").value</span>"</span>
+            </div>
+        </div>
+
+        <hr>
+
+    </div>
+}
+@*
+<div class="row">
+    <div class="col-12 d-flex">
+        @helpButton("entry.citation", false)
+    </div>
+</div>
+*@
+
+<fieldset>
+
+    @* all needed hidden fields *@
+    @hiddenFormField(citationForm("id"))
+    @hiddenFormField(citationForm("lang"))
+    @hiddenFormField(citationForm("version"))
+    @hiddenFormField(citationForm("inGroup"))
+    @hiddenFormField(citationForm("stepNum"))
+    @hiddenFormField(citationForm("originalExcerptMaxLength"))
+    @hiddenFormField(citationForm("workingExcerptMaxLength"))
+    @hiddenFormField(citationForm("contextId"))
+    @hiddenFormField(citationForm("reloadDragnDrop"))
+
+    @hiddenField("previousCall", "previousCall", "")
+
+    <div class="step-form-container">
+
+        @stepform(true){
+
+            <div class="col-12 input-field">
+                @textareaInput(
+                    citationForm("originalExcerpt"),
+                    Messages("entry.citation.original.label"),
+                    null,
+                    false
+                )
+            </div>
+
+        }
+
+        @stepform(true){
+
+            @citationPreview()
+
+            @stepformOptionsChoices(Messages("entry.citation.text.source.label")){
+                @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.internet.label"), ETextSourceType.INTERNET.id().toString, true, "radio")
+                @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.pdf.label"), ETextSourceType.PDF.id().toString, true, "radio")
+                @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.other.label"), ETextSourceType.OTHER.id().toString, true, "radio")
+            }
+
+            @stepformOption(citationForm("text.textSourceType"), ETextSourceType.INTERNET.id().toString){
+                <hr>
+                <div class="row">
+
+                    <div class="col-12 input-field">
+                        @urlInput(
+                            citationForm("text.url"),
+                            Messages("entry.citation.text.source.internet.url.label"),
+                            null,
+                            false
+                        )
+                        @hiddenFormField(citationForm("textIdFromUrl"))
+                    </div>
+
+                </div>
+            }
+
+            @stepformOption(citationForm("text.textSourceType"), ETextSourceType.PDF.id().toString){
+                <hr>
+                <div class="row">
+
+                    <div class="col-12 input-field">
+                        @textInput(
+                            citationForm("text.urlOrTitle"),
+                            Messages("entry.citation.text.source.pdf.urlOrTitle.label"),
+                            null,
+                            true
+                        )
+                        @hiddenFormField(citationForm("textIdFromUrlOrTitle"))
+                    </div>
+
+                </div>
+            }
+
+            @stepformOption(citationForm("text.textSourceType"), ETextSourceType.OTHER.id().toString){
+                <hr>
+                <div class="row">
+
+                    <div class="col-12 input-field">
+                        @textInput(
+                            citationForm("textTitle"),
+                            Messages("entry.citation.text.source.other.title.label"),
+                            null,
+                            true
+                        )
+                        @hiddenFormField(citationForm("textIdFromTitle"))
+                    </div>
+
+                </div>
+            }
+        }
+
+        @stepform(true){
+
+            @citationPreview()
+
+            <p class="form-question">@Messages("entry.citation.authors.title")</p>
+
+            @if(citationForm("id").value == "-1") {
+
+                @hiddenFormField(citationForm("textId"))
+                @hiddenFormField(citationForm("textHasAuthors"))
+
+                @if(citationForm("textHasAuthors").value == "false") {
+
+                    @stepformOptionsChoices() {
+                        @if(citationForm("authorType").value == "-1" || citationForm("authorType").value == EAuthorType.PERSONS.id().toString) {
+                            @stepformOptionChoice(citationForm("authorType"), Messages("entry.citation.authors.person.label"), EAuthorType.PERSONS.id().toString, true, "radio", null, null, "citationAuthorsAreTextAuthors")
+                        }
+
+                        @if(citationForm("authorType").value == "-1" || citationForm("authorType").value == EAuthorType.ORGANIZATIONS.id().toString) {
+                            @stepformOptionChoice(citationForm("authorType"), Messages("entry.citation.authors.org.label"), EAuthorType.ORGANIZATIONS.id().toString, true, "radio", null, null, "citationAuthorsAreTextAuthors")
+                        }
+                    }
+
+                    @stepformOption(citationForm("authorType"), EAuthorType.PERSONS.id().toString){
+                        <hr>
+                        @authordiv(citationForm, "authorsPers", null, false, EActorType.PERSON)
+                    }
+
+                    @stepformOption(citationForm("authorType"), EAuthorType.ORGANIZATIONS.id().toString){
+                        <hr>
+                        @authorsimplediv(citationForm, "authorsOrgs", null, "text.label.author.org.place.name")
+                    }
+
+                    @stepformOption(citationForm("authorType"), null, null, null, "citationAuthorsAreTextAuthors") {
+                        <hr>
+                        @stepformOptionChoices(citationForm("citationAuthorsAreTextAuthors"), Messages("entry.citation.authors.textauthors.label"), null, null, null, true)
+                    }
+
+                    <div class="d-none">
+                        @hiddenFormField(citationForm("authorTextType"))
+                        @authordiv(citationForm, "authorsTextPers", null, false, EActorType.PERSON)
+                        @authorsimplediv(citationForm, "authorsTextOrgs", null, "text.label.author.org.place.name")
+                    </div>
+
+                } else {
+
+                    @stepformOptionsChoices() {
+                        @if(citationForm("authorTextType").value == "-1" || citationForm("authorTextType").value == EAuthorType.FROM_TEXT.id().toString) {
+                            @stepformOptionChoice(citationForm("authorTextType"), Messages("entry.citation.authors.textauthors2.label"), EAuthorType.FROM_TEXT.id().toString, true, "radio", null, true)
+                        }
+
+                        @if(citationForm("authorTextType").value == "-1" || citationForm("authorTextType").value == EAuthorType.PERSONS.id().toString) {
+                            @stepformOptionChoice(citationForm("authorTextType"), Messages("entry.citation.authors.person.label2"), EAuthorType.PERSONS.id().toString, true, "radio", null, null)
+                        }
+
+                        @if(citationForm("authorTextType").value == "-1" || citationForm("authorTextType").value == EAuthorType.ORGANIZATIONS.id().toString) {
+                            @stepformOptionChoice(citationForm("authorTextType"), Messages("entry.citation.authors.org.label2"), EAuthorType.ORGANIZATIONS.id().toString, true, "radio", null, null)
+                        }
+                    }
+
+                    @stepformOption(citationForm("authorTextType"), EAuthorType.PERSONS.id().toString){
+                        <hr>
+                        @authordiv(citationForm, "authorsTextPers", null, false, EActorType.PERSON)
+                    }
+
+                    @stepformOption(citationForm("authorTextType"), EAuthorType.ORGANIZATIONS.id().toString){
+                        <hr>
+                        @authorsimplediv(citationForm, "authorsTextOrgs", null, "text.label.author.org.place.name")
+                    }
+
+                }
+
+            } else {
+
+                @authordiv(citationForm, "authors")
+
+            }
+        }
+
+        @stepform(){
+
+            @citationPreview()
+
+            <p class="form-question">@Messages("entry.citation.tags.label")</p>
+
+            @tagdiv(citationForm, "tags", null, false)
+
+            <hr class="mt-4 mb-4">
+                
+            @stepformOptionChoices(citationForm("hasCitedactors"), Messages("entry.citation.citedauthors.label"), null, "2")
+
+            @stepformOption(citationForm("hasCitedactors"), "2"){
+                @authorsimplediv(citationForm, "citedactors")
+            }
+
+            <hr class="mt-4 mb-4">
+
+            @stepformOptionChoices(citationForm("hasPlaces"), Messages("entry.citation.places.label"), null, "1")
+
+            @stepformOption(citationForm("hasPlaces"), "1"){
+                @placediv(citationForm, "text.label.places")
+            }
+
+            @*
+            @if(citationForm("id").value == "-1"){
+                <hr class="mt-4 mb-4">
+
+                <p class="form-question text-right font-italic mb-0">@Messages("entry.citation.skip.form")</p>
+            }
+            *@
+        }
+
+        @stepform(){
+
+            @citationPreview()
+
+            @stepformOptionChoices(citationForm("removeFromOriginalExcerpt"), Messages("entry.citation.workingExcerpt.label1"), true, "1")
+
+            @stepformOption(citationForm("removeFromOriginalExcerpt"), "1") {
+                <div class="col-12 input-field">
+                    @textareaInput(
+                        citationForm("workingExcerpt1"),
+                        Messages("entry.citation.working1.label"),
+                        null,
+                        true
+                    )
+                </div>
+            }
+        }
+
+        @stepform(){
+
+            @citationPreview()
+
+            @stepformOptionChoices(citationForm("addToExcerpt"), Messages("entry.citation.workingExcerpt.label2"), true, "1")
+
+            @stepformOption(citationForm("addToExcerpt"), "1") {
+                <div class="col-12 input-field">
+                    @textareaInput(
+                    citationForm("workingExcerpt2"),
+                    Messages("entry.citation.working2.label"),
+                    null,
+                    true
+                    )
+                </div>
+            }
+        }
+
+        @stepform(false, null, null, "step-form-replace-all"){
+
+            <p class="form-question">@Messages("entry.citation.text.label")</p>
+
+            @editTextMainFields(citationForm, helper, user, "text.", false)
+        }
+
+    </div>
+
+</fieldset>

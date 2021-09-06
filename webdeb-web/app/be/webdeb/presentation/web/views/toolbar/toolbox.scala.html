@@ -1,0 +1,171 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Toolbox dropdown that contains user-related tools (with settings, group, admin tools, etc.)
+*
+* @param user the user profile data
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput}
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.dropdownItem
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.passwordInput
+@import be.webdeb.presentation.web.views.html.util.form.checkboxInput
+@import be.webdeb.core.api.contributor.EOpenIdType
+@(
+        user : WebdebUser
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+@form(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.authenticate) {
+    <li class="nav-item dropdown user-toolbar">
+    @user.getERole match {
+        case EContributorRole.TMP_CONTRIBUTOR => {
+
+        }
+
+        case EContributorRole.VIEWER => {
+            @* login drop down *@
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle fixed-size"></i>
+                <span class="d-none d-lg-inline">@Messages("menu.signin")</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="navbarDropdownUser" style="width: 250px;">
+
+                @*
+                Google auth
+                *@
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                @*
+                Facebook auth
+                *@
+                <div class="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="true" data-use-continue-as="true" data-width="" data-onlogin="checkFacebookLoginState();"></div>
+
+                <hr class="mb-0">
+
+                <fieldset class="form-small">
+                    @if(user.getLoginForm != null) {
+                        @textInput(
+                            user.getLoginForm()("emailOrPseudo"),
+                            Messages("signin.email"),
+                            Messages("contributor.place.mail"),
+                            true
+                        )
+                        @passwordInput(
+                            user.getLoginForm()("password"),
+                            Messages("signin.password"),
+                            Messages("contributor.place.password"),
+                            true
+                        )
+                        <div class="mt-1 ml-4 ml-md-0">
+                        @checkboxInput(
+                            user.getLoginForm()("remember"),
+                            Messages("signin.remember"),
+                            true
+                        )
+                        </div>
+                    }
+                </fieldset>
+                <div class="form-actions mt-1">
+                    <div class="p-1">
+                        <button type="submit" class="btn btn-primary">@Messages("signin.signin") &nbsp; <span class="fa fa-sign-in"></span></button>
+                    </div>
+                    <small><a class="btn btn-link btn-sm primary no-padding mt-1" href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.signup">@Messages("signin.register")</a></small><br />
+                    <small><button id="forgot-pwd" type="button" class="btn btn-link btn-sm primary no-padding">@Messages("signin.forgot")</button></small>
+                </div>
+            </div>
+        }
+
+
+        case _ => {
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle fixed-size"></i>
+                <span class="d-none d-lg-inline">@user.getContributor.getFirstname</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+
+                @dropdownItem(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(user.getId,  ESettingsPane.PROFILE.id).toString, null, null,
+                    "fa fa-user", "toolbox.menu.settings")
+
+                @dropdownItem(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(user.getId, ESettingsPane.CONTRIBUTIONS.id).toString, null, null,
+                    "fas fa-comment-dots", "toolbox.menu.contributions")
+
+                @dropdownItem(be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.index().toString, null, null,
+                    "fas fa-users", "toolbox.menu.group.admin")
+
+                @dropdownItem(be.webdeb.presentation.web.controllers.routes.Application.help.toString, null, null,
+                    "fa fa-question-circle", "help.navbar.title")
+
+                @if(user.getERole.id() >= EContributorRole.OWNER.id()) {
+                    <div class="dropdown-divider"></div>
+
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(user.getId, ESettingsPane.CLAIM.id).toString, null, null,
+                        "fa fa-cogs", "settings.claim", user.getNumberOfClaims)
+                }
+
+                @if(user.getERole.equals(EContributorRole.ADMIN)) {
+
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(user.getId, ESettingsPane.FEEDER.id).toString, null, null,
+                        "fa fa-download", "toolbox.menu.feeder")
+
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.admin.project.routes.ProjectActions.manageProjects.toString, null, null,
+                        "fa fa-cogs", "toolbox.menu.project")
+
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(user.getId, ESettingsPane.ADMIN.id).toString, null, null,
+                        "fa fa-cogs", "toolbox.menu.admin")
+
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(user.getId, ESettingsPane.PROFESSION.id).toString, null, null,
+                        "fa fa-cogs", "toolbox.menu.profession")
+
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.admin.routes.AdminActions.editFreeCopyrightSources().toString, null, null,
+                        "fa fa-cogs", "toolbox.menu.freeSources")
+
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.admin.routes.AdminActions.editArgumentsDictionary().toString, null, null,
+                        "fa fa-cogs", "toolbox.menu.arguments.dictionary")
+
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.admin.routes.AdminActions.getAdminEmailForm().toString, null, null,
+                        "fa fa-cogs", "toolbox.menu.arguments.mail")
+                    <div class="dropdown-divider"></div>
+                }
+
+                @if(user.getContributor.getOpenIdType != null) {
+                    @if(user.getContributor.getOpenIdType == EOpenIdType.GOOGLE) {
+                        <a href="#" class="logout-google-auth ml-3">@Messages("toolbox.menu.logout")</a>
+                    } else {
+                        <a href="#" class="logout-facebook-auth ml-3">@Messages("toolbox.menu.logout")</a>
+                    }
+                } else {
+                    @dropdownItem(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.logout.toString, null, null,
+                        "fa fa-sign-out-alt", "toolbox.menu.logout")
+                }
+            </div>
+        }
+    }
+    </li>
+}

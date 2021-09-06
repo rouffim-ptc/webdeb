@@ -1,0 +1,61 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable animated message to warned the user about a screen that can't be displayed on small screen vertically
+*
+* @author Martin Rouffiange
+*@
+
+
+@import helper._
+
+
+@(
+)
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var phone = $("#phone-animation");
+        rotatePhone(phone);
+    });
+
+    function rotatePhone(phone){
+        var timeout = 5;
+        var realPhone = phone.find('[data-fa-i2svg]');
+        if(realPhone.exists()) {
+            var rotation = parseInt(realPhone.attr("data-fa-transform").split('-')[1]);
+            if (rotation > 90) {
+                rotation = 0;
+                timeout = 1000;
+            } else {
+                rotation++
+            }
+            realPhone.attr("data-fa-transform", "rotate-" + rotation);
+        }
+        setTimeout(function () {
+            rotatePhone(phone);
+        }, timeout);
+    }
+
+</script>
+
+<div class="phone-screen-warning col-12 visible-xs">
+    <p><i class="fas fa-exclamation-triangle"></i> @Messages("general.screen.toosmall")</p>
+    <p id="phone-animation" class="text-center"><i class="fas fa-mobile-alt" data-fa-transform="rotate-0" style="font-size : 24px"></i></p>
+</div>
+

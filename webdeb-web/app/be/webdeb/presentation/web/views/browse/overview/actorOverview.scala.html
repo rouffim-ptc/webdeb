@@ -1,0 +1,90 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Helper template to give an overview of an actor
+*
+* @param actor an actor to be displayed
+* @param withLink true if the title is clickable to go to his/her detail's page
+* @param withCreator true if the creator (contributor name) must be shown too
+* @param detailed true if the verbose overview is shown
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.browse.EOverviewType
+@import be.webdeb.presentation.web.views.html.browse.overview.contributionOverview
+
+@(
+        actor: ActorHolder,
+        withLink: Boolean,
+        detailed: Boolean,
+        withCreator: Boolean = false,
+        displayType : EOverviewType = EOverviewType.SIMPLE
+)
+
+@contributionOverview(actor.getId, actor.getId, actor.getFullname, actor.getType, actor.getType, actor.getSomeAvatar, withLink, displayType){
+    <ul class="fa-ul searched mb-0 ml-3 mt-1">
+        @if(detailed) {
+            @actor.getActortype match {
+                case 0 => {
+                    @*
+                    @if(actor.getAffiliations.size > 0) {
+                        <li class="to-clamp">
+                            <i class=" fa fa-vcard-o"></i>@actor.getAffiliations(3).map(a => a.getFullfunction).mkString(", ")
+                        </li>
+                    }
+                    *@
+                    @if(!actor.getResidence.equals("")) {
+                        <li><i class=" fa fa-globe"></i><span class="forcewrap">@actor.getResidence</span></li>
+                    }
+                }
+                case 1 => {
+                    @*
+                    @if(actor.getOrgaffiliations.size > 0) {
+                        <li class="to-clamp"><i class=" fa fa-vcard-o"></i>@actor.getOrgaffiliations.map(a => a.getFullfunction).mkString(", ")</li>
+                    }
+                    *@
+                    @if(actor.getLegalStatus != "") {
+                        <li><i class=" fa fa-university"></i>@actor.getLegalStatus</li>
+                    }
+
+                    @if(actor.getHeadOffice != "") {
+                        <li><i class=" fa fa-globe"></i><span class="forcewrap">@actor.getHeadOffice</span></li>
+                    }
+                }
+                case _ => {
+                    @*
+                    <li><i class=" fa fa-info"></i>
+                        @Messages("actor.label.unknowntype")</li>
+                    @if(actor.getAffiliations.size > 0) {
+                        <li class="to-clamp"><i class=" fa fa-vcard-o"></i>@actor.getAffiliations(3).map(a => a.getFullfunction).mkString(", ")</li>
+                    }
+                    *@
+                }
+            }
+        }
+
+        @if(withCreator) {
+            <li><i class=" fa fa-user-circle"></i> @Messages("viz.contributor.creator") @actor.getCreatorName</li>
+        }
+    </ul>
+}

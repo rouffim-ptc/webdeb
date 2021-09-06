@@ -1,0 +1,476 @@
+/*========================================
+              VARIABLE COULEURS
+========================================*/
+/*========================================
+              hauteur nav
+========================================*/
+/*========================================
+                BREACKPOINT
+========================================*/
+/*========================================
+                BOX SHADOW
+========================================*/
+/*========================================
+              VARIABLE COULEURS
+========================================*/
+/*========================================
+              hauteur nav
+========================================*/
+/*========================================
+                BREACKPOINT
+========================================*/
+/*========================================
+                BOX SHADOW
+========================================*/
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.wrapper {
+  position: relative; }
+
+.explore-container a {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.5;
+  text-decoration: none; }
+
+.explore-container a:link {
+  outline: none; }
+
+/*========================================
+===================DESKTOP================
+========================================*/
+
+.main {
+  max-width: 1140px; }
+
+.contribute-container h2 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: #44ABDD;}
+
+.contribute-container h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5; }
+
+.contribute-container p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5; }
+
+.contribute-container a {
+  color: #99BF27; }
+
+.contribute-container a:hover {
+  color: #44ABDD; }
+
+.webdeb-logo {
+  margin-bottom: 2rem;
+  width: 209px; }
+
+.contribute_img {
+  width: 265px;
+}
+@media screen and (max-width: 992px) {
+  .contribute_img {
+    display: none;
+  }
+}
+
+.text-header {
+  color: #F8F8F8;
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.5;
+}
+
+/*========================================
+==================ACTION==================
+========================================*/
+.action_btn .img_action{
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: silver;
+  height : 320px;
+}
+.action_btn {
+  border: 1px solid white;
+  width: 100vw; }
+  .action_btn > a {
+    color: #F8F8F8; !important; }
+  .action_btn > a:hover {
+    color: #F8F8F8; !important;
+    text-decoration: none;}
+  .action_btn > a:hover > div:first-child{
+    background-size: 105%;}
+  .action_btn > a > img {
+    width: 100%; }
+  .action_btn > a > div {
+    height: 62px;
+    padding: 1rem 0;
+    background: #44ABDD;
+    font-size: 1.5rem; }
+    .action_btn > a > div > i {
+      margin-right: .5rem; }
+
+@media screen and (max-width: 992px) {
+  .action_btn .img_action {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .action_btn .img_action {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .action_btn .img_action {
+    height: 200px;
+  }
+}
+
+  /*========================================
+  =============3 WAYS CONTRIBUTE============
+  ========================================*/
+.threeways {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  padding: 1rem 1rem 3rem 1rem;
+  margin-bottom: 15px;
+  background: #374955;
+  -webkit-box-shadow: 0px 3px 3px 0px #575757;
+  box-shadow: 0px 3px 3px 0px #575757;
+  color: #F8F8F8;}
+  .threeways h2 {
+    color: #99BF27;
+    margin-bottom: 1rem;}
+  .threeways ul {
+    margin-left : 10px;}
+  .threeways li {
+    margin-bottom: 1.5rem; }
+
+.threeways_content {
+  width: 100%; }
+  .threeways_content > h3 {
+    color: #F8F8F8; }
+  .threeways_content > p {
+    color: #F8F8F8; }
+  .threeways_content > div > i {
+    margin-top: .8rem;
+    color: #99BF27;
+    font-size: 2.5rem; }
+  .threeways_content > div > i + i {
+    margin-left: 1rem; }
+
+/*========================================
+=================REGISTER=================
+========================================*/
+.registerAstuce {
+  margin-bottom: 15px;
+  padding-bottom: 0; }
+
+.register {
+  padding-top: 1rem;
+  margin-bottom: 55px; }
+  .register > h2 {
+    color: #44ABDD;
+    margin-bottom: .5rem; }
+
+/*========================================
+==================ASTUCE==================
+========================================*/
+.astuce {
+  background: #374955;
+  -webkit-box-shadow: 0px 3px 3px 0px #575757;
+  box-shadow: 0px 3px 3px 0px #575757;
+  width: 100%; }
+  .astuce > h2 {
+    position: relative;
+    top: -65px;
+    left: 60px;
+    color: #44ABDD;
+    margin-bottom: -60px; }
+  .astuce > i {
+    position: relative;
+    top: -40px;
+    font-size: 5rem;
+    color: #44ABDD;
+    margin-bottom: -60px; }
+
+.carousel-item {
+  padding: 1rem;
+  color: #F8F8F8; }
+
+/*========================================
+===================HELP===================
+========================================*/
+.big {
+  margin-bottom: 15px; }
+
+.help {
+  margin-bottom: 15px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background: #F0EAEA;
+  -webkit-box-shadow: 0px 3px 3px 0px #575757;
+  box-shadow: 0px 3px 3px 0px #575757; }
+  .help > h2 {
+    margin-bottom: -3rem;
+    color: #99BF27; }
+  .help > i {
+    position: relative;
+    left: 90%;
+    top: -2rem;
+    margin-bottom: -3rem;
+    color: #99BF27;
+    font-size: 4rem; }
+
+.help_picto {
+  text-align: center;
+  margin-bottom: 20px; }
+  .help_picto > * {
+    display: inline;
+    font-size: 1.5rem;
+    color: #99BF27; }
+  .help_picto > p {
+    margin-left: 2rem; }
+
+/*========================================
+================CONTRIBUTE================
+========================================*/
+
+.contribute_content {
+  -webkit-box-shadow: 0px 3px 3px 0px #575757;
+  box-shadow: 0px 3px 3px 0px #575757;
+  background: #F0EAEA;
+  padding: 1rem; }
+  .contribute_content > * + * {
+    margin-bottom: 1rem; }
+  .contribute_content > p a {
+    font-size: 1rem; }
+
+/*========================================
+==================DIFUSE==================
+========================================*/
+.diffuse {
+  padding: 0 15px; }
+  .diffuse > h2 {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #99BF27; }
+
+.diffuse_content {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 1rem;
+  -webkit-box-shadow: 0px 3px 3px 0px #575757;
+  box-shadow: 0px 3px 3px 0px #575757;
+  background: #F0EAEA; }
+  .diffuse_content > * + * {
+    margin-bottom: 1rem; }
+
+.diffuse_content_img {
+  border: 4px solid white;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+.diffuse_content_social {
+  width: 100%;
+  text-align: center; }
+  .diffuse_content_social > * {
+    font-size: 3rem;
+    color: #44ABDD; }
+  .diffuse_content_social > * + * {
+    margin-left: 1rem; }
+
+.diffuse_illu {
+  max-width: 520px; }
+  .diffuse_illu > img {
+    max-height: 300px;
+    margin-left: auto;
+    margin-right: auto; }
+
+/*================LARGE PHONE===================
+==================LARGE PHONE===================
+==================LARGE PHONE===================
+==================LARGE PHONE===================
+==================LARGE PHONE===================
+==================LARGE PHONE=================*/
+@media screen and (min-width: 576px) {
+  .action_btn {
+    width: 50%; }
+  /*========================================
+    =============3 WAYS CONTRIBUTE============
+    ========================================*/
+  .threeways {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-bottom: 0; }
+    .threeways > h2 {
+      width: 100%; }
+    .threeways > * + * {
+      -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      width: 33%;
+      padding: 0 1rem; } }
+
+/*================TABLET========================
+==================TABLET========================
+==================TABLET========================
+==================TABLET========================
+==================TABLET========================
+==================TABLET======================*/
+@media screen and (min-width: 768px) {
+  /*========================================
+    =============3 WAYS CONTRIBUTE============
+    ========================================*/
+  .threeways {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-bottom: 0; }
+    .threeways > h2 {
+      width: 100%; }
+    .threeways > * + * {
+      -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      width: 33%;
+      padding: 0 1rem; }
+  /*========================================
+    ===================HELP===================
+    ========================================*/
+  .big {
+    padding: 0 1rem; }
+  .help > img {
+    width: 90%; }
+
+  /*========================================
+    ==================DIFUSE==================
+    ========================================*/
+  .diffuse {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start; }
+    .diffuse > * + * {
+      width: 48%; }
+  .diffuse_illu_container {
+    position: relative;
+    left: 50%;
+    width: 48%;
+    margin-top: -22rem; }
+  .diffuse_illu {
+    max-width: 396px; } }
+
+/*================DESKTOP========================
+==================DESKTOP========================
+==================DESKTOP========================
+==================DESKTOP========================
+==================DESKTOP========================
+==================DESKTOP======================*/
+@media screen and (min-width: 992px) {
+  .container-fluid {
+    overflow: initial; }
+  /*========================================
+    ==================ACTION==================
+    ========================================*/
+
+  /*========================================
+    =============3 WAYS CONTRIBUTE============
+    ========================================*/
+  .threeways {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+    .threeways > * + * {
+      padding: 0;
+      width: initial; }
+  /*========================================
+    ===================HELP===================
+    ========================================*/
+  .big {
+    padding: 0; }
+  /*========================================
+    ==================DIFUSE==================
+    ========================================*/
+  .magik {
+    max-width: 960px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end; }
+  .diffuse {
+    width: 75vw; }
+  .diffuse_content {
+    width: 48%; }
+    .diffuse_content > p {
+      font-size: .9rem; }
+  .diffuse_illu_container {
+    width: 25vw;
+    left: initial;
+    width: initial;
+    margin-top: initial; }
+  .diffuse_illu {
+    max-height: 300px; }
+  .export {
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+    margin-left: 52%;
+    margin-top: -13rem; } }
+
+/*=============VERY LARGE DESKTOP================
+===============VERY LARGE DESKTOP================
+===============VERY LARGE DESKTOP================
+===============VERY LARGE DESKTOP================
+===============VERY LARGE DESKTOP================
+===============VERY LARGE DESKTOP==============*/
+@media screen and (min-width: 1140px) {
+  .magik {
+    max-width: 1980px; }
+  .diffuse {
+    width: 640px; }
+  .diffuse_illu_container {
+    position: relative;
+    max-width: 100vh; } }
+
+/*# sourceMappingURL=contribuer_styles.css.map */
+
+#citations-options{
+  border-bottom: 1px solid white;
+}

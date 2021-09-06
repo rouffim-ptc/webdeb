@@ -1,0 +1,194 @@
+/*
+ * WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+ *
+ * List of the contributors to the development of WebDeb: see AUTHORS file.
+ * Description and complete License: see LICENSE file.
+ *
+ * This program (WebDeb) is free software:
+ * you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program (see COPYING file).  If not,
+ * see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+.remove-subcategory {
+    cursor : default;
+    border : 1px dashed white;
+}
+
+.debate-classify-tool {
+    padding-left : 0 !important;
+    padding-right : 0 !important;
+}
+
+.category {
+    background-color: #919191;
+}
+
+.category .category {
+    margin-left : 20px;
+}
+
+.category-container .nav-tabs {
+    background-color: silver;
+    padding-left: 35px;
+    border-bottom: 0.5px solid gray;
+}
+
+.category-container .nav-link {
+    color : #333 !important;
+}
+
+.category-container > .category-container-tab:not(:first-child) {
+    display: none;
+}
+
+.category-title {
+    background-color: grey;
+    color : white;
+    border-top : 0.5px solid #555;
+    border-bottom : 0.5px solid #555;
+}
+
+.category .category .category-title{
+    background-color: #999;
+    border-left : 1px solid grey;
+}
+
+.category-container {
+    border-right : 1px solid grey;
+    border-bottom : 7px solid silver;
+}
+
+.category .category > .category-container {
+    border-bottom : 0;
+}
+
+.category-list{
+    background-color: white;
+    padding-top : 10px;
+    min-height : 100px;
+}
+
+.category-container-justify {
+    background-color: green;
+}
+.category-container-justify .shaded-element {
+    color : green;
+}
+
+.category-container-opposes {
+    background-color: red;
+}
+.category-container-opposes .shaded-element {
+    color : red;
+}
+
+.opinion:not(:last-child) {
+    border-bottom : 5px solid silver;
+}
+
+.opinion-container > .citation {
+    margin-left : 30px;
+}
+
+.opinion-title, .citation {
+    background-color: white;
+}
+
+.opinion-title {
+    border-top : 0.5px solid grey;
+    border-bottom : 0.5px solid grey;
+}
+
+.opinion-container, .citation-container{
+    background-color: grey;
+}
+
+.citation-container > .citation {
+    margin-left : 30px;
+}
+
+.citation-container > .citation:first-child {
+    border-top : 0.5px solid grey;
+}
+
+.citation:not(:last-child), .category-list > .citation:first-child:last-child {
+    border-bottom : 0.5px solid grey;
+}
+
+.category-list > .citation:first-child, .opinion + .citation  {
+    border-top : 0.5px solid grey;
+}
+
+.contribution-title .contribution-panel > div:not(:first-child),
+.contribution-title:hover .contribution-panel > div:first-child {
+    display: none;
+}
+
+.contribution-title:hover > .dropdown:not(:first-child) {
+    padding-left : 1px;
+}
+
+.contribution-title:hover .contribution-panel > div:not(:first-child) {
+    display: initial;
+}
+
+.contribution-title > .contribution-panel > .fa-plus {
+    display: none;
+}
+
+.contribution-title > div {
+    padding : 10px;
+}
+
+
+.dropdown-toggle-simple:after {
+    content: none
+}
+
+.fa-points{
+    position : relative;
+    bottom : 5px;
+}
+
+.no-padding {
+    padding : 0 !important;
+}
+
+.justify {
+    color : green;
+}
+
+.opposes {
+    color : red;
+}
+
+.draggable {
+    cursor: pointer;
+}
+
+.unselectable, .unselectable * {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.color-white {
+    color : white;
+}
+
+.color-white:hover, .color-white:active {
+    color : #e7e7e7;
+}

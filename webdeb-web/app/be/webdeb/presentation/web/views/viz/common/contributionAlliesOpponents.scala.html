@@ -1,0 +1,190 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Debate details showing name, tag and places
+*
+* @param tag the tag to display the details for
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.api.actor.ESocioGroupKey
+@import be.webdeb.presentation.web.controllers.entry.ContextContributionHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.debate.EDebateShade
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+@import be.webdeb.core.api.contribution.link.EJustificationLinkShade
+@import be.webdeb.core.api.contribution.EAlliesOpponentsType
+@import be.webdeb.core.api.contribution.link.EPositionLinkShade
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.viz.citation.citationChoosePositionShade
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorThumbnail
+@(
+    holder: ContextContributionHolder,
+    user : WebdebUser,
+    helper : ContributionHelper,
+    aType : EAlliesOpponentsType,
+    pov : Long,
+    subContextId : Long,
+    shade : EDebateShade
+)
+
+<div class="row mt-3 mb-3">
+
+    <div class="col-12">
+        @*
+        <p class="instructions mb-3">@Messages("viz.argument.socio.info.title")</p>
+        *@
+        @if(shade != null) {
+            <span class="debate-shade-id d-none">@shade.id</span>
+        }
+
+        @if(aType == EAlliesOpponentsType.POSITIONS){
+            <div class="mb-2">
+                <div>
+                    <button class="btn btn-info w-100" type="button" data-toggle="collapse" data-target=".position-collapse" aria-expanded="false">
+                        <i class="fas fa-plus"></i>  @Messages("general.add.btn.position")
+                    </button>
+                </div>
+
+                <div class="collapse position-collapse">
+                    @citationChoosePositionShade(subContextId, shade)
+                </div>
+            </div>
+        }
+
+        @if(holder.viewPositions(subContextId, aType).get(ESocioGroupKey.AUTHOR).isEmpty) {
+
+            <p class="instructions mb-3">
+                @if(holder.getType == EContributionType.DEBATE) {
+                    @if(aType == EAlliesOpponentsType.ARGUMENTS) {
+                        @Messages("viz.citations.arguments.empty")
+                    } else {
+                        @if(holder.isMultipleDebate) {
+                            @Messages("viz.citations.positions.subdebate.empty")
+                        } else {
+                            @Messages("viz.citations.positions.empty")
+                        }
+                    }
+                } else {
+                    @Messages("viz.citations.empty")
+                }
+            </p>
+        } else {
+
+            @navpillMenu(null, "tab", true){
+                <li class="nav-item">
+                    <a class="nav-link disabled pl-1 pr-1" href="#" style="min-width: 100px">@Messages("viz.actor.socio.pov")</a>
+                </li>
+
+                @for(key <- ESocioGroupKey.values()){
+                    @navpillMenuItem(key.name.concat(aType.id.toString), Messages("viz.argument.socio.pov." + key.name.toLowerCase), if(pov == null || pov == -1){key.id == 0}else{key.id == pov}, if(aType != EAlliesOpponentsType.ARGUMENTS && holder.getType != EContributionType.DEBATE){"btn-pov"}else{"btn-pov-fake"})
+                }
+            }
+        }
+    </div>
+
+</div>
+
+@navContent("mt-3"){
+
+    @if(!holder.viewPositions(subContextId, aType).get(ESocioGroupKey.AUTHOR).isEmpty) {
+        @for(key <- ESocioGroupKey.values()) {
+            @if(holder.viewPositions(subContextId, aType).contains(key)) {
+                @navContentItem(key.name.concat(aType.id.toString), if(pov == null || pov == -1) {
+                    key.id == 0
+                } else {
+                    key.id == pov
+                }) {
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-first">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    @if(holder.isTag || shade == null) {
+                                        <th class="text-center" scope="col"><span>Citations</span></th>
+                                    } else {
+                                        @if(aType == EAlliesOpponentsType.POSITIONS) {
+                                            @for(positionLink <- EPositionLinkShade.valuesAsList) {
+                                                <th class="@positionLink.toStyleName text-center" scope="col">
+                                                    <span class="d-none d-md-inline">
+                                                        @Messages("viz.debate.position." + shade.id + "." + positionLink.id)
+                                                    </span>
+                                                    <span class="d-md-none"><i class="@positionLink.getLogo"></i></span>
+                                                </th>
+                                            }
+                                        } else {
+                                            @for(justificationLink <- EJustificationLinkShade.valuesAsList) {
+                                                <th class="@justificationLink.toStyleName text-center" scope="col">
+                                                    <span class="d-none d-md-inline">
+                                                    @Messages("viz.context.arguments." + shade.id + "." + justificationLink.id)
+                                                    </span>
+                                                    <span class="d-md-none"><i class="@justificationLink.getLogo"></i></span>
+                                                </th>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @for(viewed <- holder.viewPositions(subContextId, aType).get(key)) {
+                                @actor(key, viewed.getId, viewed.getName, viewed.getAvatar, viewed.getNbPerShade)
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+        }
+    }
+}
+
+@actor(key : ESocioGroupKey, id: Long, name : String, avatar : String, nbPerShade : java.util.Map[Integer, Integer]) = {
+    <tr>
+        <td scope="row">
+            @actorThumbnail(id, helper.getActorSocioName(key, id, name, holder.getLang), avatar, true)
+        </td>
+
+        @for((shade, nb) <- nbPerShade){
+            <td class="show-citations" data-context="@holder.getId" data-sub-context="@subContextId" data-amount="@nb" data-key="@key.id" data-shade="@shade" data-value="@id" data-type="@(aType != EAlliesOpponentsType.POSITIONS)">
+                @excerpt(nb,
+                    if(aType == EAlliesOpponentsType.POSITIONS){EPositionLinkShade.value(shade).toStyleName}
+                    else{EJustificationLinkShade.value(shade).toStyleName})
+            </td>
+        }
+    </tr>
+}
+
+@excerpt(nbCitations : Int, shade : String) = {
+    <div class="d-flex align-items-center justify-content-center mt-0 mt-sm-2">
+        <div class="count_badged @if(nbCitations <= 0) {invisible}">
+            @if(aType == EAlliesOpponentsType.POSITIONS){
+                <i class="fas fa-align-left @shade d-none d-sm-block"></i>
+                <span class="badge badge-pill @shade d-none d-sm-block">@nbCitations</span>
+                <span class="count-small @shade d-block d-sm-none">@nbCitations</span>
+            } else {
+                <i class="fas fa-align-left @shade"></i>
+                <span class="badge badge-pill @shade">@nbCitations</span>
+            }
+        </div>
+    </div>
+}

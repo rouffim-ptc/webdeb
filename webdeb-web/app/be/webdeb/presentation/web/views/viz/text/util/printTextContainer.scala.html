@@ -1,0 +1,87 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial page to display text content for printing
+*
+* @param text the text details (may not be null, but empty)
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.core.api.text.ETextVisibility
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@(
+        text: TextHolder,
+        user : WebdebUser
+)
+
+
+@if(user != null && user.getERole.id() >= EContributorRole.CONTRIBUTOR.id() && (text.getETextVisibility == ETextVisibility.PUBLIC
+|| (text.getETextVisibility == ETextVisibility.PEDAGOGIC && user.getContributor != null && user.getContributor.isPedagogic)) || user.isAdminOf(text)){
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            let waitForIt = $('.wait-for-text-print');
+            let container = $("#print-element-container")
+
+            $(".print-element").on('click', function(){
+                if(container.is(':empty')) {
+                    waitForIt.show();
+                    getAnnotatedText(@text.getId, true, false).done(function (data) {
+                        data = JSON.parse(data);
+                        console.log(data);
+                        container.html(data.text);
+                        printContainer("print-element-container");
+                    }).fail(function (jqXHR) {
+                        console.log("Failed to get annotated text");
+                    }).always(function(){
+                        waitForIt.hide();
+                    });
+                }else{
+                    printContainer("print-element-container");
+                }
+            });
+        });
+
+        function printContainer(container){
+            var content = document.getElementById(container).innerHTML;
+            var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+            mywindow.document.write('<html><head><title>@text.getTitle</title>');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(content);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close();
+            mywindow.focus();
+            mywindow.print();
+            mywindow.close();
+            return true;
+        }
+    </script>
+
+    <div class="">
+        <button class="btn btn-primary print-element"><i class="fas fa-print"></i>&nbsp;@Messages("general.print.text")</button>
+        @waitforit("wait-for-text-print")
+        <div id="print-element-container" style="display: none;"></div>
+    </div>
+}

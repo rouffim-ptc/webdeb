@@ -1,0 +1,266 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial page for RSS and Twitter feeders settings. Consists in two parts retrieved by ajax calls since
+* we have to get them from WDTAL service (not stored locally)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.util.helpbubble
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+@()
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    // handle help bubbles
+    handleHelpBubble('#main-content');
+
+    updateCsvReports(@EContributionType.ACTOR.id());
+    updateCsvReports(@EContributionType.CITATION.id());
+
+    // ask to build RSS partial page
+    /*getRssFeeders().done(function (html) {
+      $('#rsscontent').empty().append(html);
+      addRssListeners();
+
+    }).fail(function (xhr) {
+      if (xhr.status === 400) {
+        $('#rsscontent').empty().append(xhr.responseText);
+      } else {
+        replaceContent('body', xhr.responseText, 'body');
+      }
+    });*/
+
+    // ask to build Tweet partial page
+    /*getTwitterAccounts().done(function (html) {
+      $('#twittercontent').empty().append(html);
+      addTwitterListeners();
+
+    }).fail(function (xhr) {
+      if (xhr.status === 400) {
+        $('#twitercontent').empty().append(xhr.responseText);
+      } else {
+        replaceContent('body', xhr.responseText, 'body');
+      }
+    });*/
+
+    // add listeners to "add new" buttons
+    let modalanchor = $("#modal-anchor");
+    $('.open-csv-modal').on('click', function() {
+      getModalFromFunction(importCsvFile, modalanchor, $(this).data('type'));
+    });
+
+    /*$('#create-rss').on('click', function() {
+      getModalFromFunction(editRssFeed, -1, modalanchor);
+    });*/
+
+    /*$('#create-twitter').on('click', function() {
+      getModalFromFunction(editTwitterAccount, -1, modalanchor);
+    });*/
+  });
+
+  /**
+   * update panel with all Csv reports
+   */
+  function updateCsvReports(type) {
+    getCsvReports(type).done(function (html) {
+      $('#tab_external-' + type).find('.csv-reports').empty().append(html);
+    });
+  }
+
+  /**
+   * Add button listeners to rss panel
+   */
+  /*function addRssListeners() {
+      var content = $('#rsscontent');
+      content.find('[id^="activate-rss"]').on("click", function () {
+        var btn = $(this);
+        var activate = btn.prop('id').indexOf('true') !== -1;
+        console.log(btn.closest('.summary'));
+        showConfirmationPopup(activateRss, btn, "admin.rss.activate.modal." + activate + ".", btn.closest('.summary').find('[id^="rss-name_"]').text());
+      });
+
+      content.find('[id^="remove-rss_"]').on("click", function () {
+        var btn = $(this);
+        showConfirmationPopup(removeRss, btn, "admin.rss.remove.modal.", btn.closest('.summary').find('[id^="rss-name_"]').text());
+      });
+
+      content.find('[id^="edit-rss_"]').on('click' , function () {
+        getModalFromFunction(editRssFeed, $(this).prop('id').split('_')[1], $("#modal-anchor"));
+      });
+    }*/
+
+    /**
+     * Add button listeners to twitter panel
+     */
+  /*function addTwitterListeners() {
+    var content = $('#twittercontent');
+    content.find('[id^="remove"]').on("click", function () {
+      var btn = $(this);
+      showConfirmationPopup(removeTwitter, btn, "admin.twitter.remove.modal.", btn.closest('.summary').find('[id^="account-name_"]').text());
+    });
+
+    content.find('[id^="edit-twitter_"]').on('click' , function () {
+      getModalFromFunction(editTwitterAccount, $(this).prop('id').split('_')[1], $("#modal-anchor"));
+    });
+  }*/
+
+  /**
+   * Activate or deactivate rss feed source
+   *
+   * param btn the clicked button, will contain in its id either 'true' or 'false' to know if feed must
+   * be activated, and the rss id after an underscore char
+   */
+  function activateRss(btn) {
+    var rss = btn.prop('id').split('_')[1];
+    var activate = btn.prop("id").indexOf('true') > -1;
+    activateRssFeed(rss, activate).done(function (html) {
+      $('#rsscontent').empty().append(html);
+      addRssListeners();
+      fadeMessage();
+    }).fail(function (xhr) {
+      if (xhr.status === 500) {
+        // show error message passed as responseText
+        showErrorMessage(xhr);
+      } else {
+        // any other error -> full rebuild
+        replaceContent('body', xhr.responseText, 'body');
+      }
+    });
+  }
+
+  /**
+   * Remove rss feed source
+   *
+   * param btn the clicked button, will contain in its id either the rss id after an underscore char
+   */
+  function removeRss(btn) {
+    var rss = btn.prop('id').split('_')[1];
+    removeRssFeed(rss).done(function (html) {
+      $('#rsscontent').empty().append(html);
+      addRssListeners();
+      fadeMessage();
+    }).fail(function (xhr) {
+      if (xhr.status === 500) {
+        // show error message passed as responseText
+        showErrorMessage(xhr);
+      } else {
+        // any other error -> full rebuild
+        replaceContent('body', xhr.responseText, 'body');
+      }
+    });
+  }
+
+
+  /**
+   * Remove twitter account
+   *
+   * param btn the clicked button, will contain in its id either the twitter id after an underscore char
+   */
+  function removeTwitter(btn) {
+    var twitter = btn.prop('id').split('remove-twitter_')[1];
+    removeTwitterAcccount(twitter).done(function (html) {
+      $('#twittercontent').empty().append(html);
+      addTwitterListeners();
+      fadeMessage();
+    }).fail(function (xhr) {
+      if (xhr.status === 500) {
+        // show error message passed as responseText
+        showErrorMessage(xhr);
+      } else {
+        // any other error -> full rebuild
+        replaceContent('body', xhr.responseText, 'body');
+      }
+    });
+  }
+</script>
+
+@externalDiv(eType: EContributionType, open: Boolean = false) = {
+  @navContentItem("external-" + eType.id().toString, open) {
+    <h2>
+      <span class="small-caps text-muted">@Messages("admin.csv.title")</span>
+      <div class="pull-right">
+        <button class="btn btn-link btn-lg primary no-padding open-csv-modal" data-type="@eType.id()">
+          <span class="fa fa-plus">&nbsp;</span>@Messages("admin.csv.new")
+        </button>
+      </div>
+    </h2>
+
+    <div>
+      <p>
+        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#external-collapse-@eType.id()" aria-expanded="false" aria-controls="external-collapse-@eType.id()">
+        @Messages("admin.csv.doc.title")
+        </button>
+      </p>
+      <div class="collapse" id="external-collapse-@eType.id()">
+        <div class="card card-body">
+        @Html(Messages("admin.csv.doc.bubble." + eType.id()))
+        </div>
+      </div>
+    </div>
+
+    <div class="csv-reports"></div>
+  }
+}
+
+<div class="col-12">
+
+  @navpillMenu("mb-2", "explore-tab"){
+    @navpillMenuItem("external-" + EContributionType.ACTOR.id().toString, Messages("contribution.viz.actors.title"), true)
+    @navpillMenuItem("external-" + EContributionType.CITATION.id().toString, Messages("viz.radio.excerpt"))
+  }
+
+  @navContent("mt-3") {
+    @externalDiv(EContributionType.ACTOR, true)
+    @externalDiv(EContributionType.CITATION)
+  }
+</div>
+
+@*
+<div class="col-12">
+  <h2>
+    <span class="small-caps text-muted">@Messages("admin.rss.title")</span>
+    <div class="pull-right">
+      <button id="create-rss" class="btn btn-link btn-lg primary no-padding">
+        <span class="fa fa-plus">&nbsp;</span>@Messages("admin.rss.new")
+      </button>
+    </div>
+  </h2>
+  <div id="rsscontent"></div>
+</div>
+
+<div class="col-12">
+  <h2>
+    <span class="small-caps text-muted">@Messages("admin.twitter.title")</span>
+    <div class="pull-right">
+      <button id="create-twitter" class="btn btn-link btn-lg primary no-padding">
+        <span class="fa fa-plus">&nbsp;</span>@Messages("admin.twitter.new")
+      </button>
+    </div>
+  </h2>
+  <div id="twittercontent"></div>
+</div>
+  *@

@@ -1,0 +1,157 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to manage contributions to explore
+*
+* @param contributionsToExplore a contributions to explore forms
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.account.group.{ContributionsToExploreForm, GroupMailForm}
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, helpbubble, hiddenFormField, inlineform, noerrorForm}
+@import helper._
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.numberInput
+@(
+        contributionsToExploreForm : Form[ContributionsToExploreForm],
+        contributionType : EContributionType
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            let modal = $('#manageContributionsToExplore');
+
+            eventsHandler(modal);
+            submitForm(modal)
+        });
+
+        function eventsHandler(modal){
+            let contributions = modal.find('#contributions');
+            contributions.find('input[name$="contributionName"]').each(function(){
+                addContributionTypeahead($(this), @contributionType.id);
+            });
+
+            manageAddRmButton(contributions, ['contributionName'], "entry.delete.confirm.", null, addContributionTypeahead, @contributionType.id);
+        }
+
+        function submitForm(modal){
+            // handle submit button
+            modal.find('#submit-btn').on('click', function () {
+                sendContributionsToExplore(@contributionType.id, modal.find('form')).done(function (data) {
+                    hideAndDestroyModal(modal);
+                    slideDefaultSuccessMessage();
+                    location.reload();
+                }).fail(function (jqXHR) {
+                    switch (jqXHR.status) {
+
+                        case 400:
+                            // form has errors => clear actor modal and rebuild it with errors
+                            replaceContent('#contributions-form', jqXHR.responseText, 'form');
+                            eventsHandler();
+                            fadeMessage();
+                            break;
+
+                        default:
+                            // any other (probably a crash)
+                            hideAndDestroyModal(modal);
+                            slideDefaultErrorMessage();
+                    }
+                });
+            });
+        }
+</script>
+
+@emptyModalframe("manageContributionsToExplore", false, "form", "", false) {
+    <div class="modal-header">
+        <h5 id="manageContributionsToExplore_title" class="modal-title small-caps text-muted">
+            @if(!contributionType.isMajorContributionType){
+                @Messages("browse.search.topic")
+            }else{
+                @Messages("browse.search." + contributionType.name.toLowerCase)
+            }
+        </h5>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <form id="contributions-form" class="col-12">
+                    <fieldset>
+                        @hiddenFormField(contributionsToExploreForm("contributionType"))
+                        @hiddenFormField(contributionsToExploreForm("groupId"))
+
+                        <div id="contributions" class="controls row">
+                            @repeatWithIndex(contributionsToExploreForm("contributions"), min = 1) { (field, i) =>
+                                @entryFlexFormGroup("contributions_".concat(i.toString)) {
+
+                                    @hiddenFormField(contributionsToExploreForm(field.name.concat(".contributionToExploreId")))
+
+                                    <div class="col-md-9 input-field">
+                                        @hiddenFormField(contributionsToExploreForm(field.name.concat(".id")))
+
+                                        @textInput(
+                                            contributionsToExploreForm(field.name.concat(".contributionName")),
+                                            Messages("general.filter.ctype." + contributionType.id)
+                                        )
+                                    </div>
+
+                                    <div class="col-md-3 input-field">
+                                        @numberInput(
+                                            contributionsToExploreForm(field.name.concat(".order")),
+                                            Messages("explore.cte.order.title"),
+                                            true,
+                                            null, null, null, null,
+                                            "1",
+                                            "99"
+                                        )
+                                    </div>
+                                }
+
+                                @mapErrors(contributionsToExploreForm, field.name.toString)
+                            }
+
+                        </div>
+                    </fieldset>
+                </form>
+
+                <div class="col-12 mt-5 mb-5">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="flex-grow-1">
+            <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="fa fa-times-circle"></span> &nbsp; @Messages("general.btn.cancel")
+            </button>
+        </div>
+
+        <button id="submit-btn" type="button" class="btn btn-primary">@Messages("general.btn.save")</button>
+    </div>
+}

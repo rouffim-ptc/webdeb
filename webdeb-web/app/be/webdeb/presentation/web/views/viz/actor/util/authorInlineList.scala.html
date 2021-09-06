@@ -1,0 +1,43 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Text's authors as a comma separated list with their names being hyperrefs to their details page
+*
+* @param authors the list of actors to be transformed to a comma separated list of authors
+* @param pane the author viz pane for the link
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorSimpleForm
+
+
+@(
+        authors : List[ActorSimpleForm],
+        pane : EActorVizPane = null
+)
+
+
+@Html(authors.map(a =>
+  Html("<a class=\"primary\" href=\"" + be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(
+    a.getId, if(pane != null){pane.id()}else{-1}, 0) + "\">" + a.getFullname + "</a>")).mkString(", ")
+)

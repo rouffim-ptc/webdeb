@@ -1,0 +1,90 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Modal page with all fields to encode/update a project group
+*
+* @param groupForm the form that holds the project group values
+* @param map the message map to display (if any)
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.account.admin.project.ProjectGroupForm
+@import be.webdeb.presentation.web.views.html.util.{noerrorForm, bootstrapInput, hiddenFormField, message}
+
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@(
+        groupForm: Form[ProjectGroupForm],
+        map : java.util.Map[String, String]
+)
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+@emptyModalframe("create-projectgroup-modal", true, "default", "", false) {
+    <div class="modal-header">
+        <h5 class="modal-title small-caps text-muted">
+            @Messages("projet.group.edit")
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div id="form-content" class="row">
+                <div class="col-12 mb-3">
+                    <div class="instructions">@Messages("general.required.fields")</div>
+                </div>
+                <form id="projectgroup-form" class="col-12" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 input-field">
+                            @textInput(
+                                groupForm("name"),
+                                Messages("project.group.name")
+                            )
+                            </div>
+                            <div class="col-12 col-sm-6 input-field">
+                            @textInput(
+                                groupForm("technicalName"),
+                                Messages("project.group.technicalName")
+                            )
+                            </div>
+                        </div>
+                        @hiddenFormField(groupForm("id"))
+                        @hiddenFormField(groupForm("projectId"))
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="flex-grow-1">
+            <button id="cancel-btn" type="button" name="cancel" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+        </div>
+        <button id="submit-btn" type="button" name="submit" class="btn btn-primary" title="@Messages("group.manage.btn.title")">
+            @Messages("project.group.submit")
+        </button>
+    </div>
+}

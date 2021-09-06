@@ -1,0 +1,144 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Simple text content
+*
+* @param text the text to display the details for
+* @param user current user profile
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.views.html.entry.citation.citationEditBox
+@import be.webdeb.presentation.web.views.html.entry.citation.citationSimpleForm
+@import be.webdeb.core.api.text.ETextSourceType
+@(
+        text: TextHolder,
+        user: WebdebUser,
+        withCitationForm : Boolean = false,
+        withHighlights : Boolean = false,
+        withLimit : Boolean = false
+)
+
+@if((text.getFilename != null && text.getFilename.contains(".") && user.mayViewTextContent(text.getId)) ||
+    (text.getUrl != null && (text.getTextSourceType != ETextSourceType.PDF.id() || text.getUrl.endsWith(".pdf")) && !text.getUrl.isEmpty && (!user.mayViewTextContent(text.getId) || text.getTextarea.isEmpty))) {
+
+    @if(withCitationForm){
+        <div href="text-iframe-instructions" class="instructions p-0 mb-3">
+            @Messages("text.args.add.new")
+        </div>
+    }
+
+    <div class="text-resume-div">
+
+        @if(text.getTextSourceType == ETextSourceType.PDF.id() || (text.getUrl != null && text.getUrl.endsWith(".pdf"))) {
+            @if(text.getFilename != null && text.getFilename.endsWith(".pdf") && user.mayViewTextContent(text.getId)){
+                <embed src="/external/@text.getFilename" type="application/pdf">
+            } else { @if(text.getUrl != null) {
+                    @if(text.getUrl != null && text.getUrl.startsWith("https") && text.getUrl.endsWith(".pdf") && user.mayViewTextContent(text.getId)) {
+                        <iframe src="@text.getUrl" >
+                            <p>Your browser does not support iframes.</p>
+                        </iframe>
+                    } else {
+                        <a href="@text.getUrl" class="primary">@Messages("general.goto.source")</a>
+                    }
+                } else {
+                    @Messages("text.args.unautautorized")
+                }
+            }
+        } else {
+            @if(!text.getEncodedUrl.isEmpty) {
+                <iframe id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
+                    <p>Your browser does not support iframes.</p>
+                </iframe>
+            }
+        }
+
+        @if(withCitationForm) {
+            <div class="text-complete-citation-form">
+                @citationSimpleForm()
+            </div>
+        }
+    </div>
+}else{
+    <div class="text-div">
+        <blockquote>
+        @if(!text.getTextarea.isEmpty && user.mayViewTextContent(text.getId)) {
+
+            @if(withCitationForm){
+                <div class="instructions p-0 mb-3">
+                    @Messages("text.args.add.new")
+                </div>
+            }
+
+            <div>
+
+                <div class="text-complete">
+                    <div class="text-complete-content @if(withLimit){limited}">
+                        @Html(text.getTextarea)
+                    </div>
+
+                    @* "add new excerpt" box *@
+                    <div class="highlighter-container" style="display:none">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <i class="fas fa-sort-up"></i>
+                        </div>
+                        <div>
+                            @citationEditBox(text, user)
+                        </div>
+                    </div>
+
+                    <div class="excerpt-too-long-msg" style="display: none">
+                        @Messages("citation.error.original.length")
+                    </div>
+                </div>
+
+                @if(withCitationForm) {
+                    <div class="text-complete-citation-form">
+                        @citationSimpleForm()
+                    </div>
+                }
+
+                <br>
+                <br>
+            </div>
+        } else {
+            <div class="pt-2 pb-2">
+                @if(!user.mayViewTextContent(text.getId)) {
+                    @Messages("text.args.unautautorized")
+                } else {
+                    @Messages("text.args.nocontent")
+                }
+            </div>
+
+            @if(withCitationForm) {
+
+                <hr>
+
+                <div class="text-complete-citation-form">
+                    @citationSimpleForm()
+                </div>
+            }
+        }
+        </blockquote>
+    </div>
+}

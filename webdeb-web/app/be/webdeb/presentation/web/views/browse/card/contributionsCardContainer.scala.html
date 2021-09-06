@@ -1,0 +1,61 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial page that contains contributions card.
+*
+* @param holders the results of the above query (unbound types because we need a switch to construct right card depending on concrete type)
+* @param detailedResult true if the actor holders are displayed as actor-cards and the other contributions are shown with more details
+* @param withLink true if contribution is clickable and links to details page
+* @param withCreator if the creator contributor must be displayed
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.controllers.browse.EOverviewType
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.views.html.browse.card.debateCard
+@import be.webdeb.presentation.web.views.html.browse.card.actorCard
+
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.presentation.web.views.html.browse.card.tagCard
+@import be.webdeb.presentation.web.views.html.browse.card.textCard
+
+@(
+        holders : java.util.Collection[_ <: ContributionHolder],
+        values : ValuesHelper,
+        detailedResult : Boolean = true,
+        withLink : Boolean = true,
+        withCreator: Boolean = false
+)
+
+@for(h <- holders) {
+    @h match {
+        case h : DebateHolder => { @debateCard(h, values, withLink, detailedResult, withCreator) }
+        case h : ActorHolder => { @actorCard(h, values, withLink, detailedResult, withCreator) }
+        case h : TagHolder => { @tagCard(h, values, withLink, detailedResult, withCreator) }
+        case h : TextHolder => { @textCard(h, values, withLink, detailedResult, withCreator) }
+        case _ => { @* ignore *@ }
+    }
+}

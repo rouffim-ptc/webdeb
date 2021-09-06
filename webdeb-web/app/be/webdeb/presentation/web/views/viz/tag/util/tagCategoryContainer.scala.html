@@ -1,0 +1,99 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Tag category
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.ContextContributionHolder
+
+@import be.webdeb.core.api.contribution.link.EJustificationLinkShade
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.toolbar.contributionActionsDiv
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.viz.argument.argumentContainer
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+@import be.webdeb.presentation.web.controllers.entry.tag.ContextHasCategoryLinkForm
+@import be.webdeb.presentation.web.views.html.viz.argument.fakeArgumentContainer
+
+@import be.webdeb.presentation.web.controllers.viz.EContributionActionType
+@(
+        context: ContextContributionHolder,
+        user : WebdebUser,
+        showAll : Boolean = false,
+        withActions : Boolean = false,
+        superContext : Long = null,
+        shade: EJustificationLinkShade = null,
+        link: ContextHasCategoryLinkForm = null,
+        isTagDebate : Boolean = false
+)
+
+<div class="contribution-container tag-category @if(link == null){tag-category-slim} mt-2 @if(shade != null){@shade.toStyleName-container}" @if(link != null){
+                                                                                    data-id="@link.getCategory.getId"
+                                                                                    data-link="@link.getId"}
+                                                                                    data-context="@if(superContext != null){@superContext}else{@context.getId}"
+                                                                                    @if(shade != null){data-shade="@shade.id"}
+                                                                                    @if(superContext != null){data-sub-context="@context.getId"}>
+
+    <div class="contribution-container-header d-flex align-items-center justify-content-center">
+        <h4 class="flex-grow-1 m-0 pr-3 pl-3 tag-category-title @if(shade != null){@shade.toStyleName}">
+            @if(link != null){
+                @link.getCategory.getTagName
+            }else {
+                @Messages("debate.categorty.unclassified")
+            }
+        </h4>
+
+        @if(withActions) {
+            <div class="d-flex justify-content-end" style="min-width: 55px">
+                @contributionActionsDiv(EContributionType.TAG, user, true, if(link == null){scala.collection.mutable.Set(EContributionActionType.ADD)}else{null})
+            </div>
+        }
+    </div>
+
+    <div class="contribution-container-content @if(shade != null){contribution-container-@shade.toStyleName} flex-grow-1">
+
+        <div>
+
+            @for(arg <- if(link != null){link.getCategory.getArguments(shade)}else{context.getArguments(shade)}){
+                @argumentContainer(arg.getArgument, user, showAll, withActions)
+            }
+
+            @if(context.getNbCitationsLinks(if(link == null){-1}else{link.getCategory.getId}, shade) > 0){
+                @fakeArgumentContainer(Messages("argument.fake.title"), if(superContext != null){superContext}else{context.getId}, if(superContext != null){context.getId}else{null},
+                    context.getNbCitationsLinks(if(link == null){-1}else{link.getCategory.getId}, shade),
+                    if(link == null){-1}else{link.getCategory.getId},
+                    shade,
+                    user)
+            }
+
+            @if((isTagDebate && context.getAllCitations.isEmpty) ||
+                (!isTagDebate &&( (link != null && !link.getCategory.hasContent(shade))
+                || (link == null && !context.hasContent(shade))))) {
+
+                <div class="pl-5 pr-5 mt-3 mb-3">0<i class="ml-1 @Messages("browse.search.tip.CITATION")"></i></div>
+            }
+        </div>
+
+    </div>
+</div>
+

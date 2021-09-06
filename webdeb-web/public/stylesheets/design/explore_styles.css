@@ -1,0 +1,142 @@
+/*
+ * whatis content
+ */
+
+.whatis_content h3, .contribution-card p{
+  color: #484848;
+}
+
+.webdeb-logo {
+  margin-bottom: 2rem;
+  width: 209px; }
+
+.explore_img {
+  width: 300px;
+}
+@media screen and (max-width: 992px) {
+  .explore_img {
+    display: none;
+  }
+}
+
+.text-header {
+  color: #F8F8F8;
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.5;
+}
+
+
+.collective_img{
+  top: -20px;
+  width: 200px;
+  order: 2;
+  padding-bottom: .5rem;
+  position: relative;
+}
+
+.covid_img {
+  max-width: 800px;
+}
+
+.whatis_content_block{
+  max-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .whatis_content_block{
+    width: 500px;
+  }
+}
+
+.contribution-card-container.three > .super-contribution-card {
+  width: 32%;
+}
+@media screen and (max-width: 992px) {
+  .contribution-card-container.three > .super-contribution-card{
+    width: 48%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .contribution-card-container.three > .super-contribution-card {
+    width: 100%;
+  }
+}
+
+.contribution-card-container.four > .super-contribution-card {
+  width: 23%;
+}
+@media screen and (max-width: 992px) {
+  .contribution-card-container.four > .super-contribution-card {
+    width: 32%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .contribution-card-container.four > .super-contribution-card {
+    width: 100%;
+  }
+}
+
+.contribution-card .stat {
+  cursor: pointer;
+}
+
+.contribution-card .card-img-container-container {
+  background-color: silver;
+}
+.contribution-card .card-img-container {
+  background-color: white;
+  height: 140px;
+  width: 100%;
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.contribution-card .card-img-container.person {
+  width: 140px;
+  background-size: 115%;
+  border-radius: 200px;
+}
+.contribution-card .card-img-container.org {
+  background-size: 90%;
+}
+.contribution-card .card-img-container.debate-default {
+  background-size: 40%;
+}
+
+.contribution-card .description {
+  font-size: 14px;
+  color: #555;
+}
+
+.contribution-card .description.text {
+  font-style: italic;
+}
+
+.contribution-card h5 > a {
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color : black;
+}
+
+.card-text {
+  margin-bottom: .75rem;
+}
+
+.slogan_img {
+  width: 300px;
+  margin: 0 auto 1rem auto; }
+
+.slogan_txt {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 2.5rem; }
+
+.sub_slogan{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+#dropdownMenuSortButton {
+  text-decoration: none;
+}

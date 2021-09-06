@@ -1,0 +1,90 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Debate details showing name, tag and places
+*
+* @param tag the tag to display the details for
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.viz.debate.DebateVizHolder
+@import be.webdeb.presentation.web.views.html.viz.tag.util.tagCategoryContainer
+@import be.webdeb.presentation.web.views.html.viz.tag.util.tagDebateContainer
+@import be.webdeb.presentation.web.views.html.toolbar.debate.debateAddActions
+
+@import be.webdeb.core.api.contribution.link.EJustificationLinkShade
+@import be.webdeb.core.api.debate.EDebateShade
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.debate.EDebateType
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+
+@import be.webdeb.presentation.web.controllers.viz.debate.EDebateVizPane
+
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@import be.webdeb.presentation.web.views.html.viz.common.contributionAlliesOpponents
+@import be.webdeb.core.api.contribution.EAlliesOpponentsType
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@(
+        debateHolder: DebateVizHolder,
+        user : WebdebUser,
+        showAll : Boolean,
+        id : Integer,
+        pov : Integer
+)
+
+<div class="row mt-3 mb-3 debate-arguments debate-arguments-container-@debateHolder.getId">
+
+    <div class="col-12">
+        <div class="d-flex align-items-center mb-3">
+        @navpillMenu("mr-2", "debate-arguments-normal-tab-" + id, true) {
+            <li class="nav-item">
+                <a class="nav-link disabled pl-1 pr-1" href="#">@Messages("general.btn.display.by")</a>
+            </li>
+
+            @navpillMenuItem("debate-arguments-normal-" + id, Messages("viz.debate.arguments.argument"), (pov == null || pov == -1 || pov == 0), "debate-arguments-normal-btn btn-pov")
+
+            @navpillMenuItem("debate-arguments-author-" + id, Messages("viz.debate.arguments.author"), (pov == 1), "btn-pov")
+        }
+        </div>
+
+        @if(!debateHolder.isMultipleDebate){
+            <hr>
+            }
+    </div>
+
+    <div class="col-12">
+    @navContent("", "debate-arguments-normal-tab-" + id) {
+
+        @navContentItem("debate-arguments-normal-" + id, (pov == null || pov == -1 || pov == 0), "contribution-pane-pov contribution-pane-pov-0") {
+            @waitforit("waiting", true)
+            <div class="content"></div>
+        }
+
+        @navContentItem("debate-arguments-author-" + id, pov == 1, "contribution-pane-pov contribution-pane-pov-1") {
+            @waitforit("waiting", true)
+            <div class="content"></div>
+        }
+    }
+    </div>
+
+</div>

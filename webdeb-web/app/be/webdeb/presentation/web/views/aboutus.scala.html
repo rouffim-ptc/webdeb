@@ -1,0 +1,305 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* About page to display details about the team
+*
+* @param user the user profile data
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+    user : WebdebUser
+)
+
+@main(user) {
+
+  <script src="@routes.Assets.at("javascripts/ee.js")" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#ee-btn").on("click", function(e){
+        let bdy = $("body");
+        bdy.empty();
+        let c = $('<div class="col-12 snake-container no-padding"></div>').appendTo(bdy);
+        c.easter();
+        e.preventDefault();
+      });
+    });
+  </script>
+
+  <div class="container mt-3 mb-3">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="small-caps text-muted">@Messages("aboutus.webdeb")</h3>
+        <hr>
+      </div>
+
+      <div class="col-12">
+        <div class="jumbotron my-jumbo">
+          <p>
+            @Html(Messages("aboutus.webdeb.desc"))
+          </p>
+        </div>
+
+        <h3 class="small-caps text-muted">@Messages("aboutus.webdeb.consortium")</h3>
+        <div class="row">
+          <div class="col-sm-6 col-12">
+            <h4>@Messages("aboutus.webdeb.consortium.ucl")</h4>
+            <hr>
+            <div class="col-12 no-padding">
+              <a href="https://www.uclouvain.be/" target="_blank>">
+                <img src="@routes.Assets.at("images/logo/ucl.jpg")" alt="UCLouvain" class="mw-100 center-block">
+              </a>
+            </div>
+            <div class="col-6 no-padding">
+              <a href="https://www.uclouvain.be/girsef.html" target="_blank>">
+                <img src="@routes.Assets.at("images/logo/girsef.png")" alt="Girsef" class="mw-100 center-block">
+              </a>
+            </div>
+            <div class="col-6 no-padding">
+              <a href="https://www.uclouvain.be/cental.html" target="_blank">
+                <img src="@routes.Assets.at("images/logo/cental.png")" alt="Cental" class="mw-100 center-block">
+              </a>
+            </div>
+          </div>
+          <div class="col-sm-6 col-12">
+            <h4>@Messages("aboutus.webdeb.consortium.unamur")</h4>
+            <hr>
+            <div class="col-xs-6">
+              <a href="https://www.unamur.be/" target="_blank>">
+                <img src="@routes.Assets.at("images/logo/unamur.png")" alt="UNamur" class="mw-100 center-block">
+              </a>
+            </div>
+            <div class="col-xs-6">
+              <a href="https://directory.unamur.be/entities/nadi" target="_blank>">
+                <img src="@routes.Assets.at("images/logo/nadi.png")" alt="NADI" class="mw-100 center-block">
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <h3 class="small-caps text-muted">@Messages("aboutus.webdeb.partners")</h3>
+        <div class="row">
+          <div class="col-sm-4 col-6">
+            <a href="http://www.audaxis.com/">
+              <img src="@routes.Assets.at("images/logo/audaxis.png")" alt="Audaxis" class="center-block mw-100">
+            </a>
+          </div>
+          <div class="col-sm-4 col-6">
+            <a href="http://www.earlytracks.com/">
+              <img src="@routes.Assets.at("images/logo/earlytracks.png")" alt="Early Tracks" class="center-block mw-100">
+            </a>
+          </div>
+          <div class="col-sm-4 col-12">
+            <a href="http://www.wallonie.be/">
+              <img src="@routes.Assets.at("images/logo/wallonie.png")" alt="Wallonie" class="center-block mw-100">
+            </a>
+          </div>
+        </div>
+
+        <hr>
+
+        <div>
+          <h3 class="small-caps text-muted">@Messages("aboutus.webdeb.promoters")</h3>
+
+          <div class="row">
+            <div class="col-sm-4 text-center huge-font">
+              <a class="btn btn-link primary" href="http://www.uclouvain.be/bernard.delvaux" target="_blank">Bernard Delvaux</a>
+            </div>
+            <div class="col-sm-4 text-center huge-font">
+              <a class="btn btn-link primary" href="http://www.uclouvain.be/cedrick.fairon" target="_blank">Cédrick Fairon</a>
+            </div>
+            <div class="col-sm-4 text-center huge-font">
+              <a class="btn btn-link primary" href="http://directory.unamur.be/staff/pyschobb" target="_blank">Pierre-Yves Schobbens</a>
+            </div>
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <h3 class="small-caps text-muted">@Messages("aboutus.webdeb.actors.team")</h3>
+        <hr style="width: 0;">
+
+        <div class="row featurette center-flex">
+          <div class="col-md-3 col-sm-4 ">
+            <img class="featurette-image img-responsive center-block" alt="bernard" src="@routes.Assets.at("images/team/bernard.png")">
+          </div>
+
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Bernard Delvaux <span class="text-muted small">Girsef - @Messages("aboutus.webdeb.consortium.ucl")</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.bernard"))
+            </div>
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette center-flex">
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Deniz Uygur <span class="text-muted small">Girsef - @Messages("aboutus.webdeb.consortium.ucl")</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.deniz"))
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-4 ">
+            <img class="featurette-image img-responsive center-block" alt="deniz" src="@routes.Assets.at("images/team/deniz.png")">
+          </div>
+
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette center-flex">
+          <div class="col-md-3 col-sm-4 ">
+            <a id="ee-btn" href=""><img class="featurette-image img-responsive center-block" alt="martin" src="@routes.Assets.at("images/team/martin.png")"></a>
+          </div>
+
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Martin Rouffiange <span class="text-muted small">Girsef - @Messages("aboutus.webdeb.consortium.ucl")</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.martin"))
+            </div>
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+
+        <div class="row featurette center-flex">
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Pierre-Yves Schobbens <span class="text-muted small">NADI - @Messages("aboutus.webdeb.consortium.unamur")</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.pyschobb"))
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-4 ">
+            <img class="featurette-image img-responsive center-block" width="200" alt="pyschobb" src="@routes.Assets.at("images/team/pyschobb.jpg")">
+          </div>
+
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette center-flex">
+          <div class="col-md-3 col-sm-4 ">
+
+          </div>
+
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Robin Dumont <span class="text-muted small">Girsef - @Messages("aboutus.webdeb.consortium.ucl")</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.robin"))
+            </div>
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <h3 class="small-caps text-muted">@Messages("aboutus.webdeb.actors.formerteam")</h3>
+
+        <hr style="width: 0;">
+
+        <div class="row featurette center-flex">
+          <div class="col-md-3 col-sm-4">
+            <img class="featurette-image img-responsive center-block" alt="andre" src="@routes.Assets.at("images/team/amelie.png")">
+          </div>
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Amélie Cougnon <span class="text-muted small">Cental - @Messages("aboutus.webdeb.consortium.ucl")</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.amelie"))
+            </div>
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette center-flex">
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Andre Bittar <span class="text-muted small">Cental - @Messages("aboutus.webdeb.consortium.ucl")</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.andre"))
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-4">
+            <img class="featurette-image img-responsive center-block" alt="andre" src="@routes.Assets.at("images/team/andre.png")">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette center-flex">
+          <div class="visible-xs">
+            <img class="featurette-image img-responsive center-block" alt="fabian" src="@routes.Assets.at("images/team/fabian.png")">
+          </div>
+
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Fabian Gilson <span class="text-muted small">CSSE - University of Canterbury</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.fabian"))
+            </div>
+          </div>
+
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette center-flex">
+          <div class="col-md-9 col-sm-8">
+            <h2 class="featurette-heading">
+              Pierre Beaulieu <span class="text-muted small">Girsef - @Messages("aboutus.webdeb.consortium.ucl")</span>
+            </h2>
+            <div class="larger-font text-justify">
+            @Html(Messages("aboutus.webdeb.pierre"))
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-4 ">
+            <img class="featurette-image img-responsive center-block" alt="deniz" src="@routes.Assets.at("images/team/pierre.png")">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+}

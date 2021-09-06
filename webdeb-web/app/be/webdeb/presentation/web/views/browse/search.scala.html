@@ -1,0 +1,177 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Search page. Contains a search bar. When going directly here (without being redirected from a prefilled-search),
+* will display overviews of results (using a switch on concrete type of ContributionHolder)
+*
+* @param searchForm the form for the search query
+* @param elements a list of contribution holders to be displayed
+* @param user the user profile data
+* @param map the message map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.views.html.browse.searchbar
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, message, scrollTopWrapper}
+
+@import helper._
+
+@import be.webdeb.core.api.contributor.EContributionVisibility
+
+@import be.webdeb.core.api.contributor.Group
+@import be.webdeb.presentation.web.views.html.util.waitingContainer
+@import be.webdeb.presentation.web.views.html.util.noResultMessage
+@import be.webdeb.presentation.web.views.html.browse.searchContent
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+    searchForm : Form[SearchForm],
+    contributionType: EContributionType,
+    helper : ContributionHelper,
+    elements : java.util.Collection[ContributionHolder],
+    user : WebdebUser,
+    map : java.util.Map[String, String]
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+@scripts = {
+  <title>
+    @if(searchForm("latest").value == "true") {
+      @Messages("dash.lastentries.title", user.getGroup.getGroupName)
+    } else {
+      @if(searchForm("isArgument").value == "true" && searchForm("isText").value == "true") {
+        @Messages("browse.search.title", user.getGroup.getGroupName)
+      } else {
+        @Messages("browse.view.title." + contributionType.id(), user.getGroup.getGroupName)
+      }
+    } @Messages("general.metatitle")
+  </title>
+  <meta name="description" content="@Messages("browse.search.tooltip")">
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      let container = $('.search-container').first();
+      let form = container.find('.filters-container-header').first();
+
+      container.scrollerPager(
+              [form, true, false],
+              doSearch,
+              {
+                  search : true,
+                  toExecBefore : execBeforeSearch
+              }
+      );
+
+     /* mainSearchbars.keypress(function(e) {
+        if (e.which === 13) {
+          e.preventDefault();
+          handleSearch(mainSearchbars);
+        }
+      });
+@*
+      query.each(function(){
+        addSearchTypeahead(this, @user.getGroup.getGroupId);
+      });
+
+      if ('@searchForm("queryString").value' !== '') {
+        handleSearch();
+      }
+*@
+      // because we have a wrapper over the input and search buttons to make them nicer
+      var fakeinput = $('.fake-input');
+      fakeinput.find('input').on('focus', function () {
+        fakeinput.addClass('focused');
+      });
+
+      fakeinput.find('input').on('focusout', function () {
+        fakeinput.removeClass('focused');
+      });
+
+      // handle form post by ajax
+      $('.search-general-btn').on('click', function(e) {
+        handleSearch(mainSearchbars);
+      });
+
+      // handle form post by ajax
+      $('.searchbtn').on('click', function(e) {
+        handleSearch(mainSearchbars);
+      });
+*/
+    });
+@*
+    function handleSearch(searchContainer) {
+      var search = '#search';
+
+      if(event !== undefined ){
+        search = searchContainer;
+        search.find('#queryString').val("");
+      }
+      executeSearch(search, '#result-anchor', undefined, true, false).then(function () {
+        @if(user.getGroup.getContributionVisibility.id() > EContributionVisibility.PUBLIC.id()){
+          var showfilter_btn = $("#show-filter");
+          var expsearch_btn = $("#expand-search");
+          var amongGroup = $("#amongGroup");
+
+          if(showfilter_btn.exists() && expsearch_btn.exists() && amongGroup.exists()) {
+            expsearch_btn.find(".btn-text").html(Messages((amongGroup.val() === "-1" ? "browse.search.expand" : "browse.search.reduce")));
+            var exp = expsearch_btn.clone();
+            exp.show();
+            showfilter_btn.after(exp);
+            exp.on("click", function(e){
+              amongGroup.val((amongGroup.val() === "-1" ? "@user.getGroup.getGroupId" : "-1"));
+              handleSearch(e);
+            });
+          }
+        }
+      });
+    } *@
+  </script>
+}
+
+@main(user, scripts) {
+
+  @message(map)
+
+  <div class="container">
+
+    @searchContent(
+      user,
+      searchForm,
+      contributionType,
+      if(searchForm("latest").value == "true") {Messages("dash.lastentries2.title.1").concat(if(user.getGroupId != Group.getGroupPublic){Messages("browse.search.ingroup", user.getGroup.getGroupName)}else{""})}else{Messages("browse.view.title." + contributionType.id()).concat(if(user.getGroupId != Group.getGroupPublic){Messages("browse.search.ingroup", user.getGroup.getGroupName)}else{""})},
+      helper,
+      "ml-3 mr-3 mb-3"
+    )
+
+    <button type="button" id="expand-search" class="btn btn-link btn-filter" style="display:none; margin-left:15px;">
+      <i class="fa fa-arrows-h"></i>&nbsp;<span class="btn-text">@Messages("browse.search.expand")</span>
+    </button>
+
+  </div>
+}

@@ -1,0 +1,125 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial page to display text content with eventually annotation
+*
+* @param text the text details (may not be null, but empty)
+* @param user the user profile data
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contributor.EPermission
+
+@import be.webdeb.presentation.web.views.html.entry.citation.citationEditBox
+@(
+        text: TextHolder,
+        user : WebdebUser,
+        withHighlighter : Boolean,
+        withYGap : Boolean
+)
+
+<script type="text/javascript">
+    function loadAnnotatedText(annotatedText, withHighlighter, container, content, width){
+        width = width || (content.width() - 20);
+        // request annotated text if we are editing a text and this text is not an external one (pdf)
+        if (@text.getId !== -1) {
+            // call annotator since we are requesting a plain text
+            showMe(container.find('#preview'), true, false);
+            annotatedText = updateAnnotated(content, annotatedText , @text.getId, width);
+
+            if(withHighlighter) {
+                setHighlighter(container, content.find('.textcontent'), @withYGap);
+            }
+
+            let addNewCitation = container.find('.btn-new-citation-from-excerpt');
+            addNewCitation.off('click');
+            addNewCitation.click(function(){
+                addNewCitation.remove();
+                redirectToNewCitation(@text.getId, addNewCitation.find('.excerpt-to-add').text());
+            });
+        }
+
+        return annotatedText;
+    }
+</script>
+
+    @* Text area no padding is important for paging to work *@
+    <div class="textzone @if(withHighlighter){col-11}else{col-12} no-padding">
+            <!--  Caption -->
+        @* @if(!user.getGroup.getPermissions.contains(EPermission.DISABLE_ANNOTATION)) {
+            <div id="nlpboxes" style="display: none;">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><span class="text-muted"><i>@Messages("text.args.label.nlphelp") &nbsp;:</i></span></td>
+                        <td class="spaced annotated">
+                            <span class="organisation">@Messages("entities.label.organisation")</span>
+                            <span class="personne">@Messages("entities.label.personne")</span>
+                            <span class="lieu">@Messages("entities.label.lieu")</span>
+                            <span class="temps">@Messages("entities.label.temps")</span>
+                            <span class="profession">@Messages("entities.label.profession")</span>
+                            <span class="conn">@Messages("entities.label.conn")</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }else{
+            <hr>
+        } *@
+        <h4 id="preview" style="display: none" class="text-muted">
+        @Html(Messages("text.args.preview"))
+        </h4>
+
+        <h4 id="annotation-error" style="display: none" class="text-muted">
+            @Messages("argument.label.type.error") &nbsp;
+        </h4>
+
+        <div id="textarea" class="textcontent"></div>
+
+        @* "add new excerpt" box *@
+        <div class="highlighter-container" style="display:none">
+            <div class="d-flex align-items-center justify-content-center">
+                <i class="fas fa-sort-up"></i>
+            </div>
+            <div>
+            @citationEditBox(text, user)
+            </div>
+        </div>
+    </div>
+
+@*
+
+    @if(withHighlighter) {
+        <div class="textcontent bottom-aligned col-xs-1 no-padding">
+            <div class="next-page-indicator" style="display: none;">
+                <span class="fa fa-arrow-circle-o-right" style="font-size : 24px;"></span>
+            </div>
+        </div>
+    }
+
+    <div class="@if(withHighlighter){col-xs-10 offset-1}else{col-12} hidden-xxs">
+        <div class="pull-left" style="padding:5px">
+            <button type="button" class="btn btn-primary" id="reload-btn" title="@Messages("text.args.btn.tooltip")" data-placement="bottom" style="display: none">
+            @Messages("text.args.btn")
+            </button>
+        </div>
+    </div>
+*@

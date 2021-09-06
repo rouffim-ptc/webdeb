@@ -1,0 +1,225 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial page to handle affiliations / affiliated of contributors or actors
+*
+* @param form the form that contains the affiliation-related fields
+* @param fieldName actual name of the field in given form
+* @param labelName base name of all labels in form
+* @param person boolean saying if the affiliation concerns a person (true) or an organization (false)
+* @param affiliated a EAffiliationSubtype define the relation type
+* @param title display the title or not
+* @param helper used to fetched organization's affiliation types
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, hiddenFormField, inlineform, noerrorForm, helpbubble}
+@import helper._
+
+@import be.webdeb.core.api.actor.EAffiliationSubtype
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+
+@(
+    form: Form[_],
+    fieldName: String,
+    labelName: String,
+    actorType : EActorType,
+    affiliated: EAffiliationSubtype,
+    title : Boolean,
+    helper: ContributionHelper,
+    classes : String = "",
+    background : String = null
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+
+<div id="@fieldName" class="row @classes" @if(background != null){style="background-color: @background"}>
+  @if(title) {
+    <label class="col-12 control-label">@Messages(labelName + "." + fieldName)
+      @helpbubble("bubble.title", "bubble.entry.actor.".concat(fieldName))
+    </label>
+  }
+
+  <div class="controls col-12 form-super-group">
+    @repeatWithIndex(form(fieldName), min = 1) { (affiliationField, i) =>
+      <div id="@fieldName.concat("_" + i.toString.concat("_aff"))" class="row entry entry-flex input-group input-group-border padding-group smaller-font">
+        <div class="d-flex align-items-center w-100">
+          <div class="row flex-grow-1">
+        @if(affiliated != EAffiliationSubtype.FILIATION) {
+              @if(actorType == EActorType.PERSON) {
+                @if(affiliated == EAffiliationSubtype.AFFILIATION) {
+                  <div class="col-md-6 input-field input-field">
+                    @textInput(
+                      form(affiliationField.name.concat(".function")),
+                      Messages(labelName + ".function"),
+                      null, null, null, null, null, false
+                    )
+                    @hiddenFormField(form(affiliationField.name.concat(".functionid")))
+                  </div>
+                  <div class="col-md-6 input-field">
+                    @textInput(
+                      form(affiliationField.name.concat(".affname")),
+                      Messages(labelName + ".name"),
+                      null, null, null, null, null, false
+                    )
+                    @hiddenFormField(form(affiliationField.name.concat(".affid")))
+                  </div>
+                }else {
+                  <div class="col-md-6 input-field">
+                    @textInput(
+                      form(affiliationField.name.concat(".affname")),
+                      Messages(labelName + ".name"),
+                      null, null, null, null, null, false
+                    )
+                    @hiddenFormField(form(affiliationField.name.concat(".affid")))
+                  </div>
+                  <div class="col-md-6 input-field">
+                    @textInput(
+                      form(affiliationField.name.concat(".function")),
+                      Messages(labelName + ".function"),
+                      null, null, null, null, null, false
+                    )
+                    @hiddenFormField(form(affiliationField.name.concat(".functionid")))
+                  </div>
+                }
+              } else {
+                <div class="col-md-6 input-field">
+                  @selectInput(
+                    form(affiliationField.name.concat(".afftype")),
+                    helper.getAffiliationTypes(ctx.lang.code,
+                      actorType.id(),
+                      if(affiliated == EAffiliationSubtype.AFFILIATED) {0} else {1}),
+                    Messages(labelName + ".afftype"),
+                    Messages(labelName + ".afftype"),
+                    null, null, null, false
+                  )
+                </div>
+              }
+            }
+            @if(affiliated == EAffiliationSubtype.FILIATION || actorType != EActorType.PERSON) {
+              <div class="@if(actorType != EActorType.PERSON){col-md-6} col-12 input-field">
+                @textInput(
+                  form(affiliationField.name.concat(".affname")),
+                  Messages(labelName + ".name"),
+                  null, null, null, null, null, false
+                )
+                @hiddenFormField(form(affiliationField.name.concat(".affid")))
+              </div>
+            }
+
+            @if(affiliated != EAffiliationSubtype.FILIATION) {
+              <div class="col-md-3 col-sm-6">
+                @selectInput(
+                  form(affiliationField.name.concat(".startDateType")),
+                  helper.getPrecisionDateTypes(ctx.lang.code, true),
+                  Messages("actor.label.affiliation.start"),
+                  Messages("actor.label.affiliation.place.starttype"),
+                  null, null,
+                  helpbubble("bubble.title", "bubble.entry.actor.affiliations.start"),
+                  false
+                )
+              </div>
+
+              <div class="col-md-3 col-sm-6 pt-sm-2">
+              @textInput(
+                form(affiliationField.name.concat(".startDate")),
+                "",
+                Messages("actor.place.date"),
+                null, null, null, null, false
+              )
+              </div>
+
+              <div class="col-md-3 col-sm-6">
+                @selectInput(
+                  form(affiliationField.name.concat(".endDateType")),
+                  helper.getPrecisionDateTypes(ctx.lang.code, false),
+                  Messages("actor.label.affiliation.end"),
+                  Messages("actor.label.affiliation.place.endtype"),
+                  null, null,
+                  helpbubble("bubble.title","bubble.entry.actor.affiliations.end"),
+                  false,
+                  "aff-ongoing"
+                )
+              </div>
+
+              <div class="col-md-3 col-sm-6 pt-sm-2">
+              @textInput(
+                form(affiliationField.name.concat(".endDate")),
+                "",
+                Messages("actor.place.date"),
+                null, null, null, null, false, null,
+                if(form(affiliationField.name.concat(".endDateType")).value == "5"){true}else{false}
+              )
+              </div>
+            }
+
+            <div>
+              @hiddenFormField(form(affiliationField.name.concat(".aha")))
+              @checkbox(
+                form(affiliationField.name.concat(".isDisambiguated")),
+                '_name -> affiliationField.name.concat(i.toString).concat("].isDisambiguated"),
+                '_label -> null,
+                'class -> "form-control d-none"
+              )(handler = inlineform, implicitly[Messages])
+              @hiddenFormField(form(affiliationField.name.concat(".lang")))
+              @hiddenFormField(form(affiliationField.name.concat(".fetched")))
+            </div>
+          </div>
+
+          <div class="position-relative ml-1 mr-1 @if(affiliated != EAffiliationSubtype.FILIATION){d-none d-md-flex}else{d-flex}" @if(affiliated == EAffiliationSubtype.FILIATION){style="top: 18px"}>
+            <button class="btn btn-default btn-sm btn-add mr-2 mr-md-0" type="button"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+          </div>
+
+        </div>
+
+        @if(affiliated != EAffiliationSubtype.FILIATION) {
+
+          <div class="d-flex justify-content-end d-md-none ml-1 mr-1 mt-1 mt-md-0 w-100">
+            <button class="btn btn-default btn-sm btn-add mr-2 mr-md-0" type="button"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+          </div>
+
+          <div class="col-12">
+            @* must handle error message by hand for inlineforms *@
+            @form.errors.map { case (key, error) =>
+              @if(key.startsWith(affiliationField.name) && error(0).message != "" && !key.startsWith(affiliationField.name.concat(".profession_name"))
+                      && !key.endsWith(".endDateType") && !key.endsWith(".startDateType")){
+                <div class="invalid-feedback d-block mr-3 mt-2">@Messages(error(0).message)</div>
+              }
+            }
+          </div>
+
+          <div class="col-12">
+            <hr class="hr-small hr-grey">
+          </div>
+        }
+
+      </div>
+
+    }
+  </div>
+</div>

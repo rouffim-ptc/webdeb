@@ -1,0 +1,178 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Main html canvas with the main navigation bar. Bootstrap 4
+*
+* @param user the user profile data
+* @param scripts possibly empty scripts to be appended to this template's scripts
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.toolbar.{languagebox, toolbox}
+@import be.webdeb.presentation.web.views.html.util.currentScopePill
+@import be.webdeb.presentation.web.views.html.template
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@(
+        user : WebdebUser,
+        scripts: Html = Html(""),
+        meta: Html = Html(""),
+        classes : String = "",
+        currentPageId : String = null
+)(content: Html)
+
+@pmessage(message : String, messageType : String, display : Boolean = true, id: String = null) = {
+    <div @if(id != null){id="@id"} class="alert alert-fixed alert-@messageType alert-dismissible fade @if(display){show}" role="alert">
+
+        <strong>@Messages(messageType)</strong>
+
+        <span class="message">
+            @if(message != null){
+                @Messages(message)
+            }
+        </span>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+}
+
+@dangerMessage(message : String, display : Boolean = true, id: String = null) = {
+    @pmessage(message, "danger", display, id)
+}
+
+@warningMessage(message : String, display : Boolean = true, id: String = null) = {
+    @pmessage(message, "warning", display, id)
+}
+
+@successMessage(message : String, display : Boolean = true, id: String = null) = {
+    @pmessage(message, "success", display, id)
+}
+
+@template(user, scripts, meta, currentPageId) {
+
+    <header>
+        <nav class="navbar navbar-expand navbar-light">
+            <a class="navbar-brand" href="@be.webdeb.presentation.web.controllers.routes.Application.tour()">
+                <div class="d-none d-lg-block"><img src="@routes.Assets.at("images/webdeb.png")" height="24" alt="WebDeb"></div>
+                <div class="d-block d-md-none"><img src="@routes.Assets.at("images/webdeb.png")" height="18" alt="WebDeb"></div>
+                <div class="d-none"><img src="@routes.Assets.at("images/webdeb-mini.png")" height="24" alt="WebDeb"></div>
+                <div class="d-none d-md-block d-lg-none"><img src="@routes.Assets.at("images/favicon.png")" height="24" alt="WebDeb"></div>
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto d-none d-md-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.index()">
+                            <i class="fas fa-eye"></i>&nbsp;<span class="d-none d-md-inline">@Messages("general.metatitle.explore.title")</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="@be.webdeb.presentation.web.controllers.entry.routes.EntryActions.contribute">
+                            <i class="fas fa-pencil-alt"></i>&nbsp;<span class="d-none d-md-inline">@Messages("contribute.contribute.title")</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="@be.webdeb.presentation.web.controllers.routes.Application.teach">
+                            <i class="fas fa-chalkboard-teacher"></i>&nbsp;<span class="d-none d-md-inline">@Messages("general.metatitle.teach.title")</span>
+                        </a>
+                    </li>
+
+                    @if(user.getERole.id() > EContributorRole.VIEWER.id()) {
+                        <li class="nav-item dropdown">
+                        @currentScopePill(user, false)
+                        </li>
+                    }
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mr-3 d-none d-md-block">
+                        <form class="form-inline">
+                            <div class="input-group nav-searchbar w-100">
+
+                                <input id="main-query" class="form-control search_input rounded-left" type="text" name="" placeholder="@Messages("bread.search")">
+                                
+                                <div class="input-group-append container-cursor">
+                                    <span class="input-group-text rounded-right"><i class="fas fa-search"></i></span>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+
+                    @if(user.getERole.id() > EContributorRole.VIEWER.id()) {
+                        <li class="nav-item dropdown d-md-none">
+                        @currentScopePill(user, false)
+                        </li>
+                    }
+
+                    <li class="d-block d-md-none">
+                        <a class="nav-link mr-1" href="@be.webdeb.presentation.web.controllers.browse.routes.BrowseActions.search">
+                            <i class="fas fa-search"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item d-md-none d-lg-block">
+                        <a class="nav-link mr-1" href="@be.webdeb.presentation.web.controllers.routes.Application.help">
+                            <i class="larger-font fas fa-question"></i>
+                            <span class="d-none">@Messages("bread.help")</span>
+                        </a>
+                    </li>
+
+                    @toolbox(user)
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="main-content @classes" role="main">
+
+        @dangerMessage("general.message.danger", false, "general-message-danger")
+
+        @warningMessage("general.message.warning", false, "general-message-warning")
+
+        @successMessage("general.message.success", false, "general-message-success")
+
+
+        @dangerMessage(null, false, "general-message-danger-empty")
+
+        @warningMessage(null, false, "general-message-warning-empty")
+
+        @successMessage(null, false, "general-message-success-empty")
+
+        @if(!flash.isEmpty) {
+            @for((key, msg) <- flash) {
+                @key match {
+                    case "success" => { @successMessage(msg) }
+                    case "danger" => { @dangerMessage(msg) }
+                    case _ => {  @warningMessage(msg) }
+                }
+            }
+        }
+
+        @content
+    </main>
+}

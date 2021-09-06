@@ -1,0 +1,142 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Tag details showing name, tag and places
+*
+* @param tag the tag to display the details for
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.viz.tag.TagVizHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.viz.tag.ETagVizPane
+
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+@import be.webdeb.presentation.web.views.html.viz.tag.util.tagContainer
+
+@import be.webdeb.presentation.web.controllers.viz.EActionType
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.util.waitingContainer
+@import be.webdeb.presentation.web.views.html.util.filtersContainer
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        tagHolder: TagVizHolder,
+        user : WebdebUser,
+        helper : ContributionHelper,
+        id : String,
+        pov : Integer
+)
+
+@btnCitation() = {
+    <button type="button" class="btn btn-info contribution-add-citation-btn ml-2" title="" data-id="@tagHolder.getId">
+        <i class="fas fa-plus fixed-size"></i>&nbsp;
+        <span class="d-none d-md-inline">@Messages("general.add.btn.citation") <i class="@Messages("browse.search.tip.CITATION")"></i></span>
+        <span class="d-inline d-md-none">@Messages("general.add.btn")</span>
+    </button>
+
+    @btnClassify()
+}
+
+@btnTag(isParent: Boolean) = {
+    <button type="button" class="btn btn-info contribution-add-tag-btn ml-2" title="" data-id="@tagHolder.getId" data-parent="@isParent">
+        <span><i class="fas fa-plus fixed-size"></i>&nbsp;
+        @if(isParent){
+            @Messages("general.add.btn.tag.parent")
+        } else {
+            @Messages("general.add.btn.tag.child")
+        }
+        <i class="@Messages("browse.search.tip.TAG")"></i></span>
+    </button>
+
+    @btnClassify()
+}
+
+@btnClassify() = {
+    <button type="button" class="btn btn-info context-dragndrop-btn ml-2 d-none d-md-block" data-id="@tagHolder.getId">
+        <i class="fas fa-pencil-ruler"></i>
+        <span class="d-none d-md-inline">@Messages("context.dragndrop.title2")</span>
+        <span class="d-inline d-md-none">@Messages("general.classify.title")</span>
+    </button>
+}
+
+<div class="row mt-3 mb-3">
+        
+    <div class="col-12">
+
+        @navpillMenu("overflow-scroll-x", "tab-citations-" + id, false, "min-width:500px;"){
+            <li class="nav-item">
+                <a class="nav-link disabled pl-1 pr-1" href="#">@Messages("general.btn.in")</a>
+            </li>
+
+            @navpillMenuItem("citations_main-" + id, Messages("viz.tag.arguments.citations"), pov == null || pov == -1 || pov == 0, "btn-pov")
+            @navpillMenuItem("citations_parents-" + id, Messages("viz.tag.arguments.parents.citations"), pov == 1, "btn-pov")
+            @navpillMenuItem("citations_children-" + id, Messages("viz.tag.arguments.children.citations"), pov == 2, "btn-pov")
+        }
+        <hr>
+    </div>
+
+    <div class="col-12 p-0">
+        @navContent("", "tab-citations-" + id) {
+            @navContentItem("citations_main-" + id, pov == null || pov == -1 || pov == 0, "tab-citations") {
+
+                @filtersContainer(user, EContributionType.CITATION, helper, false, false, false, "", null, btnCitation())
+
+                <div class="results-container"></div>
+
+                @waitingContainer()
+
+                <div class="no-result-container">
+                    <p class="instructions mt-2 pl-2 pr-2">@Messages("viz.tag.arguments.citations.empty")</p>
+                </div>
+            }
+
+            @navContentItem("citations_parents-" + id, pov == 1, "tab-citations-parents") {
+
+                @filtersContainer(user, EContributionType.TAG, helper, false, false, false, "", null, btnTag(true))
+
+                <div class="results-container"></div>
+
+                @waitingContainer()
+
+                <div class="no-result-container">
+                    <p class="instructions mt-2 pl-2 pr-2">@Messages("viz.tag.arguments.citations.parents.empty")</p>
+                </div>
+            }
+
+            @navContentItem("citations_children-" + id, pov == 2, "tab-citations-children") {
+
+                @filtersContainer(user, EContributionType.TAG, helper, false, false, false, "", null, btnTag(false))
+
+                <div class="results-container"></div>
+
+                @waitingContainer()
+
+                <div class="no-result-container">
+                    <p class="instructions mt-2 pl-2 pr-2">@Messages("viz.tag.arguments.citations.children.empty")</p>
+                </div>
+            }
+        }
+    </div>
+    
+</div>
+

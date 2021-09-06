@@ -1,0 +1,83 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Async data about election 2019 stats 2
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorSimpleHolder
+@import be.webdeb.presentation.web.views.html.util.waitforit
+
+@import be.webdeb.core.api.actor.EPrecisionDate
+@import be.webdeb.core.api.actor.EActorType
+@(
+        candidates : java.util.List[ActorSimpleHolder],
+        candidatesPartyMap : java.util.Map[Long, Long],
+        politicalPartiesColors : java.util.Map[Long, String],
+        relatedParliamentListIds : java.util.List[Long]
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+                $('.election-chart-header').on('click', function(e){
+                        $($(this).data('target')).toggle();
+                });
+        });
+
+</script>
+
+@*
+@for(candidate <- candidates) {
+        <div class="col-12 no-padding">
+                <div class="election-chart-header flex-container primary" data-target="#list-@candidate.getId"
+                        @if(candidatesPartyMap.containsKey(candidate.getId)){style="background-color: @politicalPartiesColors.get(candidatesPartyMap.get(candidate.getId))"}>
+                        <div style="flex-grow:1">
+                                @affiliationsHighchartsAff(null, candidate, null, EActorType.ORGANIZATION, true, "chartxbig")
+                        </div>
+                        <div class="election-chart-header-cursor">
+                                <i class="far fa-caret-square-down"></i>
+                        </div>
+                </div>
+                <div id="list-@candidate.getId" style="display : none">
+                        @for((funcName, affiliations) <- candidate.getAffiliationsRelatedToByFunction(relatedParliamentListIds)) {
+                                <div class="col-12 flex-container" style="padding : 10px">
+                                        <div style="font-size: 24px;text-decoration: underline;font-weight: bold">@funcName</div>
+                                        <div style="font-size: 22px;padding-right : 5px;padding-left:5px">:</div>
+                                        <div class="flex-container" style="flex-grow: 1;flex-wrap: wrap;padding-top : 7px;">
+                                                @for(aff <- affiliations){
+                                                        <div style="font-size: 20px;padding-left : 10px;padding-right: 10px;">
+                                                                @aff.getFromTypeName @aff.getFrom @if(aff.getFrom != null && aff.getTo != null){ - }
+                                                                @aff.getToTypeName @if(aff.getToTypeId != EPrecisionDate.ONGOING.id){@aff.getTo}
+                                                        </div>
+                                                }
+                                        </div>
+                                </div>
+                                <div class="col-12 no-padding">
+                                        <hr class="hr-small hr-grey">
+                                </div>
+                        }
+                </div>
+        </div>
+}
+        *@

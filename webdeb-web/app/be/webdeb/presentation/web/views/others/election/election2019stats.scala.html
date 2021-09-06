@@ -1,0 +1,291 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Election 2019 stats
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.presentation.web.views.html.others.election.election2019statsSummary
+@(
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title>@Messages("election.2019.stats.title") @Messages("general.metatitle")</title>
+    <meta name="description" content="@Messages("election.2019.stats.desc")">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@Messages("election.2019.stats.title")" />
+    <meta property="og:description" content="@Messages("election.2019.stats.desc")" />
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.otherElectionStats.absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/others/election_stats.svg").absoluteURL()" />
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            let stats = $('.stat-container');
+
+            resizeStats(stats);
+
+            $(window).resize(function(){
+                resizeStats(stats);
+            });
+
+            stats.on('click', function(){
+                if($(this).hasClass("stat-container-nocursor"))
+                    document.location = $(this).data("href");
+            });
+
+        });
+
+        function resizeStats(stats){
+            stats.each(function(){
+                let img = $(this).find(".stat-container-img");
+                img.height($(this).find(".stat-container-text").height());
+                img.find('img').show();
+            });
+        }
+
+    </script>
+
+    <style>
+
+        body{
+            background-color: #a1a1a1;
+        }
+
+        .stat-container h1{
+            text-align: left !important;
+            margin: 0;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .stat-container p:first-child{
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .stat-container .stat-container-img{
+            overflow: hidden;
+        }
+
+        .stat-container p {
+            text-align : left;
+        }
+
+        .stat-container-1{
+            background-color: #374955;
+        }
+
+        .stat-container-1 p {
+            color: white;
+        }
+
+        .stat-container-2{
+            background-color: #F8F8F8;
+        }
+
+        .stat-container-2 p {
+            color : #484848;
+        }
+
+        #webdeb-theme-presentation{
+            background: #F0EAEA;
+        }
+
+        .stat-container-ad{
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        .stat-container-ad p{
+            font-size: 18px;
+            text-align: left;
+        }
+
+        .stat-container-ad .subtitle{
+            color :  #b34a4a;
+            font-weight: bold;
+        }
+
+        .fake-btn{
+            padding : 15px;
+            color: white;
+            width: 250px;
+        }
+
+        .fake-btn:hover{
+            background-color: #22699d !important;
+        }
+
+        .fake-btn-container a, .fake-btn-container a:active, .fake-btn-container a:focus{
+            color: white;
+            text-decoration: none;
+        }
+
+        .fake-btn-1{
+            background-color: #27afbf;
+        }
+
+        .fake-btn-2{
+            background-color: #318acb;
+        }
+
+        .election-link{
+            font-size: 18px;
+        }
+
+        .stat-container-nocursor{
+            cursor : default;
+        }
+    </style>
+}
+
+@statContainer(statId : Integer, typeContainer : Boolean) = {
+    <div class="stat-container @if(typeContainer){stat-container-2}else{stat-container-1} col-12"
+        data-href="@be.webdeb.presentation.web.controllers.routes.Application.otherElectionStatsPage(statId)">
+
+        @if(!typeContainer){
+            <div class="stat-container-img text-center col-lg-5 visible-lg">
+                <img src="@routes.Assets.at("images/others/election/" + statId + "/graph1.svg")" class="image-selectable" alt="graph1" style="max-width: 100%;display: none;">
+            </div>
+        }
+
+        <div class="stat-container-text col-12 col-lg-7 no-padding-xs">
+            <p>
+                @Messages("election.2019.stats." + statId + ".stat.desc.1")
+            </p>
+            <p>
+                @Messages("election.2019.stats." + statId + ".stat.desc.2")
+            </p>
+            <p>
+                @Messages("election.2019.stats." + statId + ".stat.desc.3")
+            </p>
+            <div class="fake-btn-container visible-lg">
+                <a  href="@be.webdeb.presentation.web.controllers.routes.Application.otherElectionStatsPage(statId)">
+                    <div class="fake-btn @if(typeContainer){fake-btn-2}else{fake-btn-1} text-center">
+                    @Messages("general.more")
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        @if(typeContainer){
+            <div class="stat-container-img text-center col-lg-5 visible-lg">
+                <img src="@routes.Assets.at("images/others/election/" + statId + "/graph1.svg")" class="image-selectable" alt="graph1" style="max-width: 100%;display: none;">
+            </div>
+        }
+
+        <div class="text-center col-12 hidden-lg">
+            <img src="@routes.Assets.at("images/others/election/" + statId + "/graph1.svg")" class="image-selectable" alt="graph1" style="max-width: 100%">
+        </div>
+    </div>
+    <div class="fake-btn-container hidden-lg @if(typeContainer){stat-container-2}else{stat-container-1}" style="padding-left : 15px;padding-right: 15px;">
+        <a  href="@be.webdeb.presentation.web.controllers.routes.Application.otherElectionStatsPage(statId)">
+            <div class="fake-btn @if(typeContainer){fake-btn-2}else{fake-btn-1} text-center">
+                <span style="font-size: 20px;position : relative;top : 5px;">@Messages("general.more")</span>
+            </div>
+        </a>
+    </div>
+}
+
+@main(user, scripts) {
+
+    <div id="webdeb-theme-presentation" class="row">
+        <div class="col-md-12 col-lg-9 no-padding">
+
+            <div class="stat-container stat-container-1 stat-container-nocursor col-12">
+                <h1>@Messages("election.2019.stats.title")</h1>
+                <h3>@Messages("election.2019.stats.desc")</h3>
+            </div>
+
+            @statContainer(2, true)
+            @statContainer(5, false)
+            @statContainer(4, true)
+            @statContainer(3, false)
+            @statContainer(1, true)
+        </div>
+
+        <div class="stat-container-ad col-md-12 col-lg-3">
+            <div class="flex-container col-12 no-padding"
+                style="align-items: center;align-content: center;margin-top: 15px;margin-bottom: 15px;font-size: 18px;">
+                <div style="margin-right: 20px;">
+                    <img src="@routes.Assets.at("images/webdeb.png")" height="24" alt="WebDeb">
+                </div>
+                <div style="font-weight: bold;">
+                    @Html(Messages("election.2019.stats.ad.title"))
+                </div>
+            </div>
+
+            <p class="subtitle">@Messages("election.2019.stats.ad.subtitle.1")</p>
+            <hr class="hr-small hr-grey">
+            <p>@Html(Messages("election.2019.stats.ad.desc.1"))</p>
+            <br>
+            <p>@Html(Messages("election.2019.stats.ad.desc.2"))</p>
+            <p>@Html(Messages("election.2019.stats.ad.desc.3"))</p>
+            <br>
+            <p class="subtitle">@Messages("welcome.index.2.title")</p>
+            <hr class="hr-small hr-grey">
+            <p>
+                @Html(Messages("election.2019.stats.ad.desc.4"))
+                <a target="_blank" href="https://www.youtube.com/embed/nSZ2tKSpnJ8" class="primary">
+                    @Messages("election.2019.stats.ad.desc.5")
+                </a>
+            </p>
+            <br>
+            <p class="subtitle">@Messages("election.2019.stats.ad.subtitle.2")</p>
+            <hr class="hr-small hr-grey">
+            <div class="text-center">
+                <a class="election-link" href="@be.webdeb.presentation.web.controllers.routes.Application.otherElection">
+                    <img src="@routes.Assets.at("images/others/election_xs.png")" alt="graph1" style="width: 100%">
+                </a>
+            </div>
+            <div class="election2 text-center" style="max-width: 600px;margin:auto">
+                <a class="election-link" href="@be.webdeb.presentation.web.controllers.routes.Application.otherElection">@Messages("election.2019.title.2")</a>
+            </div>
+            <br>
+            <p class="subtitle">@Messages("election.2019.stats.ad.subtitle.3")</p>
+            <hr class="hr-small hr-grey">
+            <iframe src="https://www.youtube.com/embed/y1-7s3siotg" frameborder="0" height="300" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width : 100%"></iframe>
+            <br>
+            <br>
+
+            <p class="subtitle">@Messages("election.2019.stats.ad.subtitle.4")</p>
+            <hr class="hr-small hr-grey">
+            <div class="text-center">
+                <a class="election-link" href="@be.webdeb.presentation.web.controllers.routes.Application.otherElectionStatsPage(6)">
+                    <img src="@routes.Assets.at("images/others/election/6/graph6.svg")" alt="graph1" style="width: 100%;background-color: white">
+                </a>
+            </div>
+            <div class="election2 text-center" style="max-width: 600px;margin:auto">
+                <a class="election-link" href="@be.webdeb.presentation.web.controllers.routes.Application.otherElectionStatsPage(6)">@Messages("election.2019.stats.6.title")</a>
+            </div>
+            <br>
+        </div>
+    </div>
+}

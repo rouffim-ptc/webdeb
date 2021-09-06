@@ -1,0 +1,153 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to search for groups and join one
+*
+* @param user the user profile data
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+
+
+@(
+    user : WebdebUser
+)
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var input = $('#search-group');
+    var join = $('#join-btn');
+
+    // add typeahead for open groups
+    addGroupTypeahead(input);
+
+    // execute search on enter key or button pressed
+    $('#search-group-btn').on('click', function() {
+      if (input.val() !== '') {
+        displayGroupResult(input, join);
+      }
+    });
+
+    input.on('typeahead:selected', function() {
+      if (input.val() !== '') {
+        displayGroupResult(input, join);
+      }
+    });
+
+    input.keyup(function(e) {
+      if (e.keyCode === 13 && input.val() !== '') {
+        displayGroupResult(input, join);
+      }
+    });
+
+    // handle selection of element and join request
+    join.on('click', function () {
+      joinGroup($('.selected').prop('id').split('_')[1]).done(function (data) {
+        $('#my-groups').empty().append(data);
+        addManageGroupListeners();
+        hideAndDestroyModal('#join-group-modal');
+
+      }).fail(function (jqXHR) {
+        showErrorMessage(jqXHR);
+      });
+    });
+  });
+
+  function displayGroupResult(input, join) {
+    join.prop('disabled', true);
+    var waitForIt = $('#wait-for-it');
+    var resultDiv = $('#group-result-anchor');
+
+    // start timer for long search queries
+    var timeout = setTimeout(function () {
+      $(waitForIt).modal('show');
+    }, 1000);
+
+    getGroupResults(input.val()).done(function (html) {
+      clearTimeout(timeout);
+      hideAndDestroyModal(waitForIt);
+
+      $(resultDiv).empty().append(html);
+      new Pager(resultDiv, 3, '#group-pager .pager').reset();
+
+      toggleSummaryBoxes(resultDiv, join);
+      resultDiv.find('.pageable').addClass('pointable-content');
+      resultDiv.find('.pageable').prev('.instructions').show();
+
+    }).fail(function () {
+      // show general error div
+      var errorDiv = $('#error-div');
+      clearTimeout(timeout);
+      hideAndDestroyModal(waitForIt);
+      showMe($(errorDiv), true, true);
+      window.setTimeout(function () {
+        showMe($(errorDiv), false, true);
+      }, 6000);
+    });
+  }
+
+</script>
+
+@emptyModalframe("join-group-modal", false, "default", "", false) {
+  <div class="modal-header">
+    <h3 class="modal-title small-caps text-muted">
+    @Messages("group.join.modal.title")
+    </h3>
+  </div>
+
+  <div class="modal-body row">
+    <div class="col-12">
+      <div class="col-12 input-group">
+
+        <span class="input-group-addon">@Messages("group.join.modal.search.addon")</span>
+        <div class="form-group ">
+          <input id="search-group" value="" class="form-control" autocomplete="off" type="text"
+            placeholder="@Messages("group.join.modal.search.place")">
+        </div>
+
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" id="search-group-btn" title="@Messages("group.join.modal.search.title")" data-placement="bottom">
+            <span class="fa fa-search"></span>
+          </button>
+        </span>
+
+      </div>
+      <p class="instructions">@Html(Messages("group.join.modal.instructions"))</p>
+    </div>
+
+    <div id="group-result-anchor" class="col-12 pointable-content"></div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="pull-left">
+      <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">
+      @Messages("general.btn.cancel")
+      </button>
+      <button id="join-btn" type="button" class="btn btn-info toggleable"
+      title="@Messages("group.join.modal.confirm.title")" data-dismiss="modal" disabled="">
+      @Messages("group.join.modal.confirm.btn")
+      </button>
+    </div>
+    <div id="group-pager" class="pull-right"><ul id="pager" class="pager pagination"></ul></div>
+  </div>
+}

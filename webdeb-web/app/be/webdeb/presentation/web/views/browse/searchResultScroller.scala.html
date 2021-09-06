@@ -1,0 +1,70 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial page that contains search results. Re-used in many workflows, like for the many (embedded) search pages,
+* when displaying all contributions liked to a text, an actor, an argument, a tag, etc.
+*
+* @param query the query string (for which the elements are the search results)
+* @param holders the results of the above query (unbound types because we need a switch to construct right overview depending on concrete type)
+* @param detailedResult true if the actor holders are displayed as actor-cards and the other contributions are shown with more details
+* @param withLink true if contribution is clickable and links to details page
+* @param filters the filter map to be used to filter the results (may be null)
+* @param showFilters true if the filters must be shown when result are displayed
+* @param showPager true if a pager must be displayed at the bottom of the results
+* @param withCreator if the creator contributor must be displayed
+* @param displayType the number of item that can be displayed maximum by line
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.views.html.browse.overview.{actorOverview, argumentOverview, debateOverview, citationOverview, tagOverview, textOverview}
+@import be.webdeb.presentation.web.controllers.browse.EOverviewType
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+
+@import be.webdeb.util.ValuesHelper
+
+@(
+        holders : java.util.Collection[_ <: ContributionHolder],
+        fullquery: String,
+        values : ValuesHelper,
+        detailedResult : Boolean = true,
+        withLink : Boolean = true,
+        withCreator: Boolean = false,
+        displayType : EOverviewType = EOverviewType.SIMPLE
+)
+
+<span class="fullquery d-none">@fullquery</span>
+@for(h <- holders) {
+    @h match {
+        case h : ArgumentHolder => { @argumentOverview(h, withLink, detailedResult, withCreator, displayType) }
+        case h : DebateHolder => { @debateOverview(h, withLink, detailedResult, withCreator, displayType) }
+        case h : CitationHolder => { @citationOverview(h, withLink, detailedResult, withCreator, displayType) }
+        case h : ActorHolder => { @actorOverview(h, withLink, detailedResult, withCreator, displayType) }
+        case h : TextHolder => { @textOverview(h, withLink, detailedResult, withCreator, displayType) }
+        case h : TagHolder => { @tagOverview(h, withLink, detailedResult, withCreator, displayType) }
+        case _ => { @* ignore *@ }
+    }
+}
+

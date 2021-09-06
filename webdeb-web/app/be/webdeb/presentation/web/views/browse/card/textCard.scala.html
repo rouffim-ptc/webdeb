@@ -1,0 +1,60 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Helper template to give a card of an actor
+*
+* @param actor an actor to be displayed
+* @param withLink true if the title is clickable to go to his/her detail's page
+* @param withCreator true if the creator (contributor name) must be shown too
+* @param detailed true if the verbose overview is shown
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.browse.card.contributionCard
+
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+
+@import be.webdeb.presentation.web.controllers.viz.text.ETextVizPane
+@(
+        text: TextHolder,
+        values : ValuesHelper,
+        withLink: Boolean,
+        detailed: Boolean,
+        withCreator: Boolean = false
+)
+
+@contributionCard(text, values, ETextVizPane.CITATIONS.id(), 1, null, withLink, detailed, withCreator){
+
+    <div class="card-text">
+        <div class="description"><i class="@Messages("browse.search.tip.ACTOR")"></i> @Html(text.getAuthorsDescription)</div>
+        @if(text.getPublicationDate != null) {
+            <div class="description mt-1"><i class="far fa-clock"></i> @text.getPublicationDate</div>
+        }
+    </div>
+
+    <div class="card-text">
+        <small class="text-muted">
+            <span class="stat" title="@text.getNbRelatedElements(EContributionType.CITATION) @Messages("contribution.viz.citations.title")"><i class="ml-2 @Messages("browse.search.tip.CITATION")"></i> @text.getNbRelatedElements(EContributionType.CITATION)</span>
+        </small>
+    </div>
+}

@@ -1,0 +1,8 @@
+{
+  "title": "WebDeb REST interface",
+  "name": "WebDeb Collaborative Platform -- REST interface",
+  "version": "0.0.1",
+  "description": "These apidoc pages detail the various services and structures of the REST inteface of the WebDeb Collaborative platform",
+  "layout": "content-only",
+  "command": "apidoc -i app/be/webdeb/application/rest -o public/apidoc-rest/"
+}

@@ -1,0 +1,62 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Extension of the Play select template. May receive "optgroup" keys to generate optgroups.
+* Using a for loop to get all values as they were inserted (to preserve their order)
+*
+* @param field The form field.
+* @param options Sequence of options as pairs of value and HTML.
+* @param args Set of extra attributes ('''_default''' is a special argument).
+* @param handler The field constructor.
+*
+* @author Fabian Gilson (from initial Play template)
+*@
+
+
+@import helper._
+
+
+@(
+    field: play.api.data.Field,
+    options: Seq[(String,String)],
+    args: (Symbol,Any)*
+)(implicit handler: FieldConstructor)
+
+
+@input(field, args:_*) { (id, name, value, htmlArgs) =>
+  @defining( if( htmlArgs.contains('multiple) ) "%s[]".format(name) else name ) { selectName =>
+  @defining( ( !field.indexes.isEmpty && htmlArgs.contains('multiple) ) match {
+    case true => field.indexes.map( i => field("[%s]".format(i)).value ).flatten.toSet
+    case _ => field.value.toSet
+  }){ values =>
+    <select id="@id" name="@selectName" @toHtmlArgs(htmlArgs)>
+      @args.toMap.get('_default).map { defaultValue =>
+        <option class="blank" value="">@defaultValue</option>
+      }
+      @for( (k,v) <- options) {
+        @if(k.contains("optgroup")) {
+          <optgroup label="@Html(v)"></optgroup>
+        } else {
+          <option value="@k" @if(values.contains(k)){selected="selected"}>@v</option>
+        }
+      }
+    </select>
+    }
+  }
+}

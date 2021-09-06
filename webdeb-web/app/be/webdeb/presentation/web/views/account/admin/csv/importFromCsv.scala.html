@@ -1,0 +1,177 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Modal page to select csv files to import actors and/or affiliations
+*
+* @param user the current user
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe, hiddenField, publishInGroup}
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.account.admin.csv.importActorFromCsv
+@import be.webdeb.presentation.web.views.html.account.admin.csv.importCitationFromCsv
+@(
+        eType: EContributionType,
+        user : WebdebUser
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            let modal = $('#import-csv-modal-@eType.id');
+
+            @if(eType == EContributionType.ACTOR){
+                manageFileInput('#csv-for-actor');
+                manageFileInput('#csv-for-affiliation');
+            } else {
+                manageFileInput('#csv-for-citation');
+                manageFileInput('#csv-for-author');
+            }
+
+
+            // handle csv upload
+            modal.find('#submit-csv').on('click', function () {
+                showMe(modal.find('#import-spinner'), true, true);
+                modal.find('#import-csv-modal').find('button').prop('disabled', true);
+
+                uploadCsvFile(modal.find('#csv-form'), @eType.id(), modal.find('#charset').val(), modal.find('#separator').val(), modal.find('#importGroup').val()).done(function (html) {
+                    // show received html with result
+                    showMe(modal.find('#form-content'), false, false);
+                    showMe(modal.find('#import-footer'), false, false);
+                    showMe(modal.find('#import-spinner'), false, false);
+                    modal.find('#csv-response-msg').empty().append(html).removeClass("label label-danger");
+                    modal.find('#import-csv-modal').find('button').prop('disabled', false);
+                    showMe(modal.find('#close-footer'), true, false);
+                }).fail(function(xhr) {
+                    if (xhr.status === 400) {
+                        showMe(modal.find('#import-spinner'), false, false);
+                        modal.find('#import-csv-modal').find('button').prop('disabled', false);
+                        modal.find('#csv-response-msg').empty().append(xhr.responseText).addClass("label label-danger");
+                    } else {
+                        showMe(modal.find('#import-spinner'), false, false);
+                        hideAndDestroyModal('#import-csv-modal');
+                        showErrorMessage(xhr);
+                    }
+                });
+            });
+
+            // refresh on close
+            modal.find('#close-csv').on('click', function () {
+                updateCsvReports();
+            });
+
+        });
+
+        function manageFileInput(subdiv) {
+            showMe($('.file-input-clear'), false, false);
+            $(subdiv + ' .file-input-clear').on('click', function () {
+                $(subdiv + ' .file-input-group').attr("data-content",'').popover('hide');
+                $(subdiv + ' .file-input-group-filename').val('');
+                $(subdiv + ' .file-input-clear').hide();
+                $(subdiv + ' .file-input-group-input input:file').val('');
+            });
+
+            $(subdiv + ' .file-input-group-input').find('input:file').on('change', function () {
+                var file = this.files[0];
+                $(subdiv + ' .file-input-clear').show();
+                $(subdiv + ' .file-input-group-filename').val(file.name);
+            });
+        }
+</script>
+
+@emptyModalframe("import-csv-modal-" + eType.id, false, "default", "", false) {
+    <div class="modal-header">
+        <h5 class="modal-title small-caps text-muted">@Messages("admin.csv.modal.title." + eType.id())</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div id="form-content" class="row">
+                <div class="col-12">
+                    <div class="instructions">
+                        @hiddenField("importGroup", "importGroup", user.getGroup.getGroupId)
+                        @Html(Messages("admin.csv.instructions." + eType.id(), publishInGroup("import-change-group", "importGroup", user)))
+                    </div>
+                    <form id="csv-form">
+                        <fieldset>
+
+                            @eType match {
+                                case EContributionType.ACTOR => {
+                                    @importActorFromCsv(user)
+                                }
+                                case EContributionType.CITATION => {
+                                    @importCitationFromCsv(user)
+                                }
+                                case _ => { @* ignore *@ }
+                            }
+
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="col-md-6 input-field">
+                    <div class="form-group">
+                        <label for="charset">@Messages("admin.csv.charset")</label>
+                        <select id="charset" name="charset" class="form-control">
+                        @for(charset <- play.Configuration.root().getStringList("csv.import.encoding")) {
+                            <option value="@charset">@Messages("admin.csv.charset.".concat(charset))</option>
+                        }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 input-field">
+                    <div class="form-group">
+                        <label for="separator">@Messages("admin.csv.separator")</label>
+                        <select id="separator" name="separator" class="form-control">
+                        @for(separator <- play.Configuration.root().getStringList("csv.import.separator")) {
+                            @separator match {
+                                case "," => { <option value="@separator">@Messages("admin.csv.separator.comma")</option> }
+                                case ";" => { <option value="@separator">@Messages("admin.csv.separator.semicolon")</option> }
+                                case _ => { @* ignore *@ }
+                            }
+                        }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12"><label id="csv-response-msg"></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div id="import-footer" class="flex-grow-1">
+            <span id="import-spinner" class="text-muted huge-font" style="display: none">
+                <span class="fa fa-spinner fa-spin"></span>&nbsp;@Messages("general.dialog.wait")
+            </span>
+            <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+            <button id="submit-csv" type="button" class="btn btn-primary" title="@Messages("admin.csv.submit.title." + eType.id())">@Messages("general.btn.submit")</button>
+        </div>
+        <div id="close-footer" style="display: none">
+            <button id="close-csv" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.close")</button>
+        </div>
+    </div>
+}

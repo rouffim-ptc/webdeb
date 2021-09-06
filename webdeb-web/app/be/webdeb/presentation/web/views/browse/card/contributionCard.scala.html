@@ -1,0 +1,76 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Abstract helper template to give an overview of a contribution
+*
+* @param withLink true if the title is clickable to go to it's detail's page
+* @param withCreator true if the creator (contributor name) must be shown too
+* @param detailed true if the verbose overview is shown
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.util.contributionUpdateDiv
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.util.ValuesHelper
+
+@(
+        holder : ContributionHolder,
+        values : ValuesHelper,
+        pane : Int = -1,
+        pov : Int = 0,
+        imageClasses : String = "",
+        withLink : Boolean = true,
+        detailed: Boolean = true,
+        withCreator : Boolean = false
+)(description: Html)
+
+<div id="card_@holder.getId" class="super-contribution-card" data-id="@holder.getId">
+    <div class="card contribution-card flex-grow-1">
+
+        @if(holder.getDefaultAvatar != null && !holder.getDefaultAvatar.isEmpty){
+            <div class="card-img-container-container d-flex align-items-center justify-content-center">
+                <div class="card-img-container @imageClasses" style="background-image: url(@holder.getDefaultAvatar)">
+
+                </div>
+            </div>
+        }
+
+        <div class="card-body d-flex flex-column flex-grow-1">
+            <h5 class="card-title flex-grow-1">
+                @if(withLink) {
+                    <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.dispatch(holder.getId, holder.getTypeNum, pane, pov)" class="stretched-link">
+                }
+
+                <i class="@Messages("browse.search.tip." + holder.getType.name)"></i>
+                @holder.getContributionTitle
+
+                @if(withLink) {
+                    </a>
+                }
+            </h5>
+
+        </div>
+    </div>
+
+    <div class="contribution-card-bottom">
+        @description
+    </div>
+
+</div>

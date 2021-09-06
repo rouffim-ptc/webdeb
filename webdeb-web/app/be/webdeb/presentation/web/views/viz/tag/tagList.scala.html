@@ -1,0 +1,67 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Create a reusable list of folders linked to a contribution
+*
+* @param folders a list of folders
+* @param fieldname the name of the field to display (eg parents, children), used when multiple tag list are
+* present on the same screen (for collapse reference)
+*
+* @author Martin Rouffiange
+* @author Fabian Gilson (template take from authorList)
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.tag.SimpleTagForm
+
+@import be.webdeb.presentation.web.controllers.viz.tag.ETagVizPane
+@(
+        folders : java.util.List[SimpleTagForm],
+        tagPane : ETagVizPane,
+        fieldname : String
+)
+
+@folder(tag : SimpleTagForm) = {
+    <li>
+        <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.tag(tag.getTagId, tagPane.id, 0)">
+            @tag.getName
+        </a>
+    </li>
+}
+
+<ul class="no-icon to-clamp">
+@if(folders.size > 3) {
+    @for(f <- folders.subList(0, 3)) {
+        @folder(f)
+    }
+    <div class="col-12 no-padding">
+        <button class="btn btn-xs btn-link secondary" data-toggle="collapse" data-target=".showall-@fieldname">
+            @Messages("viz.showmore.folders") (@(folders.size - 3))
+            &nbsp;<span class="fa fa-chevron-down"></span>
+        </button>
+        <div class="collapse showall-@fieldname">
+        @for(f <- folders.drop(3)) {
+            @folder(f)
+        }
+        </div>
+    </div>
+} else {
+    @for(f <- folders) {
+        @folder(f)
+    }
+}
+</ul>

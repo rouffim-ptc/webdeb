@@ -1,0 +1,55 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Step form container
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.util.form.fieldErrorsToString
+
+@(
+        field : Field,
+        label : String,
+        value : String,
+        isTarget : Boolean = false,
+        optionType : String = null,
+        exclusive : Boolean = false,
+        checkedNextStep : Boolean = false,
+        target2 : String = null
+)
+
+@if(exclusive == null || !exclusive || (field.value.nonEmpty && field.value.get.equals(value))) {
+    <div class="form-check mb-1">
+        <input class="form-check-input @if(isTarget != null && isTarget){form-option-action} @if(field.hasErrors){invalid} @if(checkedNextStep != null && checkedNextStep){checked-step-next}" @if(isTarget != null && isTarget){data-target="@value"}  @if(target2 != null){data-target2="@target2"} @if(optionType != null){data-type="@optionType"} type="radio" name="@field.name" id="@field.name-@value" value="@value" autocomplete="off" required @if(field.value.nonEmpty && field.value.get.equals(value)){checked}>
+        <label class="form-check-label" for="@field.name-@value">
+            @label
+        </label>
+
+        @*
+        <div class="invalid-feedback @if(field.hasErrors) {d-block}">
+            @if(field.hasErrors) {
+                @fieldErrorsToString(field)
+            }
+        </div>
+        *@
+    </div>
+}

@@ -1,0 +1,224 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Actor cartography pane (affiliations), ie, a view where all affiliations and affiliated actors (if given actor is an
+* organization) are shown together with their pictures and affiliation history. (Lazy loaded)
+*
+* @param actor the actor to build a radiography for
+* @param filters the list of filters that apply here
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+@import be.webdeb.core.api.actor.EPrecisionDate
+
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@import be.webdeb.core.impl.helper.ActorAffiliations
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+@import be.webdeb.presentation.web.views.html.util.filtersContainer
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        actorHolder : ActorVizHolder,
+        viewBy : EActorType,
+        pov : Integer,
+        user : WebdebUser,
+        helper : ContributionHelper
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            let container = $('#actor-affiliations-@viewBy.id-viz%code#id');
+            let canvas = container.find('.organizational-chart').first();
+            let waitForIt = container.find('.waiting');
+
+            canvas.organizationalChartJs({id: @actorHolder.getId, viewBy: @viewBy.id},
+                {
+                    separatedChart : (@(viewBy == EActorType.ORGANIZATION && actorHolder.getEActortype == EActorType.ORGANIZATION)) ? 1 : 0,
+                    waitForIt : waitForIt,
+                    filtersBtn : container.find('.filters-container'),
+                    toCall : findAffiliations
+                }
+            );
+
+
+            initAffiliationListeners(container, @actorHolder.getId, @actorHolder.getActortype, @viewBy.id);
+
+           @*
+            $(document).on('change-filter', function(){
+                initAffiliation(@viewBy.id);
+            });
+            initAffiliationListeners('.carto-@viewBy.id', @viewBy.id, @actor.getId);
+
+            if(getTabType($('#tabs')) === "@container"){
+                updatePOV($('#@(container)content').parent().find('.btn-pov.btn-success'), "@container");
+            }
+
+            $('#@(container)content').parent().find('.btn-pov').first().on('click', function(){
+                $(this).off();
+                initAffiliation(@viewBy.id);
+            });
+           *@
+        });
+</script>
+
+@btns() = {
+    @navpillMenu("mr-2", "tab", true) {
+        <li class="nav-item">
+            <a class="nav-link disabled pl-1 pr-1" href="#">@Messages("viz.actor.carto.pov")</a>
+        </li>
+
+        @navpillMenuItem("carto-0-" + viewBy.id, Messages("viz.actor.carto.pov.0"), (pov == null || pov == -1 || pov == 0), "btn-pov")
+
+        @navpillMenuItem("carto-1-" + viewBy.id, Messages("viz.actor.carto.pov.1"), (pov == 1), "btn-pov")
+    }
+}
+
+<div id="actor-affiliations-@viewBy.id-viz%code#id" class="row mt-3 mb-3">
+
+    @filtersContainer(user, EContributionType.AFFILIATION, helper, false, viewBy == EActorType.ORGANIZATION, actorHolder.getEActortype == EActorType.ORGANIZATION, "", null, btns())
+
+    <div class="col-12 p-0 p-md-2">
+
+        @navContent(){
+
+            @navContentItem("carto-0-" + viewBy.id, (pov == null || pov == -1 || pov == 0)) {
+                <div class="affiliation-chart-container">
+
+                @waitforit("waiting", true)
+
+                <div class="organizational-chart"></div>
+
+                </div>
+            }
+
+            @navContentItem("carto-1-" + viewBy.id, (pov == 1)) {
+                @displayList(actorHolder.getAffiliationsByKey(viewBy), viewBy.id().toString)
+            }
+        }
+    </div>
+
+</div>
+
+@displayList(affMap : java.util.Map[String, java.util.Map[String, java.util.List[ActorAffiliations]]], id : String) = {
+    <div class="container-fluid afflist mt-3">
+        @if(!affMap.isEmpty){
+            @for((generic, map) <- affMap) {
+                @if(!map.isEmpty){
+                    <div class="row">
+                        <div class="col-12 afflist-btn">
+                            <button data-toggle="collapse" data-target="#afflist-@id-@generic.hashCode" class="d-flex btn btn-link primary w-100">
+                                <span class="flex-grow-1 text-left">@generic</span>
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                        </div>
+
+                        <div id="afflist-@id-@generic.hashCode" class="collapse col-12 @if(viewBy == EActorType.PERSON){pl-3 pr-1 mb-2}">
+                        @for((listName, actors) <- map) {
+                            @if(listName != null){
+                            <div>
+                                @if(viewBy == EActorType.PERSON && !generic.equals(listName)){
+                                    <div class="afflist-btn">
+                                        <button data-toggle="collapse" data-target="#afflist-@id-@generic.hashCode-@listName.hashCode" class="d-flex btn btn-link primary w-100">
+                                            <span class="flex-grow-1 text-left">@listName</span>
+                                            <i class="fa fa-caret-down"></i>
+                                        </button>
+                                    </div>
+
+                                    <div id="afflist-@id-@generic.hashCode-@listName.hashCode" class="collapse no-padding-right">
+                                }
+
+                            <div class="aff-list-aff mt-3 mb-2">
+                                @for(actor <- actors) {
+                                    <div class="row">
+                                    <div class="col-12">
+                                        <div class="actor-thumbnail filterable-item chart chartbig unchart" data-item-id="@actor.getId">
+                                            <div class="thumbnail-holder" style="background-image: url(@actor.getAvatar)"></div>
+                                            <h4>
+                                                <a class="normal-style" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(actor.getId, EActorVizPane.AFFILIATIONS.id(), 0)" title="@actor.getName">
+                                                @actor.getName</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="pl-1 pl-md-5">
+                                            @for(aff <- actor.getAffiliations) {
+                                                @if(!aff.isEmpty) {
+                                                    @if(actorHolder.getEActortype == EActorType.PERSON) {
+                                                        <span class="pl-2 text-muted d-block d-md-inline">
+                                                            @aff.getFunction
+                                                        </span>
+                                                    }
+
+                                                    @if(aff.getFrom != null){
+                                                        <span class="pl-2 text-muted d-block d-md-inline">
+                                                            @aff.getFromTypeName @aff.getFrom @if(aff.getFrom != null && aff.getTo != null) { - }
+                                                        </span>
+                                                    }
+
+                                                    @if(aff.getTo != null){
+                                                        <span class="pl-2 text-muted d-block d-md-inline">
+                                                            @aff.getToTypeName @if(aff.getToTypeId != EPrecisionDate.ONGOING.id) {@aff.getTo}
+                                                        </span>
+                                                    }
+
+                                                    @if(actorHolder.getEActortype == EActorType.PERSON){
+                                                        <span class="d-none d-md-inline">|</span>
+                                                        <span class="d-block d-md-none">__________________</span>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+
+                                        <hr>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        @if(viewBy == EActorType.PERSON && !generic.equals(listName)){
+                            </div>
+                        }
+                        </div>
+                        }
+                    }
+                    </div>
+                </div>
+            }
+        }
+    }else{
+        <div class="instructions">
+            @Messages("browse.search.noresult.7")
+        </div>
+    }
+    </div>
+}

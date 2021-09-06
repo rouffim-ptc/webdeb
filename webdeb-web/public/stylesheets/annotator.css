@@ -1,0 +1,64 @@
+/*!
+ * calendarJs JavaScript Library v1.0
+ * https://github.com/martini224/calendarJs
+ *
+ * Includes bootstrap.css
+ * https://getbootstrap.com/
+ *
+ * Copyright Martin Rouffiange (martini224) 2018
+ * Released under the MIT license (http://opensource.org/licenses/MIT)
+ */
+
+.editor-panel{
+    padding-top : 10px;
+    padding-bottom : 10px;
+    background-color: silver;
+}
+
+.editor-panel .btn-group, .editor-panel .form-group{
+ margin-right : 5px;
+}
+
+.editor-body{
+    min-height : 350px;
+    border : 1px solid grey;
+    padding : 10px;
+}
+
+.flex-container{
+    display: flex;
+}
+
+.excerpt-highlight{
+    background-color: #2ef1ff;
+    cursor: pointer;
+}
+
+.excerpt-highlight-hover{
+    background-color: #26d0de !important;
+}
+
+.excerpt-highlight-result-container{
+    position: relative;
+    width: 0;
+    height: 0;
+    z-index: 999;
+}
+
+.excerpt-highlight-result-container-result{
+    position: absolute;
+    min-height: 50px;
+    min-width: 50px;
+    border : 1px solid silver;
+    background-color: white;
+    padding : 10px;
+    z-index: 99999999999999;
+}
+
+.btn-simple{
+    padding : 2px;
+}
+
+.pull-right{
+    float : right;
+}

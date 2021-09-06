@@ -1,0 +1,83 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Template modal to edit citation details (new and existing)
+*
+* @param citationForm the form with the citation's details (possibly pre-filled)
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+* @param user the current user profile
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import helper._
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.entry.citation.editCitationFields
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe, message}
+
+
+@(
+        citationForm: Form[CitationForm],
+        helper : ContributionHelper,
+        user : WebdebUser,
+        map : java.util.Map[String,String]
+)
+
+<div id="msg-div">
+    @message(map)
+</div>
+
+<div id="modal-namematches"></div>
+
+@emptyModalframe("modal-citation", false, "form", "", false) {
+
+    <div class="modal-header">
+        <h5 class="small-caps text-muted" id="formtitle">
+        @if((citationForm.data.isEmpty && citationForm.value.isEmpty) || citationForm("id").value == "-1") {
+            <i class="@Messages("browse.search.tip.CITATION")"></i>&nbsp; @Messages("entry.citation.new")
+        } else {
+            @Messages("entry.citation.modify")
+        }
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 citationdiv">
+
+                    <form id="citation-form" class="contribution-form" method="post" enctype="multipart/form-data"  autocomplete="off">
+                        <div class="form-content">
+                            @editCitationFields(citationForm, helper, user, map)
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

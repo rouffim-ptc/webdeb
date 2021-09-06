@@ -1,0 +1,51 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable empty modal frame to display any data in it
+*
+* @param id the modal id
+* @param backdrop true if modal frame may not be closed by outside click or "esc" key
+* @param dialogstyle the class to add to modal-dialog div
+* @param contentstyle the class to ass to modal-content div
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import helper._
+
+
+@(
+        id : String,
+        backdrop : Boolean,
+        dialogstyle : String,
+        contentstyle : String,
+        filterContainer : Boolean
+)(content : Html)
+
+<div id="@id" class="modal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="@(id)_title">
+    <div class="modal-dialog @(if(filterContainer){"full"}else dialogstyle)" role="document" style="max-width: initial !important;">
+        <div class="modal-content">
+            @if(filterContainer) {<div id="filter-container" class="vertical_filter_remaining">}
+            @content
+            @if(filterContainer) {</div>}
+        </div>
+    </div>
+</div>

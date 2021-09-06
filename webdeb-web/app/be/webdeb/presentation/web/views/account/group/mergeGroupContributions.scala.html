@@ -1,0 +1,273 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Helper template to merge contributions from a group that have been validated
+*
+* @param user the current user profile
+* @param group the cureent group for which given list of contribution will be marked
+* @param holders the list of contribution that may be merged to the public database
+* @param mergeForm form that will receive the list of contribution ids to send to the public website
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+
+@import be.webdeb.core.api.contributor.Group
+@import be.webdeb.core.api.contribution.EContributionType
+
+@import be.webdeb.presentation.web.controllers.account.group.ContributionMergeForm
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.views.html.browse.overview.actorOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.textOverview
+@import be.webdeb.presentation.web.views.html.main
+
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.browse.overview.argumentOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.citationOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.debateOverview
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.views.html.util.hiddenField
+@import be.webdeb.presentation.web.views.html.util.message
+@import be.webdeb.presentation.web.views.html.util.noResultMessage
+@import be.webdeb.presentation.web.views.html.util.scrollTopWrapper
+@import be.webdeb.presentation.web.views.html.util.bootstrapInput
+@(
+    user : WebdebUser,
+    group : Group,
+    holders : java.util.List[ContributionHolder],
+    mergeForm : Form[ContributionMergeForm],
+    map : java.util.Map[String, String]
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+
+@scripts = {
+  <title>@Messages("title." + play.Configuration.root().getString("server.type"))</title>
+
+  <script type="text/javascript">
+          $(document).ready(function () {
+            let checkall_input = $("#checkall");
+            checkall_input.on("click", function(){
+              let checkBoxes = $('.merge-box');
+              checkBoxes.prop("checked", $(this).prop("checked"));
+            });
+          });
+  </script>
+}
+
+@hiddenFields(h : ContributionHolder) = {
+  <div class="funkyradio mt-2 mb-3">
+  @if(h.getCreatorName != "") {
+    @hiddenField("merge_".concat(holders.indexOf(h).toString).concat("_id"),
+      "merge[".concat(holders.indexOf(h).toString).concat("].id"), h.getId)
+    @hiddenField("merge_".concat(holders.indexOf(h).toString).concat("_type"),
+      "merge[".concat(holders.indexOf(h).toString).concat("].type"), h.getType.id)
+
+    <div class="funkyradio-primary">
+      <input id="merge_@holders.indexOf(h).toString.concat("_toMerge")" name="merge[@holders.indexOf(h).toString.concat("].toMerge")" value="true" type="checkbox" checked="checked" class="merge-box">
+      <label for="merge_@holders.indexOf(h).toString.concat("_toMerge")">@Messages("group.merge.sendto")</label>
+    </div>
+  }
+  </div>
+}
+
+@main(user, scripts) {
+
+  <div class="container-fluid">
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <h3 class="small-caps text-muted">@Messages("group.merge.title", group.getGroupName)</h3>
+        <hr>
+      </div>
+
+
+      <div class="col-12">
+        <p class="instructions">@Html(Messages("group.merge.desc"))</p>
+        @if(holders.isEmpty) {
+          @noResultMessage(null)
+          <div class="form-actions">
+            <div class="pull-left">
+              <a href="@be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.index"
+              class="btn btn-secondary">
+              @Messages("group.mark.back")
+              </a>
+            </div>
+          </div>
+        } else {
+          @form(be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.saveContributionsMerge(group.getGroupId)) {
+            <fieldset class="row">
+              @*
+              @if(holders.exists(h => h.getType == EContributionType.ACTOR)) {
+                <div class="col-12">
+                  <h4 class="text-muted">
+                    <span class="fa fa-street-view"></span>&nbsp;@Messages("viz.contribution.actor")
+                  </h4>
+                  <div id="all-actors" class="col-12 left-border pageable">
+                  @for(h <- holders.filter(h => h.getType == EContributionType.ACTOR)) {
+                    <div class="col-12 no-padding manual-bottom-border">
+                      <div class="col-sm-8 col-12 no-summary-border">
+                      @actorOverview(h.asInstanceOf[ActorHolder], true, true, false, null)
+                      </div>
+                      @hiddenFields(h)
+                    </div>
+                  }
+                  </div>
+                  <div id="actor-pagerdiv" class="pull-right">
+                    <ul id="actor-pager" class="pager pagination"></ul>
+                  </div>
+                </div>
+              }
+              *@
+
+              @if(holders.exists(h => h.getType == EContributionType.TEXT)) {
+                <div class="col-12">
+                  <h4 class="text-muted">
+                    <span class="fa fa-file-text"></span>&nbsp;@Messages("viz.actor.citations.texts.title")
+                  </h4>
+                  <div id="all-texts" class="row left-border pageable">
+                  @for(h <- holders.filter(h => h.getType == EContributionType.TEXT)) {
+                    <div class="col-12 manual-bottom-border">
+
+                      <div class="no-summary-border @(if(h.getCreator == null) "force-muted")">
+                        @textOverview(h.asInstanceOf[TextHolder], true, false, h.getCreator != null, null)
+                      </div>
+
+                      @*
+                      @if(holders.exists(a => a.getType.id() == EContributionType.CITATION.id
+                              && a.asInstanceOf[CitationHolder].getTextId == h.getId)) {
+                        <div class="col-12" style="padding-left: 40px">
+                          <button id="show-text-citation_@h.getId" type="button" class="btn btn-link secondary"
+                          data-toggle="collapse" data-target=".showall-text-citations_@h.getId">
+                            @Messages("contribution.viz.citations.title") &nbsp; <span class="fa fa-chevron-down"></span>
+                          </button>
+
+                          <div class="collapse showall-text-citations_@h.getId">
+                          @for(a <- holders.filter(a => a.getType.id() == EContributionType.CITATION.id
+                                  && a.asInstanceOf[CitationHolder].getTextId == h.getId)) {
+                            <div class="col-12 no-padding manual-bottom-border">
+                              <div class="col-sm-8 col-12 no-summary-border">
+                              @citationOverview(a.asInstanceOf[CitationHolder], true, false, true, null)
+                              </div>
+                              @hiddenFields(a)
+                            </div>
+                          }
+                          </div>
+                        </div>
+                      }
+
+                      @if(holders.exists(a => a.getType.id() == EContributionType.ARGUMENT.id
+                              && a.asInstanceOf[ArgumentHolder].getId == h.getId)) {
+                        <div class="col-12" style="padding-left: 40px">
+                          <button id="show-text-arguments_@h.getId" type="button" class="btn btn-link secondary"
+                          data-toggle="collapse" data-target=".showall-text-arguments_@h.getId">
+                            @Messages("contribution.viz.arguments.title") &nbsp; <span class="fa fa-chevron-down"></span>
+                          </button>
+
+                          <div class="collapse showall-text-arguments_@h.getId">
+                          @for(a <- holders.filter(a => a.getType.id() == EContributionType.ARGUMENT.id
+                                  && a.asInstanceOf[ArgumentHolder].getId == h.getId)) {
+                            <div class="col-12 no-padding manual-bottom-border">
+                              <div class="col-sm-8 col-12 no-summary-border">
+                              @argumentOverview(a.asInstanceOf[ArgumentHolder], true, false, true, null)
+                              </div>
+                              @hiddenFields(a)
+                            </div>
+                          }
+                          </div>
+                        </div>
+                      }
+                      *@
+
+                      @if(h.getCreator != null) {
+                        @hiddenFields(h)
+                      }
+                    </div>
+                  }
+                  </div>
+
+                  <hr>
+
+                </div>
+              }
+
+              @if(holders.exists(h => h.getType == EContributionType.DEBATE)) {
+                <div class="col-12">
+                  <h4 class="text-muted">
+                    <span class="fa fa-comments-o"></span>&nbsp;@Messages("contribution.viz.debate.title")
+                  </h4>
+                  <div id="all-debates" class="row left-border pageable">
+                    @for(h <- holders.filter(h => h.getType == EContributionType.DEBATE)) {
+                      <div class="col-12 manual-bottom-border">
+
+                          <div class="no-summary-border @(if(h.getCreator == null) "force-muted")">
+                          @debateOverview(h.asInstanceOf[DebateHolder], true, false, h.getCreator != null, null)
+                          </div>
+                          @if(h.getCreator != null) {
+                            @hiddenFields(h)
+                          }
+                      </div>
+                    }
+                  </div>
+
+                  <hr>
+
+                </div>
+              }
+            </fieldset>
+
+            <div class="form-actions row mb-3">
+              <div class="col-12 funkyradio">
+                <div class="funkyradio-primary">
+                  <input id="checkall" name="checkall" value="true" type="checkbox" checked="checked">
+                  <label for="checkall">@Messages("group.merge.checkall")</label>
+                </div>
+              </div>
+
+              <div class="col-12 ">
+                <a href="@be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.index"
+                class="btn btn-secondary">
+                @Messages("group.mark.back")
+                </a>
+
+                <button type="submit" class="btn btn-primary" id="submit">
+                @Messages("group.merge.submit")
+                </button>
+              </div>
+            </div>
+          }
+        }
+
+        @scrollTopWrapper()
+      </div>
+    </div>
+  </div>
+}

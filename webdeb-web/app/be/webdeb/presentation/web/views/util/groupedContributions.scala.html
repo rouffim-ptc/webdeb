@@ -1,0 +1,183 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable template to display a list of contributions grouped by actor, text and for each text, their citations
+* and arguments, debate and for each debate each argument
+*
+* @param collapseableId the suffix to add to all collapseable elements
+* @param holders the list of contribution that will be displayed
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+  
+
+@import be.webdeb.core.api.contribution.EContributionType
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+
+@import be.webdeb.presentation.web.views.html.browse.overview.actorOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.citationOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.argumentOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.debateOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.textOverview
+
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@(
+    collapseableId : String,
+    holders : java.util.List[ContributionHolder]
+)
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    // add a pager for actors and texts
+    new Pager('.showall-debates_@collapseableId', 5, '#text-pager_@collapseableId', undefined, false);
+    new Pager('.showall-texts_@collapseableId', 5, '#text-pager_@collapseableId', undefined, false);
+    new Pager('.showall-actors_@collapseableId', 5, '#actor-pager_@collapseableId', undefined, false);
+  });
+</script>
+
+
+<div>
+  @* all actors of this contributor *@
+  @if(holders.exists(h => h.getType.id == EContributionType.ACTOR.id)) {
+    <div class="col-12">
+      <h4 class="text-muted">
+        <span class="fa fa-street-view fixed-size"></span>&nbsp;@Messages("viz.contribution.actor")
+      </h4>
+      <div class="col-12 left-border pageable showall-actors_@collapseableId">
+        @for(h <- holders.filter(h => h.getType.id() == EContributionType.ACTOR.id)) {
+          <div class="col-12 no-padding">@actorOverview(h.asInstanceOf[ActorHolder], true, false, false, null)</div>
+        }
+      </div>
+      <div id="actor-pagerdiv_@collapseableId" class="col-12">
+        <ul id="actor-pager_@collapseableId" class="pager pagination pull-right"></ul>
+        <hr class="contrib-details">
+      </div>
+    </div>
+
+  }
+
+  @* all texts of this contributor *@
+  @if(holders.exists(h => h.getType.id == EContributionType.TEXT.id)) {
+    <div class="col-12">
+      <h4 class="text-muted">
+        <span class="fa fa-file-text fixed-size"></span>&nbsp;@Messages("viz.contribution.text")
+      </h4>
+      <div class="col-12 left-border pageable showall-texts_@collapseableId">
+        @for(h <- holders.filter(h => h.getType.id() == EContributionType.TEXT.id)) {
+          @* hidden texts (empty title) must have special tag *@
+          <div class="col-12 no-padding manual-bottom-border">
+            @if(h.asInstanceOf[TextHolder].getTitle.isEmpty) {
+              @for(e <- holders.filter(e => e.getType.id() == EContributionType.CITATION.id
+                    && e.asInstanceOf[CitationHolder].getTextId == h.getId)) {
+                <div class="no-summary-border">
+                  @citationOverview(e.asInstanceOf[CitationHolder], true, false, false, null)
+                </div>
+              }
+            } else {
+              <div class="no-summary-border">
+                @textOverview(h.asInstanceOf[TextHolder], true, false, false, null)
+              </div>
+              @* for each text, show all citations *@
+              @if(holders.exists(e => e.getType.id == EContributionType.CITATION.id
+                      && e.asInstanceOf[CitationHolder].getTextId == h.getId)) {
+
+                <div class="col-12" style="padding-left: 50px">
+                  <button id="show-citations_@collapseableId.toString.concat("_" + h.getId.toString)" type="button" class="btn btn-link secondary"
+                  data-toggle="collapse" data-target=".showall-citations_@collapseableId.toString.concat("_" + h.getId.toString)">
+                    @Messages("viz.contribution.citations") &nbsp; <span class="fa fa-chevron-down"></span>
+                  </button>
+
+                  @for(e <- holders.filter(e => e.getType.id() == EContributionType.CITATION.id
+                          && e.asInstanceOf[CitationHolder].getTextId == h.getId)) {
+
+                    <div class="collapse showall-citations_@collapseableId.toString.concat("_" + h.getId.toString)">
+                      <div class="col-12 no-padding">
+                      @citationOverview(e.asInstanceOf[CitationHolder], true, false, false, null)
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+              @* for each text, show all arguments *@
+              @if(holders.exists(e => e.getType.id == EContributionType.ARGUMENT.id
+                      && e.asInstanceOf[ArgumentHolder].getId == h.getId)) {
+
+                <div class="col-12" style="padding-left: 50px">
+                  <button id="show-text-arguments_@collapseableId.toString.concat("_" + h.getId.toString)" type="button" class="btn btn-link secondary"
+                  data-toggle="collapse" data-target=".showall-text-arguments_@collapseableId.toString.concat("_" + h.getId.toString)">
+                    @Messages("viz.contribution.arguments") &nbsp; <span class="fa fa-chevron-down"></span>
+                  </button>
+
+                  @for(e <- holders.filter(e => e.getType.id() == EContributionType.ARGUMENT.id
+                          && e.asInstanceOf[ArgumentHolder].getId == h.getId)) {
+
+                    <div class="collapse showall-text-arguments_@collapseableId.toString.concat("_" + h.getId.toString)">
+                      <div class="col-12 no-padding">
+                      @argumentOverview(e.asInstanceOf[ArgumentHolder], true, false, false, null)
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div id="text-pagerdiv_@collapseableId" class="col-12">
+      <ul id="text-pager_@collapseableId" class="pager pagination pull-right"></ul>
+      <hr class="contrib-details">
+    </div>
+  }
+
+  @* all debates of this contributor *@
+  @if(holders.exists(h => h.getType.id == EContributionType.DEBATE.id)) {
+    <div class="col-12">
+      <h4 class="text-muted">
+        <span class="fa fa-comments-o fixed-size"></span>&nbsp;@Messages("viz.contribution.debate")
+      </h4>
+      <div class="col-12 left-border pageable showall-debates_@collapseableId">
+      @for(h <- holders.filter(h => h.getType.id() == EContributionType.DEBATE.id)) {
+        @* hidden texts (empty title) must have special tag *@
+        <div class="col-12 no-padding manual-bottom-border">
+          <div class="no-summary-border">
+          @debateOverview(h.asInstanceOf[DebateHolder], true, false, false, null)
+          </div>
+          @* for each debate, show all arguments *@
+
+        </div>
+      }
+      </div>
+    </div>
+
+    <div id="text-pagerdiv_@collapseableId" class="col-12">
+      <ul id="text-pager_@collapseableId" class="pager pagination pull-right"></ul>
+      <hr class="contrib-details">
+    </div>
+  }
+</div>

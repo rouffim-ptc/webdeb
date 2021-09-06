@@ -1,0 +1,100 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable counting map of contributions
+*
+* @param countMap the number of contributions that contributor did
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contribution.EContributionType
+
+@(
+        countMap : java.util.Map[Integer, Integer]
+)
+
+<div class="col-sm-4 offset-sm-0 col-xs-10 offset-1">
+    <h3 class="text-muted">@Messages("dash.stat.title")</h3>
+    <table class="stat">
+        <tr class="cursor-pointer" title="@Messages("general.filter.ctype.1")">
+            <th><i class="text-primary-muted far fa-comments"></i></th>
+            <th>
+                @if(countMap.containsKey(EContributionType.DEBATE.id)){
+                    @countMap.get(EContributionType.DEBATE.id)
+                }else{
+                    0
+                }
+            </th>
+        </tr>
+        <tr class="cursor-pointer" title="@Messages("general.filter.ctype.3")">
+            <th><i class="text-primary-muted far fa-comment"></i></th>
+            <th>
+            @if(countMap.containsKey(EContributionType.ARGUMENT.id)){
+                @countMap.get(EContributionType.ARGUMENT.id)
+            } else {
+                0
+            }
+            </th>
+        </tr>
+        @* <tr class="cursor-pointer" title="@Messages("general.filter.ctype.5")">
+            <th><i class="text-primary-muted far fa-file-alt"></i></th>
+            <th>
+                @if(countMap.containsKey(EContributionType.TEXT.id)){
+                    @countMap.get(EContributionType.TEXT.id)
+                }else{
+                    0
+                }
+            </th>
+        </tr> *@
+        <tr class="cursor-pointer" title="@Messages("general.filter.ctype.4")">
+            <th><i class="text-primary-muted fa fa-align-left"></i></th>
+            <th>
+            @if(countMap.containsKey(EContributionType.CITATION.id)){
+                @countMap.get(EContributionType.CITATION.id)
+            }else{
+                0
+            }
+            </th>
+        </tr>
+        <tr class="cursor-pointer" title="@Messages("general.filter.ctype.0")">
+            <th><i class="text-primary-muted fa fa-street-view"></i></th>
+            <th>
+            @if(countMap.containsKey(EContributionType.ACTOR.id)){
+                @countMap.get(EContributionType.ACTOR.id)
+            }else{
+                0
+            }
+            </th>
+        </tr>
+        @*
+        <tr>
+            <th><i class="text-primary-muted far fa-tag"></i></th>
+            <th>
+                @if(countMap.containsKey(EContributionType.TAG.id)){
+                    @countMap.get(EContributionType.TAG.id)
+                }else{
+                    0
+                }
+            </th>
+        </tr>
+        *@
+    </table>
+</div>

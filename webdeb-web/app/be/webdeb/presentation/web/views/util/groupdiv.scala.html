@@ -1,0 +1,57 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial page to handle contributor group
+*
+* @param form the form that contains the place-related fields
+* @param labelName base name of all labels in form
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.util.{helpbubble, hiddenFormField, inlineform, noerrorForm}
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@(
+        form: Form[_],
+        labelName: String
+)
+
+<div id="contributorGroups" class="controls row">
+    <label class="control-label col-12">@Messages(labelName)</label>
+
+    <div class="controls col-12">
+        @repeatWithIndex(form("contributorGroups"), min = 1) { (group, i) =>
+            @entryFlexFormGroup("contributorGroups_".concat(i.toString)) {
+                <div class="col-12 input-field">
+                    @textInput(
+                        form(group.name.concat(".name"))
+                    )
+                    @hiddenFormField(form(group.name.concat(".groupId")))
+                </div>
+            }
+
+            @mapErrors(form, group.name)
+        }
+    </div>
+</div>

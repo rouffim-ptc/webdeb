@@ -1,0 +1,92 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial login form page (form only)
+*
+* @param user the user profile data
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.passwordInput
+@import be.webdeb.presentation.web.views.html.util.form.checkboxInput
+@import views.html.helper.form
+
+
+@(
+    user : WebdebUser
+)
+
+@form(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.authenticate) {
+
+  @if(user.getLoginForm.hasGlobalErrors) {
+    <p class="error">
+      <span class="label label-danger">@user.getLoginForm.globalError.message</span>
+    </p>
+  }
+
+  <fieldset class="form-small">
+    @textInput(
+      user.getLoginForm()("emailOrPseudo"),
+      Messages("signin.email"),
+      Messages("contributor.place.mail"),
+      true
+    )
+    @passwordInput(
+      user.getLoginForm()("password"),
+      Messages("signin.password"),
+      Messages("contributor.place.password"),
+      true
+    )
+  </fieldset>
+
+  <div class="form-actions mt-3">
+    <div class="p-1">
+      <button type="submit" class="btn btn-primary">
+        @Messages("signin.signin") &nbsp; <span class="fa fa-sign-in"></span>
+      </button>
+    </div>
+
+    <div class="pull-right">
+      @checkboxInput(
+        user.getLoginForm()("remember"),
+        Messages("signin.remember"),
+        true
+      )
+    </div>
+
+    <div class="mt-2">
+      <small>
+        <a class="btn btn-link btn-sm primary no-padding" href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.signup">@Messages("signin.register")</a>
+      </small>
+    </div>
+    <div class="mt-1">
+      <small >
+        <button id="forgot-pwd2" type="button" class="btn btn-link btn-sm primary no-padding">
+          @Messages("signin.forgot")
+        </button>
+      </small>
+    </div>
+
+  </div>
+}

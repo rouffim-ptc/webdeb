@@ -1,0 +1,280 @@
+@import url(animate.css);
+
+.index-page{
+  font-family: 'Roboto', sans-serif;
+}
+
+.index-page a {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.5;
+  text-decoration: none; }
+
+.index-page a:link {
+  outline: none; }
+
+.index-page .btn {
+  height: 45px;
+  border-radius: 10px;
+  font-weight: 900;
+  font-size: 1.5rem;
+  background: #99BF27;
+  font-variant: small-caps;
+  padding-top: 3px;
+  color: #F8F8F8; }
+.index-page .btn:hover {
+  background: #44ABDD;
+  color: #F8F8F8; }
+
+@media screen and (max-width: 992px) {
+  .index-page .btn {
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .index-page .btn {
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+
+.index-page h2 {
+  font-weight: 900;
+  font-size: 2.8rem; }
+
+.index-page h3, .index-page h4 {
+  font-weight: 700;
+  font-size: 1.12rem; }
+
+.index-page p, .index-page a {
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.5;
+  text-decoration: none;}
+
+.webdeb-logo {
+  margin-bottom: 2rem;
+  width: 209px; }
+
+@media screen and (max-width: 768px) {
+  .flex-column-sm {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .reversed-flex{
+    flex-direction: row-reverse;
+  }
+}
+
+
+/*
+ * index header
+ */
+
+.index-header {
+  min-height: 40vh;}
+
+.slogan_img {
+  width: 300px;
+  margin: 0 auto 1rem auto; }
+
+.slogan_txt {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 2.5rem; }
+
+.sub_slogan{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+/*
+ * count content
+ */
+
+.count_content{
+  min-height: 100vh;
+}
+
+@media screen and (min-width: 768px) {
+  .count_content {
+    min-height: 27.6vh;
+  }
+}
+
+.count_content i{
+  font-size: 3.5rem;
+}
+
+.count_content .count-title{
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.count_content .count-name{
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.5;
+}
+
+.count-link, .count-link p {
+  color: #484848;
+}
+.count-link:hover, .count-link:hover p {
+  color: #313131;
+}
+
+/*
+ * presentation content
+ */
+
+.presentation_content section{
+  min-height: 100vh;
+}
+
+.explore_img {
+  width: 414px;
+  bottom: 0;
+  left: 2rem;
+  margin-top: 2rem; }
+
+.contribute_img{
+  width: 345px;
+  bottom: -2vh;
+  margin-top: 0;
+}
+
+.learn_img{
+  width: 345px;
+  bottom: -3rem;
+  margin-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .presentation_img{
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .presentation_content section {
+    min-height: 33.33333vh;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .presentation_content section > div {
+    width: 900px;
+  }
+}
+
+
+.presentation_content p{
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.5;
+}
+
+.presentation_content section:nth-child(odd) p{
+  color: #F8F8F8;
+}
+
+.presentation_content section:nth-child(even) p{
+  color: #484848;
+}
+
+/*
+ * whatis content
+ */
+
+.whatis_content{
+  min-height: 100vh;
+}
+
+@media screen and (min-width: 768px) {
+  .whatis_content {
+    min-height: 68vh;
+  }
+}
+
+.whatis_content > div {
+  max-width: 1024px;
+}
+
+.whatis_content h3, .index-page p{
+  color: #484848;
+}
+
+.collective_img{
+  top: -20px;
+  width: 200px;
+  order: 2;
+  padding-bottom: 2rem;
+  position: relative;
+}
+@media screen and (max-width: 992px) {
+  .collective_img {
+    display: none;
+  }
+}
+
+.whatis_content_block{
+  width: 100%;
+  padding: .5rem 0;
+}
+
+@media screen and (min-width: 768px) {
+  .whatis_content_block{
+    width: 50%;
+    padding: 0 2rem;
+  }
+}
+
+/*
+ * show content
+ */
+
+.show_content{
+  min-height: 100vh;
+}
+
+@media screen and (min-width: 768px) {
+  .show_content {
+    min-height: 32vh;
+  }
+}
+
+.show_content .btn{
+  width: 100%;
+}
+
+.show_content li{
+  padding: .5rem 0;
+}
+
+/*
+ * join content
+ */
+
+.join_content{
+  min-height: 100vh;
+}
+
+.join_content > div {
+  max-width: 1024px;
+}
+
+.join_content p{
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .join_content {
+    min-height: 52vh;
+  }
+}

@@ -1,0 +1,150 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Page to display WebDeb groups and others datum about group
+*
+* @param groups the list of webdeb groups
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.util.{groupChooseButtonSelector, helpButton, waitforit}
+
+@import be.webdeb.core.api.contribution.EContributionType
+
+@(
+    user : WebdebUser
+)
+
+
+@scripts = {
+    <title></title>
+    <meta name="description" content="@Messages("browse.search.tooltip")">
+
+    <script src="@routes.Assets.at("javascripts/searchableContainer.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/settings-scripts.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            doLoadGroups();
+        });
+
+        function doLoadGroups(){
+            let waitForIt = $('.waiting');
+            let results = $('#groups-result');
+
+            waitForIt.show();
+            results.empty();
+
+            loadGroups().done(function(data){
+
+                results.append(data);
+
+                addManageGroupListeners();
+
+                $('#group-management').searchableContainerJs({
+                    sortElements : true,
+                    multipleSearch : true,
+                    sortBy : "name"
+                });
+
+                waitForIt.hide();
+            });
+        }
+    </script>
+}
+
+@main(user, scripts, Html(""), "", "group.index") {
+
+    <div class="container-fluid mb-3 background_grey color_white">
+        <div class="container p-0">
+            <div class="row background_grey color_white">
+                <div class="col-12">
+                    <div class="mt-3 mb-3 m-md-3">
+                        <span>@Messages("group.gen.current")</span>
+                        @groupChooseButtonSelector(user.getGroup, false, false, false)
+                        @if(user.getGroup.getDescription != null && !user.getGroup.getDescription.isEmpty) {
+                            <span>"@user.getGroup.getDescription"</span>
+                        }
+                        <span> @Messages("general.contributors", user.getGroup.countNbContributors)</span>
+                        <span> @Messages("general.contributions.complete")
+                                @user.getGroup.countNbContributions(EContributionType.TEXT) <i class="@Messages("browse.search.tip.TEXT") mr-1 ml-1" title="@user.getGroup.countNbContributions(EContributionType.TEXT) @Messages("general.filter.ctype.2")s"></i> |
+                                @user.getGroup.countNbContributions(EContributionType.CITATION) <i class="@Messages("browse.search.tip.CITATION") mr-1 ml-1" title="@user.getGroup.countNbContributions(EContributionType.CITATION) @Messages("general.filter.ctype.3")s"></i> |
+                                @user.getGroup.countNbContributions(EContributionType.DEBATE) <i class="@Messages("browse.search.tip.DEBATE") mr-1 ml-1" title="@user.getGroup.countNbContributions(EContributionType.DEBATE) @Messages("general.filter.ctype.1")s"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div id="group-management" class="col-12 searchable-container">
+
+                <h2 class="mt-3">@Messages("group.index.title")</h2>
+
+                <button id="create-group" class="btn btn-link btn-lg primary no-padding">
+                    <i class="fa fa-plus"></i>
+                    <span>@Messages("group.manage.new")</span>
+                </button>
+
+                @helpButton("group", false)
+
+                <hr>
+
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control searchable-input" placeholder="@Messages("group.search.placeholder")" id="group-search-input" data-searchtype="name">
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input searchable-input" type="checkbox" id="group-search-1" data-searchtype="open" value="true">
+                    <label class="form-check-label" for="group-search-1">@Messages("group.search.open")</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input searchable-input" type="checkbox" id="group-search-4" data-searchtype="followed" value="true">
+                    <label class="form-check-label" for="group-search-4">@Messages("group.search.followed")</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input searchable-input" type="checkbox" id="group-search-2" data-searchtype="isadmin" value="true">
+                    <label class="form-check-label" for="group-search-2">@Messages("group.search.isadmin")</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input searchable-input" type="checkbox" id="group-search-3" data-searchtype="ismember" value="true">
+                    <label class="form-check-label" for="group-search-3">@Messages("group.search.ismember")</label>
+                </div>
+
+                <hr>
+
+                <div id="groups-result" class="row">
+
+                </div>
+
+                @waitforit("waiting")
+            </div>
+        </div>
+    </div>
+}

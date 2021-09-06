@@ -1,0 +1,60 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable searchbar for a searchForm
+*
+* @param searchForm the form for the search query
+* @param visibility true if the searchbar is for big screen and false for small one
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+@import be.webdeb.presentation.web.views.html.util.{inlineform, hiddenFormField, inputTitleEnd}
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.core.api.contribution.EContributionType
+@(
+        searchForm : Form[SearchForm],
+        visibility : Boolean
+)
+
+<div class="w-100">
+    <div class="searchbar mainsearchbar" @if(!visibility){style="flex-grow: 1"}>
+        <div class="row">
+            <div class="col-12 input-field searchbar-container">
+                @textInput(
+                    searchForm("query"),
+                    null,
+                    Messages("browse.search.place"),
+                    false,
+                    null, null, null, null, null, null, null,
+                    inputTitleEnd("fa fa-search", "search-btn")
+                )
+            </div>
+        </div>
+        @hiddenFormField(searchForm("inGroup"))
+        @hiddenFormField(searchForm("amongGroup"))
+        @hiddenFormField(searchForm("isArgument"))
+        @hiddenFormField(searchForm("queryString"))
+        @hiddenFormField(searchForm("contributor"))
+    </div>
+</div>

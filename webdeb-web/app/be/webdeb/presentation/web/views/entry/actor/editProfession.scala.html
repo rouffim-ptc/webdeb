@@ -1,0 +1,192 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to edit profession names and profession like
+*
+* @param profession the profession edit form
+* @param helper helper class to fetch predefined values from languages
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, hiddenFormField, inlineform, noerrorForm, hiddenField, message}
+@import helper._
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.entry.actor.ProfessionEditForm
+
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@(
+        profession : Form[ProfessionEditForm],
+        helper : ContributionHelper,
+        user : WebdebUser,
+        map : java.util.Map[String, String]
+)
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+<script src="@routes.Assets.at("javascripts/settings-scripts.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/profession-scripts.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+        manageEditProfessionModal();
+</script>
+
+<div id="msg-div">
+@message(map)
+</div>
+
+@emptyModalframe("edit-profession", false, "form", "", false) {
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">
+      @if(user.getERole.equals(EContributorRole.ADMIN)) {
+        @Messages("admin.edit.profession.admin.title")
+      }else{
+        @Messages("admin.edit.profession.title")
+      }
+      <span class="text-primary"></span>
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div id="form-content container-fluid">
+      <form id="profession-form" class="row"  autocomplete="off">
+        <fieldset>
+          @hiddenFormField(profession("professionId"))
+          @hiddenFormField(profession("userRole"))
+
+          <div class="col-12">
+            <span>@Html(Messages("edit.profession.description"))</span>
+          </div>
+
+          <div class="col-12">
+            <div id="professionNames" class="row mt-3">
+
+              <label class="col-12 control-label">@Messages("admin.edit.profession.edit.name.title")</label>
+
+              <div class="controls col-12">
+              @repeatWithIndex(profession("professionNames"), min = 1) { (professionName, i) =>
+                @entryFlexFormGroup("professionNames_".concat(i.toString)) {
+                  <div class="col-md-6 col-lg-3 input-field">
+                  @selectInput(
+                    profession(professionName.name.concat(".lang")),
+                    helper.getLanguages(ctx.lang.code),
+                    Messages("actor.label.namelang"),
+                    Messages("actor.place.namelang")
+                  )
+                  </div>
+
+                  <div class="col-md-6 col-lg-3 input-field">
+                  @selectInput(
+                    profession(professionName.name.concat(".gender")),
+                    helper.getWordGenders(ctx.lang.code),
+                    Messages("admin.edit.profession.label.gender"),
+                    Messages("actor.place.gender")
+                  )
+                  </div>
+
+                  <div class="col-lg-6 input-field">
+                  @textInput(
+                    profession(professionName.name.concat(".name")),
+                    Messages("admin.edit.profession.label"),
+                    Messages("admin.edit.profession.edit.name")
+                  )
+                  </div>
+                }
+
+                @*
+                @mapErrors(tagForm, tagName.name.toString)
+                *@
+              }
+              </div>
+            </div>
+
+            @profession.errors.map { case (key, error) =>
+              @if(key.startsWith("profession_name") && error(0).message != "") {
+                <div class="no-help"><div class="label label-warning">@Html(Messages(error(0).message))</div></div>
+                @hiddenFormField(profession("userWarned"))
+              }
+            }
+          </div>
+
+          @if(user.getERole.equals(EContributorRole.ADMIN)) {
+            <div id="professionLink" class="col-12 mt-3">
+              <div class="input-field">
+                @textInput(
+                  profession("superProfessionName"),
+                  Messages("admin.edit.profession.edit.like")
+                )
+                @hiddenFormField(profession("superProfessionId"))
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="b-displayHierarchy">
+              @Messages("admin.edit.profession.edit.displayhierarchy")
+              </label>
+              <div id="b-displayHierarchy" class="funkyradio inline">
+                <div class="form-group funkyradio-primary">
+                  <input id="displayHierarchy-false" type="checkbox" name="displayHierarchy" value="false"
+                    @if(profession("displayHierarchy").value == "false"){checked="checked"}>
+                  <label for="displayHierarchy-false">@Messages("label.no")</label>
+                </div>
+                <div class="form-group funkyradio-primary">
+                  <input id="displayHierarchy-true" type="checkbox" name="displayHierarchy" value="true"
+                    @if(profession("displayHierarchy").value == "true"){checked="checked"}>
+                  <label for="displayHierarchy-true">@Messages("label.yes")</label>
+                </div>
+                @inputText(
+                  profession("displayHierarchy"),
+                  '_label -> null,
+                  'class -> "form-control d-none",
+                  'autocomplete -> "off"
+                )(handler = inlineform, implicitly[Messages])
+              </div>
+
+              @profession.errors.map { case (key, error) =>
+                @if(key.contains("displayHierarchy")) {
+                  <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+                }
+              }
+            </div>
+          }
+
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="flex-grow-1">
+      <button id="cancel-btn" type="button" name="cancel" class="btn btn-default">@Messages("general.btn.cancel")</button>
+    </div>
+
+    <button id="submit-btn" type="button" name="submit" class="btn btn-primary">
+      @Messages("admin.edit.profession.edit.btn")
+        &nbsp; <span class="fa fa-check-circle"></span>
+    </button>
+  </div>
+}

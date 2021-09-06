@@ -1,0 +1,264 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* About page to display details about the project.
+*
+* @param user the user profile data
+*
+* @author Fabian Gilson
+* @author Martin Roufiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+    user: WebdebUser
+)
+
+@scripts = {
+  <title>@Messages("welcome.index.1.title") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")</title>
+  <meta name="description" content="@Messages("welcome.slogan.3") @Messages("welcome.slogan.4")">
+
+  <meta property="og:title" content="@Messages("welcome.index.1.title") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")" />
+  <meta property="og:description" content="@Messages("welcome.slogan.3") @Messages("welcome.slogan.4")" />
+  <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.index().absoluteURL()" />
+  <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable.png").absoluteURL()" />
+
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/explore_styles.css")">
+
+  <script type="text/javascript">
+          $(document).ready(function () {
+            let container = $('.about-container');
+
+            container.find('.show-collaborator-details').click(function(){
+              collaboratorDetails($(this).data('id')).done(function (html) {
+                loadAndShowModal($('#modal-anchor'), html);
+              }).fail(function (jqXHR) {
+                  console.log("Error with collaborator modal...");
+              });
+            });
+
+          });
+
+  </script>
+}
+
+@main(user, scripts) {
+
+  <div class="container mt-3 mb-5 about-container">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="small-caps text-muted">@Messages("about.webdeb.title")</h3>
+        <hr>
+      </div>
+
+      <div class="col-12">
+
+        <p class="large-font">
+          @Html(Messages(
+            "about.webdeb.jumbo",
+            be.webdeb.presentation.web.controllers.browse.routes.BrowseActions.search,
+            be.webdeb.presentation.web.controllers.entry.routes.EntryActions.contribute,
+            be.webdeb.presentation.web.controllers.routes.Application.teach
+          ))
+        </p>
+
+      </div>
+
+      <div class="col-12 mt-5">
+        <h3 class="small-caps text-muted">@Messages("about.webdeb.descr")</h3>
+        <hr>
+        <p class="large-font">@Html(Messages("about.webdeb.content"))</p>
+      </div>
+
+        @*
+        <h4 class="small-caps text-muted">Ce que montre Webdeb est donc multiple :</h4>
+
+        <div class="row ml-md-3">
+          <ul class="col-md-6 m-0">
+            <li class="mt-2">
+              <a href="https://webdeb.be/viz/actor?id=5510&pane=2&pov=0" class="larger-font pl-2">
+                @Messages("welcome.index.whatshows.2")
+              </a>
+            </li>
+            <li class="mt-2">
+              <a href="https://webdeb.be/viz/actor?id=2181&pane=3&pov=0" class="larger-font pl-2">
+                @Messages("welcome.index.whatshows.3")
+              </a>
+            </li>
+            <li class="mt-2">
+              <a href="https://webdeb.be/viz/actor?id=11780&pane=2&pov=0" class="larger-font pl-2">
+                @Messages("welcome.index.whatshows.4")
+              </a>
+            </li>
+          </ul>
+
+          <ul class="col-md-6 m-0">
+            @*
+            <li class="mt-2">
+              <a href="https://webdeb.be/viz/actor/16028?pane=4&pov=0" class="larger-font pl-2">
+                @Messages("welcome.index.whatshows.5")
+              </a>
+            </li>
+              *@ @*
+            <li class="mt-2">
+              <a href="https://webdeb.be/viz/debate/179714?pane=1&pov=0" class="larger-font pl-2">
+                @Messages("welcome.index.whatshows.6")
+              </a>
+            </li>
+            <li class="mt-2">
+              <a href="https://webdeb.be/viz/debate/179714?pane=2&pov=0" class="larger-font pl-2">
+                @Messages("welcome.index.whatshows.7")
+              </a>
+            </li>
+            <li class="mt-2">
+              <a href="https://webdeb.be/viz/debate/179714?pane=3&pov=0" class="larger-font pl-2">
+                @Messages("welcome.index.whatshows.8")
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      *@
+        @*
+        <h3 class="small-caps text-muted">@Messages("about.webdeb.contribute.title")</h3>
+        <p class="large-font">@Html(Messages("about.webdeb.contribute.content"))</p>
+
+        <hr>
+
+        <h3 class="small-caps text-muted">@Messages("about.webdeb.usage.title")</h3>
+        <p class="large-font">@Html(Messages("about.webdeb.usage.content"))</p>
+
+        <hr>
+
+        <h3 class="small-caps text-muted">@Messages("about.webdeb.status.title")</h3>
+        <p class="large-font">@Html(Messages("about.webdeb.status.content"))</p>
+          *@
+        @*
+      <div class="col-12">
+        <hr>
+        <h3 class="small-caps text-muted">Public-cible</h3>
+        <p class="large-font">@Html(Messages("about.webdeb.usage.content.2",
+          be.webdeb.presentation.web.controllers.entry.routes.EntryActions.contribute,
+          be.webdeb.presentation.web.controllers.account.routes.ContributorActions.signup))</p>
+      </div>
+        *@
+     <div class="col-12 mt-5">
+        <h3 class="small-caps text-muted">@Messages("aboutus.webdeb.promoters")</h3>
+        <hr>
+
+        <div class="d-flex flex-wrap align-items-center justify-content-around">
+          @*
+          <div class="ml-3 mr-3  ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font" href="https://cris.vub.be/en/persons/didier-caluwaerts(41def2cb-5c32-4f6f-971d-b766cbd0c4f4).html" target="_blank">Caluwaerts Didier (VUB)</button>
+          </div>
+            *@
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="bernard">@Messages("aboutus.webdeb.bernard.title") (UCLouvain)</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="cedrick">@Messages("aboutus.webdeb.cedrick.title") (UCLouvain)</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="pyschobb">@Messages("aboutus.webdeb.pyschobb.title") (UNamur)</button>
+          </div>
+          @*
+          <div class=" ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font" href="https://www.ulb.be/fr/emilie-van-haute-1" target="_blank">Van Haute Emilie (ULB)</button>
+          </div>
+            *@
+        </div>
+      </div>
+
+      <div class="col-12 mt-5">
+        <h3 class="small-caps text-muted">@Messages("aboutus.webdeb.actors.team")</h3>
+        <hr>
+
+        <div class="d-flex flex-wrap align-items-center justify-content-around">
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="marie">@Messages("aboutus.webdeb.marie.title")</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="bernard">@Messages("aboutus.webdeb.bernard.title")</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="robin">@Messages("aboutus.webdeb.robin.title")</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="martin">@Messages("aboutus.webdeb.martin.title")</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 mt-5">
+        <h3 class="small-caps text-muted">@Messages("aboutus.webdeb.actors.formerteam")</h3>
+        <hr>
+
+        <div class="d-flex flex-wrap align-items-center justify-content-around">
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="pierre">@Messages("aboutus.webdeb.pierre.title")</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="andre">@Messages("aboutus.webdeb.andre.title")</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="amelie">@Messages("aboutus.webdeb.amelie.title")</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="fabian">@Messages("aboutus.webdeb.fabian.title")</button>
+          </div>
+          <div class="ml-3 mr-3 ml-lg-5 mr-lg-5">
+            <button class="btn btn-link larger-font show-collaborator-details" data-id="deniz">@Messages("aboutus.webdeb.deniz.title")</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 mt-5">
+        <h3 class="small-caps text-muted">Financement</h3>
+        <hr>
+
+        <div class="row">
+          <div class="col-12 col-md-6 d-flex align-items-center justify-content-center flex-column">
+            <a target="_blank" href="https://recherche-technologie.wallonie.be/fr/menu/acteurs-institutionnels/service-public-de-wallonie-services-en-charge-de-la-recherche-et-des-technologies/departement-de-la-recherche-et-du-developpement-technologique/direction-des-programmes-de-recherche/programmes-clotures/les-programmes-mobilisateurs/l-appel-germaine-tillion/germaine-tillion-appel.html" class="footer-logo-container"><img src="@routes.Assets.at("images/logo/wallonie.jpg")" alt="logo de la Wallonie" class="footer-logo"></a>
+            <a class="btn btn-link larger-font" href="https://recherche-technologie.wallonie.be/fr/menu/acteurs-institutionnels/service-public-de-wallonie-services-en-charge-de-la-recherche-et-des-technologies/departement-de-la-recherche-et-du-developpement-technologique/direction-des-programmes-de-recherche/programmes-clotures/les-programmes-mobilisateurs/l-appel-germaine-tillion/germaine-tillion-appel.html" target="_blank">
+              Programme Germaine Tillion (Région wallonne)
+            </a>
+          </div>
+
+          <div class="col-12 col-md-6 d-flex align-items-center justify-content-center flex-column">
+            <a target="_blank" href="http://innoviris.be/" class="footer-logo-container"><img src="@routes.Assets.at("images/logo/innoviris.jpg")" alt=" logo de la Fondation pour la recherche à Saint-Gilles" class="footer-logo"></a>
+            <a class="btn btn-link larger-font" href="https://innoviris.brussels/fr" target="_blank">
+              Innoviris (Bruxelles-Capitale)
+            </a>
+          </div>
+        </div>
+      </div>
+        @*
+        <h3 class="small-caps text-muted">@Messages("about.webdeb.api.title")</h3>
+        <p class="large-font">@Html(Messages("about.webdeb.api.content",
+          routes.Assets.at("apidoc-rest/index.html"),
+          routes.Assets.at("apidoc-wdtal/index.html")))</p>
+        *@
+
+      </div>
+  </div>
+}

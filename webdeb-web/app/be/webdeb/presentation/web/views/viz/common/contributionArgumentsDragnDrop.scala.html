@@ -1,0 +1,214 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Debate details showing name, tag and places
+*
+* @param tag the tag to display the details for
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.ContextContributionHolder
+
+@import be.webdeb.core.api.contribution.EContributionType
+@(
+        context: ContextContributionHolder,
+        superDebateId : Long = null,
+        user : WebdebUser
+)
+
+<div class="row mt-3 mb-3">
+
+    <div class="col-sm-6">
+        <button type="button" class="btn btn-info context-dragndrop-close-btn w-100" data-id="@context.getId" @if(superDebateId != null){data-super_context="@superDebateId"}>
+            <i class="fas fa-times-circle"></i> @Messages("context.dragndrop.close.title")
+        </button>
+    </div>
+
+    <div class="col-sm-6">
+        <button type="button" class="btn btn-info context-dragndrop-reload-btn w-100" data-id="@context.getId" @if(superDebateId != null){data-super_context="@superDebateId"}>
+            <i class="fas fa-sync-alt"></i> @Messages("context.dragndrop.reload.title")
+        </button>
+    </div>
+
+    @if(context.getType == EContributionType.TAG){
+        <div class="col-12 mt-2">
+            <p class="instructions mb-0">@Messages("context.dragndrop.subtitle")</p>
+        </div>
+    }
+
+</div>
+
+<div class="context-classify-container row mt-3 mb-3">
+
+    <div class="context-classify-tool d-flex flex-column col-12"></div>
+
+    <div id="empty-classifier-container" style="display: none">
+        <div class="classifier">
+            <div class="d-flex debate-title classifier-title contribution-title">
+                <div class="flex-grow-1">
+                    <span></span>
+                </div>
+
+                <div class="contribution-panel">
+
+                </div>
+            </div>
+            <div class="classifier-container collapse show">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="empty-shade_classifier-container" style="display: none">
+        <div class="shade_classifier contribution-container">
+            <div class="d-flex shade_classifier-title contribution-title">
+                <div class="flex-grow-1">
+                    <span></span>
+                </div>
+
+                <div class="contribution-panel">
+                    <div class="dropdown">
+                        <button class="btn btn-link color-white no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-plus" type="button" data-toggle="dropdown">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="shade_classifier-container collapse show">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="empty-category-container" style="display: none">
+        <div class="category contribution-container">
+            <div class="d-flex category-title contribution-title">
+                <div class="flex-grow-1">
+                    <span></span>
+                </div>
+
+                <div class="contribution-panel">
+
+                    <div class="d-flex">
+                        <div class="nb-arguments">
+                            <span></span>
+                            <i class="@Messages("browse.search.tip.ARGUMENT")"></i>
+                        </div>
+
+                        <div class="nb-citations">
+                            <span></span>
+                            <i class="@Messages("browse.search.tip.CITATION")"></i>
+                        </div>
+                    </div>
+
+                    <div class="contribution-panel-dropdowns d-flex justify-content-end">
+                        <div class="dropdown">
+                            <button class="btn btn-link primary no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-pen" type="button" data-toggle="dropdown">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right"></div>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="btn btn-link primary no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-plus" type="button" data-toggle="dropdown">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="category-container collapse">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="empty-argument-container" style="display: none">
+        <div class="argument contribution-container">
+            <div class="d-flex argument-title contribution-title">
+                <div class="flex-grow-1">
+                    <i class="fas fa-comment mr-1 shaded-element"></i>
+                    <span></span>
+                </div>
+
+                <div class="contribution-panel">
+
+                    <div class="d-flex">
+                        <div class="nb-arguments">
+                            <span></span>
+                            <i class="@Messages("browse.search.tip.ARGUMENT")"></i>
+                        </div>
+
+                        <div class="nb-citations">
+                            <span></span>
+                            <i class="@Messages("browse.search.tip.CITATION")"></i>
+                        </div>
+                    </div>
+
+                    <div class="contribution-panel-dropdowns d-flex justify-content-end">
+                        <div class="dropdown mr-1">
+                            <button class="btn btn-link primary no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-pen" type="button" data-toggle="dropdown">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right"></div>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="btn btn-link primary no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-plus" type="button" data-toggle="dropdown">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="argument-container collapse">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="empty-citation-container" style="display: none">
+        <div class="citation contribution-container" >
+            <div class="d-flex citation-title contribution-title">
+                <div class="flex-grow-1">
+                    <i class="fas fa-align-left mr-1 shaded-element"></i>
+                    <span></span>
+                </div>
+
+                <div class="contribution-panel contribution-panel-dropdowns">
+                    <div class="dropdown">
+                        <button class="btn btn-link primary no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-pen" type="button" data-toggle="dropdown">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="citation-container collapse">
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

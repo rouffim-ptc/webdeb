@@ -1,0 +1,319 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Drag n drop test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepform
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepformOption
+@import be.webdeb.presentation.web.views.html.util.form.stepform.stepformOptionChoice
+@(
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title></title>
+    <meta name="description" content="@Messages("browse.search.tooltip")">
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/sliderform.css")">
+
+    <script src="@routes.Assets.at("javascripts/actor-scripts.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/citation-scripts.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/sliderform.js")" type="text/javascript"></script>
+    <script>
+            $(document).ready(function(){
+                $('form').stepFormJs();
+
+                let authors = $('#actors');
+                addActorsTypeahead(authors, 'fullname', '-1');
+                addActorsTypeahead(authors, 'affname', '1');
+                manageActorButton(authors, ['fullname', 'affname'], ['-1', '1']);
+
+                let authorsCited = $('#actorsCited');
+                addActorsTypeahead(authorsCited, 'fullname', '-1');
+                manageActorButton(authorsCited, ['fullname'], '-1');
+
+                let authorsThinker = $('#actorsThinker');
+                addActorsTypeahead(authorsThinker, 'fullname', '-1');
+                addActorsTypeahead(authorsThinker, 'affname', '1');
+                manageActorButton(authorsThinker, ['fullname', 'affname'], '-1');
+
+                addFoldersTypeahead($('#tags'));
+                addPlacesTypeahead($('#places'));
+                manageAddRmButton($('#places'), ['completeName'], '', null, addPlaceTypeahead);
+
+                excerptEdition($('#workingExcerpt'));
+
+                $('[data-toggle="tooltip"]').tooltip();
+
+                $('.citation-preview').parent().on('change focusout keyup', function(){
+                    $('.citation-preview').text($(this).text().trim());
+                })
+            });
+    </script>
+}
+
+@main(user, scripts) {
+
+   @* <div class="container">
+        <div class="row">
+            <form class="col-12 mt-3" autocomplete="off">
+                <fieldset>
+
+                    @stepform("Merci de vérifier ou compléter les informations que WebDeb a importées automatiquement", "", step1_input)
+
+                    @stepform("Voici l’extrait que vous voulez insérer. Souhaitez-vous supprimer des parties inutiles ?", "", step2_input, stepformOption(step2_options))
+
+                    @stepform("L’extrait est-il compréhensible tel quel sans remplacer des pronoms ou ajouter des informations ?", "", step3_input, stepformOption(step3_options))
+
+                    @stepform("L’auteur du texte rapporte-t-il l’opinion d’un ou plusieurs autres acteurs ?", "", step4_input, stepformOption(step4_options))
+
+                    @stepform("L’extrait parle-t-il d’un ou plusieurs autres acteurs ?", "", step5_input, stepformOption(step5_options))
+
+                    @stepform("Cette citation concerne-t-elle un ou des territoires particuliers ?", "", step6_input, stepformOption(step6_options))
+
+                    @stepform("De quels thèmes traite la citation ?", "", step7_input)
+
+                    @stepform("Voulez-vous compléter quelques informations sur le texte d’où est issue la citation ?", "", step8_input)
+
+                    @stepform("Ce texte peut être importé intégralement dans WebDeb. Nous vous suggérons de l’importer si vous voulez en extraire d’autres citations.", "", step9_input)
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+}
+
+@step1_input() = {
+    <div class="form-group mt-2">
+        <label for="url">URL</label>
+        <input type="url" class="form-control" id="url" placeholder="https://example.com" value="https://www.rtbf.be/info/economie/detail_des-accords-internationaux-sur-la-gestion-de-l-eau-de-la-meuse-sont-necessaires?id=10312408">
+    </div>
+
+    <div class="form-group mt-2">
+        <label for="text">Titre du texte</label>
+        <input type="text" class="form-control" id="</div>" value="Des accords internationaux sur la gestion de l'eau de la Meuse sont nécessaires">
+    </div>
+
+    <div class="form-group mt-2">
+        <label for="actor_fullname">Nom, fonction et organisation de l’auteur ou des auteurs</label>
+
+        <div class="controls col-12 p-0" id="actors">
+            <div class="entry input-group input-group-border padding-group d-flex align-items-center flex-nowrap">
+
+                <div class="d-flex flex-grow-1 input-field p-0 input-typeahead">
+                    <input type="text" class="form-control" id="actors_0_fullname" name="actors[0].fullname" placeholder="Nom*" value="Belga">
+                    <input type="text" class="form-control" id="actors_0_function" name="actors[0].function" placeholder="Fonction" value="">
+                    <input type="text" class="form-control" id="actors_0_affname" name="actors[0].affname" placeholder="Organisation" value="">
+                </div>
+
+                <div class="d-flex flex-nowrap input-group-btn">
+                    <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                    <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mt-2">
+        <label for="publication_date">Date</label>
+        <input type="text" class="form-control" id="publication_date" placeholder="aaaa, mm/aaaa, jj/mm/aaaa" value="11/09/2019">
+    </div> *@
+}
+@*
+@step2_input() = {
+    <div class="form-group mb-4">
+        <span class="citation-preview preview">"Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords."</span>
+    </div>
+
+    @stepformOptionChoice(true, "workingExcerptToggle", "Supprimer des parties inutiles ?")
+}
+
+@step2_options() = {
+    <div class="form-group">
+        <label for="workingExcerpt">Extrait</label>
+        <div class="form-control editable-container" id="workingExcerpt" contenteditable="true" onpaste="return false">
+            <span class="citation-preview form">Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords.</span>
+        </div>
+    </div>
+}
+
+@step3_input() = {
+    <div class="form-group mb-4">
+        <span class="citation-preview preview">"Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords."</span>
+    </div>
+
+    @stepformOptionChoice(false, "workingExcerpt2Toggle")
+}
+
+@step3_options() = {
+    <div class="form-group">
+        <label for="workingExcerpt">Extrait</label>
+        <div class="form-control editable-container" id="workingExcerpt2" contenteditable="true">
+            <span class="citation-preview preview">Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords.</span>
+        </div>
+    </div>
+}
+
+@step4_input() = {
+    <div class="form-group mb-4">
+        <span class="citation-preview form">"Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords."</span>
+    </div>
+
+    @stepformOptionChoice(true, "authorThinker")
+}
+
+@step4_options() = {
+    <div class="form-group">
+        <label for="actor_fullname">Nom, fonction et organisation de l’auteur ou des auteurs</label>
+
+        <div class="controls col-12 p-0" id="actorsThinker">
+            <div class="entry input-group input-group-border padding-group d-flex align-items-center">
+
+                <div class="d-flex flex-grow-1 input-field p-0 input-typeahead">
+                    <input type="text" class="form-control" id="thinker_0_fullname" name="thinker[0].fullname" placeholder="Nom*">
+                    <input type="text" class="form-control" id="thinker_0_function" name="thinker[0].function" placeholder="Fonction">
+                    <input type="text" class="form-control" id="thinker_0_affname" name="thinker[0].affname" placeholder="Organisation">
+                </div>
+
+                <div class="d-flex flex-nowrap input-group-btn">
+                    <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                    <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@step5_input() = {
+    <div class="form-group mb-4">
+        <span class="citation-preview preview">"Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords."</span>
+    </div>
+
+    @stepformOptionChoice(true, "authorCited")
+}
+
+@step5_options() = {
+    <div class="form-group">
+        <div class="controls col-12 p-0" id="actorsCited">
+            <div class="entry input-group input-group-border padding-group d-flex align-items-center">
+
+                <div class="flex-grow-1 input-field input-typeahead">
+                    <input type="text" class="form-control" id="cited_0_fullname" name="cited[0].fullname" placeholder="Elio Di Rupo">
+                </div>
+
+                <span class="input-group-btn bottom">
+                    <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                    <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+
+@step6_input() = {
+    <div class="form-group mb-4">
+        <span class="citation-preview preview">"Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords."</span>
+    </div>
+
+    @stepformOptionChoice(true, "places")
+}
+
+@step6_options() = {
+    <div class="form-group">
+        <div class="controls col-12 p-0" id="places">
+            <div class="entry input-group input-group-border padding-group d-flex align-items-center">
+
+                <div class="flex-grow-1 input-field p-0 input-typeahead">
+                    <input type="text" class="form-control" id="places_0_completeName" name="places[0].completeName" placeholder="Bruxelles">
+                </div>
+
+                <div class="d-flex flex-nowrap input-group-btn">
+                    <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                    <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@step7_input() = {
+    <div class="form-group mb-4">
+        <span class="citation-preview preview">"Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords."</span>
+    </div>
+
+    <div class="form-group">
+        <div class="controls col-12 p-0">
+            <div id="tags" class="entry input-group input-group-border padding-group d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <input type="text" class="form-control" placeholder="tag1">
+                </div>
+                <div class="flex-grow-1">
+                    <input type="text" class="form-control" placeholder="tag2">
+                </div>
+                <div class="flex-grow-1">
+                    <input type="text" class="form-control" placeholder="tag3">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@step8_input() = {
+    <div class="form-group mb-4">
+        <span class="citation-preview preview">"Les pays qui puisent de l'eau dans la Meuse pour la transformer en eau potable doivent d'urgence conclure de meilleurs accords."</span>
+    </div>
+
+    <div class="form-group mt-2">
+        <label for="texttype">Genre du texte</label>
+        <select class="form-control" id="texttype" data-size="10">
+            <option class="blank" value="">Vous pouvez sélectionner le genre du texte dans la liste</option>
+            <option value="0">Entretien ou retranscription de débats</option>
+            <option value="1">Artistique (roman, poème, scénario,...)</option>
+            <option value="2">Informatif (rapport statistique ou dactivité, encyclopédie, manuel scolaire,...)</option>
+            <option value="3">Journalistique (article de presse, reportage,...)</option>
+            <option value="4">Normatif (loi, règlement, traité, norme, standard,...)</option>
+            <option value="5">Opinion (plaidoyer, éditorial, essai, critique artistique,...)</option>
+            <option value="6">Prospectif (projet, plan, programme,...)</option>
+            <option value="7">Pratique (manuel technique ou pratique, guide touristique,...)</option>
+            <option value="8">Publicitaire</option>
+            <option value="9">Scientifique (article/livre/rapport scientifique, thèse, mémoire, étude de marché,...)</option>
+            <option value="10">Autre</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-2">
+        <label for="publisher">Editeur</label>
+        <input type="text" class="form-control" id="publisher" value="rtbf.be">
+    </div>
+}
+
+@step9_input() = {
+    @stepformOptionChoice(true, "importText")
+}
+    *@

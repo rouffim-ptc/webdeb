@@ -1,0 +1,58 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+    *
+    * List of the contributors to the development of WebDeb: see AUTHORS file.
+    * Description and complete License: see LICENSE file.
+    *
+    * This program (WebDeb) is free software:
+    * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+    * Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+    *
+    * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+    * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    *
+    * You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+    * If not, see <http://www.gnu.org/licenses/>.
+    *@
+
+@*
+* Help page content v2
+*
+* @param name the name of the manual and video key
+* @param index the position of the help
+* @param hideTitle true if the title must be hidden
+*
+* @author Martin Rouffiange
+*@
+
+@import helper._
+
+@(
+    name : String,
+    index : Integer,
+    hideTitle : Boolean
+)
+
+<div id="help-@name">
+    <div id="help-@name" class="row">
+        @if(!hideTitle) {
+            <div class="col-12"><h3>@if(index != null){@index.} @Messages("help.title." + name)</h3></div>
+        }
+
+    </div>
+    <div class="row">
+        @if(Messages("help.video." + name) != "help.video." + name){
+            <div class="col-12 @(if(Messages("help.manual." + name) != "help.manual." + name) "col-md-12 col-lg-6")">
+                <iframe width="100%" height="@(if(Messages("help.manual." + name) != "help.manual." + name){"315"}else{"520"})" src="https://www.youtube.com/embed/@Messages("help.video." + name)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        }
+
+        @if(Messages("help.manual." + name) != "help.manual." + name){
+            <div class="col-12 @(if(Messages("help.video." + name) != "help.video." + name) "col-md-12 col-lg-6")">
+                <embed src="/assets/static/rsc/manuals/@ctx.lang.code/@(name.concat(".pdf"))" width="100%" height="@(if(Messages("help.video." + name) != "help.video." + name){"315"}else{"520"})" alt="pdf"
+                pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
+            </div>
+        }
+
+    </div>
+</div>

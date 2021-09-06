@@ -1,0 +1,70 @@
+<!--
+  ~  Copyright 2014-2018 University of Namur (PReCISE) - University of Louvain (Girsef - CENTAL).
+  ~  This is part of the WebDeb software (WDWEB), a collaborative platform to record and analyze
+  ~  argumentation-based debates. This is free software:  you can redistribute it and/or modify
+  ~  it under the terms of the GNU Lesser General Public License version 3 as published by the
+  ~  Free Software Foundation. It is distributed in the hope that it will be useful, but WITHOUT
+  ~  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  ~  PARTICULAR PURPOSE.
+  ~
+  ~  See <https://webdeb.be/> for a running instance of a webdeb web platform.
+  ~  See the GNU Lesser General Public License (LGPL) for more details over the license terms.
+  ~
+  ~  You should have received a copy of the GNU Lesser General Public License along with this copy.
+  ~  If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<configuration>
+
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/webdeb-web.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/webdeb-web-logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%level [%date] [%thread] %class.%M:%L-- %message %xException%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DBTRACE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/webdeb-web-db.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/webdeb-web-db-logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%date] [%class.%M] %message %xException%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%coloredLevel [%date{HH:mm:ss}] [%thread] %class.%M:%L -- %message %xException%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- play related loggers -->
+    <logger name="play" level="INFO"/>
+    <!-- application-specific loggers -->
+    <logger name="application" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <!-- sql log -->
+	<!--
+    <logger name="org.avaje.ebean.SQL" level="TRACE" additivity="false">
+        <appender-ref ref="DBTRACE"/>
+    </logger>
+    <logger name="org.avaje.ebean.TXN" level="TRACE" additivity="false">
+        <appender-ref ref="DBTRACE"/>
+    </logger>
+	-->
+   
+</configuration>

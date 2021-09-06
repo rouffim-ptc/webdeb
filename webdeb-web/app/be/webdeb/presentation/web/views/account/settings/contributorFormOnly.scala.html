@@ -1,0 +1,310 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Contributor details' form
+*
+* @param contributorForm the form to sign up
+* @param user the user profile data
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.register.ContributorForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, funkyCheckbox, handleNameMatches, hiddenFormField, inlineform}
+
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+
+@import be.webdeb.util.ValuesHelper
+@(
+    contributorForm: Form[ContributorForm],
+    user : WebdebUser,
+    helper : ContributionHelper
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+@funkyCheckBox = @{ FieldConstructor(funkyCheckbox.f) }
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var div = $('#signupdiv');
+
+    // disable email if we have an id
+    if (@contributorForm("id").value != -1) {
+      div.find('#email').prop('readonly', true);
+    }
+
+    // handle affiliation-related elements
+    addActorsTypeahead($('#affiliationsForm'), 'affname', '1');
+    manageActorButton('affiliationsForm', ['affname'], '1');
+
+    // toggle-button for ongoing affiliation
+    $('[id$="groupEndDate"]').each(function() {
+      var that = this;
+      updateRoundedbox(that);
+      $(this).find('.input-group-addon.roundedbox').each(function() {
+        listenerOnRoundedBox(that, '[name$="ongoingDate"]');
+      });
+    });
+
+    // button group to select gender and pedagogic state
+    manageExclusiveCheckboxes($('#b-gender').find('input[type="checkbox"]'), $('#gender'), false);
+
+    @if(contributorForm("isTmp").value != null && !contributorForm("isTmp").value.equals("true")){
+      manageExclusiveCheckboxes($('#b-pedagogic').find('input[type="checkbox"]'), $('#pedagogic'), true);
+    }
+
+    @if(contributorForm("id").value != "-1") {
+      manageExclusiveCheckboxes($('#b-newsletter').find('input[type="checkbox"]'), $('#newsletter'), false);
+    }
+
+    // handle help bubbles
+    handleHelpBubble(div);
+
+    // manage avatar selection, if any
+    if ($('#avatar').length > 0) {
+      managePictureField('#signupdiv', '/useravatar/');
+    }
+  });
+</script>
+
+@hiddenFormField(contributorForm("id"))
+@hiddenFormField(contributorForm("version"))
+@hiddenFormField(contributorForm("signup"))
+@hiddenFormField(contributorForm("lang"))
+@hiddenFormField(contributorForm("isTmp"))
+@hiddenFormField(contributorForm("browserWarned"))
+
+@if(contributorForm("id").value == "-1") {
+  <div class="row">
+    <div class="col-12">
+      @textInput(
+        contributorForm("email"),
+        Messages("contributor.label.mail2"),
+        Messages("contributor.place.mail2"),
+        true,
+        true
+      )
+    </div>
+    <div class="col-12">
+      @if(contributorForm("isTmp").value != null && !contributorForm("isTmp").value.equals("true")){
+        @textInput(
+          contributorForm("pseudo"),
+          Messages("contributor.label.pseudo"),
+          Messages("contributor.place.pseudo"),
+          true,
+          true
+        )
+      }else{
+        @textInput(
+          contributorForm("pseudo"),
+          Messages("contributor.label.pseudo"),
+          Messages("contributor.place.pseudo"),
+          true,
+          true,
+          null,
+          null,
+          null,
+          null,
+          true
+        )
+      }
+    </div>
+  </div>
+
+} else {
+
+  <div class="row">
+    <div class="col-md-4 col-sm-12 col-12">
+      @textInput(
+        contributorForm("pseudo"),
+        Messages("contributor.label.pseudo"),
+        Messages("contributor.place.pseudo"),
+        true
+      )
+    </div>
+    <div class="col-md-4 col-sm-12 col-12">
+      @textInput(
+        contributorForm("email"),
+        Messages("contributor.label.mail2"),
+        Messages("contributor.place.mail"),
+        true,
+        true
+      )
+    </div>
+
+    @*
+    <div class="col-md-4 col-sm-12 col-12">
+      <label for="picture">@Messages("general.label.pic")</label>
+      <div class="input-group file-input-group">
+        @inputText(
+          contributorForm("avatar"),
+          '_label -> null,
+          'class -> "form-control file-input-group-filename avatar-field",
+          'readonly -> "readonly"
+        )(handler = inlineform, implicitly[Messages])
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default file-input-clear">
+            <span class="fa fa-remove"></span>
+            <span class="file-input-title">@Messages("general.label.btn.clear")</span>
+          </button>
+          <div class="btn btn-default file-input-group-input">
+            <span class="fa fa-tag-open-o"></span>
+            <span class="file-input-title">@Messages("general.label.btn.browse")</span>
+            <input type="file" accept="image/*" name="picture"/>
+          </div>
+        </span>
+      </div>
+    </div>
+    *@
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-12">
+      @textInput(
+        contributorForm("firstname"),
+        Messages("contributor.label.firstname"),
+        Messages("contributor.place.firstname"),
+        true,
+        true
+      )
+    </div>
+    <div class="col-sm-6 col-12">
+      @textInput(
+        contributorForm("lastname"),
+        Messages("contributor.label.lastname"),
+        Messages("contributor.place.lastname"),
+        true,
+        true
+      )
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-12">
+      @selectInput(
+        contributorForm("residence"),
+        helper.getCountries(ctx.lang.code),
+        Messages("contributor.label.residence"),
+        Messages("contributor.place.residence")
+      )
+    </div>
+
+    <div class="col-sm-6 col-12">
+      @textInput(
+        contributorForm("birthYear"),
+        Messages("contributor.label.birthyear"),
+        Messages("contributor.place.birthyear"),
+        true,
+        true
+      )
+    </div>
+  </div>
+
+  <div class="col-12">
+    <label for="b-gender">@Messages("contributor.label.gender")</label>
+    <div id="b-gender" class="funkyradio inline">
+    @for((k,v) <- helper.getGenders(ctx.lang.code)) {
+      <div class="form-group funkyradio-primary">
+        <input id="gender-@k" type="checkbox" name="gender" value="@k">
+        <label for="gender-@k">@v</label>
+      </div>
+    }
+    </div>
+    @hiddenFormField(contributorForm("gender"))
+  </div>
+    @*
+  @affiliationdiv(contributorForm, "affiliationsForm", "contributor.label.affiliation", EActorType.ORGANIZATION, EAffiliationSubtype.AFFILIATION, true, helper)
+    *@
+}
+
+@if(contributorForm("isTmp").value != null && !contributorForm("isTmp").value.equals("true")){
+
+  @*
+  <div class="row mt-2">
+    <div class="col-12">
+      <label for="b-pedagogic">
+      @Messages("contributor.label.pedagogic")
+      </label>
+      <div id="b-pedagogic" class="funkyradio inline">
+        <div class="form-group funkyradio-primary">
+          <input id="pedagogic-false" type="checkbox" name="pedagogic" value="false"
+            @if(contributorForm("pedagogic").value == "false"){checked="checked"}>
+          <label for="pedagogic-false">@Messages("label.no")</label>
+        </div>
+        <div class="form-group funkyradio-primary">
+          <input id="pedagogic-true" type="checkbox" name="pedagogic" value="true"
+            @if(contributorForm("pedagogic").value == "true"){checked="checked"}>
+          <label for="pedagogic-true">@Messages("label.yes")</label>
+        </div>
+        @inputText(
+          contributorForm("pedagogic"),
+          '_label -> null,
+          'class -> "form-control d-none",
+          'autocomplete -> "off"
+        )(handler = inlineform, implicitly[Messages])
+      </div>
+
+      @contributorForm.errors.map { case (key, error) =>
+        @if(key.contains("pedagogic")) {
+          <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+        }
+      }
+    </div>
+  </div>
+  *@
+}else{
+  @hiddenFormField(contributorForm("pedagogic"))
+  @hiddenFormField(contributorForm("newsletter"))
+}
+
+@if(contributorForm("id").value != "-1") {
+  <div class="row mt-2">
+    <div class="col-12">
+        <hr class="hr-small hr-grey">
+        <div id="b-newsletter" class="funkyradio inline">
+            <div class="form-group funkyradio-primary">
+                <input id="newsletter-true" type="checkbox" name="newsletter" value="true"
+                    @if(contributorForm("newsletter").value == "true"){checked="checked"}>
+                <label for="newsletter-true">@Messages("contributor.label.newsletter")</label>
+            </div>
+            @inputText(
+                contributorForm("newsletter"),
+                '_label -> null,
+                'class -> "form-control d-none",
+                'autocomplete -> "off"
+            )(handler = inlineform, implicitly[Messages])
+        </div>
+
+        @contributorForm.errors.map { case (key, error) =>
+            @if(key.contains("newsletter")) {
+                <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+            }
+        }
+    </div>
+  </div>
+}

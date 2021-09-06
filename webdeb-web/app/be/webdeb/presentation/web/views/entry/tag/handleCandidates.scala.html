@@ -1,0 +1,68 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal page to ask user to confirm that the tag he filled in does not already exist since we
+* retrieved tags in database with exactly the same names.
+*
+* @param candidates a list of tag holders having the same name or rewording name as the tag being encoded
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.viz.tag.tagCard
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+
+
+@(
+        candidates : java.util.List[TagHolder]
+)
+
+@emptyModalframe("tag_candidate_modal", false, "large", "", false) {
+
+    <div class="modal-header">
+        <h3 class="modal-title small-caps text-muted">
+            @Messages("tag.candidate.title") &nbsp;
+            <span class="text-primary" id="candidate-name">@candidates.get(0).getTagName</span>
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <p class="instructions">@Messages("tag.candidate.desc")</p>
+        <div id="candidate-boxes" class="pointable-content pageable">
+        @for(tag <- candidates) {
+            <div id="summary_@tag.getId" class="summary">
+            @tagCard(tag, true, false)
+            </div>
+        }
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="form-actions">
+            <button type="button" id="createnew" class="btn btn-link primary toggleable">
+            @Messages("entry.tag.existing.nok")
+            </button>
+            <button type="button" id="load" class="btn btn-primary toggleable" disabled="">
+            @Messages("entry.tag.existing.ok")
+            </button>
+        </div>
+    </div>
+}

@@ -1,0 +1,147 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial page to contain default search results (to be displayed when going to search page)
+*
+* @param holders the results of the above query (passing unbound type on purpose)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+@(
+    holders : java.util.Collection[_ <: ContributionHolder]
+)
+
+@for(h <- holders) {
+  @h match {
+    case h : ActorHolder => {
+      <div class="col-md-4">
+        <div id="summary_@h.getId" class="summary">
+          <div id="content_@h.getId">
+            <table>
+              <tr>
+                <td>
+                  <div class="actor-thumbnail small">
+                    <div class="thumbnail-holder avatar" style="background-image: url(@h.getSomeAvatar )"></div>
+                  </div>
+                </td>
+                <td><span class="actorbox forcewrap">
+                  <a class="normal-style" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(h.getId, EVizPane.CARTO.id, 0)">
+                    @h.getFullname
+                  </a>
+                </span></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    }
+
+    case h : DebateHolder => {
+      <div class="col-md-4">
+        <div id="summary_@h.getId" class="summary fixed-3">
+          <table>
+            <tr>
+              <td><span class="far fa-comments browse-thumbnail"></span></td>
+              <td>
+                <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.debate(h.getId, EVizPane.CARTO.id, 0)"
+                class="normal-style debates">@h.getFullTitle</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    }
+
+    case h : ArgumentHolder => {
+      <div class="col-md-4">
+        <div id="summary_@h.getId" class="summary fixed-3">
+          <table>
+            <tr>
+              <td><span class="far fa-comment browse-thumbnail"></span></td>
+              <td>
+                <a href=""
+                class="normal-style argument_contexts">@h.getFullTitle</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    }
+
+    case h : TextHolder => {
+      <div class="col-md-4">
+        <div id ="summary_@h.getId" class="summary fixed-2">
+          <table>
+            <tr>
+              <td><span class="far fa-file-alt browse-thumbnail"></span></td>
+              <td>
+                <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.text(h.getId, EVizPane.DETAILS.id, 0)"
+                  class="normal-style texts">@h.getTitle</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    }
+
+     case h : CitationHolder => {
+      <div class="col-md-4">
+        <div id ="summary_@h.getId" class="summary fixed-2">
+          <table>
+            <tr>
+              <td><span class="fas fa-align-left browse-thumbnail"></span></td>
+              <td>
+                <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.text(h.getTextId, EVizPane.CITATION.id, 0)"
+                  class="normal-style citations">@h.getWorkingExcerpt()</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    }
+
+    case h : TagHolder => {
+      <div class="col-md-4">
+        <div id="summary_@h.getId" class="summary">
+          <table>
+            <tr>
+              <td><span class="far fa-tag browse-thumbnail"></span></td>
+              <td>
+                <a href=""
+                class="normal-style tags">@h.getTagName</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    }
+
+    case _ => { @* ignore *@ }
+  }
+}

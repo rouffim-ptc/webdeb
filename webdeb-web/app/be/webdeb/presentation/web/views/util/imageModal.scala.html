@@ -1,0 +1,70 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Image modal to focus on image
+*
+* @param path the path of the image
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.util.helpContent
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe}
+
+
+@(
+        path : String
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            let modal = $('#modal-image');
+            modal.hide();
+
+            setTimeout(function () {
+                let img = modal.find('img');
+                let windowHeight = $(window).height();
+
+                if (img.height() > windowHeight) {
+                    img.height(windowHeight * 0.85);
+                    img.css("width", "initial");
+                    modal.find('.modal-dialog').width(img.width() + 30);
+                }
+                modal.show();
+            }, 200);
+        });
+
+</script>
+
+@emptyModalframe("modal-image", false, "form", "", false) {
+
+    <div class="modal-body row" style="margin:auto">
+        <img src="@path" alt="image" style="width: 100%">
+    </div>
+
+    <div class="modal-footer">
+        <div class="form-actions pull-right">
+            <button type="button" name="cancel" class="btn btn-default" data-dismiss="modal">
+                <span class="fa fa-times-circle"></span> &nbsp; @Messages("general.btn.close")
+            </button>
+        </div>
+    </div>
+
+}

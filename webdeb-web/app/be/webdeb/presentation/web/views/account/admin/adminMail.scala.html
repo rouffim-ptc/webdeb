@@ -1,0 +1,139 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Page to manage projects
+*
+* @param map the message map to display (if any)
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.util.{noerrorForm, bootstrapInput, breadcrumb, funkyCheckbox, helpbubble, hiddenField, hiddenFormField, inlineform, message, publishInGroup}
+@import be.webdeb.presentation.web.views.html.util.helpButton
+@import helper._
+
+@import be.webdeb.presentation.web.controllers.account.admin.AdminMailForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@(
+        mailForm : Form[AdminMailForm],
+        helper : ContributionHelper,
+        user : WebdebUser,
+        map : java.util.Map[String, String]
+)
+
+@scripts = {
+    <title>@Messages("title." + play.Configuration.root().getString("server.type"))</title>
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                manageExclusiveCheckboxes($('#b-newsletter').find('input[type="checkbox"]'), $('#newsletter'), false);
+            });
+    </script>
+}
+
+
+@main(user, scripts) {
+
+    <div id="msg-div">
+        @message(flash)
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h3 class="small-caps text-muted">@Messages("admin.mail.title")</h3>
+            <hr>
+            @form(be.webdeb.presentation.web.controllers.account.admin.routes.AdminActions.sendAdminEmailForm, 'enctype -> "multipart/form-data") {
+                <div class="well">
+                    <fieldset>
+                        <div class="col-12">
+
+                            <div id="usergroup" class="col-12 no-padding">
+                                @select(
+                                    mailForm("usergroup"),
+                                    options(helper.getContributorGroupRoles(ctx.lang.code)),
+                                    '_label -> Messages("admin.mail.usergroup.label"),
+                                    'class -> "form-control",
+                                    'autocomplete -> "off"
+                                )
+                            </div>
+
+                            <div class="col-12 no-padding">
+                                @textInput(
+                                    mailForm("title"),
+                                    Messages("admin.mail.title.label")
+                                )
+                            </div>
+
+                            <div class="col-12 no-padding">
+                                <br>
+                                <div id="b-newsletter" class="funkyradio inline">
+                                    <div class="form-group funkyradio-primary">
+                                        <input id="newsletter-true" type="checkbox" name="newsletter" value="true"
+                                            @if(mailForm("newsletter").value == "true"){checked="checked"}>
+                                        <label for="newsletter-true">@Messages("admin.mail.newsletter.label")</label>
+                                    </div>
+                                    @textInput(
+                                        mailForm("newsletter")
+                                    )
+                                </div>
+
+                                @mailForm.errors.map { case (key, error) =>
+                                    @if(key.contains("newsletter")) {
+                                        <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+                                    }
+                                }
+                            </div>
+
+                            <hr class="hr-small hr-grey">
+
+                            <label for="style">@Messages("admin.mail.style.label")</label>
+                            @textarea(
+                                mailForm("style"),
+                                'placeholder -> Messages("admin.mail.style.place"),
+                                'class -> "form-control textarea-vertical",
+                                'rows -> "6"
+                            )(handler = inlineform, implicitly[Messages])
+
+                            <label for="content">@Messages("admin.mail.content.label")</label>
+                            @textarea(
+                                mailForm("content"),
+                                'placeholder -> Messages("admin.mail.content.place"),
+                                'class -> "form-control textarea-vertical",
+                                'rows -> "16"
+                            )(handler = inlineform, implicitly[Messages])
+                        </div>
+                    </fieldset>
+
+                    <div id="submit-container" class="form-actions">
+                        <br>
+                        <a href="@be.webdeb.presentation.web.controllers.routes.Application.index()" class="btn btn-default">
+                            <span class="fa fa-times-circle"></span> &nbsp; @Messages("general.btn.cancel")
+                        </a>
+                        <button type="submit" class="btn btn-primary" id="submit">@Messages("general.btn.submit")</button>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+
+}

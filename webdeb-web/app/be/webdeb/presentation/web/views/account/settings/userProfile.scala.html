@@ -1,0 +1,190 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Settings pane with a contributor's profile
+*
+* @param contributor the contributor to display the profile
+* @param user the user being the logged one (may be different from contributor)
+* @param messages the messages map (used when the partial page is rebuilt)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.ContributorHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.viz.actor.util.affiliationList
+
+@import be.webdeb.core.api.contributor.EContributorRole
+
+@import be.webdeb.presentation.web.views.html.browse.searchResult
+@import be.webdeb.util.ValuesHelper
+@(
+        contributor : ContributorHolder,
+        values : ValuesHelper,
+        user : WebdebUser,
+        messages : java.util.Map[String, String]
+)
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    // ajax load of contributions
+    @*
+    searchContributorContributions("", @contributor.getId, 0, 100).done(function (data) {
+      $('#all-contributions').empty().append(data);
+    }).fail(function(e){console.log(e);});
+    *@
+
+    // ajax push of profile avatar
+    $('#avatar .file-input-group-input :file').on('change', function () {
+      var timeout = setTimeout(function () {
+        $('#wait-for-it').modal('show');
+      }, 1000);
+
+      uploadContributorPicture($('#avatar-form'), @contributor.getId).done(function (data) {
+        clearTimeout(timeout);
+        $('#wait-for-it').hide();
+        // update image dynamically with filename passed
+        $('#avatar').empty().append('<img class="avatar" ' +
+                'src="/useravatar/' + data + '" alt="@Messages("viz.contributor.label.pic.noimage")">');
+
+      }).fail(function (jqXHR) {
+        clearTimeout(timeout);
+        $('#wait-for-it').hide();
+
+        // check whether we got a full page (unauthorized) or a partial one
+        if (jqXHR.status === 401) {
+          // rebuild page on unauthorized (hack page)
+          replaceContent('body', jqXHR.responseText, 'body');
+        } else {
+          showErrorMessage(jqXHR);
+        }
+      });
+    });
+
+    // add listeners on change-pwd and change-mail buttons -> open modal
+    if(@user.getId == @contributor.getId) {
+      var modalanchor = $("#modal-anchor");
+      $('#change-mail').on('click', function() {
+        askChangeMail(@contributor.getId).done(function (modal) {
+          loadAndShowModal(modalanchor, modal);
+        }).fail(function (jqXHR) {
+          showErrorMessage(jqXHR);
+        });
+      });
+
+      $('#change-pwd').on('click', function() {
+        askChangePassword(@contributor.getId).done(function (modal) {
+          loadAndShowModal(modalanchor, modal);
+        }).fail(function (jqXHR) {
+          showErrorMessage(jqXHR);
+        });
+      });
+
+      $('#delete-account').on('click', function() {
+        askDeleteAccount(@contributor.getId).done(function (modal) {
+          loadAndShowModal(modalanchor, modal);
+        }).fail(function (jqXHR) {
+          showErrorMessage(jqXHR);
+        });
+      });
+    }
+  });
+</script>
+
+<div class="col-12">
+
+  <div class="center-flex">
+    @*
+    <div id="avatar" class="col-sm-6 col-md-3">
+      @if(contributor.hasDefaultAvatar && user.getId == contributor.getId) {
+        <div class="avatar empty center-flex" style="background-image: url(/avatar/@contributor.getSomeAvatar)">
+          <form id="avatar-form" enctype="multipart/form-data">
+            <div class="input-group file-input-group">
+              <input type="text" id="contributorId" name="contributorId" class="form-control hidden" value="@contributor.getId">
+
+              <div class="btn btn-default file-input-group-input">
+                <span class="file-input-title">@Messages("viz.contributor.avatar.btn")</span>
+                <input type="file" accept="image/*" id="picture" name="picture" class="form-control"
+                title="@Messages("viz.contributor.avatar.tooltip")"/>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      } else {
+        <img class="avatar" src="/useravatar/@contributor.getSomeAvatar" alt="@Messages("viz.contributor.label.pic.noimage")">
+      }
+    </div>
+    *@
+
+    <div class="col-sm-6 col-md-9 contribution-card">
+
+      <h3>
+        @contributor.getPseudo
+        @if(contributor.isDeleted){
+          (<span>@Messages("contributor.isDeleted")</span>)
+        } else {
+          @if(user.getId == contributor.getId || user.getERole.id() == EContributorRole.ADMIN.id) {
+            (@contributor.getFirstname @contributor.getLastname)
+            <span class="text-muted small">@contributor.getEmail</span>
+            @if(user.getId == contributor.getId) {
+              <button id="change-mail" type="button" class="btn btn-link btn-sm primary" style="padding-bottom: 0">
+                <span class="fa fa-edit"></span> @Messages("viz.contributor.change.mail")
+              </button>
+            }
+          }
+        }
+      </h3>
+      <h4 class="text-muted">
+        @if(user.getId == contributor.getId || user.getERole.id() == EContributorRole.ADMIN.id) {
+          <span class="text-lowercase">@contributor.getGender @contributor.getBirthYear</span>
+          @if(contributor.getResidence != null && contributor.getResidence.length > 0){ (@contributor.getResidence) }
+        }
+      </h4>
+
+      @if(contributor.getAffiliations.size > 0) {
+        @affiliationList("viz.contributor.label.affiliations", contributor.getAffiliations, false)
+      }
+    </div>
+  </div>
+
+  @if(user.getId == contributor.getId) {
+    <div align="right">
+      <a class="btn btn-default" title="@Messages("viz.contributor.update.tooltip")"
+      href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.update(contributor.getId)">
+      @Messages("viz.contributor.update.btn")
+      </a>
+      <button id="change-pwd" type="button" class="btn btn-default">
+        @Messages("viz.contributor.change.pwd")
+      </button>
+      <button id="delete-account" type="button" class="btn btn-danger">
+      @Messages("contributor.delete.account.btn")
+      </button>
+    </div>
+  }
+  <hr class="contrib-details">
+
+  <h3>@Messages("viz.contributor.label.last.contrib")</h3>
+  @searchResult("", contributor.getContributions(user, -1, 5), values)
+
+</div>

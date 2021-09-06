@@ -1,0 +1,56 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Template to display a list of citations in a particular context
+*
+* @param citations the list of citations holder to display
+* @param title the title of the modal, if needed
+* @param user the current user profile
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.viz.citation.citationList
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.core.api.debate.EDebateShade
+
+@(
+        mainActorCitationsMap: java.util.Map[Integer, java.util.List[CitationHolder]],
+        concurrentActorCitationsMap: java.util.Map[Integer, java.util.List[CitationHolder]],
+        mainActorName : String,
+        concurrentActorName : String,
+        user : WebdebUser,
+        selectedShade : Integer = null,
+        forArgument : Boolean = true,
+        debateShade : EDebateShade = null
+)
+
+<div class="row mt-3 citation-concurrent-list">
+    <div class="col-md-6">
+        <h4>@mainActorName</h4>
+
+        @citationList(mainActorCitationsMap, user, selectedShade, forArgument, debateShade, "1")
+    </div>
+
+    <div class="col-md-6">
+        <h4>@concurrentActorName</h4>
+
+        @citationList(concurrentActorCitationsMap, user, selectedShade, forArgument, debateShade, "2")
+    </div>
+</div>

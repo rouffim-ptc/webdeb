@@ -1,0 +1,59 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Tag category simple container
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.toolbar.contributionActionsDiv
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+
+@(
+        debate: DebateHolder,
+        user : WebdebUser,
+        withActions : Boolean = false
+)
+
+<div class="contribution-container tag mt-2" data-id="@debate.getId">
+
+    <div class="contribution-container-header d-flex align-items-center justify-content-center">
+
+        <div class="d-flex flex-grow-1 align-items-center justify-content-center m-0 pr-3 pl-3 tag-title">
+
+            <i class="@Messages("browse.search.tip.DEBATE") mr-3"></i>
+
+            <a class="flex-grow-1" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.debate(debate.getId, -1, 0)">
+                @debate.getFullTitle
+            </a>
+
+        </div>
+
+        @if(withActions) {
+            @contributionActionsDiv(EContributionType.DEBATE, user, false)
+        }
+    </div>
+
+</div>
+

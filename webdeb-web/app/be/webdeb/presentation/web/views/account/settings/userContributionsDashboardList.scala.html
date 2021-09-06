@@ -1,0 +1,82 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable template to display a list of contributions
+*
+* @param holders the list of contribution that will be displayed
+* @param filters the list of filters that apply here
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.views.html.browse.overview.actorOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.textOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.debateOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.argumentOverview
+@import be.webdeb.presentation.web.controllers.entry.EFilterName
+@import be.webdeb.presentation.web.views.html.util.filterbar
+@import be.webdeb.presentation.web.controllers.entry.FilterTree
+
+@(
+    holders : java.util.List[ContributionHolder],
+    filters : java.util.Map[EFilterName, java.util.List[FilterTree]]
+)
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    // add a pager for contributions
+    var p = new Pager('.showall', 15, '#contribution-pager', undefined, false);
+    p.reset();
+    var toggle = $('.toggle_filter');
+    handleFilter(toggle, p);
+  });
+</script>
+
+
+@if(filters != null && !filters.isEmpty) {
+  @filterbar(filters)
+}
+
+<div>
+  @if(!holders.isEmpty) {
+    <div class="row">
+      <div class="col-12 left-border pageable showall">
+        @for(h <- holders) {
+          @h match {
+            case h : ArgumentHolder => { @argumentOverview(h, true, true, false, null) }
+            case h : DebateHolder => { @debateOverview(h, true, true, false, null) }
+            case h : ActorHolder => { @actorOverview(h, true, true, false, null)   }
+            case h : TextHolder => { @textOverview(h, true, true, false, null) }
+            case _ => { @* ignore *@ }
+          }
+        }
+      </div>
+      <div id="contribution-pagerdiv" class="col-12">
+        <ul id="contribution-pager" class="pager pagination pull-right"></ul>
+        <hr class="contrib-details">
+      </div>
+    </div>
+  }
+</div>

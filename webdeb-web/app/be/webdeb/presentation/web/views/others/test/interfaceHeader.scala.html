@@ -1,0 +1,91 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Inteface test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.core.api.actor.EGenderType
+@import be.webdeb.presentation.web.views.html.viz.actor.util.affiliationList
+
+@(
+        actor : ActorVizHolder,
+        values : ValuesHelper,
+        user : WebdebUser
+)
+
+<div class="card presentation-card">
+    <div class="d-flex">
+
+        <div class="flex-grow-1">
+            <div class="card-body">
+
+                <div class="actor-thumbnail chartxsbig d-flex align-items-center">
+                    <div class="thumbnail-holder d-md-none mr-2 mr-sm-3 mr-md-0" style="background-color : white;background-image: url(@actor.getSomeAvatar);"></div>
+                    <h5 class="card-title card-title-smart flex-grow-1">@actor.getFullname</h5>
+                </div>
+
+                @actor.getEActortype match {
+                    case EActorType.PERSON => {
+                        <div class="card-text">
+                        @if(!values.isBlank(actor.getResidence)){@actor.getResidence}
+                        </div>
+                    }
+                    case EActorType.ORGANIZATION => {
+                        <div class="card-text">
+                        @if(!values.isBlank(actor.getHeadOffice)){@actor.getResidence}
+                        </div>
+                    }
+                    case _ => { @* ignore *@ }
+                }
+
+
+                <div class="card-text">
+                    <small class="text-muted">
+                        Dernière mise à jour
+                        @if(actor.getLatestContributorDate != null) {
+                            il y a @values.displayTimeFromNow(actor.getLatestContributorDate), le @values.displayDate(actor.getLatestContributorDate)
+                        } else {
+                            inconnue
+                    }
+                    </small>
+                    <button class="btn btn-link primary"><i class="fa fa-cogs fixed-size"></i>éditer</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <img src="@actor.getSomeAvatar" class="contribution-img card-img mr-2 d-none d-md-block" alt="@actor.getFullname">
+        </div>
+
+    </div>
+</div>
+

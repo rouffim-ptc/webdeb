@@ -1,0 +1,273 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Drag n drop test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.core.api.contribution.EContributionType
+@(
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title></title>
+    <meta name="description" content="@Messages("browse.search.tooltip")">
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/dragndrop.css")">
+
+    <script src="@routes.Assets.at("javascripts/dragndrop.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+            $(document).ready(function(){
+                $('.debate-classify-container').debateClassifyJs();
+            });
+    </script>
+}
+
+@main(user, scripts) {
+
+	<div class="container-fluid">
+		<div class="debate-classify-container row">
+
+			<div class="d-flex col-12 no-padding">
+				<div class="debate-classify-tool flex-grow-1 w-100"></div>
+				<div class="m-1"></div>
+				<div class="debate-classify-tool flex-grow-1 w-100"></div>
+			</div>
+
+			<div id="add-category-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Ajouter une catégorie</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="add-category-name">Catégorie</label>
+								<input type="text" class="form-control" id="add-category-name" placeholder="economie">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary add-category" data-dismiss="modal">Ajouter</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="add-opinion-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Ajouter une opinion</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="add-category-name">Opinion</label>
+								<input type="text" class="form-control" id="add-opinion-title" placeholder="economie">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary add-category" data-dismiss="modal">Ajouter</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="add-citation-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Ajouter une citation</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="add-category-name">Citation</label>
+								<input type="text" class="form-control" id="add-citation-citation" placeholder="economie">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary add-category" data-dismiss="modal">Ajouter</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="empty-category-container" style="display: none">
+				<div class="category">
+					<div class="d-flex category-title contribution-title draggable">
+						<div class="flex-grow-1">
+							<i class="fas fa-tag mr-1"></i>
+							<span></span>
+						</div>
+
+						<div class="contribution-panel">
+							<div class="dropdown">
+								<button class="btn btn-link color-white no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-points" type="button" data-toggle="dropdown">
+									<i class="fas fa-points text" style="font-size : 20px">...</i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-link color-white no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-eye" type="button" data-toggle="dropdown">
+									<i class="fas fa-eye"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-link color-white no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-pen" type="button" data-toggle="dropdown">
+									<i class="fas fa-pen"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-link color-white no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-plus" type="button" data-toggle="dropdown">
+									<i class="fas fa-plus"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+						</div>
+					</div>
+					<div class="category-container collapse">
+						<div class="category-container-tab"></div>
+					</div>
+				</div>
+			</div>
+
+			<div id="empty-opinion-container" style="display: none">
+				<div class="opinion">
+					<div class="d-flex opinion-title contribution-title draggable">
+						<div class="flex-grow-1">
+							<i class="fas fa-comment mr-1 shaded-element"></i>
+							<span></span>
+						</div>
+
+						<div class="contribution-panel">
+							<div class="dropdown">
+								<button class="btn btn-link no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-points" type="button" data-toggle="dropdown">
+									<i class="fas fa-points text" style="font-size : 20px">...</i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-link no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-eye" type="button" data-toggle="dropdown">
+									<i class="fas fa-eye"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-link no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-pen" type="button" data-toggle="dropdown">
+									<i class="fas fa-pen"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-link no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-plus" type="button" data-toggle="dropdown">
+									<i class="fas fa-plus"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+						</div>
+					</div>
+					<div class="opinion-container collapse">
+
+					</div>
+				</div>
+			</div>
+
+			<div id="empty-citation-container" style="display: none">
+				<div class="citation" >
+					<div class="d-flex citation-title contribution-title draggable">
+						<div class="flex-grow-1">
+							<i class="fas fa-align-left mr-1 shaded-element"></i>
+							<span></span>
+						</div>
+
+						<div class="contribution-panel">
+							<div class="dropdown">
+								<button class="btn btn-link no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-points" type="button" data-toggle="dropdown">
+									<i class="fas fa-points text" style="font-size : 20px">...</i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-link no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-eye" type="button" data-toggle="dropdown">
+									<i class="fas fa-eye"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-link no-padding dropdown-toggle dropdown-toggle-simple dropdown-toggle-pen" type="button" data-toggle="dropdown">
+									<i class="fas fa-pen"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"></div>
+							</div>
+						</div>
+					</div>
+					<div class="citation-container collapse">
+
+					</div>
+				</div>
+			</div>
+
+
+			<div id="add-category-container" style="display: none">
+				<div class="category no-drop">
+					<div class="d-flex category-title p-2">
+						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add-category-modal"><i class="fas fa-plus mr-1"></i>Ajouter une categorie</button>
+						<div class="remove-subcategory unselectable flex-grow-1 ml-2 d-flex align-items-center justify-content-center">
+							<span>Glisser une sous-catégorie ici pour qu'elle devienne une catégorie</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+    <br>
+    <br>
+    <br>
+}

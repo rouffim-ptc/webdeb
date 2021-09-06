@@ -1,0 +1,193 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Async data about election 2019 stats 3
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorSimpleHolder
+@import be.webdeb.presentation.web.views.html.util.waitforit
+
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.core.api.actor.EPrecisionDate
+@import be.webdeb.presentation.web.controllers.viz.actor.AffiliationViz
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+@(
+        politicalParties : java.util.Map[ActorSimpleHolder, java.util.List[ActorSimpleHolder]],
+        politicalPartiesColors : java.util.Map[Long, String],
+        relatedListIds : java.util.List[Long],
+        relatedListIds2 : java.util.List[Long],
+        othersDatum : java.util.Map[Long, java.util.List[String]],
+        othersDatum2 : java.util.Map[Long, java.util.List[String]]
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            $('.funcToNumber').each(function(){
+                let text = $(this).text();
+
+                text = text.split('(')[1];
+                text = text.split('e')[0];
+
+                $(this).text(text);
+            });
+
+            let headers = $('.election-chart-header');
+
+            headers.each(function(){
+                let name = $(this).find('h4 a');
+                name.text(name.text().split('(')[0]);
+            });
+
+            headers.on('click', function(e) {
+                let target = $($(this).data('target'));
+                let isVisible = target.is(":visible")
+
+                $('.election-container').hide();
+
+                target.toggle(!isVisible);
+                location.href = "#"+$(this).prop("id");
+            });
+
+            $('.scroll-top-wrapper').on('click', function(e) {
+                $('.election-container').hide();
+            });
+
+            $('.election-party-percentmw').each(function(){
+                let percentMan = parseFloat($(this).text().split('%')[0].replace(',','.'));
+                let percentWoman = Math.round((100 - percentMan) * 10) / 10;
+
+                $(this).html('<span><i class="fas fa-mars" style="color: #00deff;"></i>&nbsp;' + String(percentMan).replace('.', ',') + '%'+
+                        '&nbsp;&nbsp;<i class="fas fa-arrows-alt-h"></i>&nbsp;&nbsp;' +
+                        '<i class="fas fa-venus" style="color: #ef6bca;"></i>&nbsp;' + String(percentWoman).replace('.', ',') + '%</span>');
+            });
+        });
+
+</script>
+
+@displayAff(aff : AffiliationViz) = {
+    @if(aff != null){
+        @aff.getGenericFunctionOrDefault
+    }
+}
+
+@displayNumMember(aff : AffiliationViz) = {
+@if(aff != null){
+    <span class="funcToNumber" style="font-size: 24px;">
+    @aff.getFunction
+    </span>
+}
+}
+
+@displayData(datum : java.util.Map[Long, java.util.List[String]], id : Long, index : Integer) = {
+    @if(datum.contains(id) && datum.get(id).size > index){
+        @datum.get(id).get(index)
+    }
+}
+
+    @*
+@for((party, members) <- politicalParties) {
+    <div class="col-12 no-padding">
+        <div id="election-header-@party.getId" class="election-chart-header flex-container primary no-padding"
+        data-target="#election-@party.getId" data-id="@party.getId"
+        style="background-color: @politicalPartiesColors.get(party.getId)">
+            <div style="flex-grow:1">
+            @affiliationsHighchartsAff(null, party, null, EActorType.PERSON, true, "chartxbig")
+            </div>
+            <div class="election-chart-header-cursor">
+                <span>@members.size</span>
+                <i class="far fa-caret-square-down"></i>
+            </div>
+        </div>
+
+        <div id="election-@party.getId" class="election-container col-12 no-padding" style="display: none">
+            <ul class="party-subheader col-12 nav nav-tabs nav-justified" style="padding : 10px;padding-bottom: 0;background-color: #fbf7f7;">
+                <li class="active"><a data-toggle="tab" class="election-members" href="#election-members-@party.getId">Les membres</a></li>
+                <li><a data-toggle="tab" class="election-party" href="#election-party-@party.getId">Le parti</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="election-members-@party.getId" class="col-12 no-padding tab-pane fade in active">
+                    <table class="table table-striped">
+                         <thead>
+                            <tr>
+                                <th>@Messages("election.2019.stats.6.subject.1.subtitle.1")</th>
+                                <th>@Messages("election.2019.stats.6.subject.1.subtitle.2")</th>
+                                <th>@Messages("election.2019.stats.6.subject.1.subtitle.3")</th>
+                                <th class="line-1">@Messages("election.2019.stats.6.subject.1.subtitle.4")</th>
+                                <th class="line-1">@Messages("election.2019.stats.6.subject.1.subtitle.5")</th>
+                                <th class="line-1">@Messages("election.2019.stats.6.subject.1.subtitle.6")</th>
+                                <th class="line-1">@Messages("election.2019.stats.6.subject.1.subtitle.7")</th>
+                                <th class="line-1">@Messages("election.2019.stats.6.subject.1.subtitle.8")</th>
+                                <th class="line-1">@Messages("election.2019.stats.6.subject.1.subtitle.9")</th>
+                                <th class="line-1">@Messages("election.2019.stats.6.subject.1.subtitle.10")</th>
+                                <th>@Messages("election.2019.stats.6.subject.1.subtitle.11")</th>
+                                <th>@Messages("election.2019.stats.6.subject.1.subtitle.12")</th>
+                                <th class="line-1">@Messages("election.2019.stats.6.subject.1.subtitle.13")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @for(member <- members) {
+                            <tr id="election-person-@member.getId">
+                                <td style="min-width: 350px">
+                                    @affiliationsHighchartsAff(null, member, null, EActorType.ORGANIZATION, true, "chartxbig")
+                                </td>
+                                <td>@displayData(othersDatum, member.getId, 0)</td>
+                                <td>@displayData(othersDatum, member.getId, 1)</td>
+                                <td class="line-1">@displayData(othersDatum, member.getId, 2)</td>
+                                <td class="line-1">@displayData(othersDatum, member.getId, 3)</td>
+                                <td class="line-1">@displayData(othersDatum, member.getId, 4)</td>
+                                <td class="line-1">@displayData(othersDatum, member.getId, 5)</td>
+                                <td class="line-1">@displayData(othersDatum, member.getId, 6)</td>
+                                <td class="line-1">@displayData(othersDatum, member.getId, 7)</td>
+                                <td class="line-1">@displayData(othersDatum, member.getId, 8)</td>
+                                <td>@displayData(othersDatum, member.getId, 9)</td>
+                                <td>@displayData(othersDatum, member.getId, 10)</td>
+                                <td class="line-1">@displayData(othersDatum, member.getId, 11)</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="election-party-@party.getId" class="tab-pane fade">
+                    <br>
+                    <table class="table table-striped">
+                        <tbody>
+                            @for(i <- 0 to 7){
+                                <tr>
+                                    <th style="width : 50%;font-size: 18px;padding: 20px;">@Messages("election.2019.stats.6.subject.2.subtitle." + (i + 1))</th>
+                                    <td style="width : 50%" @if(i == 5){class="election-party-percentmw"}>@displayData(othersDatum2, party.getId, i)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+*@

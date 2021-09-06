@@ -1,0 +1,71 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* A suggestion of contribution
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.viz.text.util.textContainer
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorContainer
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debateContainer
+@import be.webdeb.presentation.web.views.html.viz.tag.util.tagContainer
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+
+@(
+        actor: ActorHolder,
+        citation: CitationHolder,
+        debate: DebateHolder,
+        tag: TagHolder,
+        text: TextHolder,
+        user : WebdebUser
+)
+
+<div>
+    <h4>Voir aussi</h4>
+
+    @if(actor != null) {
+        @actorContainer(actor, user, false)
+    }
+
+    @if(citation != null) {
+        @citationContainer(citation, user, false)
+    }
+
+    @if(debate != null) {
+        @debateContainer(debate, user, false)
+    }
+
+    @if(tag != null) {
+        @tagContainer(tag, user, false)
+    }
+
+    @if(text != null) {
+        @textContainer(text, user, false)
+    }
+</div>

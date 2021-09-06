@@ -1,0 +1,212 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable actor ID card
+*
+* @param actor an actor to be displayed
+* @param inSummary boolean saying if the card must be put in a ".summary" class div. if not, the avatar is also editable
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.util.hiddenField
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+
+@import be.webdeb.presentation.web.views.html.viz.place.placesInlineList
+@import be.webdeb.presentation.web.views.html.viz.tag.tagsInlineList
+
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.actor.EGenderType
+@import be.webdeb.presentation.web.controllers.viz.tag.ETagVizPane
+@(
+    actor : ActorHolder,
+    inSummary : Boolean,
+    values : ValuesHelper
+)
+
+@if(inSummary) {
+  <div id="summary_@actor.getId" class="summary d-flex align-items-center" data-id="@actor.getId" data-name="@actor.getFullname">
+
+    <div class="mr-1">
+      <img class="avatar small" src="@actor.getSomeAvatar" alt="@Messages("actor.label.pic.noimage")">
+    </div>
+
+    <div class="flex-grow-1">
+      <div class="mb-3">
+        <h4 class="border-bottom d-inline pb-2">@actor.getFullname</h4>
+      </div>
+}
+
+  @actor.getEActortype match {
+    case EActorType.PERSON => {
+      @if(!inSummary) {
+      <div class="row">
+
+        <div class="col-md-6">
+        }
+
+          <p class="card-text contribution-attribute">
+
+            <span class="text-muted">@Messages("actor.label.birthdate")</span>
+            @if(!values.isBlank(actor.getBirthdate)){
+              @actor.getBirthdate
+            } else {
+              @Messages("actor.label.unknown")
+            }
+
+            @if(values.isBlank(actor.getDeathdate) && !values.isBlank(actor.getBirthdate)){
+              (@values.displayTimeBetween(actor.getBirthdate, actor.getDeathdate))
+            }
+            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+          </p>
+
+          @if(!values.isBlank(actor.getDeathdate)) {
+            <p class="card-text contribution-attribute">
+
+              <span class="text-muted">@Messages("actor.label.deathdate")</span>
+              @actor.getDeathdate
+
+              @if(!values.isBlank(actor.getBirthdate)) {
+                (@values.displayTimeBetween(actor.getBirthdate, actor.getDeathdate))
+              }
+              <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+            </p>
+          }
+
+          <p class="card-text contribution-attribute">
+            <span class="text-muted">Genre </span>
+            @actor.getEGenderType match {
+              case EGenderType.MALE => {
+                <span><i class="fas fa-mars male-color"></i> @actor.getGender</span>
+              }
+              case EGenderType.FEMALE => {
+                <span><i class="fas fa-venus female-color"></i> @actor.getGender</span>
+              }
+              case EGenderType.NEUTRAL => {
+                <span><i class="fas fa-genderless neutral-color"></i> @actor.getGender</span>
+              }
+              case _ => {
+                <span>inconnu</span>
+              }
+            }
+            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+          </p>
+
+          <p class="card-text contribution-attribute">
+            <span class="text-muted">Résidence </span>
+            @if(!values.isBlank(actor.getResidence)){
+              @actor.getResidence
+            } else {
+              <span>inconnue</span>
+            }
+            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+          </p>
+
+          @if(!inSummary) {
+            <p class="card-text contribution-attribute">
+              @if(!values.isBlank(actor.getCrossref)) {
+                <a class="primary" href="@actor.getCrossref" target="_blank">@actor.getCrossrefNamed</a>
+              } else {
+                <span>Site internet inconnu</span>
+              }
+              <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+            </p>
+          }
+      @if(!inSummary) {
+        </div>
+
+        <div class="col-md-6 mt-3 mt-md-0">
+          <div style="max-width: 500px">
+            <img class="mb-3" src="@actor.getSomeAvatar" style="background-color: white;max-width: 100%">
+          </div>
+        </div>
+
+      </div>
+      }
+    }
+    case EActorType.ORGANIZATION => {
+      @if(!inSummary) {
+      <div class="row">
+
+        <div class="col-md-6">
+        }
+          <p class="card-text contribution-attribute">
+
+            <span class="text-muted">Date de création</span>
+            @if(!values.isBlank(actor.getBeginDate)){
+              @actor.getBeginDate
+            } else {
+              inconnue
+            }
+
+            @if(!values.isBlank(actor.getEndDate)){
+              - terminé le @actor.getEndDate
+            }
+
+          </p>
+
+          <p class="card-text contribution-attribute">
+            <span class="text-muted">Lieu du siège social</span>
+            @if(!actor.getPlaces.isEmpty){
+              @actor.getPlaces.get(0).getCompleteName
+            } else {
+              inconnu
+            }
+            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+          </p>
+
+          <p class="card-text contribution-attribute">
+
+            <span class="text-muted">Numéro officiel</span>
+            @if(!values.isBlank(actor.getOfficialNumber)){
+              @actor.getOfficialNumber
+            } else {
+              inconnu
+            }
+            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+          </p>
+
+          @if(!inSummary) {
+            <p class="card-text contribution-attribute">
+              @if(!values.isBlank(actor.getOrgcrossref)) {
+                <a class="primary" href="@actor.getOrgcrossref" target="_blank">@actor.getCrossrefNamed</a>
+              } else {
+                <span>inconnu</span>
+              }
+              <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+            </p>
+          }
+      @if(!inSummary) {
+        </div>
+
+        <div class="col-md-6 mt-3 mt-md-0">
+          <div style="max-width: 500px">
+            <img class="mb-3" src="@actor.getSomeAvatar" style="background-color: white;max-width: 100%">
+          </div>
+        </div>
+
+      </div>
+      }
+    }
+    case _ => { @* ignore *@ }
+  }
+@if(inSummary) { </div></div> }

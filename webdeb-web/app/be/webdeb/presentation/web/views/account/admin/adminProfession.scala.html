@@ -1,0 +1,125 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial template to display the list of twitter accounts to fetch data from
+*
+* @param accounts the account list to display
+* @param map the message map (may be null)
+*@
+
+@(
+
+)
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    let container = $('.search-professions-container');
+
+    // handle search for contributors request, lazy load all users at page load
+    let professions = container.find('#search-professions');
+
+    addProfessionTypeahead(professions);
+
+    container.find('.search-professions-btn').on('click', function (e) {
+      searchForProfessions(professions.val());
+    });
+
+    $(document).on("modalRemoved", function() {
+      container.find("#profession-anchor").empty();
+      searchForProfessions(professions.val());
+    });
+
+    professions.keypress(function (e) {
+      if (e.which === 13) {
+        e.preventDefault();
+        searchForProfessions(professions.val());
+      }
+    });
+  });
+
+  /**
+   * Search for contributors
+   *
+   * param query a query string (will look in name, email and affiliations)
+   */
+  function searchForProfessions(query) {
+    var waitForIt = $('#spinner_profession');
+    showMe(waitForIt, true, true);
+
+
+    searchProfessions(query, undefined, false, 0, 0).done(function (data) {
+      showMe(waitForIt, false, true);
+      loadProfessionResults(data);
+
+    }).fail(function (jqXHR) {
+      showMe(waitForIt, false, true);
+      loadProfessionResults(jqXHR);
+    });
+  }
+
+  /**
+   * Load given html data into dedicated result div
+   *
+   * param data the html data to load
+   */
+  function loadProfessionResults(data) {
+      $("#profession-anchor").empty().append(data);
+      new Pager('#profession-anchor', 10, '#profession-pager').reset();
+  }
+</script>
+
+<div class="container search-professions-container">
+  <div class="row">
+    <div class="col-12 d-flex">
+
+      <label for="search-professions">@Messages("admin.search.profession.label")</label>
+      <div class="flex-grow-1">
+        <input id="search-professions" value="" class="form-control" autocomplete="off" type="text"
+        placeholder="@Messages("admin.search.profession.instructions")">
+      </div>
+
+      <span class="input-group-btn">
+        <button name="name" class="btn btn-default search-professions-btn" type="button" title="@Messages("admin.search.contributor.title")" data-placement="bottom">
+          <span class="fa fa-search"></span>
+        </button>
+      </span>
+
+    </div>
+
+    @*
+    <p class="instructions">
+      @Html(Messages("admin.search.contributor.instructions"))
+      <button name="name" type="button" class="search-btn btn btn-link secondary">@Messages("admin.search.profession.byname")</button>
+    </p>
+
+    *@
+  </div>
+
+  <div class="col-12">
+    <span id="spinner_profession" class="text-muted huge-font" style="display: none">
+      <span class="fa fa-spinner fa-spin"></span>&nbsp;@Messages("general.dialog.wait")
+    </span>
+
+      <div id="profession-anchor"></div>
+      <div class="col-12">
+          <ul id="profession-pager" class="pager pagination"></ul>
+      </div>
+  </div>
+</div>

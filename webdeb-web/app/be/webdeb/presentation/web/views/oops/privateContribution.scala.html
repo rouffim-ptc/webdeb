@@ -1,0 +1,51 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Display a warning page to warn the user about the privacy of the contribution.
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+        user: WebdebUser
+)
+
+
+@main(user) {
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="small-caps text-muted">@Messages("general.contribution.private.title")</h3>
+                <hr>
+            </div>
+            <div class="col-sm-10 offset-sm-1 col-12">
+                <div class="alert alert-info">
+                    <a href="#" class="close" data-dismiss="alert">×</a>
+                    @Messages("general.contribution.private.msg")
+                </div>
+            </div>
+        </div>
+    </div>
+}

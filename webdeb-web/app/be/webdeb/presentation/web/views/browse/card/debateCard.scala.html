@@ -1,0 +1,57 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Helper template to give a card of a debate
+*
+* @param debate a debate to be displayed
+* @param withLink true if the title is clickable to go to detail page of clicked element
+* @param detailed true if the verbose overview is shown
+* @param withCreator true if the creator (contributor name) must be shown too
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.views.html.browse.card.contributionCard
+
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.viz.debate.EDebateVizPane
+@(
+        debate: DebateHolder,
+        values : ValuesHelper,
+        withLink: Boolean,
+        detailed: Boolean,
+        withCreator: Boolean = false
+)
+
+@contributionCard(debate, values, EDebateVizPane.ARGUMENTS.id(), 0, if(debate.getPicture == null || !debate.getPicture.isDefined){"debate-default"}else{""}, withLink, detailed, withCreator){
+    <div class="card-text">
+        @if(debate.getPlaceDescription != null && !debate.getPlaceDescription.isEmpty) {
+            <div class="description"><i class="fa fa-globe"></i> @debate.getPlaceDescription</div>
+        }
+    </div>
+
+    <div class="card-text">
+        <small class="text-muted">
+            <span class="stat" title="@debate.getNbRelatedElements(EContributionType.ARGUMENT_JUSTIFICATION) @Messages("contribution.viz.arguments.title")"><i class="@Messages("browse.search.tip.ARGUMENT")"></i> @debate.getNbRelatedElements(EContributionType.ARGUMENT_JUSTIFICATION)</span>
+            <span class="stat" title="@debate.getNbRelatedElements(EContributionType.CITATION) @Messages("contribution.viz.sociography.title")"><i class="ml-2 @Messages("browse.search.tip.CITATION")"></i> @debate.getNbRelatedElements(EContributionType.CITATION)</span>
+        </small>
+    </div>
+}

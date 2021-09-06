@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~  Copyright 2014-2018 University of Namur (PReCISE) - University of Louvain (Girsef - CENTAL).
+  ~  This is part of the WebDeb software (WDWEB), a collaborative platform to record and analyze
+  ~  argumentation-based debates. This is free software:  you can redistribute it and/or modify
+  ~  it under the terms of the GNU Lesser General Public License version 3 as published by the
+  ~  Free Software Foundation. It is distributed in the hope that it will be useful, but WITHOUT
+  ~  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  ~  PARTICULAR PURPOSE.
+  ~
+  ~  See <https://webdeb.be/> for a running instance of a webdeb web platform.
+  ~  See the GNU Lesser General Public License (LGPL) for more details over the license terms.
+  ~
+  ~  You should have received a copy of the GNU Lesser General Public License along with this copy.
+  ~  If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<!-- Created with Inkscape ("http://www.inkscape.org/") -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="255.17233mm"
+   id="svg1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="bubbles.svg"
+   sodipodi:version="0.32"
+   width="418.41763mm"
+   version="1.1">
+  <metadata
+     id="metadata3393">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title></dc:title>
+        <dc:description />
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li />
+            <rdf:li>callout</rdf:li>
+            <rdf:li>shape</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://www.openclipart.org">
+            <dc:title>John Cliff</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>John Cliff</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>John Cliff</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:date />
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://web.resource.org/cc/PublicDomain" />
+        <dc:language>en</dc:language>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://web.resource.org/cc/PublicDomain">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     bordercolor="#666666"
+     borderopacity="1.0"
+     id="base"
+     inkscape:cx="912.04268"
+     inkscape:cy="384.80536"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:window-height="1056"
+     inkscape:window-width="1920"
+     inkscape:window-x="1920"
+     inkscape:window-y="24"
+     inkscape:zoom="0.49724867"
+     pagecolor="#ffffff"
+     showborder="false"
+     showgrid="false"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4701"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <g
+     id="g4701"
+     transform="translate(625.20642,300.48523)">
+    <g
+       id="g4758">
+      <path
+         d="m 161.06742,-209.5599 c 0,-49.71775 -45.91887,-90.92533 -67.984448,-90.92533 l -559.743942,0 -14.17557,0.41795 c -29.17572,0.41794 -63.34365,40.78963 -63.34365,90.50738 l -2.92429,495.71289 c -3.65816,32.27678 -6.6346,29.18119 -15.44896,49.29671 -15.40263,35.15079 -41.08114,56.15808 -62.65298,83.30594 13.78624,-10.47156 28.1641,-18.49006 41.08028,-24.12742 6.43362,-2.808 9.32509,-4.76786 16.40798,-5.12361 6.02988,-0.30286 9.94102,-0.96139 17.5203,3.61038 6.03048,4.24082 7.73761,8.95425 7.24317,19.09921 0,49.71769 36.64911,58.35329 58.71464,58.35329 l 577.323022,-1.1821 c 22.065578,0 67.984448,-40.02545 67.984448,-89.74319 z"
+         id="path576-6"
+         sodipodi:nodetypes="ccccccscsscccccc"
+         style="font-size:12px;fill:#e7e7e7;fill-opacity:0.9256757;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 71.101933,-76.458717 c 0,-49.717743 45.918867,-90.925323 67.984447,-90.925323 l 559.74394,0 14.17557,0.41795 c 29.17572,0.41794 63.34365,40.78963 63.34365,90.507373 l 2.92429,495.712897 c 3.65816,32.27678 6.6346,29.18119 15.44896,49.29671 15.40263,35.15079 41.08114,56.15808 62.65298,83.30594 -13.78624,-10.47156 -28.1641,-18.49006 -41.08028,-24.12742 -6.43362,-2.808 -9.32509,-4.76786 -16.40798,-5.12361 -6.02988,-0.30286 -9.94102,-0.96139 -17.5203,3.61038 -6.03048,4.24082 -7.73761,8.95425 -7.24317,19.09921 0,49.71772 -36.64911,58.35332 -58.71464,58.35332 l -577.32302,-1.18213 c -22.06558,0 -67.984447,-40.02545 -67.984447,-89.74319 z"
+         id="path576"
+         sodipodi:nodetypes="ccccccscsscccccc"
+         style="font-size:12px;fill:#50ade5;fill-opacity:0.81756759;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

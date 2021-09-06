@@ -1,0 +1,145 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Settings pane with a contributor's contributions
+*
+* @param contributor the contributor being an author of the contributions to display
+* @param countMap the number of contributions that contributor did
+* @param isUser true if this contributor is the current user viewing this page, false otherwise
+*
+* @author Martin Rouffiange
+* @author Fabian Gilson
+*@
+
+@import be.webdeb.presentation.web.controllers.account.ContributorHolder
+@import be.webdeb.presentation.web.views.html.util.{filterButton, countMapDiv}
+
+@import be.webdeb.presentation.web.views.html.browse.searchResult
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.util.countContributions
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.presentation.web.views.html.browse.searchContent
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        contributor : ContributorHolder,
+        countMap : java.util.Map[EContributionType, Long],
+        searchForm : Form[SearchForm],
+        helper : ContributionHelper,
+        user : WebdebUser,
+        isUser : Boolean
+)
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    //addSpinner();
+
+    // handle search for contributors request, lazy load all users at page load
+    let container = $('.search-container').first();
+    let form = container.find('.filters-container-header').first();
+
+    container.scrollerPager(
+            [form, true, false],
+            doSearch,
+            {
+              search : true
+            }
+    );
+  });
+  @*
+/**
+ * Search for contributor's contributions
+ *
+ * param query a query string
+ */
+function searchForContributions(query) {
+  addSpinner();
+
+  // ajax load of contributions
+  searchContributorContributions(query, @contributor.getId, 0, 100).done(function (data) {
+    $('#all-contributions').empty().append(data);
+  }).fail(function(e){console.log(e);});
+  }
+    *@
+
+  function addSpinner(){
+    $('#all-contributions').empty().append($('<span class="text-muted larger-font">'+
+            '<span class="fa fa-spinner fa-spin"></span>'+
+            '&nbsp;@Messages("general.dialog.wait")'+
+            '</span>'));
+  }
+
+</script>
+
+<div class="col-12">
+  <div class="row">
+
+    <div class="col-12">
+      @*
+      <label>@Messages("contributor.contributions.search.addon.".concat(isUser.toString))</label>
+
+      <div class="input-group fake-input">
+        <div class="form-group flex-grow-1">
+          <input id="search-contributions" value="" class="form-control input-lg custom-search-input tt-input" autocomplete="off" type="text"
+          placeholder="@Messages("contributor.contributions.search.place.".concat(isUser.toString))">
+        </div>
+
+        <span class="input-group-btn">
+          <button type="button"  id="show-filter" class="btn btn-default btn-lg custom-search-input toggle_filter">
+            <i class="fa fa-filter"></i>
+          </button>
+        </span>
+
+        <span class="input-group-btn">
+          <button id="searchbtn" type="button" class="btn btn-default btn-lg custom-search-input"
+          title="@Messages("browse.search.tooltip")" data-placement="bottom">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </div>
+      *@
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      @countContributions(countMap)
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+
+      <hr>
+
+      @searchContent(
+        user,
+        searchForm,
+        EContributionType.ALL,
+        Messages("contributor.contributions.recent.".concat(isUser.toString)),
+        helper
+      )
+
+    </div>
+
+  </div>
+</div>
+

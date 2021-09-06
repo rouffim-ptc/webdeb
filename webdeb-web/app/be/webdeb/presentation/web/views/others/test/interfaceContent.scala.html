@@ -1,0 +1,187 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Inteface test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.core.api.actor.EGenderType
+@import be.webdeb.presentation.web.views.html.viz.actor.util.affiliationList
+
+@import be.webdeb.presentation.web.views.html.others.test.actorCitations
+@import be.webdeb.presentation.web.views.html.others.test.alliesOpponents
+
+@(
+        pane : EActorVizPane,
+        actor : ActorVizHolder,
+        values : ValuesHelper,
+        user : WebdebUser
+)
+
+@pane match {
+    case EActorVizPane.IDENTITY => {
+        @actor.getEActortype match {
+            case EActorType.PERSON => {
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <p class="card-text contribution-attribute">
+
+                            <span class="text-muted">Date de naissance</span>
+                            @if(!values.isBlank(actor.getBirthdate)){
+                                né le @actor.getBirthdate
+                            } else {
+                                né à une date inconnue
+                            }
+
+                            @if(!values.isBlank(actor.getDeathdate)){
+                                - mort le @actor.getDeathdate
+                            }
+
+                            @if(!values.isBlank(actor.getBirthdate)){
+                                (@values.displayTimeBetween(actor.getBirthdate, actor.getDeathdate))
+                            }
+                            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+                        </p>
+
+                        <p class="card-text contribution-attribute">
+                            <span class="text-muted">Genre </span>
+                            @actor.getEGenderType match {
+                                case EGenderType.MALE => {
+                                    <span><i class="fas fa-mars male-color"></i> @actor.getGender</span>
+                                }
+                                case EGenderType.FEMALE => {
+                                    <span><i class="fas fa-venus female-color"></i> @actor.getGender</span>
+                                }
+                                case EGenderType.NEUTRAL => {
+                                    <span><i class="fas fa-genderless neutral-color"></i> @actor.getGender</span>
+                                }
+                                case _ => {
+                                    <span>inconnu</span>
+                                }
+                            }
+                            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+                        </p>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+
+                        <div class="d-lg-none mt-3"></div>
+
+                        <p class="card-text contribution-attribute">
+                            <span class="text-muted">Résidence </span>
+                            @if(!values.isBlank(actor.getResidence)){
+                                @actor.getResidence
+                            } else {
+                                <span>inconnue</span>
+                            }
+                            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+                        </p>
+
+                        <p class="card-text contribution-attribute">
+                            <span class="text-muted">Site internet </span>
+                            @if(!values.isBlank(actor.getResidence)){
+                                <a class="primary" href="@actor.getCrossref" target="_blank">@actor.getCrossref</a>
+                            } else {
+                                <span>inconnu</span>
+                            }
+                            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+                        </p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <p class="card-text contribution-attribute">
+                @if(!actor.getQualifications.isEmpty) {
+                    @affiliationList("actor.label.affiliation.qualification.qualifications", actor.getQualifications, false)
+                } else {
+                    <span class="text-muted">Formations </span><span>n'a pas de formations connues</span>
+                    <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+                }
+                </p>
+
+                <hr>
+
+                <p class="card-text contribution-attribute">
+                @if(!actor.getFiliations.isEmpty){
+                    @affiliationList("actor.label.affiliation.filiation.parents", actor.getFiliations, true)
+                } else {
+                    <span class="text-muted">Parents </span><span>n'a pas de parents étant des personnalités publiques</span>
+                    <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+                }
+                </p>
+
+                <p class="card-text contribution-attribute">
+                @if(!actor.getFiliationsChildren.isEmpty){
+                    @affiliationList("actor.label.affiliation.filiation.children", actor.getFiliationsChildren, true)
+                } else {
+                    <span class="text-muted">Enfants </span><span>n'a pas d'enfants étant des personnalités publiques</span>
+                    <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+                }
+                </p>
+
+                <hr>
+
+                <div class="card-text contribution-attribute">
+                @if(!actor.getAllnames.isEmpty){
+                    <span class="text-muted">Noms d'en d'autres langues : </span>
+                    @for(name <- actor.getAllnames) {
+                        @name.getLang.toUpperCase : @name.getFirst @name.getLast @if(!values.isBlank(name.getPseudo)){@name.getPseudo)}
+                        &nbsp;&nbsp;
+                    }
+                    <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+                }
+                </div>
+            }
+            case EActorType.ORGANIZATION => {
+                <div class="card-text contribution-attribute">
+                    @if(!values.isBlank(actor.getBeginDate())){Fondé le @actor.getBeginDate() - }
+                    @if(!values.isBlank(actor.getEndDate())){terminé le @actor.getEndDate()}
+
+                    @if(!values.isBlank(actor.getBeginDate())){
+                        @values.displayTimeBetween(actor.getBeginDate(), actor.getEndDate())
+                    }
+                </div>
+            }
+            case _ => { @* ignore *@ }
+        }
+    }
+    case EActorVizPane.ARGUMENTS => {
+        @actorCitations()
+    }
+    case EActorVizPane.SOCIOGRAPHY => {
+        @alliesOpponents()
+    }
+    case _ => {
+        <div class="card-text">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        </div>
+    }
+}

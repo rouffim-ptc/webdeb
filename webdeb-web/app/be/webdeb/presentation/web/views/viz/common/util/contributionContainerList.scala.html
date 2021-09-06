@@ -1,0 +1,81 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Template list to display a list of contributions
+*
+* @param holders the list of citations holder to display
+* @param user the current user profile
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debateContainer
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorContainer
+@import be.webdeb.presentation.web.views.html.viz.text.util.textContainer
+@import be.webdeb.presentation.web.views.html.viz.tag.util.tagContainer
+
+@import be.webdeb.presentation.web.controllers.viz.EActionType
+@(
+        holders : java.util.List[_ <: ContributionHolder],
+        user : WebdebUser,
+        contributionType : EContributionType = null,
+        withActions : Boolean = true,
+        linksActions : Boolean = true,
+        subActionType : EActionType = null,
+        pane : Integer = -1
+)
+
+
+@if(!holders.isEmpty) {
+
+    @for(h <- holders) {
+        @h match {
+            case h : DebateHolder => { @debateContainer(h, user, withActions, linksActions, subActionType, pane) }
+            case h : CitationHolder => {  @citationContainer(h, user, withActions, linksActions, false, subActionType, pane) }
+            case h : ActorHolder => {  @actorContainer(h, user, withActions, subActionType, pane) }
+            case h : TextHolder => {  @textContainer(h, user, withActions, subActionType, pane) }
+            case h : TagHolder => {  @tagContainer(h, user, withActions, subActionType, pane) }
+            case _ => { @* ignore *@ }
+        }
+    }
+
+} else {
+
+    <p class="instructions mt-3 mb-3 no-more-results">
+        @contributionType match {
+            case EContributionType.DEBATE => { @Messages("general.debate.none")}
+            case EContributionType.CITATION => {  @Messages("general.citation.none")}
+            case EContributionType.ACTOR => {  @Messages("general..none") }
+            case EContributionType.TEXT => {  @Messages("general..none") }
+            case EContributionType.TAG => {  @Messages("general..none") }
+            case _ => { @Messages("general.contributions.no.result") }
+        }
+    </p>
+}

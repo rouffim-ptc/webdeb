@@ -1,0 +1,236 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Main (tabbed) template to visualize a Tag, containing its cartography, radiography, sociography and details.
+*
+* @param tag the tag to visualize
+* @param filters the list of filters that apply here
+* @param tab the EVizPane id to select which pane is displayed
+* @param pov the point of view to select, if any in the selected pane
+* @param user the user profile data
+* @param map the message map
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.viz.tag.ETagVizPane
+@import be.webdeb.presentation.web.controllers.viz.tag.TagVizHolder
+@import be.webdeb.presentation.web.views.html.util.helpButton
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.util.message
+@import be.webdeb.presentation.web.views.html.util.filterButton
+@import be.webdeb.presentation.web.views.html.util.waitforit
+
+@import be.webdeb.presentation.web.views.html.util.nav.navvpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordion
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordionMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordionContent
+
+@import be.webdeb.util.ValuesHelper
+
+@import be.webdeb.presentation.web.views.html.viz.tag.tagArguments
+@import be.webdeb.presentation.web.views.html.viz.tag.tagDebates
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.viz.common.util.contributionHeader
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        tag : TagVizHolder,
+        filters : java.util.Map[String, java.util.Collection[java.util.Map.Entry[String, String]]],
+        tab : ETagVizPane,
+        pov: Integer,
+        helper : ContributionHelper,
+        user : WebdebUser,
+        map : java.util.Map[String, String]
+)
+
+@scripts = {
+    <title>@tag.getContributionMediaTitle @Messages("general.metatitle")</title>
+    <meta name="description" content="@tag.getContributionMediaDescription">
+
+    <meta property="og:title" content="@tag.getContributionMediaTitleOG">
+    <meta property="og:description" content="@tag.getContributionMediaDescriptionOG">
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.tag(tag.getId, if(tab != null){tab.id}else{-1}, pov).absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable2.png")" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/dragndrop2.css")">
+
+    <script src="@routes.Assets.at("javascripts/sliderform.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/context-arguments-dragndrop.js")" type="text/javascript"></script>
+
+    <script src="@routes.Assets.at("javascripts/debate-scripts.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/actor-scripts.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/text-scripts.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/citation-scripts.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/argument-scripts.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/tag-scripts.js")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                let container = $('#tag-viz');
+
+                handleTabs(container, @tab.id, @pov);
+                initMediaShareButtonListeners(container);
+                // manage change tab for filters and content
+                let params = [@ETagVizPane.ACTORS.id, @ETagVizPane.BIBLIOGRAPHY.id];
+                manageChangeTab(getTagLinkedContributions, @tag.getId, params, $('#tag-viz'));
+                // auto-creation modal if any
+                getAutoCreatedModals();
+
+                initShowCitationsListener();
+
+                initTagContributions(container, @tag.getId, @EContributionType.DEBATE.id);
+                initTagContributions(container, @tag.getId, @EContributionType.CITATION.id);
+
+                $(document).on('reload-viz', function(){
+                    $(document).trigger('dragndrop-reload');
+                });
+
+                dragndropListeners(container, '.viz-pane-' + @ETagVizPane.ARGUMENTS.id, -1, undefined, getTagLinkedContributions, @ETagVizPane.ARGUMENTS.id, {
+                    getDataAsync : getContextArgumentStructure,
+                    dataId : @tag.getId,
+                    saveDataAsync : changeContextArgumentStructure,
+                    categoryCanAddCitation : true
+                }, true);
+
+                @*
+                getContributionSuggestions(container, @tag.getId);
+            *@
+            });
+    </script>
+}
+
+@main(user, scripts, Html(""), "no-min-height") {
+
+    <div id="tag-viz" class="container-fluid">
+        <div id="msg-div">
+            @message(map)
+
+            <div id="warning-link-exists" class="alert alert-fixed alert-warning" style="display: none">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>@Messages("warning")</strong> @Messages("argument.links.alreadyexist")
+            </div>
+
+        </div>
+
+        <div class="row contribution-viz-header">
+            @contributionHeader(tag, helper.getValuesHelper, user)
+        </div>
+
+            <!--  viz areas -->
+        <div class="row viz-body">
+
+            @* FOR BIG SCREENS *@
+
+            @navvpillMenu("col-xl-2 d-none d-xl-block vertical-nav pt-2"){
+                <li role="presentation" class="fake-tab">
+                    <div>@helpButton("entry.argument.analyse;entry.argument.encode;entry.argument.illustrate;viz.argument")</div>
+                </li>
+                <li role="presentation" class="fake-tab">
+                    <hr>
+                </li>
+                @navpillMenuItem(ETagVizPane.DEBATES.id.toString, Messages("contribution.viz.debate.title"), tab == ETagVizPane.DEBATES, "contribution-pane")
+                @navpillMenuItem(ETagVizPane.ARGUMENTS.id.toString, Messages("contribution.viz.citations.title"), tab == ETagVizPane.ARGUMENTS, "contribution-pane")
+                @navpillMenuItem(ETagVizPane.ACTORS.id.toString, Messages("contribution.viz.authors.title"), tab == ETagVizPane.ACTORS, "contribution-pane")
+                @navpillMenuItem(ETagVizPane.BIBLIOGRAPHY.id.toString, Messages("contribution.viz.bibliography.title"), tab == ETagVizPane.BIBLIOGRAPHY, "contribution-pane")
+            }
+
+            @navContent("col-xl-10 d-none d-xl-block"){
+                @navContentItem(ETagVizPane.DEBATES.id.toString, tab == ETagVizPane.DEBATES){
+                    <div class="d-flex justify-content-between">
+                        <div class="contributions-container contributions-list">
+                            @tagDebates(tag, user, helper, "1", pov)
+                        </div>
+                        <div class="contribution-suggestions">
+
+                        </div>
+                    </div>
+                }
+
+                @navContentItem(ETagVizPane.ARGUMENTS.id.toString, tab == ETagVizPane.ARGUMENTS){
+                    <div class="d-flex justify-content-between">
+                        <div class="contributions-container contributions-list">
+                            @tagArguments(tag, user, helper, "1", pov)
+                        </div>
+
+                        <div class="content" style="display: none"></div>
+
+                        <div class="contribution-suggestions">
+
+                        </div>
+                    </div>
+                }
+
+                @navContentItem(ETagVizPane.ACTORS.id.toString, tab == ETagVizPane.ACTORS){
+                    @waitforit("waiting", true)
+                    <div class="content"></div>
+                }
+
+                @navContentItem(ETagVizPane.BIBLIOGRAPHY.id.toString, tab == ETagVizPane.BIBLIOGRAPHY){
+                    @waitforit("waiting", true)
+                    <div class="content"></div>
+                }
+            }
+
+            @* FOR MIDDLE AND SMALL SCREENS *@
+
+            @navAccordion("col-12 d-xl-none p-0"){
+                @navAccordionMenu(ETagVizPane.DEBATES.id.toString, Messages("contribution.viz.debate.title"), tab == ETagVizPane.DEBATES, "contribution-pane")
+
+                @navAccordionContent(ETagVizPane.DEBATES.id.toString, tab == ETagVizPane.DEBATES){
+                    <div class="container-fluid contributions-list">
+                        @tagDebates(tag, user, helper, "2", pov)
+                    </div>
+                }
+
+
+                @navAccordionMenu(ETagVizPane.ARGUMENTS.id.toString, Messages("contribution.viz.citations.title"), tab == ETagVizPane.ARGUMENTS, "contribution-pane")
+
+                @navAccordionContent(ETagVizPane.ARGUMENTS.id.toString, tab == ETagVizPane.ARGUMENTS){
+                    <div class="container-fluid contributions-list">
+                        @tagArguments(tag, user, helper, "2", pov)
+                    </div>
+
+                    <div class="content" style="display: none"></div>
+                }
+
+
+                @navAccordionMenu(ETagVizPane.ACTORS.id.toString, Messages("contribution.viz.authors.title"), tab == ETagVizPane.ACTORS, "contribution-pane")
+
+                @navAccordionContent(ETagVizPane.ACTORS.id.toString, tab == ETagVizPane.ACTORS){
+                    @waitforit("waiting", true)
+                    <div class="content container-fluid"></div>
+                }
+
+
+                @navAccordionMenu(ETagVizPane.BIBLIOGRAPHY.id.toString, Messages("contribution.viz.bibliography.title"), tab == ETagVizPane.BIBLIOGRAPHY, "contribution-pane")
+
+                @navAccordionContent(ETagVizPane.BIBLIOGRAPHY.id.toString, tab == ETagVizPane.BIBLIOGRAPHY){
+                    @waitforit("waiting", true)
+                    <div class="content container-fluid"></div>
+                }
+            }
+
+        </div>
+    </div>
+}

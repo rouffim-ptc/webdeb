@@ -1,0 +1,89 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Display the actor position by socio group key
+*
+* @param tag the tag to display the details for
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.api.actor.ESocioGroupKey
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorThumbnail
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorPositionsDraw
+
+@(
+        holder: ActorVizHolder,
+        user : WebdebUser,
+        helper : ContributionHelper,
+        pov : Integer
+)
+
+<div class="row mt-3 mb-3">
+
+    @*
+    <p class="instructions mb-3">@Messages("viz.argument.socio.info.title")</p>
+    *@
+    <div class="col-12">
+        @if(holder.getActorsDistance.get(ESocioGroupKey.AUTHOR).isEmpty) {
+
+            <p class="instructions mb-3">@Messages("viz.positions.actor.empty")</p>
+        } else {
+
+            @navpillMenu(){
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" style="min-width: 95px">@Messages("viz.actor.socio.pov")</a>
+                </li>
+
+                @for(key <- ESocioGroupKey.values()){
+                    @navpillMenuItem(key.name, Messages("viz.argument.socio.pov." + key.name.toLowerCase), if(pov == null || pov == -1){key.id == 0}else{key.id == pov}, "btn-pov")
+                }
+            }
+
+            <p class="instructions mb-2">@Messages("viz.positions.actor.title", holder.getFullname)</p>
+        }
+    </div>
+
+    <div class="col-12">
+        @if(!holder.getActorsDistance.get(ESocioGroupKey.AUTHOR).isEmpty) {
+            @navContent("actor-positions mt-2") {
+
+                @for(key <- ESocioGroupKey.values()) {
+                    @if(holder.getActorsDistance.contains(key)) {
+                        @navContentItem(key.name, if(pov == null || pov == -1) {
+                            key.id == 0
+                        } else {
+                            key.id == pov
+                        }) {
+                            @actorPositionsDraw(holder.getActorsDistance.get(key), holder.getId, holder.getFullname, null, key, holder.getLang, helper)
+                        }
+                    }
+                }
+            }
+        }
+    </div>
+
+</div>

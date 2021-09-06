@@ -1,0 +1,88 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Auto-creation modal page to ask user to fill in more details about new auto-created tag
+*
+* @param tagForm the form to fill in the new tag
+* @param helper helper class to fetch predefined values from (types, ...)
+* @param user the user profile
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.entry.tag.TagForm
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe, bootstrapInput, helpbubble, hiddenField, hiddenFormField, inlineform, message, noerrorForm}
+@import be.webdeb.presentation.web.views.html.entry.tag.tagSimpleDiv
+@import helper._
+@import be.webdeb.core.api.tag.ETagType
+
+@import be.webdeb.presentation.web.views.html.entry.tag.editTagFields
+@(
+  tagForm: Form[TagForm],
+  helper : ContributionHelper,
+  user : WebdebUser,
+  map : java.util.Map[String,String]
+)
+
+<div id="msg-div">
+  @message(map)
+</div>
+
+@emptyModalframe("modal-tag", true, "form", "", false) {
+
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">@tagForm("formTitle").value</h5>
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 actordiv">
+          <form id="tag-form" class="mb-4" method="post" enctype="multipart/form-data" autocomplete="off">
+
+            @editTagFields(tagForm, helper, user, map)
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+
+    <div class="flex-grow-1">
+      <button type="button" name="cancel" class="btn btn-default" data-dismiss="modal">
+        <span class="fa fa-times-circle"></span> &nbsp; @Messages("general.btn.close")
+      </button>
+    </div>
+
+    <button type ="button" name="submit" class="btn btn-primary">
+      @Messages("general.btn.save")
+    </button>
+
+  </div>
+}

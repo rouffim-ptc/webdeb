@@ -1,0 +1,1 @@
+﻿INSERT INTO `webdeb`.`t_argument_shade_type` (`id_shade`, `en`, `fr`, `nl`) VALUES ('-1', '[DÃ©but de phrase libre]', '[DÃ©but de phrase libre]', '[DÃ©but de phrase libre]');

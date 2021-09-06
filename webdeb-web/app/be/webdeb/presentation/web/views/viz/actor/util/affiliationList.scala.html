@@ -1,0 +1,107 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable template to display a list of affiliations
+*
+* @param fieldName the corresponding form field name (used for correct labeling)
+* @param affiliations the list of affiliations to display
+*
+* @author Martin Rouffiange
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.actor.AffiliationHolder
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+
+@import be.webdeb.core.api.actor.EAffiliationType
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorThumbnail
+@(
+        fieldName : String,
+        affiliations : java.util.List[_ <: be.webdeb.presentation.web.controllers.entry.actor.AffiliationHolder],
+        withThumbail : Boolean
+)
+
+@affiliationDate(startDate : String, endDate : String) = {
+@if(startDate != "" || endDate != "") {
+    <span class="text-muted smaller-font">
+        (@(if(startDate == "") "?" else startDate)
+        @if(startDate != endDate || endDate != "") {
+                &ndash;
+            @(if(endDate == "-1") "..." else if(endDate == "") "?" else endDate)})
+    </span>
+}
+}
+
+@affiliation(a : AffiliationHolder) = {
+    <div class="ml-3 @if(a.getAffEType == EAffiliationType.SON_OF && affiliations.size() > 1){mb-3}">
+        <span class="small-font d-block d-sm-inline">
+            @a.getFunction
+            @if(a.getAffEType != EAffiliationType.SON_OF && a.getAffEType != EAffiliationType.GRADUATING_FROM) {
+                @a.getAfftype
+            }
+            @if(a.getAffEType == EAffiliationType.GRADUATING_FROM) {
+                -
+            }
+            <span class="d-inline d-sm-none">@affiliationDate(a.getStartDate, a.getEndDate)</span>
+        </span>
+        @if(a.getAffid != -1) {
+            @if(withThumbail) {
+                @actorThumbnail(a.getAffid, a.getAffname, a.getAffavatar)
+            }else{
+                <a class="primary" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(a.getAffid, EVizPane.CARTO.id, 0)">
+                    <span class="d-inline d-sm-none">@a.getAffname</span>
+                    <span class="d-none d-sm-inline">@a.getAffname</span>
+                </a>
+            }
+        }
+        <span class="d-none d-sm-inline">@affiliationDate(a.getStartDate, a.getEndDate)</span>
+        <span class="d-inline d-sm-none space-m-xs"></span>
+        <hr class="hr-xs-sensible d-inline d-sm-none">
+    </div>
+}
+
+
+<span class="text-muted" style="margin-bottom: 2px">
+    @Messages(fieldName)
+    <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+</span>
+
+<div class="no-icon to-clamp padding-min-xs">
+    @if(affiliations.size() > 5) {
+        @for(a <- affiliations.subList(0, 5)) {
+            @affiliation(a)
+        }
+        <div class="col-12 no-padding">
+            <button class="btn btn-xs btn-link secondary" data-toggle="collapse" data-target=".showall-aff-@fieldName">
+                @Messages("viz.showmore.affiliations") (@(affiliations.size - 5))
+                &nbsp;<span class="fa fa-chevron-down"></span>
+            </button>
+            <div class="collapse showall-aff-@fieldName">
+            @for(a <- affiliations.drop(5)) {
+                @affiliation(a)
+            }
+            </div>
+        </div>
+    } else {
+        @for(a <- affiliations) {
+            @affiliation(a)
+        }
+    }
+</div>

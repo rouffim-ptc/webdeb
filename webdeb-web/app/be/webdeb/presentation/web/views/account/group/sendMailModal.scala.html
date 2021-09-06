@@ -1,0 +1,110 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to send a mail to all members of a group
+*
+* @param mailForm the mail form to send user-defined content to all members of group
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.account.group.GroupMailForm
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, inlineform}
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@(
+        mailForm : Form[GroupMailForm]
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    //addContributorTypeahead($('#invitations').find('input'));
+    addListeners();
+  });
+
+  function addListeners() {
+    $('#submit-btn').on('click', function () {
+        sendMailToGroup($('#mail-form')).done(function (data) {
+        $('#manage-groups').empty().append(data);
+        $('#sendMailGroup').modal("hide");
+        addManageGroupListeners();
+      }).fail(function (jqXHR) {
+        if (jqXHR.status === 400) {
+          replaceContent('#mail-form', jqXHR.responseText, 'form');
+          addListeners();
+        } else {
+            $('#manage-groups').empty().append(jqXHR.responseText);
+            addManageGroupListeners();
+        }
+      });
+    });
+  }
+
+</script>
+
+@emptyModalframe("sendMailGroup", false, "default", "", false) {
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">
+      @Messages("group.mail.title")
+    </h5>
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <form id="mail-form" class="col-12">
+          <fieldset>
+            @inputText(
+              mailForm("groupId"),
+              '_label -> null,
+              'class -> "form-control d-none",
+              'autocomplete -> "off"
+            )
+            @textInput(
+              mailForm("title"),
+              Messages("group.mail.mailTitle")
+            )
+            @textareaInput(
+              mailForm("content"),
+              Messages("group.mail.mailContent"),
+              null,
+              false,
+              10
+            )
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+    <button id="submit-btn" type="button" class="btn btn-primary">@Messages("group.mail.btn.title")</button>
+  </div>
+}

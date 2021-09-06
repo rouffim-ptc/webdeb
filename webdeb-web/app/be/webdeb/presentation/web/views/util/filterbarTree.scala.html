@@ -1,0 +1,84 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Recursive view for display a node from a filter tree.
+*
+* @param node the current node to treat
+* @param filterId the unique id to recognize the filter html element
+* @param filterName the name of the filter, used to make effect at the selection of an item
+* @param nodeId the id of the node
+* @param iLevelNode the level of the node on the tree
+* @param collapse true if the current node need to be collapsed
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.FilterTreeNode
+@(
+        node : FilterTreeNode,
+        filterId : String,
+        filterName : String,
+        nodeId : String,
+        iLevelNode : Integer,
+        linked : Boolean,
+        collapse : Boolean
+)
+
+@getTabulationSize(i: Integer) = @{
+    (i*5) + "px !important"
+}
+
+@increaseInteger(i: Integer) = @{
+    i + 1
+}
+
+@displaySubNode(subNode : FilterTreeNode, i : Integer, bis : Boolean) = {
+    <div class="funkyradio smaller-font sub_filter--tree">
+        <div class="funkyradio-primary col-12 no-padding @if(subNode.getNbOccurs > 0){sub_filter--basic_item}" style="left:@getTabulationSize(iLevelNode)">
+            @if(linked || !subNode.isDisplayHierarchy || subNode.getSubNodes.isEmpty || bis){
+                <input id="f-@filterName-@subNode.getId-@filterId" class="filter-tree @if(linked){filter-tree-linked}" type="checkbox" value="@subNode.getName" data-filter-name="@filterName">
+                <label for="f-@filterName-@subNode.getId-@filterId" class="filter-nodelist-label forcewrap" title="@subNode.getName">
+                    @displaySuNodeTitle(subNode, i, bis)
+                </label>
+                @if(subNode.getNbOccurs > 0){<span class="sub_filter-item-count" data-count="@subNode.getNbOccurs">(@subNode.getNbOccurs)</span>}
+            }else{
+                <span class="filter-nodelist-label forcewrap" title="@subNode.getName" style="padding-left: 45px;text-decoration: underline">@displaySuNodeTitle(subNode, i, bis)</span>
+            }
+        </div>
+    </div>
+}
+
+@displaySuNodeTitle(subNode : FilterTreeNode, i : Integer, bis : Boolean) = {
+    @subNode.getName
+    @if(!subNode.getSubNodes.isEmpty && subNode.isDisplayHierarchy && !bis) {
+        <button class="btn btn-link dropdown-toggle node-@iLevelNode filter-nodelist-button" data-toggle="collapse" data-target=".@nodeId-@i-@filterId"><span class="caret"></span></button>
+    }
+}
+
+@if(node != null && !node.getSubNodes.isEmpty && node.isDisplayHierarchy) {
+    <div class="@nodeId-@filterId @if(collapse){collapse sub_filter--tree-collapse div-collapsed node-@iLevelNode}">
+        @if(iLevelNode > 0 && !linked && node.getNbOccurs > 0) {
+            @displaySubNode(node, 0, true)
+        }
+
+        @for((subNode, i) <- node.getSubNodes.zipWithIndex) {
+            @displaySubNode(subNode, increaseInteger(i), false)
+            @filterbarTree(subNode, filterId, filterName, nodeId + "-" + increaseInteger(i), increaseInteger(iLevelNode), linked, iLevelNode < 2)
+        }
+    </div>
+}

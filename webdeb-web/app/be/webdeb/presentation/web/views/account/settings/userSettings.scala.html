@@ -1,0 +1,170 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Full page for user settings
+*
+* @param tab the pane enum id (to know which pane must be displayed)
+* @param contributor the contributor to display the profile data
+* @param editable true if the profile is editable
+* @param user the user profile data (the user currently logged)
+* @param map the message map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.account.ContributorHolder
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.account.admin.{adminContributors, adminProfession, adminClaim}
+@import be.webdeb.presentation.web.views.html.account.admin.csv.adminExternalFeeders
+@import be.webdeb.presentation.web.views.html.account.settings.{userProfile, userContributionsDashboard}
+@import be.webdeb.presentation.web.views.html.util. message
+
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+@import be.webdeb.presentation.web.views.html.util.nav.navtabMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navtabMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+    tab : ESettingsPane,
+    contributor : ContributorHolder,
+    searchForm : Form[SearchForm],
+    editable : Boolean,
+    helper : ContributionHelper,
+    user : WebdebUser,
+    map: java.util.Map[String, String]
+)
+
+
+@scripts = {
+  <title>
+    @Messages("settings.title." + (contributor.getId == user.getId),
+    if(contributor.getId == user.getId || user.getERole.id() == EContributorRole.ADMIN.id){contributor.getFirstname + " " + contributor.getLastname}else{contributor.getPseudo})
+    @Messages("general.metatitle")
+  </title>
+  <meta name="description" content="@Messages("settings.profile.tab." + (contributor.getId == user.getId))">
+
+  <script src="@routes.Assets.at("javascripts/settings-scripts.js")" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      let container = $('#viz-contributor');
+
+      if (@editable) {
+        handleTabs(container, @tab.id);
+        addManageGroupListeners();
+        fadeMessage();
+      } else {
+        handleTabs(container, @tab.id);
+      }
+    });
+  </script>
+}
+
+
+@main(user, scripts) {
+
+  <div id="viz-contributor" class="container">
+
+    <div id="msg-div">
+      @message(flash)
+      @message(map)
+    </div>
+
+    <div class="row">
+      <div class="col-12 mt-3">
+        <h3 class="small-caps text-muted">
+          @Messages("settings.title." + (contributor.getId == user.getId),
+            if(contributor.getId == user.getId || user.getERole.id() == EContributorRole.ADMIN.id){contributor.getFirstname + " " + contributor.getLastname}else{contributor.getPseudo})
+        </h3>
+        <hr>
+      </div>
+
+      @navtabMenu("w-100"){
+        @navtabMenuItem(ESettingsPane.PROFILE.id().toString, Messages("settings.profile.pill." + (contributor.getId == user.getId)), tab == ESettingsPane.PROFILE, "contribution-pane")
+        @navtabMenuItem(ESettingsPane.CONTRIBUTIONS.id().toString, Messages("settings.contributions.pill." + (contributor.getId == user.getId)), tab == ESettingsPane.CONTRIBUTIONS, "contribution-pane")
+
+        @if(contributor.getId == user.getId) {
+          @*
+          <a id="manage-groups" href="#" class="nav-item nav-link contribution-pane" data-toggle="pill" role="tab">
+            <a href="@be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.index()">
+              @Messages("settings.manage.group.pill")
+            </a>
+          </a>
+          *@
+
+          @if(user.getERole.equals(EContributorRole.ADMIN)) {
+            @navtabMenuItem(ESettingsPane.FEEDER.id().toString, Messages("settings.feeder"), tab == ESettingsPane.FEEDER, "contribution-pane")
+            @navtabMenuItem(ESettingsPane.ADMIN.id().toString, Messages("settings.admin"), tab == ESettingsPane.ADMIN, "contribution-pane")
+            @navtabMenuItem(ESettingsPane.PROFESSION.id().toString, Messages("settings.profession"), tab == ESettingsPane.PROFESSION, "contribution-pane")
+          }
+
+          @if(user.getERole.id() >= EContributorRole.OWNER.id()) {
+            @navtabMenuItem(ESettingsPane.CLAIM.id().toString, Messages("settings.claim"), tab == ESettingsPane.CLAIM, "contribution-pane")
+          }
+        }
+      }
+
+      @navContent("w-100 mt-3") {
+        @navContentItem(ESettingsPane.PROFILE.id().toString, tab == ESettingsPane.PROFILE) {
+          @userProfile(contributor, helper.getValuesHelper, user, null)
+        }
+        @navContentItem(ESettingsPane.CONTRIBUTIONS.id().toString, tab == ESettingsPane.CONTRIBUTIONS) {
+          @userContributionsDashboard(contributor, contributor.getContributionsCount, searchForm, helper, user, user.getId == contributor.getId)
+        }
+
+        @if(contributor.getId == user.getId) {
+
+          @if(user.getERole.equals(EContributorRole.ADMIN)) {
+            @navContentItem(ESettingsPane.FEEDER.id().toString, tab == ESettingsPane.FEEDER) {
+              @adminExternalFeeders()
+            }
+            @navContentItem(ESettingsPane.ADMIN.id().toString, tab == ESettingsPane.ADMIN) {
+              @adminContributors(null)
+            }
+            @navContentItem(ESettingsPane.PROFESSION.id().toString, tab == ESettingsPane.PROFESSION) {
+              @adminProfession()
+            }
+          }
+
+          @if(user.getERole.id() >= EContributorRole.OWNER.id()) {
+            @navContentItem(ESettingsPane.CLAIM.id().toString, tab == ESettingsPane.CLAIM) {
+              @adminClaim()
+            }
+          }
+        }
+      }
+
+
+      <div class="scroll-top-wrapper ">
+        <span class="scroll-top-inner">
+          <i class="fa fa-2x fa-arrow-circle-up"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+}

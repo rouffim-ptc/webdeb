@@ -1,0 +1,107 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Display all contributions of a group
+*
+* @param group the current group for which given list of contribution are displayed
+* @param results the list of contributions that will be marked
+* @param user the current user profile data
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.core.api.contributor.Group
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.account.ContributorHolder
+
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.core.api.contributor.EContributorRole
+
+@import be.webdeb.presentation.web.views.html.util.noResultMessage
+@import be.webdeb.presentation.web.views.html.util.groupedContributions
+@import be.webdeb.presentation.web.views.html.util.scrollTopWrapper
+@(
+    group : Group,
+    results : java.util.Map[ContributorHolder, java.util.List[ContributionHolder]],
+    user : WebdebUser
+)
+
+@scripts = {
+  <title>@Messages("title." + play.Configuration.root().getString("server.type"))</title>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      new Pager('#group-contrib', 10, '#pager');
+
+      // exclusive checkboxes
+      $('[id^="validated_"]').each(function () {
+        manageExclusiveCheckboxes($(this).find('input[type="checkbox"]'), null, false);
+      });
+    });
+  </script>
+}
+
+@main(user, scripts) {
+
+  <div class="container-fluid mt-3 mb-3">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="small-caps text-muted">
+          @Html(Messages("group.seeall.page.title", group.getGroupName,
+            Messages("group.visibility." + group.getContributionVisibility.id)))
+        </h3>
+        <hr>
+      </div>
+
+      <div id="group-contrib" class="col-12 pageable">
+        @if(results.isEmpty) {
+          @noResultMessage(null)
+        } else {
+          @for((c, holders) <- results) {
+            <div class="row">
+              <h3 class="text-muted col-12">
+                <div class="actor-thumbnail small">
+                  <div class="thumbnail-holder avatar" style="background-image: url(@c.getSomeAvatar )"></div>
+                </div>
+                @c.getPseudo @if(user.getERole == EContributorRole.ADMIN || c.getPseudo == null){(@c.getFirstname @c.getLastname)}
+                <button type="button" class="btn btn-link secondary" data-toggle="collapse" data-target=".showall_@c.getId">
+                  @Messages("group.mark.showall") &nbsp; <span class="fa fa-chevron-down"></span>
+                </button>
+              </h3>
+              <div class="col-12 collapse showall_@c.getId">
+                @groupedContributions(c.getId.toString, holders)
+              </div>
+            </div>
+          }
+        }
+      </div>
+
+      <div id="pagerdiv" class="col-12">
+        <ul id="pager" class="pager pagination"></ul>
+      </div>
+
+      @scrollTopWrapper()
+
+    </div>
+  </div>
+}

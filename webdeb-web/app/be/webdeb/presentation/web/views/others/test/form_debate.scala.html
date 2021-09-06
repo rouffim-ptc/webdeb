@@ -1,0 +1,534 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Drag n drop test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.core.api.contribution.EContributionType
+@(
+        user : WebdebUser
+        )
+
+
+@scripts = {
+    <title></title>
+    <meta name="description" content="@Messages("browse.search.tooltip")">
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/sliderform.css")">
+
+    <script src="@routes.Assets.at("javascripts/sliderform.js")" type="text/javascript"></script>
+    <script>
+            $(document).ready(function(){
+                $('form').stepFormJs({
+                    redirectLink : 'https://webdeb.be/test/dragndrop2'
+                });
+
+                addPlacesTypeahead($('#places'));
+                addActorsTypeahead($('#actors'), 'actor');
+                addFoldersTypeahead($('#tags'));
+
+                manageAddRmButton($('#places'), [''], '');
+                manageAddRmButton($('#actors'), [''], '');
+                manageAddRmButton($('#links'), [''], '');
+                manageAddRmButton($('#categories'), [''], '');
+            });
+    </script>
+}
+
+@main(user, scripts) {
+
+    <div class="container">
+        <div class="row">
+            <form class="col-12 mt-4" autocomplete="off">
+                <fieldset>
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+                            <p class="form-question">Le débat concerne-t-il un ou des territoires particuliers ?</p>
+
+                            <div class="pl-4">
+                                <div class="form-check form-check-inline form-option-action" data-action="true">
+                                    <input class="form-check-input" type="radio" name="hasPlaces" id="hasPlacesYes" value="option1">
+                                    <label class="form-check-label font-weight-light" for="hasPlacesYes">Oui</label>
+                                </div>
+                                <div class="form-check form-check-inline form-option-action" data-action="false">
+                                    <input class="form-check-input step-next" type="radio" name="hasPlaces" id="hasPlacesNo" value="option3">
+                                    <label class="form-check-label font-weight-light" for="hasPlacesNo">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3 form-option">
+                            <div class="controls col-12 p-0" id="places">
+                                <div class="entry input-group input-group-border padding-group d-flex align-items-center">
+
+                                    <div class="flex-grow-1 input-field input-typeahead">
+                                        <input type="text" class="form-control" id="place" placeholder="Bruxelles">
+                                    </div>
+
+                                    <span class="input-group-btn bottom">
+                                        <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                                        <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+                            <p class="form-question">Le débat porte-t-il sur un ou plusieurs acteurs (individus ou organisations) ?</p>
+
+                            <div class="pl-4">
+                                <div class="form-check form-check-inline form-option-action" data-action="true">
+                                    <input class="form-check-input" type="radio" name="hasActors" id="hasActorsYes" value="option1">
+                                    <label class="form-check-label font-weight-light" for="hasActorsYes">Oui</label>
+                                </div>
+                                <div class="form-check form-check-inline form-option-action" data-action="false">
+                                    <input class="form-check-input step-next" type="radio" name="hasActors" id="hasActorsNo" value="option3">
+                                    <label class="form-check-label font-weight-light" for="hasActorsNo">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3 form-option">
+                            <div class="controls col-12 p-0" id="actors">
+                                <div class="entry input-group input-group-border padding-group d-flex align-items-center">
+
+                                    <div class="flex-grow-1 input-field input-typeahead">
+                                        <input type="text" class="form-control" id="actor" placeholder="Elio Di Rupo">
+                                    </div>
+
+                                    <span class="input-group-btn bottom">
+                                        <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                                        <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+                            <p class="form-question">De quels thèmes traite votre débat ? Merci d’ajouter au moins un tag.</p>
+
+                            <div class="pl-4">
+                                <div id="tags" class="entry input-group input-group-border padding-group d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <input type="text" class="form-control" placeholder="tag1">
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <input type="text" class="form-control" placeholder="tag2">
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <input type="text" class="form-control" placeholder="tag3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+                            <p class="form-question">Le débat vise-t-il à </p>
+
+                            <div id="types_checkboxes" class="pt-2 pb-2 pl-3 pr-3">
+                                <div class="form-check">
+                                    <input class="form-check-input form-option-action form-radio-option-action" data-group="1" data-target="1" type="radio" name="type" id="type1" value="1">
+                                    <label class="form-check-label" for="type1">
+                                        se positionner pour ou contre une affirmation ou une proposition
+                                    </label>
+                                </div>
+
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input form-option-action form-radio-option-action" data-group="1" data-target="2" type="radio" name="type" id="type2" value="2">
+                                    <label class="form-check-label" for="type2">
+                                        identifier les points forts et faibles (d’une œuvre, d’un projet,…)
+                                    </label>
+                                </div>
+
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input form-option-action form-radio-option-action" data-group="1" data-target="3" type="radio" name="type" id="type3" value="3">
+                                    <label class="form-check-label" for="type3">
+                                        comparer (des personnes, des projets, etc)
+                                    </label>
+                                </div>
+
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input form-option-action form-radio-option-action" data-group="1" data-target="4" type="radio" name="type" id="type4" value="4">
+                                    <label class="form-check-label" for="type4">
+                                        évaluer la pertinence de différentes réponses à une question (sur les causes, les effets, les pronostics,…)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="pb-2 pl-3 pr-3 form-option form-option-1 form-radio-option-1">
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="shade">Formule de début de débat : </label>
+                                        <select class="form-control" id="shade">
+                                            <option>Faut-il ou non…</option>
+                                            <option>Est-il vrai ou non que…</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group flex-grow-1">
+                                        <label for="title">Merci de rédiger la suite de votre question (champ libre avec une longueur maximale de XXX)</label>
+                                        <div class="input-group">
+                                            <input type="text" id="title" class="form-control" placeholder="question">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">?</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pb-2 pl-3 pr-3 form-option form-option-2 form-radio-option-1">
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="form-group mr-3">
+                                        Quels sont les points forts et faibles…
+                                    </div>
+
+                                    <div class="form-group flex-grow-1">
+                                        <label for="title">Merci de rédiger la suite de votre question (champ libre avec une longueur maximale de XXX)</label>
+                                        <div class="input-group">
+                                            <input type="text" id="title" class="form-control" placeholder="question">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">?</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pb-2 pl-3 pr-3 form-option form-option-3 form-radio-option-1">
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="shade">Formule de début de débat : </label>
+                                        <select class="form-control" id="shade">
+                                            <option>Quel est le meilleur…</option>
+                                            <option>Quelles est la meilleure…</option>
+                                            <option>Quel est…</option>
+                                            <option>Quelle est…</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group flex-grow-1">
+                                        <label for="title">Merci de rédiger la suite de votre question (champ libre avec une longueur maximale de XXX)</label>
+                                        <div class="input-group">
+                                            <input type="text" id="title" class="form-control" placeholder="question">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">?</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pb-2 pl-3 pr-3 form-option form-option-4 form-radio-option-1">
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="form-group mr-3">
+                                        <label for="shade">Formule de début de débat : </label>
+                                        <select class="form-control" id="shade">
+                                            <option>Quelles sont les causes…</option>
+                                            <option>Quels sont les effets…</option>
+                                            <option>Quels seront les effets… </option>
+                                            <option>Quelles sont les explications… </option>
+                                            <option>Quels sont les traits qui définissent… </option>
+                                            <option>Quels sont les pronostics à propos… </option>
+                                            <option>Dans quel sens a évolué… </option>
+                                            <option>A quelles conditions…</option>
+                                            <option>Quels sont les exemples de…</option>
+                                            <option>Autres formulations</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group flex-grow-1">
+                                        <label for="title">Merci de rédiger la suite de votre question (champ libre avec une longueur maximale de XXX)</label>
+                                        <div class="input-group">
+                                            <input type="text" id="title" class="form-control" placeholder="question">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">?</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+                            <p class="form-question">Voici les débats déjà encodés dans WebDeb à propos des mêmes thèmes, acteurs et territoires. Un de ces débats, déjà dans WebDeb, coïncide-t-il avec le vôtre ?</p>
+
+                            <div class="pt-2 pb-2 pl-3 pr-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect2">Oui ? Sélectionnez-le : </label>
+                                    <select multiple class="form-control" id="exampleFormControlSelect2">
+                                        <option>Débat 1</option>
+                                        <option>Débat 2</option>
+                                        <option>Débat 3</option>
+                                        <option>Débat 4</option>
+                                        <option>Débat 5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input step-next" type="radio" name="alreadyExists2" id="alreadyExistsNo" value="option3">
+                                <label class="form-check-label font-weight-light" for="alreadyExistsNo">Non</label>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+
+                            <p class="form-question">Veuillez ajouter quelques informations sur votre débat (par exemple pour définir un terme, présenter le projet en débat, donner quelques éléments du contexte)</p>
+
+                            <div class="form-group">
+                                <label for="description">Texte libre (maximum XXX signes)</label>
+                                <textarea class="form-control" id="description" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>Hyperliens externes à WebDeb</label>
+                                <div class="controls col-12 p-0" id="links">
+                                    <div class="entry input-group input-group-border padding-group d-flex align-items-center">
+
+                                        <div class="flex-grow-1 input-field input-typeahead">
+                                            <input type="text" class="form-control" id="link" placeholder="https://fr.wikipedia.org">
+                                        </div>
+
+                                        <span class="input-group-btn bottom">
+                                            <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                                            <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <p>Ajouter une illustration au débat</p>
+
+                                <nav>
+                                    <div class="nav nav-tabs" role="tablist">
+                                        <a class="nav-item nav-link active" id="user_illustration-tab" data-toggle="tab" href="#user_illustration" role="tab" aria-controls="user_illustration" aria-selected="true">Parcourir votre ordinateur</a>
+                                        <a class="nav-item nav-link" id="bank_illustration-tab" data-toggle="tab" href="#bank_illustration" role="tab" aria-controls="bank_illustration" aria-selected="false">Chercher une image dans la banque d’images XXX</a>
+                                    </div>
+                                </nav>
+
+                                <div class="tab-content p-3" style="background-color:white;border-left: 1px solid#ddd;border-right: 1px solid#ddd;border-bottom: 1px solid#ddd;">
+                                    <div class="tab-pane fade show active" id="user_illustration" role="tabpanel" aria-labelledby="user_illustration-tab">
+                                        <label for="illustration"><i class="fas fa-exclamation-triangle mr-2"></i>L'illustration doit être libre de droit.</label>
+                                        <input type="file" accept="image/png, image/jpeg" class="form-control-file" id="illustration">
+                                    </div>
+
+                                    <div class="tab-pane fade" id="bank_illustration" role="tabpanel" aria-labelledby="bank_illustration-tab">
+                                        A déterminer
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+                            <p class="form-question"> Voici les citations tirées de débats proches du vôtre. Cochez celles que vous voulez insérer dans votre débat ou question (parce qu’elles manifestent une position pour ou contre ou parce qu’elles contiennent des arguments pour ou contre)</p>
+
+                            <div class="pt-2 pb-2 pl-3 pr-3">
+                                <div class="form-group">
+                                    <label for="citations">Citations (appuyez sur ctrl pour en selectionner plusieurs) : </label>
+                                    <select multiple class="form-control" id="citations">
+                                        <option>Citation 1</option>
+                                        <option>Citation 2</option>
+                                        <option>Citation 3</option>
+                                        <option>Citation 4</option>
+                                        <option>Citation 5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input step-next" type="radio" name="citationsToImport" id="citationsToImportNo" value="option3">
+                                <label class="form-check-label font-weight-light" for="citationsToImportNo">Non</label>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+                            <p class="form-question">Voulez-vous définir certaines des catégories dans lesquelles vous classerez vos citations ?</p>
+
+                            <div class="pl-4">
+                                <div class="form-check form-check-inline form-option-action" data-action="true">
+                                    <input class="form-check-input" type="radio" name="addCategories" id="addCategoriesYes" value="option1">
+                                    <label class="form-check-label font-weight-light" for="addCategoriesYes">Oui</label>
+                                </div>
+                                <div class="form-check form-check-inline form-option-action" data-action="false">
+                                    <input class="form-check-input step-next" type="radio" name="addCategories" id="addCategoriesNo" value="option3">
+                                    <label class="form-check-label font-weight-light" for="addCategoriesNo">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3 form-option">
+                            <div class="form-group">
+                                <label>Catégories :</label>
+                                <div class="controls col-12 p-0" id="categories">
+                                    <div class="entry input-group input-group-border padding-group d-flex align-items-center">
+
+                                        <div class="flex-grow-1 input-field input-typeahead">
+                                            <input type="text" class="form-control" id="category" placeholder="Economie">
+                                        </div>
+
+                                        <span class="input-group-btn bottom">
+                                            <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                                            <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                    <div class="step-form">
+                        <div class="form-question pl-xl-2 pl-lg-2 pl-md-1 pr-xl-2 pr-lg-2 pr-md-1 mt-2">
+                            <h4 class="d-inline">Etape <span class="step-num"></span></h4>
+                            - (<span class="step-num"></span>/<span class="step-max"></span>)
+                        </div>
+                        <hr>
+
+                        <div class="pt-2 pb-2 pl-3 pr-3">
+                            <p class="form-question">Vous pouvez maintenant enregistrer votre débat et commencer à y engranger des citations, mais vous pouvez aussi classer les citations sélectionnées dans les catégories que vous avez ajoutées. Souhaitez-vous classez les citations ?</p>
+
+                            <div class="pl-4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input redirect" type="radio" name="createCategories" id="createCategoriesYes" value="option1">
+                                    <label class="form-check-label font-weight-light" for="createCategoriesYes">Oui</label>
+                                </div>
+                                <div class="form-check form-check-inline" >
+                                    <input class="form-check-input step-next" type="radio" name="createCategories" id="createCategoriesNo" value="option3">
+                                    <label class="form-check-label font-weight-light" for="createCategoriesNo">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex step-form-actions"></div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+}

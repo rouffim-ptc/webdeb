@@ -1,0 +1,62 @@
+
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debate
+@(
+
+)
+
+<div class="d-flex align-items-center">
+    <span class="d-none d-sm-block p-2">Afficher</span>
+    <div class="form-group m-0">
+        <select class="form-control d-none d-sm-block" id="exampleFormControlSelect1">
+            <option>Tous les territoires</option>
+        </select>
+        <select class="form-control d-sm-none" id="exampleFormControlSelect1">
+            <option>Territoires</option>
+        </select>
+    </div>
+    <span class="p-2">&</span>
+    <div class="form-group m-0">
+        <select class="form-control d-none d-sm-block" id="exampleFormControlSelect2">
+            <option>Tous les tags</option>
+        </select>
+        <select class="form-control d-sm-none" id="exampleFormControlSelect2">
+            <option>Tags</option>
+        </select>
+    </div>
+    <span class="p-2">&</span>
+    <div class="form-group m-0">
+        <select class="form-control d-none d-sm-block" id="exampleFormControlSelect3">
+            <option>Toutes les dates</option>
+        </select>
+        <select class="form-control d-sm-none" id="exampleFormControlSelect3">
+            <option>Dates</option>
+        </select>
+    </div>
+</div>
+
+@*
+@opinion1() = {
+    @citation("Je pense qu'il ne faut pas investir dans le projet du métro nord", "Propos rapportés, l'interminable sage du métro Nord, Le Soir, 05/05/2017")
+    <hr>
+    @citation("Le métro nord coûtera trop chère", "Propos rapportés, l'interminable sage du métro Nord, Le Soir, 05/07/2017")
+}
+
+@opinion2() = {
+    @citation("Non seuleument le métro Nord n'est pas utile mais il va générer un déficit durable des caisses régionales", "Propos signé, Tract de campagne Ecolo, 04/09/2018")
+}
+
+@opinion3() = {
+    @citation("Contrairement à ce qu'affirment les promoteurs du métro, il est faux d'affirmer que la mise en route du métro Nord va suffire à diminuer le trafic automobile", "Propos rapportés, Interview de rentrée d'Alain Maron, 10/09/2019")
+}
+
+@debate1() = {
+    @argument(1, "Il ne faut pas construire le métro nord", 3, 1, opinion1)
+    @argument(2, "La construction du métro Nord va grever durablement le budget régional bruxellois", 1, 5, opinion2)
+    @argument(3, "Le nouveau métro Nord ne va pas réduire le trafic automobile", 0, 10, opinion3)
+}
+
+@debate(1, "Faut-il construire le métro nord ?", 4, true, debate1)
+@debate(2, "Faut-il ou non multiplier les logements sociaux ?", 4)
+@debate(3, "Est-il vrai ou non qu'il y a des alternatives au métro Nord ?", 3)
+@debate(4, "Quelles sont les causes de la ségrégation scolaire ?", 1)
+    *@

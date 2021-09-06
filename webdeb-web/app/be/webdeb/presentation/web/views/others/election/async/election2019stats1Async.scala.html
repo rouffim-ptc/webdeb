@@ -1,0 +1,106 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Async data about election 2019 stats 1.
+*
+* @param politicalParties the map of polical parties and their members
+* @param politicalPartiesColors the colors related to polical parties
+* @param relatedPartiesListIds the related election list for analyse affiliations
+*
+* @author Martin Rouffiange
+*@
+
+
+
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorSimpleHolder
+@import be.webdeb.presentation.web.views.html.util.waitforit
+
+@import be.webdeb.core.api.actor.EActorType
+@(
+        politicalParties : java.util.Map[ActorSimpleHolder, java.util.List[ActorSimpleHolder]],
+        politicalPartiesColors : java.util.Map[Long, String],
+        relatedpartiesListIds : java.util.List[Long]
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            let headers = $('.election-chart-header');
+
+            headers.each(function(){
+                let name = $(this).find('h4 a');
+                name.text(name.text().split('(')[0]);
+            });
+
+            headers.on('click', function(e){
+                let target = $($(this).data('target'));
+                target.toggle();
+
+                if(!target.data("loaded")){
+                    target.data("loaded", true);
+
+                    let waiting = target.siblings('.waiting');
+                    waiting.show();
+
+                    target.organizationalChartJs({
+                        data : transformToAffiliations(target.siblings('.election-chart-data')),
+                        beginDate : new Date(2004, 0, 1),
+                        endDate : new Date(2014, 11, 31),
+                        separatedChart : 0,
+                        year_step : 1,
+                        year_scale_min : 1,
+                        year_scale : 11,
+                        waitForIt : waiting,
+                        navbar : false,
+                        completeAffiliation : true,
+                        affiliatedId : $(this).data("id")
+                    });
+                }
+            });
+
+        });
+
+</script>
+
+@*
+@for((party, members) <- politicalParties) {
+    <div>
+        <div class="election-chart-header flex-container primary"
+        data-target="#election-chart-@party.getId" data-id="@party.getId"
+        style="background-color: @politicalPartiesColors.get(party.getId)">
+            <div style="flex-grow:1">
+            @affiliationsHighchartsAff(null, party, null, EActorType.PERSON, true, "chartxbig")
+            </div>
+            <div class="election-chart-header-cursor">
+                <i class="far fa-caret-square-down"></i>
+            </div>
+        </div>
+
+        @waitforit("waiting")
+
+        <div id="election-chart-@party.getId" class="organizational-chart" data-loaded="false" style="display: none"></div>
+
+        <div class="election-chart-data" style="display: none">
+        @for(member <- members) {
+            @affiliationsHighchartsAff(null, member, member.getAffiliationsRelatedTo(relatedpartiesListIds), EActorType.ORGANIZATION, false, "chartxbig")
+        }
+        </div>
+    </div>
+}
+    *@

@@ -1,0 +1,101 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial template to display the list of rss feeds
+*
+* @param rssfeeds the rss feed list to display
+* @param map the message map (may be null)
+*@
+
+@import be.webdeb.presentation.web.controllers.account.admin.RSSFeedForm
+@import be.webdeb.presentation.web.views.html.util.message
+
+
+@(
+    rssfeeds : java.util.List[RSSFeedForm],
+    map : java.util.Map[String, String]
+)
+
+
+@rssfeed(rss : RSSFeedForm) = {
+  <div class="col-12 summary group-detail">
+    <h3>
+      @if(!rss.getStatus) { <span class="evensmaller-font text-warning">@Messages("admin.rss.ignore")</span> }
+      <span @if(!rss.getStatus) { class="text-muted" style="text-decoration: line-through;"}>
+        <span id="rss-name_@rss.getId">@rss.getName</span>
+        <span class="text-muted smaller-font" style="padding-left: 10px">@rss.getType</span>
+      </span>
+
+      @* dropdown for actions on rss feed *@
+      <div class="btn-group">
+        <a class="btn btn-link primary dropdown-toggle " data-toggle="dropdown" href="#" id="rss-actions_@rss.getId">
+          @Messages("admin.rss.actions") &nbsp; <span class="fa fa-cogs"></span>
+        </a>
+
+        <ul class="select-group-box dropdown-menu group-dropdown" role="menu" aria-labelledby="rss-actions_@rss.getId" style="width: 300px">
+          <p class="instructions small-font">@Messages("admin.rss.actions.desc")</p>
+          <li>
+            <button id="edit-rss_@rss.getId" title="@Messages("admin.rss.edit.title")" type="button" class="btn btn-link primary">
+              <span class="fa fa-edit fixed-size"></span>&nbsp;@Messages("admin.rss.edit.btn")
+            </button>
+          </li>
+          <li>
+            <button id="activate-rss-@((!rss.getStatus).toString.concat("_").concat(rss.getId.toString))"
+                title="@Messages("admin.rss.activate." + (!rss.getStatus).toString + ".title")"
+                type="button" class="btn btn-link primary">
+              <span class="fa @(if(rss.getStatus) "fa-ban" else "fa-check") fixed-size"></span>&nbsp;@Messages("admin.rss.activate." + (!rss.getStatus).toString + ".btn")
+            </button>
+          </li>
+          <li>
+            <button id="remove-rss_@rss.getId" title="@Messages("admin.rss.remove.title")" type="button" class="btn btn-link primary">
+              <span class="fa fa-trash fixed-size"></span>&nbsp;@Messages("admin.rss.remove.btn")
+            </button>
+          </li>
+        </ul>
+      </div>
+    </h3>
+    <div>
+      @rss.getCategory @(if(rss.getSubcategory != null) (rss.getSubcategory))
+      <span style="padding-left:10px"><a href="@rss.getUrl" target="_blank">@rss.getUrl</a></span>
+    </div>
+  </div>
+}
+
+@message(map)
+
+@if(rssfeeds.size > 4) {
+
+  @for(rss <- rssfeeds.subList(0, 4)) {
+    @rssfeed(rss)
+  }
+  <div class="col-12 no-padding">
+    <button class="btn btn-sm btn-link secondary pull-right" data-toggle="collapse" data-target=".showall-rss">
+      @Messages("admin.rss.showmore") (@(rssfeeds.size - 4))
+      &nbsp;<span class="fa fa-chevron-down"></span>
+    </button>
+    <div class="collapse showall-rss">
+    @for(rss <- rssfeeds.drop(4)) {
+      @rssfeed(rss)
+    }
+    </div>
+  </div>
+} else {
+  @for(rss <- rssfeeds) {
+    @rssfeed(rss)
+  }
+}

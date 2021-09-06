@@ -1,0 +1,86 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Tag Debate
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+
+@import be.webdeb.core.api.contribution.link.EJustificationLinkShade
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+
+@import be.webdeb.presentation.web.views.html.toolbar.contributionActionsDiv
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+
+@import be.webdeb.presentation.web.controllers.viz.EContributionActionType
+@(
+        debate: DebateHolder,
+        user : WebdebUser,
+        superDebateId: Long = null,
+        show: Boolean = false,
+        withActions : Boolean = true,
+        linksActions : Boolean = true,
+        otherId : String = ""
+)(content: Html = Html(""))
+
+<div class="debate debate-@debate.getId contribution-container pr-3 pl-3" data-id="@debate.getId" data-context="@superDebateId" data-sub-context="@debate.getId" @if(debate.getLinkId != null){data-link="@debate.getLinkId"}>
+
+    <div class="contribution-container-header contribution-container-collapse flex-column" data-toggle="collapse" data-target="#collapse_debate_@debate.getId-@otherId" aria-expanded="@show" aria-controls="collapse_debate_@debate.getId-@otherId">
+
+        <div class="d-flex contribution-title-head">
+            <i class="@Messages("browse.search.tip.DEBATE") mr-3 flex-grow-1"></i>
+
+            <div class="d-flex justify-content-end" style="width: 85px">
+                @if(withActions) {
+                    @contributionActionsDiv(EContributionType.DEBATE_HAS_TAG_DEBATE , user, linksActions, if(debate.isTagDebate){scala.collection.mutable.Set(EContributionActionType.EDIT, EContributionActionType.ADD)}else{null})
+                }
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <h5 class="m-0 flex-grow-1">
+                <span class="debate-title">@debate.getFullTitle</span>
+            </h5>
+
+            <span class="ml-2 mr-2"><i class="fas fa-chevron-down"></i></span>
+        </div>
+    </div>
+
+    <div class="contribution-container-content collapse @if(show){show}" id="collapse_debate_@debate.getId-@otherId">
+
+        <hr>
+
+        <div>
+
+        @content
+
+        </div>
+
+    </div>
+
+    <hr>
+
+</div>
+

@@ -1,0 +1,117 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Theme page about mobilité.
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title>Politiques de mobilité à Bruxelles @Messages("general.metatitle")</title>
+    <meta name="description" content="Vous trouverez ci-dessous des liens vers pages de la plateforme WebDeb. Dans ces pages, vous pourrez voir la liste des textes à propos des débats sur la mobilité et des informations sur les principaux acteurs qui interviennent dans ces débats.">
+}
+
+
+@main(user, scripts) {
+    <div class="row">
+
+        <div id="webdeb-theme-presentation" class="col-12">
+            <br>
+            <h2 class="small-margin">Politiques de mobilité à Bruxelles</h2>
+            <hr class="hr-xs-sensible">
+            <div class="col-12 no-padding">
+                <h4>
+                    Vous trouverez ci-dessous des liens vers pages de la plateforme WebDeb. Dans ces pages, vous pourrez voir la liste des textes à propos des débats sur la mobilité et des informations sur les principaux acteurs qui interviennent dans ces débats.
+                </h4>
+
+                <div class="col-12 col-sm-6" style="padding-left : 0;padding-right : 15px">
+                    <h3>Textes sur la mobilité à Bruxelles</h3>
+                    <ul style="font-size:18px">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/tag?id=117356&pane=4" class="primary">Textes du débat sur les transports en commun</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/tag?id=117347&pane=4" class="primary">Textes du débat sur la mobilité douce</a></li>
+                        <hr class="hr-small">
+                    </ul>
+                </div>
+
+                <div class="col-12 col-sm-6 no-padding">
+                    <h3>Personnes et organisations intervenant dans les politiques de la mobilité à Bruxelles</h3>
+                    <h5>Ces liens vous donnent accès à la liste (encore incomplète) des dirigeants de ces organisations. En cliquant sur les noms de ces dirigeants, vous pourrez obtenir davantage d'informations sur eux (cependant encore incomplètes). N'héitez pas à compléter ou corriger les informations sur ces personnes ou ces organisations.</h5>
+                    <ul style="font-size:18px">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2181&pane=0" class="primary">Gouvernement de la Région de Bruxelles-Capitale</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=6421&pane=0" class="primary">Pascal Smet, ministre de la mobilité</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123513&pane=0" class="primary">Cabinet de Pascal Smet</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2618&pane=0" class="primary">Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123269&pane=0" class="primary">Commission de l'Infrastructure du Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=118065&pane=0" class="primary">Commission de l'Environnement et de l'Energie du Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=29027&pane=0" class="primary">Service Public Régional de Bruxelles</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=112361&pane=0" class="primary">Bruxelles Mobilité</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=29026&pane=0" class="primary">STIB</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=3727&pane=0" class="primary">SNCB</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123514&pane=0" class="primary">Cambio</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123518&pane=0" class="primary">DriveNow Belgium</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123447&pane=0" class="primary">Villo</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123522&pane=0" class="primary">Billy</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123516&pane=0" class="primary">Cyclo</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123523&pane=0" class="primary">Cycloperativa</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=113637&pane=0" class="primary">Pro Velo</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=6021&pane=0" class="primary">Ecoconso</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=28877&pane=0" class="primary">Groupe de Recherche et d’Actions des Cyclistes Quotidiens (GRACQ)</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123443&pane=0" class="primary">Fietsersbond</a></li>
+                        <hr class="hr-small">
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

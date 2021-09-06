@@ -1,0 +1,68 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Inteface test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.util.ValuesHelper
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.views.html.viz.admin.contributionAdminActions
+@import be.webdeb.presentation.web.views.html.util.contributionUpdateDiv
+@import be.webdeb.presentation.web.views.html.viz.common.util.contributionHeaderTitle
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+@(
+        holder : ContributionHolder,
+        values : ValuesHelper,
+        user : WebdebUser
+)
+
+<div class="pt-1 pb-1 contribution-header w-100 pl-2 pr-2">
+
+    <div class="d-block d-lg-flex align-items-center">
+
+        @contributionHeaderTitle(holder, values, user)
+
+        <div class="d-flex align-items-center justify-content-between contribution-header-infos">
+            @contributionAdminActions(holder, false, user)
+
+            <div class="ml-2 mr-1 text-muted contribution-date d-none d-xl-block" title="@contributionUpdateDiv(holder, values)">
+                <small>@contributionUpdateDiv(holder, values)</small>
+            </div>
+
+            <div class="ml-1 media-share-btn mr-lg-3 mr-0">
+                <button class="btn btn-primary media-toggle" data-id="@holder.getId">
+                    <i class="fas fa-share-alt"></i> @Messages("general.share")
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

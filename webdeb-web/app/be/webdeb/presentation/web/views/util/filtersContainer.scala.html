@@ -1,0 +1,377 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Filters container.
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.browse.searchbar
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+@import be.webdeb.presentation.web.views.html.util.hiddenFormField
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.core.api.actor.EActorRole
+@import be.webdeb.core.api.actor.EAffiliationType
+@import be.webdeb.core.api.actor.EGenderType
+@(
+        user : WebdebUser,
+        contributionType: EContributionType,
+        helper : ContributionHelper,
+        isSearch: Boolean = false,
+        short: Boolean = false,
+        complete: Boolean = false,
+        classes: String = "",
+        searchForm : Form[SearchForm] = null,
+        othersButtons: Html = Html("")
+)
+
+<div class="filters-container w-100 @classes">
+
+    <form class="filters-container-header container-fluid"  autocomplete="off">
+        @if(isSearch && searchForm != null) {
+            @searchbar(searchForm, true)
+        }
+
+        <div class="row">
+            <div class="col-12 flex-container">
+                @othersButtons
+
+                <button class="btn btn-secondary filter-collapse-btn" type="button">
+                    <i class="fas fa-filter mr-1"></i>
+                    @Messages("general.filter.show")
+                    <i class="fas fa-chevron-right ml-1 chevron-right"></i>
+                    <i class="fas fa-chevron-down ml-1 chevron-down"></i>
+                </button>
+
+                @if(isSearch) {
+                    <div class="ml-2">
+                        @cTypeSelector("isActor", EContributionType.ACTOR)
+                        @cTypeSelector("isDebate", EContributionType.DEBATE)
+                        @cTypeSelector("isText", EContributionType.TEXT)
+                        @cTypeSelector("isTag", EContributionType.TAG)
+                        @cTypeSelector("isCitation", EContributionType.CITATION)
+                        @hiddenFormField(searchForm("isAll"))
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+    <div class="filter-content container-fluid">
+        <hr>
+        <div class="row">
+
+            @if(isSearch) {
+                <div class="col-12 filter type-@EContributionType.ACTOR.id() type-@EContributionType.CITATION.id() type-@EContributionType.TEXT.id()">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>@Messages("general.filter.label.publidate.from")</label>
+                            <input class="form-control" type="text" name="search_date_from">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>@Messages("general.filter.label.publidate.to")</label>
+                            <input class="form-control" type="text" name="search_date_to">
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if(!isSearch && contributionType == EContributionType.TEXT && !short) {
+                <div class="col-12">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>@Messages("general.filter.label.publidate.from")</label>
+                            <input class="form-control" type="text" name="text_publication_date_from">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>@Messages("general.filter.label.publidate.to")</label>
+                            <input class="form-control" type="text" name="text_publication_date_to">
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if(!isSearch && contributionType == EContributionType.CITATION && !short) {
+                <div class="col-12">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>@Messages("general.filter.label.publidate.from")</label>
+                            <input class="form-control" type="text" name="citation_publication_date_from">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>@Messages("general.filter.label.publidate.to")</label>
+                            <input class="form-control" type="text" name="citation_publication_date_to">
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if(!isSearch && contributionType == EContributionType.AFFILIATION) {
+                <div class="col-12">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>@Messages("contributor.label.affiliation.start")</label>
+                            <input class="form-control" type="text" name="affiliation_date_from">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>@Messages("contributor.label.affiliation.end")</label>
+                            <input class="form-control" type="text" name="affiliation_date_to">
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if(isSearch || contributionType == EContributionType.AFFILIATION) {
+                @if(!complete || short) {
+                    <div class="col-md-6 form-group input-field filter type-@EContributionType.ACTOR.id() type-@EContributionType.CITATION.id() type-@EContributionType.DEBATE.id()">
+                        <label>@Messages("general.filter.label.place")</label>
+                        <div>
+                            <input class="d-none" type="text" name="place.id">
+                            <input class="form-control" type="text" name="place">
+                        </div>
+                    </div>
+                }
+            } else { @if(isSearch || contributionType == EContributionType.ACTOR || contributionType == EContributionType.DEBATE || contributionType == EContributionType.CITATION || contributionType == EContributionType.ALL) {
+                @if(!short) {
+                    <div class="col-md-6 form-group input-field filter type-@EContributionType.ACTOR.id() type-@EContributionType.CITATION.id() type-@EContributionType.DEBATE.id()">
+                        <label>@Messages("general.filter.label.place")</label>
+                        <div>
+                            <input class="d-none" type="text" name="place.id">
+                            <input class="form-control" type="text" name="place">
+                        </div>
+                    </div>
+
+                }
+            }}
+
+            @if(isSearch || contributionType == EContributionType.ACTOR || contributionType == EContributionType.DEBATE || contributionType == EContributionType.CITATION || contributionType == EContributionType.ALL) {
+
+                @if(isSearch || (contributionType != EContributionType.ACTOR && contributionType != EContributionType.AFFILIATION)) {
+                    <div class="@if(!short) {col-md-6 }else{col-12} form-group input-field filter type-@EContributionType.CITATION.id() type-@EContributionType.DEBATE.id()">
+                        <label>@Messages("general.filter.label.tag")</label>
+                        <div>
+                            <input class="form-control" type="text" name="tag">
+                        </div>
+                    </div>
+                }
+            }
+
+            @if(!isSearch && contributionType == EContributionType.ACTOR) {
+                <div class="col-md-6 form-group input-field">
+                    <label>@Messages("general.filter.label.affiliation")</label>
+                    <div>
+                        <input class="d-none" type="text" name="affiliation.id">
+                        <input class="form-control" type="text" name="affiliation">
+                    </div>
+                </div>
+            }
+
+            @*
+            @if(!isSearch && contributionType == EContributionType.AFFILIATION && complete && !short) {
+                <div class="col-md-6 form-group input-field">
+                    <label>@Messages("general.filter.label.affiliation")</label>
+                    <div>
+                        <input class="d-none" type="text" name="other_affiliation.id">
+                        <input class="form-control" type="text" name="other_affiliation">
+                    </div>
+                </div>
+            }
+            *@
+            @if(!isSearch && contributionType == EContributionType.AFFILIATION && complete && !short) {
+                <div class="col-md-6 form-group input-field">
+                    <label>@Messages("general.filter.label.gender")</label>
+                    <div class="d-flex">
+                        <div class="form-check input-field d-flex align-items-center mt-2 mb-2 mr-3">
+                            <input type="checkbox" class="form-check-input" id="gender_m" name="gender_m" value="@EGenderType.MALE.id()">
+                            <label class="form-check-label" for="gender_m"><i class="fas fa-mars male-color"></i></label>
+                        </div>
+                        <div class="form-check input-field d-flex align-items-center mt-2 mb-2">
+                            <input type="checkbox" class="form-check-input" id="gender_f" name="gender_f" value="@EGenderType.FEMALE.id()">
+                            <label class="form-check-label" for="gender_f"><i class="fas fa-venus female-color"></i></label>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if(!isSearch && (!complete || !short) && (contributionType == EContributionType.ACTOR || contributionType == EContributionType.AFFILIATION)) {
+                <div class="col-md-6 form-group input-field">
+                    <label>@Messages("general.filter.label.function")</label>
+                    <div>
+                        <input class="form-control" type="text" name="profession">
+                    </div>
+                </div>
+            }
+
+            @if(!isSearch && short && !complete && contributionType == EContributionType.AFFILIATION) {
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="form-check input-field d-flex align-items-center mt-2 mb-2">
+                        <input type="checkbox" class="form-check-input" id="affiliation_type" name="affiliation_type" value="@EAffiliationType.GRADUATING_FROM.id()">
+                        <label class="form-check-label" for="affiliation_type">@Messages("general.filter.label.graduating")</label>
+                    </div>
+                </div>
+            }
+
+            @if(isSearch) {
+                <div class="col-md-6 form-group input-field filter type-@EContributionType.ACTOR.id()">
+                    <label>@Messages("general.filter.label.atype")</label>
+                    <div class="d-flex">
+                        <select class="form-control" name="actor_type">
+                            <option value="-1"></option>
+                            <option value="@EActorType.PERSON.id()">@Messages("viz.actor.title.0")</option>
+                            <option value="@EActorType.ORGANIZATION.id()">@Messages("viz.actor.title.1")</option>
+                        </select>
+                    </div>
+                </div>
+            }
+
+            @if(!isSearch && !short && (contributionType == EContributionType.TEXT || contributionType == EContributionType.CITATION || contributionType == EContributionType.ALL)) {
+                @if(complete) {
+                    <div class="col-md-6 form-group input-field">
+                        <label>@Messages("general.filter.label.author")</label>
+                        <div>
+                            <input class="d-none" type="text" name="@if(contributionType == EContributionType.TEXT){text}else{citation}_author.id">
+                            <input class="form-control" type="text" name="@if(contributionType == EContributionType.TEXT){text}else{citation}_author">
+                        </div>
+                    </div>
+                }
+
+                <div class="col-md-6 form-group input-field">
+                    <label>@Messages("general.filter.label.source")</label>
+                    <div>
+                        <input class="form-control" type="text" name="@if(contributionType == EContributionType.TEXT){text}else{citation}_source">
+                    </div>
+                </div>
+            }
+
+            @if(isSearch) {
+                <div class="col-md-6 form-group input-field filter type-@EContributionType.TEXT.id() type-@EContributionType.CITATION.id()">
+                    <label>@Messages("general.filter.label.author")</label>
+                    <div>
+                        <input class="d-none" type="text" name="text_author.id">
+                        <input class="form-control" type="text" name="text_author">
+                    </div>
+                </div>
+                <div class="col-md-6 form-group input-field filter type-@EContributionType.TEXT.id() type-@EContributionType.CITATION.id()">
+                    <label>@Messages("general.filter.label.source")</label>
+                    <div>
+                        <input class="form-control" type="text" name="text_source">
+                    </div>
+                </div>
+            }
+
+            @if(contributionType == EContributionType.TEXT && !isSearch) {
+                <div class="col-12 form-group input-field">
+                    <label>@Messages("general.filter.label.ttype")</label>
+                    <div class="d-flex">
+                        <select class="form-control" name="text_type">
+                            <option value="-1"></option>
+
+                            @for((value, name) <- helper.getTextTypes(ctx.lang.code)) {
+                                <option value="@value">@name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 form-group input-field">
+                    <label>@Messages("general.filter.label.fulltext.text")</label>
+                    <div>
+                        <input class="form-control" type="text" name="fulltext_text">
+                    </div>
+                </div>
+            }
+
+            @if(contributionType == EContributionType.DEBATE && !isSearch) {
+                <div class="col-12 form-group input-field">
+                    <label>@Messages("general.filter.label.fulltext.debate")</label>
+                    <div>
+                        <input class="form-control" type="text" name="fulltext_debate">
+                    </div>
+                </div>
+            }
+
+            @if(contributionType == EContributionType.TAG && !isSearch) {
+                <div class="col-12 form-group input-field">
+                    <label>@Messages("general.filter.label.fulltext.tag")</label>
+                    <div>
+                        <input class="form-control" type="text" name="fulltext_tag">
+                    </div>
+                </div>
+            }
+
+            @if(contributionType == EContributionType.ACTOR && !isSearch) {
+                <div class="col-12 form-group input-field">
+                    <label>@Messages("general.filter.label.fulltext.actor")</label>
+                    <div>
+                        <input class="form-control" type="text" name="fulltext_actor">
+                    </div>
+                </div>
+            }
+
+            @if(contributionType == EContributionType.CITATION && !isSearch) {
+                @if(!short) {
+                    <div class="col-md-6 form-group input-field">
+                        <label>@Messages("general.filter.label.arole")</label>
+                        <div class="d-flex">
+                            <select class="form-control" name="actor_role">
+                                <option value="-1"></option>
+                                <option value="@EActorRole.AUTHOR.id()">@Messages("actor.role.signed")</option>
+                                <option value="@EActorRole.REPORTER.id()">@Messages("actor.role.reported")</option>
+                            </select>
+                        </div>
+                    </div>
+                }
+
+                <div class="col-12 form-group input-field">
+                    <label>@Messages("general.filter.label.fulltext.citation")</label>
+                    <div>
+                        <input class="form-control" type="text" name="fulltext_citation">
+                    </div>
+                </div>
+            }
+
+            <div class="col-12 mt-2">
+                <button class="btn btn-secondary filter-btn" type="button">
+                    @Messages("general.filter.title")
+                </button>
+
+                <button class="btn btn-link delete-filter-btn danger" type="button">
+                    <span>&times;</span> @Messages("general.filter.delete.title")
+                </button>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
+@cTypeSelector(ctype: String, etype: EContributionType) = {
+    <div class="search-ctype-selector @if(searchForm(ctype).value == "true" && searchForm("isAll").value == "false"){selected}" data-type="@etype.id()">
+        <i class="@Messages("browse.search.tip." + etype)"></i>
+        @hiddenFormField(searchForm(ctype))
+    </div>
+}

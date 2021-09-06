@@ -1,0 +1,63 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Create a reusable list of places linked to a contribution
+*
+* @param places a list of places
+* @param fieldname a field name
+*
+* @author Martin Rouffiange
+* @author Fabian Gilson (template take from authorList)
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.PlaceForm
+
+@(
+        places : java.util.List[PlaceForm],
+        fieldname : String
+)
+
+@place(f : PlaceForm) = {
+    <li>
+        <p class="no-margin-xs">@f.getName</p>
+    </li>
+}
+
+<ul class="no-icon to-clamp">
+    @if(places.size > 3) {
+        @for(f <- places.subList(0, 3)) {
+            @place(f)
+        }
+        <div>
+            <button class="btn btn-xs btn-link secondary" data-toggle="collapse" data-target=".showall-@fieldname">
+                @Messages("viz.showmore.places") (@(places.size - 3))
+                &nbsp;<span class="fa fa-chevron-down"></span>
+            </button>
+
+            <div class="collapse showall-@fieldname">
+                @for(f <- places.drop(3)) {
+                    @place(f)
+                }
+            </div>
+        </div>
+    } else {
+        @for(f <- places) {
+            @place(f)
+        }
+    }
+</ul>

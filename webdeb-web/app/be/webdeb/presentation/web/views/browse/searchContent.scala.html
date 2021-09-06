@@ -1,0 +1,74 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Search page. Contains a search bar. When going directly here (without being redirected from a prefilled-search),
+* will display overviews of results (using a switch on concrete type of ContributionHolder)
+*
+* @param searchForm the form for the search query
+* @param elements a list of contribution holders to be displayed
+* @param user the user profile data
+* @param map the message map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+
+@import be.webdeb.presentation.web.views.html.browse.searchbar
+
+@import be.webdeb.presentation.web.views.html.util.waitingContainer
+@import be.webdeb.presentation.web.views.html.util.noResultMessage
+
+@import be.webdeb.presentation.web.views.html.util.filtersContainer
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        user : WebdebUser,
+        searchForm : Form[SearchForm],
+        contributionType: EContributionType,
+        title: String,
+        helper : ContributionHelper,
+        classes: String = ""
+)
+
+
+<div class="row mt-3 mb-3 search-container" style="max-width: 800px">
+    <div class="col-12">
+        <h3 class="small-caps text-muted hidden-xs">
+            @title
+        </h3>
+
+        <hr>
+
+    </div>
+
+    @filtersContainer(user, contributionType, helper, true, false, false, classes, searchForm)
+
+    <div class="results-container col-12"></div>
+
+    @waitingContainer()
+
+    <div class="no-result-container col-12">
+        @noResultMessage(null)
+    </div>
+
+</div>

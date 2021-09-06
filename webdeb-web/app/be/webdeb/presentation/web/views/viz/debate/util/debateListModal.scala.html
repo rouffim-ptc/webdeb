@@ -1,0 +1,76 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Template modal to see a list of debates in a particular context
+*
+* @param debates the list of debates holder to display
+* @param title the title of the modal, if needed
+* @param user the current user profile
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debateSimpleContainer
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debateContainer
+@(
+        debates: java.util.List[DebateHolder],
+        title : String,
+        user : WebdebUser
+)
+
+@emptyModalframe("modal-debates", false, "form", "", false) {
+
+    <div class="modal-header">
+        @if(title != null){
+            <h5>
+            @title
+            </h5>
+        }
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    @if(!debates.isEmpty) {
+
+                        @for(debate <- debates) {
+
+                            @debateContainer(debate, user, true, false)
+                        }
+                    } else {
+                        <p class="instructions mt-3 mb-3">@Messages("general.debate.none")</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Messages("general.btn.close")</button>
+    </div>
+
+}

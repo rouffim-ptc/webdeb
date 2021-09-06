@@ -1,0 +1,61 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Helper template to build a list of groups
+*
+* @param groups a list of (selectable) groups
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.group.GroupForm
+
+
+@(
+    groups : java.util.List[GroupForm]
+)
+
+
+<p class="instructions" style="display: none">
+  @Messages("general.search.pointable.instructions")
+</p>
+
+<div class="pageable">
+@if(groups.size == 0) {
+  <div class="alert alert-info">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>@Messages("info") </strong> @Messages("browse.search.noresult")
+  </div>
+} else {
+  @for(group <- groups) {
+    <div id="summary_@group.getId" class="summary col-12">
+      <div id="content_@group.getId">
+        <h3>@group.getName</h3>
+        <h4 class="text-muted">@group.getDescription</h4>
+        <p>
+          @Messages("group.change.tooltip",
+            Messages("group.contribution.visibility." + group.getContributionVisibility),
+            Messages("group.member.visibility." + group.getMemberVisibility))
+        </p>
+      </div>
+    </div>
+  }
+}
+</div>

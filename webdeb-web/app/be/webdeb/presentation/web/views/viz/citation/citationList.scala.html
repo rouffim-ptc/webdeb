@@ -1,0 +1,97 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Template to display a list of citations in a particular context
+*
+* @param citations the list of citations holder to display
+* @param title the title of the modal, if needed
+* @param user the current user profile
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+@import be.webdeb.core.api.contribution.link.EJustificationLinkShade
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.core.api.contribution.link.EPositionLinkShade
+@import be.webdeb.core.api.debate.EDebateShade
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@(
+        citationsMap: java.util.Map[Integer, java.util.List[CitationHolder]],
+        user : WebdebUser,
+        selectedShade : Integer = null,
+        forArgument : Boolean = true,
+        debateShade : EDebateShade = null,
+        id : String = "",
+        debateToIgnoreId : Long = null,
+        othersCitationsMap: java.util.Map[Integer, java.util.List[CitationHolder]] = null
+)
+
+@if(!citationsMap.isEmpty || othersCitationsMap != null) {
+    @if(forArgument && !citationsMap.isEmpty) {
+        @for(shade <- EJustificationLinkShade.values()) {
+            @displayShade(shade)
+        }
+    }
+    @if(!forArgument || (othersCitationsMap != null && !othersCitationsMap.isEmpty)) {
+        @navpillMenu("", "modal-citations-tab-positions"){
+            @for((shade, citations) <- if(othersCitationsMap != null){othersCitationsMap}else{citationsMap}){
+                @navpillMenuItem("modal-citations-tab-positions-".concat(shade.toString).concat(id), Messages("viz.debate.position." + debateShade.id + "." + shade).concat(" (").concat(citations.size.toString).concat(")"), if(selectedShade != null){selectedShade == shade}else{true}, EPositionLinkShade.value(shade).toStyleName.concat("-btn"))
+            }
+        }
+
+        @navContent("mt-3 w-100", "modal-citations-tab-positions") {
+            @for(((shade, citations), index) <- (if(othersCitationsMap != null){othersCitationsMap}else{citationsMap}).zipWithIndex) {
+                @navContentItem("modal-citations-tab-positions-".concat(shade.toString).concat(id), if(selectedShade != null){selectedShade == shade}else{index == 0}) {
+                    <div class="simple-contribution-container @EPositionLinkShade.value(shade).toStyleName-container">
+                    @for(citation <- citations) {
+                        @citationContainer(citation, user, true, true, false, null, -1, debateToIgnoreId)
+                    }
+                    </div>
+                }
+            }
+        }
+    }
+} else {
+    <p class="instructions mt-3 mb-3">@Messages("general.citation.none")</p>
+}
+
+@displayShade(shade: EJustificationLinkShade) = {
+    @if(citationsMap.contains(shade.id)) {
+        <div class="col-12 @if(shade != EJustificationLinkShade.NONE) {col-lg-6} d-flex flex-column">
+
+            <h4 @if(shade != null) {
+                class="@shade.toStyleName"}>
+                @citationsMap.get(shade.id).size @Messages("viz.argument.socio." + shade.toStyleName)
+            </h4>
+
+            <div class="simple-contribution-container @if(shade != null) {@shade.toStyleName-container} flex-grow-1">
+            @for(citation <- citationsMap.get(shade.id)) {
+                @citationContainer(citation, user, true, false, false, null, -1, debateToIgnoreId)
+            }
+            </div>
+
+        </div>
+    }
+}

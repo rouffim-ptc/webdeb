@@ -1,0 +1,139 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Debate details showing name, tag and places
+*
+* @param tag the tag to display the details for
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.viz.debate.DebateVizHolder
+@import be.webdeb.presentation.web.views.html.viz.tag.util.tagCategoryContainer
+@import be.webdeb.presentation.web.views.html.viz.tag.util.tagDebateContainer
+@import be.webdeb.presentation.web.views.html.toolbar.debate.debateAddActions
+
+@import be.webdeb.core.api.contribution.link.EJustificationLinkShade
+@import be.webdeb.core.api.debate.EDebateShade
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.debate.EDebateType
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+
+@import be.webdeb.presentation.web.controllers.viz.debate.EDebateVizPane
+
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@import be.webdeb.presentation.web.views.html.viz.common.contributionAlliesOpponents
+@import be.webdeb.core.api.contribution.EAlliesOpponentsType
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        debateHolder: DebateVizHolder,
+        user : WebdebUser,
+        helper : ContributionHelper
+)
+
+<script type="text/javascript">
+
+        $(document).ready(function() {
+            initListeners($('#debate-viz'));
+        });
+
+        function initListeners(container) {
+            let pane = @EDebateVizPane.ARGUMENTS.id;
+            let argumentContainerSelector = '.viz-pane-' + pane;
+
+            container.find('.context-alliesopponents-btn').click(async function(){
+                let subDebateId = getContributionOptionData($(this), 'id');
+                subDebateId = !subDebateId || subDebateId === -1 ? -2 : subDebateId;
+                await doLoadVisualizationsCall(getDebateLinkedContributions, @debateHolder.getId, pane, subDebateId, container, pane, true);
+
+                scrollToTop();
+
+                let close = container.find(argumentContainerSelector).find('.context-dragndrop-close-btn');
+                close.off('click');
+                close.on('click', function(){
+                    triggerReloadVizEvent(subDebateId === -1 || subDebateId === -2 ? undefined : '.debate-' + subDebateId);
+                });
+            });
+        }
+
+        function displayOneShadeListeners(container) {
+
+            $(window).resize(function(){
+                displayOneShade(container)
+            });
+
+            container.find('.justify-btn').on('click', function(){
+                displayOneShade(container);
+            });
+
+            container.find('.opposes-btn').on('click', function(){
+                displayOneShade(container, 'opposes');
+            });
+
+
+        }
+
+        function displayOneShade(container, shade) {
+            shade = shade === undefined ? 'justify' : shade;
+            let opShade = shade === 'justify' ? 'opposes' : 'justify';
+
+            if($('body').width() < 751) {
+                container.find('.' + shade + '-container').show();
+                container.find('.' + opShade + '-container').hide();
+            } else {
+                container.find('.' + shade + '-container').show();
+                container.find('.' + opShade + '-container').show();
+            }
+
+        }
+
+</script>
+
+@if(debateHolder.getIsMultiple) {
+    @displayByAuthorMultiple()
+} else {
+    @displayByAuthorSimple()
+}
+
+@displayByAuthorSimple(subContextId : Long = null) = {
+    @contributionAlliesOpponents(debateHolder, user, helper, EAlliesOpponentsType.ARGUMENTS, 0L, subContextId, debateHolder.getEShade)
+}
+
+@displayByAuthorMultiple() = {
+    <div class="row">
+
+        <div class="col-12 mb-3">
+            <button type="button" class="btn btn-info debate-add-subdebate-btn" data-id="@debateHolder.getId">
+                <i class="fas fa-plus"></i> @Messages("general.add.btn.subdebate")
+            </button>
+        </div>
+
+        <div class="col-12 pl-1 pr-1 pl-md-3 pr-md-3">
+        @for(debate <- debateHolder.getTagDebates) {
+            @tagDebateContainer(debate, user, debateHolder.getId, false, true, true, "actors"){
+                @displayByAuthorSimple(debate.getId)
+            }
+        }
+        </div>
+
+    </div>
+}

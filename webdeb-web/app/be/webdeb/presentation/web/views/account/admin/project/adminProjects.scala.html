@@ -1,0 +1,98 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Page to manage projects
+*
+* @param map the message map to display (if any)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.viz.text.TextVizHolder
+@import be.webdeb.presentation.web.views.html.util.{waitforit}
+
+@import be.webdeb.presentation.web.controllers.account.admin.project.ProjectForm
+
+@import be.webdeb.presentation.web.controllers.account.admin.project.ProjectGroupForm
+@import be.webdeb.presentation.web.controllers.account.admin.project.ProjectSubgroupForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.util.message
+@(
+        projects : java.util.List[ProjectForm],
+        user : WebdebUser,
+        map : java.util.Map[String, String]
+)
+
+@scripts = {
+    <title>@Messages("title." + play.Configuration.root().getString("server.type"))</title>
+
+    <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/project-scripts.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            initProjectsListener();
+        });
+    </script>
+}
+
+
+@main(user, scripts) {
+
+<div class="container mt-3 mb-3">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="small-caps text-muted">
+                @Messages("project.title")
+            </h3>
+            <hr>
+
+            <div id="manage-project" class="row">
+                <div class="col-12">
+                    @for(project <- projects){
+                        @projectContainer(project)
+                    }
+                </div>
+
+                <div class="col-12 mt-3">
+                    <button type="button" class="btn btn-primary edit-project-btn" data-id="-1">Nouveau projet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@projectContainer(project : ProjectForm) = {
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a class="primary" href="@be.webdeb.presentation.web.controllers.account.admin.project.routes.ProjectActions.manageProject(project.getId)">
+                    Projet : "@project.getName (@project.getTechnicalName)"
+                </a>
+            </h5>
+
+            <div class="pl-3 mt-3" style="border-left : 1px solid black;">
+                <p>Du: @project.getBeginDateToDisplay au @project.getEndDateToDisplay</p>
+                <hr>
+            </div>
+        </div>
+    </div>
+}

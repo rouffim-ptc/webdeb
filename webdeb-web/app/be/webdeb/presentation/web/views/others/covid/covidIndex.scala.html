@@ -1,0 +1,264 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Covid-19 index
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+
+@(
+        user : WebdebUser,
+        tags : java.util.List[TagHolder],
+        debates : java.util.List[DebateHolder]
+)
+
+
+@scripts = {
+    <title>@Messages("covid19.title") @Messages("general.metatitle")</title>
+    <meta name="description" content="@Messages("covid19.desc")">
+
+    <meta property="fb:app_id" content="webdebBE" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@Messages("covid19.title")" />
+    <meta property="og:description" content="@Messages("covid19.desc")" />
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.otherCovid.absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/others/covid/covid.png").absoluteURL()" />
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        });
+
+    </script>
+
+    <style>
+
+        body{
+            background-color: #a1a1a1;
+        }
+
+        .stat-container h1{
+            text-align: left !important;
+            margin: 0;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .stat-container p:first-child{
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .stat-container .stat-container-img{
+            overflow: hidden;
+        }
+
+        .stat-container p {
+            text-align : left;
+        }
+
+        .stat-container-1{
+            background-color: #374955;
+        }
+
+        .stat-container-1 p {
+            color: white;
+        }
+
+        .stat-container-2{
+            color : #374955;
+            background-color: #F8F8F8;
+        }
+
+        .stat-container-2 p {
+            color : #484848;
+        }
+
+        #webdeb-theme-presentation{
+            background: #F0EAEA;
+        }
+
+        .stat-container-ad{
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        .stat-container-ad p{
+            font-size: 18px;
+            text-align: left;
+        }
+
+        .stat-container-ad .subtitle{
+            color :  #b34a4a;
+            font-weight: bold;
+        }
+
+        .fake-btn{
+            padding : 15px;
+            color: white;
+            width: 250px;
+        }
+
+        .fake-btn:hover{
+            background-color: #22699d !important;
+        }
+
+        .fake-btn-container a, .fake-btn-container a:active, .fake-btn-container a:focus{
+            color: white;
+            text-decoration: none;
+        }
+
+        .fake-btn-1{
+            background-color: #27afbf;
+        }
+
+        .fake-btn-2{
+            background-color: #318acb;
+        }
+
+        .election-link{
+            font-size: 18px;
+        }
+
+        .stat-container-nocursor{
+            cursor : default;
+        }
+
+        .covid-container {
+            background-color: white;
+        }
+    </style>
+}
+
+@main(user, scripts) {
+
+    <div id="webdeb-theme-presentation" class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-lg-8 no-padding">
+
+                <div class="stat-container stat-container-1">
+                    <h1>@Messages("covid19.title")</h1>
+                    <h5 class="mt-2">@Messages("covid19.desc")</h5>
+                </div>
+
+                <div class="stat-container stat-container-2">
+                    <h2>Où trouver les citations sur la crise du Covid-19 ?</h2>
+
+                    <p>Voici une liste de macro-dossiers vous permettant d’accéder aux dossiers et à leurs citations :</p>
+
+                    <div class="covid-container list-group">
+                        @for(tag <- tags){
+                            <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.tag(tag.getId , -1, 2)" class="list-group-item primary">@tag.getTagName</a>
+                        }
+                    </div>
+                </div>
+
+                <div class="stat-container stat-container-1">
+                    <h2>Où trouver les débats sur la crise du Covid-19 ?</h2>
+                    <br>
+                    <p>Les débats sont encore peu étoffés dans WebDeb.</p>
+
+                    <p>Découvrez l’un des plus finalisés : « Est-il vrai que la crise du Covid-19 offre des opportunités de sortie du paradigme néo-libéral ? ».
+                        On peut en découvrir
+                        <a href="https://webdeb.be/viz/debate/179714?pane=1&pov=0">les arguments</a>
+                        et
+                        <a href="https://webdeb.be/viz/debate/179714?pane=2&pov=0">les prises de position</a>.
+                    </p>
+                    <br>
+                    <p>Quelques listes de débats à étoffer :</p>
+
+                     <div class="covid-container list-group">
+                        <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.debate(179714, -1, 0)" class="list-group-item primary">Est-il vrai que la crise du Covid-19 offre des opportunités de sortie du paradigme néo-libéral ?</a>
+
+                        @for(debate <- debates){
+                            <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.debate(debate.getId , 2, 0)" class="list-group-item primary">@debate.getFullTitle</a>
+                        }
+                    </div>
+                    <br>
+                    <p>Pour accéder à tous les débats à propos du Covid-19 <a href="https://webdeb.be/viz/tag/181099?pane=0&pov=2">c'est par ici</a></p>
+
+                </div>
+
+               <div class="stat-container stat-container-2">
+                    <p></p>
+                </div>
+
+            </div>
+
+            <div class="stat-container-ad col-md-12 col-lg-4 mb-3">
+
+                <h2 class="mt-3 font-weight-bold">Étoffez l’analyse de la crise</h2>
+                <h5>WebDeb dépend de vos contributions</h5>
+
+                <br>
+
+                <p class="subtitle">Un préalable : vous enregistrer</p>
+                <hr class="hr-small hr-grey">
+                <p>Tout est gratuit et sécurisé, mais pour contribuer, il faut d’abord vous enregistrer, en allant tout en haut à droite de cette page. C’est la procédure classique. N’oubliez pas de consulter le mail de confirmation.</p>
+                <br>
+
+                <p class="subtitle">Découvrir WebDeb en 4’30’’</p>
+                <hr class="hr-small hr-grey">
+                <p>Voici une vidéo qui présente WebDeb.</p>
+                <div class="d-flex align-items-center justify-content-center">
+                    <iframe width="500" height="250" src="https://www.youtube.com/embed/HtImqc60-Tk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <br>
+
+                <p class="subtitle">Moissonner des citations</p>
+                <hr class="hr-small hr-grey">
+                <p>Découvrez en 4 minutes comment faire.</p>
+                <div class="d-flex align-items-center justify-content-center">
+                    <iframe width="500" height="250" src="https://www.youtube.com/embed/y_9Gda_Sk3A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="mt-3">Adoptez l’habitude d’alimenter WebDeb. Une citation retient votre attention ? Encodez-la dans WebDeb. Elle sera disponible pour la communauté et pour vous (dans votre répertoire personnel de citations accessible via votre profil tout en haut à droite du site).
+                </p>
+                <br>
+
+                <p class="subtitle">Cartographier un débat</p>
+                <hr class="hr-small hr-grey">
+                <p>Le tutoriel sera bientôt disponible. Mais vous pouvez vous lancer en vous basant sur un modèle. Vous verrez que WebDeb permet d’enregistrer : <p>
+                <p><a href="https://webdeb.be/viz/debate/179714?pane=2&pov=0">· les prises de position d’acteur</a></p>
+                <p><a href="https://webdeb.be/viz/debate/179714?pane=1&pov=0">· des arguments, de les classer en catégories et de les relier à des citations</a></p>
+                <br>
+
+                <p class="subtitle">Présenter le CV d’une personne ou les membres d’une organisation</p>
+                <hr class="hr-small hr-grey">
+                <p>Découvrez en 2 minutes cette fonctionnalité.</p>
+                <div class="d-flex align-items-center justify-content-center">
+                    <iframe width="500" height="250" src="https://www.youtube.com/embed/mWEPrnGmf78" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <br>
+
+                <p class="subtitle">Contactez-nous</p>
+                <hr class="hr-small hr-grey">
+                <p>Pour toute question ou suggestion : <a href="mailto:info@@webdeb.be">info@@webdeb.be</a></p>
+            </div>
+        </div>
+    </div>
+}

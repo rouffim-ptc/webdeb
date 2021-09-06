@@ -1,0 +1,226 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Actor details pane, ie, all details (name, type, url, affiliations, etc) are displayed, as  well as
+* a list of all textual contributions where this actor appears.
+*
+* @param actor the actor to display
+* @param user the current user
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorCard
+
+@import be.webdeb.util.ValuesHelper
+
+@import be.webdeb.core.api.actor.EActorType
+
+@import be.webdeb.presentation.web.views.html.viz.actor.util.{affiliationList, actorNamesList}
+
+@import be.webdeb.presentation.web.views.html.viz.actor.actorPositions
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.viz.tag.tagsInlineList
+@(
+    actor: ActorVizHolder,
+    helper : ContributionHelper,
+    user : WebdebUser
+)
+
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    $('.file-input-group-input :file').on('change', function () {
+      var timeout = setTimeout(function () {
+        $('#wait-for-it').modal('show');
+      }, 1000);
+
+      uploadActorPicture($('#form'), @actor.getId).done(function (data) {
+        clearTimeout(timeout);
+        hideAndDestroyModal('#wait-for-it');
+
+        // update image dynamically with filename passed
+        $('#avatar').empty().append('<img class="avatar" ' +
+         'src="/avatar/' + data + '" alt="@Messages("actor.label.pic.noimage")">');
+
+      }).fail(function (jqXHR) {
+        clearTimeout(timeout);
+        hideAndDestroyModal('#wait-for-it');
+
+        // check whether we got a full page (unauthorized) or a partial one
+        if (jqXHR.status === 401) {
+          // rebuild page on unauthorized
+          replaceContent('body', jqXHR.responseText, 'body');
+        } else {
+          // show received message as is
+          showErrorMessage(jqXHR);
+        }
+      });
+    });
+@*
+    // lazy load actor's contributions
+    var spinner = $('#contrib-spinner');
+    showMe(spinner, true, true);
+    var actorContrib = getActorContributions(@actor.getId);
+    var activeTab;
+
+    actorContrib.done(function (html) {
+      showMe(spinner, false, true);
+      $('#bound-contrib').empty().append(html);
+      $('#show-filter').prop('disabled', false);
+      var pager = new Pager('.pageable', 5, "#pager");
+      pager.reset();
+    }).fail(function (jqXHR) {
+      $('#bound-contrib').empty().append(jqXHR.responseText);
+    });
+      *@
+  });
+
+</script>
+
+
+<div class="row mt-3 mb-3">
+
+  <div class="col-12">
+    @actorCard(actor, false, helper.getValuesHelper)
+
+    @actor.getEActortype match {
+      case EActorType.PERSON => {
+
+        <hr>
+
+        <p class="card-text contribution-attribute">
+        @if(!actor.getQualifications.isEmpty) {
+          @affiliationList("actor.label.affiliation.qualification.qualifications", actor.getQualifications, false)
+        } else {
+          <span class="text-muted">Formations </span><span>n'a pas de formations connues</span>
+          <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+        }
+        </p>
+
+        <hr>
+
+        <p class="card-text contribution-attribute">
+        @if(!actor.getFiliations.isEmpty){
+          @affiliationList("actor.label.affiliation.filiation.parents", actor.getFiliations, true)
+        } else {
+          <span class="text-muted">Parents </span><span>n'a pas de parents étant des personnalités publiques</span>
+          <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+        }
+        </p>
+
+        <p class="card-text contribution-attribute">
+        @if(!actor.getFiliationsChildren.isEmpty){
+          @affiliationList("actor.label.affiliation.filiation.children", actor.getFiliationsChildren, true)
+        } else {
+          <span class="text-muted">Enfants </span><span>n'a pas d'enfants étant des personnalités publiques</span>
+          <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+        }
+        </p>
+
+        <div class="card-text contribution-attribute">
+        @if(!actor.getAllnames.isEmpty){
+          <hr>
+          <span class="text-muted">Noms d'en d'autres langues : </span>
+          @for(name <- actor.getAllnames) {
+            @name.getFirst @name.getLast @if(!helper.getValuesHelper.isBlank(name.getPseudo)){@name.getPseudo)}  [@name.getLang.toUpperCase]
+            &nbsp;&nbsp;
+          }
+          <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+        }
+        </div>
+      }
+      case EActorType.ORGANIZATION => {
+        <hr>
+
+        <div class="row">
+
+          <div class="col-12">
+
+            <p class="card-text contribution-attribute">
+              <span class="text-muted">Type d'organisation</span>
+              @if(!helper.getValuesHelper.isBlank(actor.getLegalStatus)){
+                @actor.getLegalStatus
+              } else {
+                inconnu
+              }
+              <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+            </p>
+
+            <p class="card-text contribution-attribute">
+              <span class="text-muted">Secteur(s) où l'organisation est active</span>
+              @for(sector <- actor.getBusinessSectors) {
+                <span class="mr-1">@sector</span>
+              }
+              <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+            </p>
+
+            <p class="card-text contribution-attribute">
+              <span class="text-muted">@Messages("actor.tags")</span>
+              @tagsInlineList(actor.getTags, false)
+              <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+            </p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="card-text contribution-attribute">
+        @if(!actor.getOldorgnames.isEmpty){
+          <span class="text-muted">Noms précédents : </span>
+          @for(name <- actor.getOldorgnames) {
+            @name.getLast @if(!helper.getValuesHelper.isBlank(name.getPseudo)){@name.getPseudo)}
+            &nbsp;&nbsp;
+          }
+          <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+        }
+        </div>
+
+        <div class="card-text contribution-attribute mt-1">
+          @if(!actor.getAllorgnames.isEmpty){
+            <span class="text-muted">Noms d'en d'autres langues : </span>
+            @for(name <- actor.getAllorgnames) {
+              @name.getLast @if(!helper.getValuesHelper.isBlank(name.getPseudo)){@name.getPseudo)} [@name.getLang.toUpperCase]
+              &nbsp;&nbsp;
+            }
+            <button class="btn btn-link primary contribution-edit"><i class="fas fa-pencil-alt"></i></button>
+          }
+        </div>
+      }
+      case _ => { @* ignore *@ }
+    }
+
+    @*<div>
+      <h3>@Messages("viz.actor.contributions")</h3>
+
+      <div id="bound-contrib" class="col-md-12 col-sm-12 col-12 large-font no-padding-xs">
+        <div id="contrib-spinner" class="text-muted"><span class="fa fa-spinner fa-spin"></span>&nbsp;@Messages("general.dialog.wait")</span></div>
+      </div>
+      <div class="pull-left"><ul id="pager" class="pager pagination"></ul></div>
+
+    </div>
+
+    *@
+  </div>
+
+</div>

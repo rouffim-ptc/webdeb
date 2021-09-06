@@ -1,0 +1,95 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Main html canvas with only one search bar for the page
+*
+* @param user the user profile data
+* @param scripts possibly empty scripts to be appended to this template's scripts
+* @param searchForm the form for the search query
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.toolbar.{languagebox, toolbox}
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+@import be.webdeb.presentation.web.views.html.util.currentScopePill
+@import be.webdeb.presentation.web.views.html.browse.searchbar
+
+@import be.webdeb.presentation.web.views.html.template
+@(
+        user : WebdebUser,
+        scripts: Html = Html(""),
+        searchForm : Form[SearchForm]
+)(content: Html)
+
+@template(user, scripts) {
+
+    <div class="navbar navbar-wrapper navbar-static-top">
+        <div class="container-fluid">
+            <nav class="navbar navbar-@Messages("navbar.style." + play.Configuration.root().getString("server.type"))">
+                <div class="container-fluid">
+                    <div class="navbar-header nav-browse">
+                        @searchbar(searchForm, false)
+                        <button type="button" class="navbar-toggle" style="margin-right : 5px" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="fas fa-bars fa-lg"></span>
+                        </button>
+                        <a class="navbar-brand hidden-xs" href="@be.webdeb.presentation.web.controllers.routes.Application.index()">
+                            <div class="hidden-sm"><img src="@routes.Assets.at("images/webdeb.png")" height="17" alt="WebDeb"></div>
+                            <div class="hidden-md hidden-lg"><img src="@routes.Assets.at("images/webdeb-mini.png")" height="17" alt="WebDeb"></div>
+                        </a>
+                    </div>
+
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.index()"><i class="fa fa-eye"></i>&nbsp@Messages("menu.browse")</a></li>
+                            <li><a href="@be.webdeb.presentation.web.controllers.entry.routes.EntryActions.contribute"><i class="fa fa-pencil"></i>&nbsp@Messages("menu.newentry")</a></li>
+                            <li class="hidden-xs hidden-sm">@currentScopePill(user, false)</li>
+                            <li class="hidden-md hidden-lg">@currentScopePill(user, true)</li>
+                        </ul>
+
+                        @toolbox(user)
+                        @languagebox()
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="@be.webdeb.presentation.web.controllers.routes.Application.help">
+                                <i class="larger-font fa fa-question"></i></a></li>
+                        </ul>
+
+                        <form class="navbar-form pull-right hidden-xs navform">
+                            <div id="nav-search" class="input-group input-group-sm">
+                                <input type="text" id="main-query-2" class="form-control" placeholder="@Messages("browse.search.place.alt")"
+                                autocomplete="off">
+                                <span class="input-group-btn">
+                                    <button id="main-search-2" type="button" class="btn btn-default custom-search-input"><span class="fa fa-search"></span></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div id="main-content" class="container-fluid main-content vertical_filter_remaining">
+    @content
+    </div>
+}

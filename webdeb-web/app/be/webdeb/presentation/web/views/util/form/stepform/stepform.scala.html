@@ -1,0 +1,101 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Step form container
+*
+* @param nextStepReloadNext next step btn reload all next steps
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.core.api.contribution.EContributionType
+@(
+    nextStepReloadNext: Boolean = false,
+    title: String = null,
+    help: String = null,
+    classes : String = null
+)(content : Html)
+
+<div class="step-form @if(nextStepReloadNext != null && nextStepReloadNext){step-form-reload-next} @classes">
+
+    <div class="pl-xl-4 pl-lg-4 pl-md-2 pr-xl-4 pr-lg-4 pr-md-2 step-form-content">
+        @content
+    </div>
+
+    <div class="step-form-footer">
+
+        <hr>
+
+        <div class="step-form-actions pr-1 pl-1">
+
+            <div class="d-flex align-items-center">
+                <div class="d-flex flex-column pr-1 pt-1 pb-1">
+                    <button class="btn btn-secondary step-prev" style="display: none">@Messages("general.btn.prev")</button>
+                    <button class="btn btn-secondary step-cancel mt-2 d-none d-md-block" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+                </div>
+
+                <div class="flex-grow-1 p-1 d-flex flex-column align-items-center justify-content-center">
+
+                    <div>
+                        <span class="valid-feedback mr-2"><i class="far fa-check-circle"></i> @Messages("general.form.step.validate.title")</span>
+                    </div>
+
+                    <div>
+                        @if(title == null) {
+                            <span>@Messages("general.form.step.title")</span>
+                        }
+
+                        <span class="step-num"></span>/<span class="step-max"></span>
+
+                        @if(title != null) {
+                            - @title
+                        }
+
+                        @if(help != null) {
+                            <a href="#" class="ml-2" data-toggle="tooltip" title="aide"><i class="fas fa-question-circle"></i></a>
+                        }
+                    </div>
+
+                </div>
+
+                <div><span class="step-wait fa fa-spinner fa-spin mr-3 mt-3" style="display: none"></span></div>
+                @*
+                <button type="submit" class="btn btn-primary submit submit-savein step-btn ml-2" style="display: none">@Messages("general.btn.savein")</button>
+                <div class="step-form-actions-addon ml-2" style="display: none"></div>
+                *@
+                <div class="d-flex flex-column">
+                    <button class="btn btn-info step-next step-btn ml-2" style="display: none">@Messages("general.btn.next")</button>
+                    <div class="d-none d-md-block">
+                        <button type="submit" class="btn btn-primary submit submit-save submit-savein step-btn ml-2 mt-2" style="display: none">@Messages("general.btn.saveleave")</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary hide-submit d-none" formnovalidate></button>
+
+            </div>
+
+            <div class="d-block d-md-none">
+                <button type="submit" class="btn btn-primary submit submit-save submit-savein step-btn mt-1 w-100" style="display: none">@Messages("general.btn.saveleave")</button>
+            </div>
+
+        </div>
+    </div>
+</div>

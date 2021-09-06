@@ -1,0 +1,126 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Election 2019 stats 1
+*
+* @param politicalParties the map of polical parties and their members
+* @param politicalPartiesColors the colors related to polical parties
+* @param relatedPartiesListIds the related election list for analyse affiliations
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@import be.webdeb.presentation.web.views.html.others.election.election2019statsSummary
+@(
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title>@Messages("election.2019.stats.1.title") @Messages("general.metatitle")</title>
+    <meta name="description" content="@Messages("election.2019.stats.1.desc")">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@Messages("election.2019.stats.1.title")" />
+    <meta property="og:description" content="@Messages("election.2019.stats.1.desc")" />
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.otherElectionStatsPage(1).absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/others/election/1/share_graph.png").absoluteURL()" />
+
+    <script src="@routes.Assets.at("javascripts/moment.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/organizationalChart.js")" type="text/javascript"></script>
+
+    <script src="@routes.Assets.at("javascripts/actor-affiliations-scripts.js")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('body').scrollTop(0);
+
+            $('.waiting').show();
+            let container = $('#election-charts');
+
+            otherElectionStatsPageAsync(1).done(function (html) {
+                container.empty().append(html);
+            }).fail(function (jqXHR) {
+                console.log("Error when load async");
+            });
+
+        });
+
+    </script>
+}
+
+
+@main(user, scripts) {
+
+    <div id="webdeb-theme-presentation" class="row">
+
+        <div class="col-12">
+            <h1>@Messages("election.2019.stats.1.title")</h1>
+            <br>
+
+            <div class="col-12 no-padding-xs">
+                <div class="row">
+                    <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                        <div class="election-desc">
+                            @Messages("election.2019.stats.1.desc")
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-10 offset-md-1">
+                    <div class="col-12 col-lg-4 text-center">
+                        <img src="@routes.Assets.at("images/others/election/1/graph1.svg")" class="image-selectable" alt="graph1" style="max-width: 100%">
+                    </div>
+
+                    <div class="col-12 col-lg-4 text-center">
+                        <img src="@routes.Assets.at("images/others/election/1/graph2.svg")" class="image-selectable" alt="graph2" style="max-width: 100%">
+                    </div>
+
+                    <div class="col-12 col-lg-4 text-center">
+                        <img src="@routes.Assets.at("images/others/election/1/graph3.svg")" class="image-selectable" alt="graph3" style="max-width: 100%">
+                    </div>
+                </div>
+
+                <div class="col-12 text-center" style="padding : 15px;">
+                    <em>@Messages("election.2019.stats.1.graph")</em>
+                </div>
+
+                <div class="col-12 no-padding" style="margin-top : 10px;">
+                    <h3>@Messages("election.2019.stats.1.list")</h3>
+                    <em>@Messages("election.2019.stats.1.list.legend")</em>
+                    <br>
+
+                    <div id="election-charts">
+                        @waitforit("waiting")
+                    </div>
+                </div>
+
+                @election2019statsSummary(1, "electionTitle2")
+
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,111 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial page to handle tags linked with contributions
+*
+* @param form the form that contains the tag-related fields
+* @param fieldName actual name of the field in given form (will also be added as main div classname for javascript handling)
+* @param labelName base name of all labels in form
+* @param help boolean saying if an inline help must be shown
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.util.{helpbubble, hiddenFormField, inlineform, noerrorForm}
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import helper._
+
+
+@(
+        form: Form[_],
+        fieldName: String,
+        labelName: String,
+        help : Boolean,
+        forSimpleTag : Boolean = true
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $("#@fieldName").find('[name$="name"]').keypress(function(e) {
+                $(this).parents('.input-field').find('[name$="tagId"]').val('-1');
+            });
+        });
+</script>
+
+@prependInput() = {
+    @if(forSimpleTag) {
+        <div class="input-group-prepend d-none d-md-block">
+            <div class="input-group-text">@Messages("entry.citation.tags.tag.label")</div>
+        </div>
+    }
+}
+
+@appendInput() = {
+    @if(forSimpleTag) {
+        <div class="input-group-append">
+            <div class="input-group-text">?</div>
+        </div>
+    }
+}
+
+<div class="row" id="@fieldName">
+    <label class="control-label col-12">@Messages(labelName)
+        @helpbubble("bubble.title","bubble.entry.".concat(labelName))
+    </label>
+
+    <div class="controls col-12">
+        @repeatWithIndex(form(fieldName), min = 1) { (tagField, i) =>
+            @entryFlexFormGroup("tags_".concat(i.toString.concat("_names")), !forSimpleTag) {
+                <div class="col-12 input-field">
+
+                    @if(forSimpleTag) {
+                        <div class="d-block d-md-none">
+                            <div class="input-group-text ml-1 mr-1">
+                                @Messages("entry.citation.tags.tag.label") :
+                            </div>
+                        </div>
+                    }
+
+                    @textInput(
+                        form(tagField.name.concat(".name")),
+                        null, null, null, null, null, null, false, null, null,
+                        prependInput(),
+                       appendInput()
+                    )
+                    @hiddenFormField(form(tagField.name.concat(".tagId")))
+                </div>
+                <div>
+                @checkbox(
+                    form(tagField.name.concat(".isDisambiguated")),
+                    '_name -> "tags[".concat(i.toString).concat("].isDisambiguated"),
+                    '_label -> null,
+                    'class -> "form-control d-none"
+                )(handler = inlineform, implicitly[Messages])
+                </div>
+
+            }
+
+            @mapErrors(form, tagField.name)
+        }
+        <p class="help-inline">@(if(help) Messages(labelName + ".help"))</p>
+    </div>
+</div>

@@ -1,0 +1,258 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Selection page for new contributions (routing page)
+*
+* @param user the user profile data
+*
+* @author Julien Mathieu (original design)
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.util.message
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.viz.admin.advicesdiv
+
+@import be.webdeb.presentation.web.controllers.account.AdvicesForm
+@import be.webdeb.core.api.contributor.EContributorRole
+@(
+    advices : AdvicesForm,
+    user : WebdebUser
+)
+
+@scripts = {
+    <title>@Messages("welcome.index.2.title") @Messages("general.metatitle")</title>
+
+    <meta property="og:title" content="@Messages("welcome.index.2.title.bis") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")" />
+    <meta property="og:description" content="@Messages("welcome.slogan.3") @Messages("welcome.slogan.4")" />
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.entry.routes.EntryActions.contribute().absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable.png").absoluteURL()" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/contribuer_styles.css")">
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var citation_btn = $("#citation-btn");
+            var cancel_btn = $(".cancel-btn");
+
+            var all_contribute_container = $("#all-contribute");
+            var citations_options = $("#citations-options");
+
+            /*citation_btn.on('click', function(e){
+                e.preventDefault();
+                citations_options.show();
+                all_contribute_container.hide();
+            });*/
+
+            cancel_btn.on('click', function(){
+                citations_options.hide();
+                all_contribute_container.show();
+            });
+
+        });
+    </script>
+}
+
+@citationOption(message : String, symbol : String, link : String, isUrl : Boolean, targetBlank : Boolean) = {
+    <li>
+        <a @if(isUrl){ href="@link" @if(targetBlank){ target="_blank" } }else{ class="@link" }>
+            <span class="huge-font fixed-size text-align-left">
+                <span class="@symbol"></span> &nbsp; @Messages(message)
+            </span>
+        </a>
+    </li>
+}
+
+@main(user, scripts, Html(""), "", "contribute.index") {
+
+    <div class="container-fluid pt-3 background_grey">
+
+        <div class="container">
+            <div class="row">
+                <div class="d-flex justify-content-between align-items-center reversed-flex flex-column-sm col-12">
+                    <div>
+                        <h2 class="color_green">@Messages("welcome.index.2.title")</h2>
+                        <img class="webdeb-logo mt-3" src="@routes.Assets.at("images/webdeb.png")" alt="WebDeb">
+                        <p class="pb-2 text-header">
+                        @Html(Messages("welcome.index.2.subtitle"))
+                        </p>
+                    </div>
+                    <img class="contribute_img presentation_img mt-2" src="@routes.Assets.at("images/home/contribuer.svg")" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container mt-3 contribute-container">
+
+        <div class="row">
+            <div class="col-12">
+                <h2><span>1.</span> Se connecter</h2>
+                <div class="col-12 mt-3">
+                @if(user.getERole == EContributorRole.VIEWER) {
+                    <div>
+                        Déjà membre ? <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.login">se connecter</a>
+                    </div>
+                    <div class="mt-2">
+                        Pas encore inscrit ? <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.signup">s'enregistrer</a>
+                    </div>
+                } else {
+                    <div>Vous êtes bien connecté ! <i class="far fa-check-circle color_green"></i></div>
+                }
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12 mb-1">
+                <h2><span>2.</span> @Messages("contribute.contribute.title")</h2>
+            </div>
+
+            <div class="col-12">
+                <div class="d-flex flex-wrap col-12">
+                    <div class="action_btn d-flex flex-fill justify-content-center">
+                        <a href="@be.webdeb.presentation.web.controllers.entry.actor.routes.ActorActions.edit(-1)" class="w-100">
+                            <div class="img_action" style="background-image: url(assets/images/picto/0.jpg)">
+
+                            </div>
+                            <div class="action_btn_div d-flex justify-content-center align-items-baseline">
+                                <i class="@Messages("browse.search.tip.ACTOR")"></i>
+                                <p>@Messages("entry.new.actor.btn")</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="action_btn d-flex flex-fill justify-content-center">
+                        <a href="@be.webdeb.presentation.web.controllers.entry.text.routes.TextActions.edit(-1)" class="w-100">
+                            <div class="img_action" style="background-image: url(assets/images/picto/2.jpg)">
+
+                            </div>
+                            <div class="action_btn_div d-flex justify-content-center align-items-baseline">
+                                <i class="@Messages("browse.search.tip.TEXT")"></i>
+                                <p>@Messages("entry.new.text.btn")</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="action_btn d-flex flex-fill justify-content-center">
+                        <a href="@be.webdeb.presentation.web.controllers.entry.debate.routes.DebateActions.edit(-1)" class="w-100">
+                            <div class="img_action" style="background-image: url(assets/images/picto/1.jpg)">
+
+                            </div>
+                            <div class="action_btn_div d-flex justify-content-center align-items-baseline">
+                                <i class="@Messages("browse.search.tip.DEBATE")"></i>
+                                <p>@Messages("entry.new.debate.btn")</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="action_btn d-flex flex-fill justify-content-center">
+                        <a href="@be.webdeb.presentation.web.controllers.entry.citation.routes.CitationActions.edit(-1)" class="w-100">
+                            <div class="img_action" style="background-image: url(assets/images/picto/3.jpg)">
+
+                            </div>
+                            <div class="action_btn_div d-flex justify-content-center align-items-baseline">
+                                <i class="@Messages("browse.search.tip.CITATION")"></i>
+                                <p>@Messages("entry.new.citation.btn")</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="contribute row mt-3 ml-0 mr-0">
+                    <div class="col-12 col-md-4">
+                        <div class="contribute_content">
+                            <h3>@Messages("contribute.contribute.1.title")</h3>
+                            @Html(Messages("contribute.contribute.1.text"))
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mt-3 mt-md-0">
+                        <div class="contribute_content">
+                            <h3>@Messages("contribute.contribute.2.title")</h3>
+                            @Html(Messages("contribute.contribute.2.text", be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.index))
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mt-3 mt-md-0">
+                        <div class="contribute_content">
+                            <h3>@Messages("contribute.contribute.3.title")</h3>
+                            @Html(Messages("contribute.contribute.3.text", be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.index))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+
+            <div class="col-12 mb-2">
+                <h2><span>3.</span> Diffuser</h2>
+            </div>
+
+            <div class="col-12 mb-5">
+                <div class="contribute row ml-0 mr-0">
+                    <div class="col-12 col-md-4">
+                        <div class="contribute_content">
+                            <h3>@Messages("contribute.difuse.1.title")</h3>
+                            @Html(Messages("contribute.difuse.1.text"))
+                            <img class="diffuse_content_img image-selectable" src="@routes.Assets.at("images/picto/contribute_my_contribution.jpg")"
+                            alt="menu mes contributions">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mt-3 mt-md-0">
+                        <div class="contribute_content">
+                            <h3>@Messages("contribute.difuse.2.title")</h3>
+                            @Html(Messages("contribute.difuse.2.text"))
+                            <div class="diffuse_content_social">
+                                <i class="fab fa-facebook"></i>
+                                <i class="fab fa-twitter"></i>
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 mt-3 mt-md-0">
+                        <div class="contribute_content">
+                            <h3>@Messages("contribute.difuse.3.title")</h3>
+                            @Html(Messages("contribute.difuse.3.text"))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    @if(user.getERole == EContributorRole.ADMIN){
+        <div class="row">
+            <div class="action_btn d-flex flex-fill justify-content-center col-12 p-1">
+                <a class="w-100" href="@be.webdeb.presentation.web.controllers.entry.tag.routes.TagActions.edit(-1, -1)">
+                    <div class="action_btn_div d-flex justify-content-center align-items-baseline">
+                        <i class="@Messages("browse.search.tip.TAG")"></i>
+                        <p>@Messages("entry.new.tag.btn")</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+
+}

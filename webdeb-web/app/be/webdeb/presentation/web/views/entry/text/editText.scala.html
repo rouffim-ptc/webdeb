@@ -1,0 +1,141 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Form to add a new text into the knowledge base
+*
+* @param textForm the form that holds the text values
+* @param values the values factory
+* @param user the user profile
+* @param map the message map to display (if any)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.entry.text.handleCandidates
+@import be.webdeb.presentation.web.views.html.util.{handleNameMatches, message, publishInGroup}
+
+@import be.webdeb.presentation.web.views.html.entry.text.editTextFields
+
+@import helper._
+
+
+
+@(
+    textForm: Form[TextForm],
+    helper : ContributionHelper,
+    user : WebdebUser,
+    map : java.util.Map[String, String]
+)
+
+
+@scripts = {
+  <title>
+    @if((textForm.data.isEmpty && textForm.value.isEmpty) || textForm("id").value == "-1") {
+      @Messages("entry.text.new")
+    } else {
+      @Messages("entry.text.modify")
+    } @Messages("general.metatitle")
+  </title>
+  <meta name="description" content="@if(textForm("id").value == "-1") {
+    @Messages("entry.text.submit")
+  } else {
+    @Messages("entry.text.btn.modify")}">
+
+  <script src="@routes.Assets.at("javascripts/text-scripts.js")" type="text/javascript"></script>
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      let container = $('#text_@textForm("id").value');
+
+      manageTextPanel(container);
+
+      treatContributionNameMatchesAsync(null, manageTextPanel, container, @textForm("id").value, container.find('#submit'));
+    });
+  </script>
+}
+
+@main(user, scripts) {
+
+  <div class="container">
+
+    <div id="msg-div">
+      @message(flash)
+      @message(map)
+    </div>
+
+    <div id="error-upload" class="alert alert-fixed alert-danger" style="display: none">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <strong>@Messages("danger")</strong> @Messages("text.label.upload.error")
+    </div>
+
+    @if(!textForm.hasErrors && textForm.value.nonEmpty && textForm.get.getCandidates.nonEmpty) {
+      @handleCandidates(textForm.get.getCandidates, user)
+    }
+
+    <div class="row">
+      <div class="col-12 mt-3">
+        <h3 class="small-caps text-muted" id="formtitle">
+        @if((textForm.data.isEmpty && textForm.value.isEmpty) || textForm("id").value == "-1") {
+          <i class="fas fa-file-alt"></i>&nbsp; @Messages("entry.text.new")
+        } else {
+          @Messages("entry.text.modify")
+        }
+        </h3>
+      </div>
+
+      <div id="text_@textForm("id").value" class="col-12">
+        @form(be.webdeb.presentation.web.controllers.entry.text.routes.TextActions.save(textForm("id").value.toLong), 'enctype -> "multipart/form-data", 'autocomplete -> "off") {
+            <div>
+              @editTextFields(textForm, helper, user)
+            </div>
+
+            <div id="submit-container" class="form-actions mt-3 mb-3" style="display: none">
+
+              <hr>
+
+              <a href="@(if(textForm("id").value == "-1") be.webdeb.presentation.web.controllers.entry.routes.EntryActions.contribute
+                  else be.webdeb.presentation.web.controllers.viz.routes.VizActions.text(textForm("id").value.toLong, EVizPane.DETAILS.id, 0))"
+                  class="btn btn-default">
+                <span class="fa fa-times-circle"></span> &nbsp; @Messages("general.btn.cancel")
+              </a>
+              <button type="submit" class="btn btn-primary" id="submit">
+                @if(textForm("id").value == "-1") {
+                  @Messages("general.btn.save")
+                } else {
+                  @Messages("entry.text.btn.modify")
+                   &nbsp; <span class="fa fa-check-circle"></span>
+                }
+              </button>
+
+              <hr>
+
+            </div>
+
+          </div>
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,106 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial page to handle tags linked with contributions
+*
+* @param form the form that contains the tag-related fields
+* @param fieldName actual name of the field in given form (will also be added as main div classname for javascript handling)
+* @param labelName base name of all labels in form
+* @param help boolean saying if an inline help must be shown
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.util.{helpbubble, hiddenFormField, inlineform, noerrorForm, inputTitleEnd}
+@import helper._
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+
+@(
+        form: Form[_],
+        fieldName: String,
+        labelName: String,
+        help : Boolean
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $('#tags').find('[name$="name"]').keypress(function(e) {
+                $(this).parents('.input-field').find('[name$="tagId"]').val('-1');
+            });
+        });
+</script>
+
+@prependInput() = {
+    <div class="input-group-prepend d-none d-md-block">
+        <div class="input-group-text">@Messages("entry.citation.tags.tag.label")</div>
+    </div>
+}
+
+@appendInput() = {
+    <div class="input-group-append">
+        <div class="input-group-text">?</div>
+    </div>
+}
+
+<div id="tags" class="row">
+    @if(labelName != null) {
+        <label class="col-12 control-label">@Messages(labelName)
+            @helpbubble("bubble.title", "bubble.entry.tags." + labelName)
+        </label>
+    }
+
+    <div class="col-12 d-block d-md-none">
+        <div class="input-group-text ml-1 mr-1">
+            @Messages("entry.citation.tags.tag.label") :
+        </div>
+    </div>
+
+    <div class="col-12 form-super-group">
+
+        <div class="input-field">
+            @textInput(
+                form("tags[0].name"),
+                null, null, null, null, null, null, false, "tt-normal", null,
+                prependInput(),
+                appendInput()
+            )
+            @hiddenFormField(form("tags[0].tagId"))
+        </div>
+
+        <div class="input-field">
+            @textInput(
+                form("tags[1].name"),
+                null, null, null, null, null, null, false, "tt-normal", null,
+                prependInput(),
+                appendInput()
+            )
+            @hiddenFormField(form("tags[1].tagId"))
+        </div>
+
+
+        <div>
+            @mapErrors(form, "tags", false, true)
+
+            @if(help){<p class="help-inline">@Messages(labelName + ".help")</p>}
+        </div>
+
+    </div>
+
+</div>

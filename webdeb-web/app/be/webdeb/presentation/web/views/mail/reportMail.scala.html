@@ -1,0 +1,151 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable html mail to be sent to admins with automated feeding reports
+*
+* Webdeb-logo
+* title
+*
+* content
+*
+* ------
+* footer
+*
+* @param title the mail title messages key
+* @param content the content the full html content
+*
+* @author Fabian Gilson
+*@
+
+@import helper._
+
+@(
+        title: String,
+        content: java.util.Map[String, String]
+)
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@Messages(title)</title>
+  </head>
+
+  <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="width:100% ;-webkit-text-size-adjust:none;margin:0;padding:0;background-color:#FFFFFF;">
+    <div>
+      <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable" style="height:100% ;margin:0;padding:0;width:100% ;background-color:#E7E7E7;">
+        <tr>
+          <td align="center" valign="top" style="border-collapse:collapse;">
+            <table border="0" cellpadding="10" cellspacing="0" width="1200" id="templatePreheader" style="background-color:#FFFFFF;">
+              <tr>
+                <td valign="top" style="border-collapse:collapse;">
+                  <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                    <tr>
+                      <td valign="top" style="border-collapse:collapse;">
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" width="1200" id="templateContainer" style="border:1px none #DDDDDD;background-color:#E7E7E7;">
+              <tr>
+                <td align="center" valign="top" style="border-collapse:collapse;">
+                  <table border="0" cellpadding="0" cellspacing="0" width="1200" id="templateHeader" style="background-color:#E7E7E7;border-bottom:0;">
+                    <tr>
+                      <td style="border-collapse:collapse;color:#E7E7E7;font-family:Arial;font-size:34px;font-weight:bold;line-height:100%;padding:0;text-align:center;vertical-align:middle;background-color:#777777;padding-bottom:20px;padding-top:20px;">
+                        <img width="130" alt="webdeb" src="https://www.webdeb.be/assets/images/webdeb.png" style="width:130px;max-width:130px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;" id="headerImage campaign-icon">
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="border-collapse:collapse;">
+                  <table border="0" cellpadding="0" cellspacing="0" width="1200" id="templateBody">
+                    <tr>
+                      <td valign="top" style="border-collapse:collapse;background-color:#FFFFFF;">
+                        <table cellpadding="20" cellspacing="0" width="100%" style="padding-bottom:10px;">
+                          <tr>
+                            <td valign="top" style="padding-bottom:1rem;border-collapse:collapse;">
+                              <div style="text-align:center;color:#333333;font-family:Arial;font-size:14px;line-height:150%;">
+                                <h1 style="color:#777777;display:block;font-family:Arial;font-size:24px;font-weight:bold;line-height:100%;margin-top:20px;margin-right:0;margin-bottom:20px;margin-left:0;text-align:center;">
+                                  @Messages(title)
+                                </h1>
+
+                                <table style="border-collapse: collapse">
+                                  <tr>
+                                    <th style="text-decoration: underline; padding: 10px">Content</th>
+                                    <th style="text-decoration: underline; padding: 10px">Status</th>
+                                  </tr>
+                                  @for((c, e) <- content) {
+                                    <tr style="border-bottom: 1px solid #e7e7e7;">
+                                      <td style="padding: 10px 0" width="900">@c</td>
+                                      <td style="padding: 10px 0" align="center" width="300"><i>@e</i></td>
+                                    </tr>
+                                  }
+                                </table>
+
+                              </div>
+                            </td>
+                          </tr>
+
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" style="border-collapse:collapse;">
+                  <table border="0" cellpadding="10" cellspacing="0" width="1200" id="supportSection" style="background-color:white;font-family:arial;font-size:12px;border-top:1px solid #e7e7e7;">
+                    <tr>
+                      <td valign="top" style="border-collapse:collapse;background-color:white;font-family:arial;font-size:12px;border-top:1px solid #e4e4e4;">
+                        <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                          <tr>
+                            <td valign="top" width="100%" style="border-collapse:collapse;">
+                              <br>
+                              <div style="text-align: center; color: #777777; font-weight: normal; font-size: 12px">
+                                <a href="https://www.webdeb.be" style="color:#4a90e2;font-weight:normal;text-decoration:underline; font-size: 12px;">
+                                @Messages("mail.sign")
+                                </a>.
+                                Copyright ©
+                                <a href="http://www.uclouvain.be/" style="color:#4a90e2;text-decoration:underline;">UCLouvain</a>
+                                -
+                                <a href="http://www.unamur.be/" style="color:#4a90e2;text-decoration:underline;">UNamur</a>
+                              </div>
+                              <br>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

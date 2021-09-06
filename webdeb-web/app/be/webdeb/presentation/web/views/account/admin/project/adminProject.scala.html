@@ -1,0 +1,160 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Page to manage project
+*
+* @param map the message map to display (if any)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.viz.text.TextVizHolder
+@import be.webdeb.presentation.web.views.html.util.{waitforit}
+
+@import be.webdeb.presentation.web.controllers.account.admin.project.ProjectForm
+
+@import be.webdeb.presentation.web.controllers.account.admin.project.ProjectGroupForm
+@import be.webdeb.presentation.web.controllers.account.admin.project.ProjectSubgroupForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.util.message
+@(
+        project : ProjectForm,
+        user : WebdebUser,
+        map : java.util.Map[String, String]
+)
+
+@scripts = {
+    <title>@Messages("title." + play.Configuration.root().getString("server.type"))</title>
+
+    <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/project-scripts.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+            $(document).ready(function() {
+                initProjectsListener();
+            });
+    </script>
+}
+
+
+@main(user, scripts) {
+
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <a class="primary" href="@be.webdeb.presentation.web.controllers.account.admin.project.routes.ProjectActions.manageProjects">
+                    < Voir tous les projets
+                </a>
+            </div>
+
+            <div id="project-container" class="col-12">
+                @projectContainer(project)
+            </div>
+        </div>
+    </div>
+}
+
+@projectSubgroupContainer(projectSubgroup : ProjectSubgroupForm) = {
+    <div>
+        Classe : "@projectSubgroup.getName (@projectSubgroup.getTechnicalName, <span>@projectSubgroup.getNbContributors</span>p., @projectSubgroup.getContributorExample)"
+        <button type="button" class="btn btn-link primary edit-projectsubgroup-btn" data-id="@projectSubgroup.getId"
+        data-groupid="@projectSubgroup.getProjectGroupId" data-projectid="@projectSubgroup.getProjectId">
+            Editer
+        </button>
+        <span class="count-project-contributors" data-ref="count-contributors-@projectSubgroup.getProjectId" style="display: none;">@projectSubgroup.getNbContributors</span>
+        <span class="count-project-contributors" data-ref="count-contributors-@projectSubgroup.getProjectId-@projectSubgroup.getProjectGroupId" style="display: none;">@projectSubgroup.getNbContributors</span>
+    </div>
+}
+
+@projectGroupContainer(projectGroup : ProjectGroupForm) = {
+    <div class="card">
+        <div class="card-body">
+            <h6 class="card-title">
+                Ecole : "@projectGroup.getName (@projectGroup.getTechnicalName, <span class="count-contributors-@projectGroup.getProjectId-@projectGroup.getId">0</span>p.)"
+                <button type="button" class="btn btn-link primary edit-projectgroup-btn" data-id="@projectGroup.getId" data-projectid="@projectGroup.getProjectId">
+                    Editer
+                </button>
+            </h6>
+
+            <div class="card-text">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#projectgroup-@projectGroup.getProjectId-@projectGroup.getId" aria-expanded="true">Classes (@projectGroup.getSubgroups.size)<i class="fa fa-caret-down"></i></button>
+                <button type="button" class="btn btn-link primary edit-projectsubgroup-btn" data-id="-1" data-groupid="@projectGroup.getId" data-projectid="@projectGroup.getProjectId">
+                    Ajouter une classe
+                </button>
+                <div id="projectgroup-@projectGroup.getProjectId-@projectGroup.getId" class="collapse show" style="margin-left:15px">
+                    @for(projectSubgroup <- projectGroup.getSubgroups){
+                        @projectSubgroupContainer(projectSubgroup)
+                    }
+                </div>
+                <span class="count-projectsubgroup" data-ref="count-projectsubgroup-@projectGroup.getProjectId" style="display: none;">@projectGroup.getSubgroups.size</span>
+            </div>
+        </div>
+    </div>
+}
+
+@projectContainer(project : ProjectForm) = {
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                Projet : "@project.getName (@project.getTechnicalName, <span class="count-contributors-@project.getId">0</span>p.)"
+                <button type="button" class="btn btn-link primary edit-project-btn" data-id="@project.getId">
+                    Editer
+                </button>
+            </h5>
+
+            <p class="card-text">
+            @if(!project.getHasContributors) {
+                <button type="button" class="btn btn-link primary generate-project-users" data-id="@project.getId">
+                    Générer les utilisateurs du projet
+                </button>
+            }else{
+                <a class="primary" target="_blank" href="/projectreport/@project.getTechnicalName">
+                    Obtenir le rapport
+                </a>
+                <button type="button" class="btn btn-link primary generate-project-users" data-id="@project.getId">
+                    Générer les utilisateurs du projet (pour les nouveaux groupes et sous-groupes)
+                </button>
+                <button type="button" class="btn btn-link primary delete-project-users" data-id="@project.getId">
+                    Supprimer les utilisateurs du projet
+                </button>
+                <button type="button" class="btn btn-link primary see-project-activity" data-id="@project.getId">
+                    Voir l'activité
+                </button>
+            }
+            </p>
+
+            <button type="button" class="btn btn-link info" data-toggle="collapse" data-target="#project-@project.getId" aria-expanded="true">Ecoles (@project.getGroups.size) <i class="fa fa-caret-down"></i></button>
+            <button type="button" class="btn btn-link primary edit-projectgroup-btn" data-id="-1" data-projectid="@project.getId">Ajouter une école</button>
+            <div id="project-@project.getId" class="collapse show ml-3">
+                @for(projectGroup <- project.getGroups){
+                    @projectGroupContainer(projectGroup)
+                }
+            </div>
+
+            <div class="pl-3 mt-3" style="border-left : 1px solid black;">
+                <p>Nb Ecoles : @project.getGroups.size()</p>
+                <p>Nb classes : <span class="count-projectsubgroup-@project.getId">0</span></p>
+                <p>Nb élèves : <span class="count-contributors-@project.getId">0</span></p>
+                <p>Du: @project.getBeginDateToDisplay au @project.getEndDateToDisplay</p>
+                <hr>
+            </div>
+        </div>
+    </div>
+}

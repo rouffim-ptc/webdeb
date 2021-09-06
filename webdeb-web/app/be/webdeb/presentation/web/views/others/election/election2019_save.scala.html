@@ -1,0 +1,184 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Theme page about election 2019
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+@import be.webdeb.presentation.web.views.html.util.scrollTopWrapper
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorSimpleHolder
+
+
+@(
+        politicalParties : java.util.Map[ActorSimpleHolder, java.util.List[ActorSimpleHolder]],
+        politicalPartiesColors : java.util.Map[Long, String],
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title>@Messages("election.2019.title") @Messages("general.metatitle")</title>
+    <meta name="description" content="@Messages("election.2019.desc")">
+
+    <script src="@routes.Assets.at("javascripts/actor-scripts.js")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            addMemberElectionTypeahead('#search-parties');
+
+            let searchInput = $('#search-parties');
+            let searchBtn = $('#search-parties-btn');
+
+            searchBtn.on('click', function(e){
+                e.preventDefault();
+                handleSearch(searchInput.val());
+            });
+
+            searchInput.keypress(function(e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    handleSearch(searchInput.val());
+                }
+            });
+
+        });
+
+        function handleSearch(name){
+            $('.member').css("border", "none");
+
+            let members = $('.member[title*="' + name + '"]');
+            if(members.exists()){
+                location.hash = "#" + members.attr("id");
+                location.hash = "#" + members.parents(".party").attr("id");
+                members.css("border", "2px dashed white");
+
+                setTimeout(function(){ members.css("border", "none"); }, 10000);
+            }
+        }
+    </script>
+}
+
+@actorPicture(actor : ActorSimpleHolder, small : Boolean, anchor : Boolean) = {
+    <div class="actor-thumbnail @if(small == null){lmedium}else{@if(small){medium}}">
+        <a href="@if(anchor){#party-@actor.getId}else{@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(actor.getId, EVizPane.CARTO.id, 0)}"
+        title="@actor.getName">
+            <div class="thumbnail-holder" style="background-image: url(/avatar/@actor.getSomeAvatar);background-color: white"></div>
+        </a>
+    </div>
+}
+
+@actorThumbail(actor : ActorSimpleHolder, index : Integer, small : Boolean) = {
+    <div class="filterable-item flex-container" data-item-id="@actor.getId" style="align-items: center">
+
+        @actorPicture(actor, small, false)
+
+        @if(small) {
+            <div class="chart-holder" style="margin-left: 10px">
+                <h4>
+                    <a  class="normal-style to-clamp"
+                        href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(actor.getId, EVizPane.CARTO.id, 0)"
+                        style="@if(!small){font-size: 32px;}color:white">
+                    @if(index != null){@(index+1) - }@actor.getName</a>
+                </h4>
+            </div>
+        }
+    </div>
+}
+
+@memberBox(member : ActorSimpleHolder, index : Integer) = {
+    <div id="member-@member.getId" class="member col-12 no-padding" title="@member.getName">
+        @actorThumbail(member, index, true)
+        <hr class="hr-small">
+    </div>
+}
+
+@main(user, scripts) {
+    <div id="webdeb-theme-presentation" class="row">
+
+        <div class="col-12 text-center" style="padding : 15px;background-color: #413c3c;color: white;">
+            <h2 class="small-margin">@Messages("election.2019.title")</h2>
+        </div>
+
+        <div class="col-12 flex-container no-padding" style="align-items: center;background-color: #d4d4d4;">
+            <div class="flex-container hidden-xs hidden-sm" style="width: 550px">
+                <div style="width: 300px;padding : 15px;background-color: #f2f2f2;font-size: 16px;padding-top: 30px;">
+                    @Messages("election.2019.desc")
+                </div>
+
+                <iframe width="250" src="https://www.youtube.com/embed/nSZ2tKSpnJ8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="col-12 padding-min-xs" style="flex-grow:1;padding-left : 40px;padding-right : 40px;padding-top : 5px;padding-bottom: 5px">
+                <form>
+                    <label for="search-parties">@Messages("election.2019.browse")</label>
+                    <div class="input-group">
+                        <input id="search-parties" type="text" class="form-control" placeholder="Search" style="height: 50px;">
+                        <div class="input-group-btn">
+                            <button id="search-parties-btn" class="btn btn-default" style="height: 50px;  padding-left: 15px;  padding-right: 15px;">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-12 visible-lg no-padding">
+            <div class="col-12 flex-container" style="background-color: grey;padding-top : 15px;padding-bottom:15px;overflow-x: auto;">
+                @for((party, members) <- politicalParties.iterator){
+                    <div style="margin-right: 10px">
+                        @actorPicture(party, null, true)
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-12 hidden-lg no-padding">
+            <div class="col-12 no-padding-left-xs flex-container" style="background-color: grey;padding-top : 15px;padding-bottom:15px;overflow-x: auto;">
+                @for((party, members) <- politicalParties.iterator){
+                    @actorPicture(party, null, true)
+                }
+            </div>
+        </div>
+
+        @for((party, members) <- politicalParties.iterator){
+            <div id="party-@party.getId" class="party col-12 col-md-4 col-lg-3" style="background-color: @politicalPartiesColors.get(party.getId)">
+                <div class="col-12 flex-container no-padding" style="justify-content: center;">
+                 @actorPicture(party, false, false)
+                </div>
+                <hr>
+
+                <div class="col-12 no-padding scrollable-zone scrollbar-modern scrollbar-modern-1">
+                    @for((member, index) <- members.zipWithIndex) {
+                        @memberBox(member, index)
+                    }
+                </div>
+
+            </div>
+        }
+
+        @scrollTopWrapper()
+    </div>
+}

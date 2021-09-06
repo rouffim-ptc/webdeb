@@ -1,0 +1,100 @@
+@(
+
+)
+
+<div class="d-flex align-items-center mt-2">
+    <span class="d-none d-sm-block p-2">Grouper par</span>
+    <ul class="nav nav-pills d-flex flex-nowrap overflowx">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">nom</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">organisation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">fonction</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">sexe</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">âge</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">pays</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">source</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">date</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">débat</a>
+        </li>
+    </ul>
+</div>
+
+<table class="table table-bordered table-hover table-first">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th class="justify text-center" scope="col"><span class="d-none d-md-inline">Positions identiques</span><span class="d-md-none"><i class="fas fa-thumbs-up"></i></span></th>
+            <th class="shaded text-center" scope="col"><span class="d-none d-md-inline">Positions nuancées</span><span class="d-md-none"><i class="fas fa-thumbs-up mr-1"></i><i class="fas fa-thumbs-down"></i></span></th>
+            <th class="opposes text-center" scope="col"><span class="d-none d-md-inline">Positions opposées</span><span class="d-md-none"><i class="fas fa-thumbs-down"></i></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @actor("Céline Rémy", 3)
+        @actor("Viviane Classe", 2, 0, 1)
+        @actor("Pervenche Céleste", 2, 2)
+        @actor("Arsène Lupe", 0, 1)
+        @actor("Pierrot Terni", 0, 0, 5)
+        @actor("Ludovic Temple", 0, 0, 3)
+        @actor("ASBL Tous vents", 0, 0, 2)
+        @actor("Robert Minne", 0, 0, 1)
+        @actor("Parlement bruxellois - Parlement de la Région de Bruxelles-Capitale", 0, 0, 1)
+    </tbody>
+</table>
+
+<div>
+    <a href="#" class="primary"><i class="fas fa-plus"></i> <span>Ajouter un acteur</span></a>
+</div>
+
+@actor(name : String, nbCitationsJustify : Int = 0, nbCitationsShaded : Int = 0, nbCitationsOpposes : Int = 0) = {
+    <tr>
+        <td scope="row">
+            <div class="d-flex align-items-center">
+                <div class="actor-thumbnail simple-thumbnail chartxsbig d-none d-sm-block">
+                    <div class="thumbnail-holder mr-2" style="background-color : white;background-image: url(/avatar/person.png);"></div>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="text-truncate text-table-truncate">@name</div>
+                </div>
+                <a href="#" class="primary"><i class="fas fa-plus ml-2"></i></a>
+                <a href="#" class="primary"><i class="fas fa-eye ml-2 d-none d-sm-block"></i></a>
+            </div>
+        </td>
+        <td>@excerpt(nbCitationsJustify, "justify")</td>
+        <td>@excerpt(nbCitationsShaded, "shaded")</td>
+        <td>@excerpt(nbCitationsOpposes, "opposes")</td>
+    </tr>
+}
+
+@excerpt(nbCitations : Int, shade : String) = {
+    <div class="d-flex align-items-center justify-content-center mt-0 mt-sm-2">
+        <div class="count_badged @if(nbCitations <= 0) {invisible}">
+            <i class="fas fa-align-left @shade"></i>
+            <span class="badge badge-pill @shadeToBadge(shade)">@nbCitations</span>
+        </div>
+    </div>
+}
+
+@shadeToBadge(shade : String) = {
+    @shade match {
+        case "justify" => {badge-success}
+        case "shaded" => {badge-warning}
+        case "opposes" => {badge-danger}
+        case _ => {}
+    }
+}

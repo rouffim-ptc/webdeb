@@ -1,0 +1,47 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Election 2019 stats summary
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.util.waitforit
+
+@(
+        id : Integer,
+        titleClass : String
+)
+
+<div class="col-12 no-padding" style="margin-top : 10px;">
+    <hr>
+    <h3>@Messages("election.2019.stats.subtitle")</h3>
+
+    @for(i <- 1 to 6){
+        @if(id == null || id != i){
+            <div class="col-12 no-padding-xs">
+                <p class="@titleClass">
+                    <a class="primary" href="@be.webdeb.presentation.web.controllers.routes.Application.otherElectionStatsPage(i)">
+                        @Messages("election.2019.stats." + i + ".title")
+                    </a>
+                </p>
+            </div>
+        }
+    }
+</div>

@@ -1,0 +1,287 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Form to add a new text into the knowledge base
+*
+* @param textForm the form that holds the text values
+* @param values the values factory
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+
+@import be.webdeb.presentation.web.views.html.util.{noerrorForm, helpbubble, hiddenField, hiddenFormField, inlineform}
+@import be.webdeb.presentation.web.views.html.util.helpButton
+@import be.webdeb.presentation.web.views.html.entry.actor.authordiv
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.entry.tag.tagdiv
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.fileInput
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+
+@(
+        textForm: Form[TextForm],
+        helper : ContributionHelper
+)
+
+@unknownDate() = {
+    <div class="input-group-prepend input-group-action2">
+        <div class="input-group-text">
+            <i class="fas fa-question-circle"></i>&nbsp;
+            @Messages("text.label.unknownpubdate")
+        </div>
+        <input type="text" class="control-form d-none" name="unknownPubDate" id="unknownPubDate"
+        value="@textForm("unknownPubDate").value">
+    </div>
+}
+
+<div class="row">
+    <div class="col-12 d-flex">
+        <div class="instructions flex-grow-1">@Messages("general.required.fields")</div>
+        @helpButton("entry.text", false)
+    </div>
+</div>
+
+<hr>
+
+<fieldset>
+
+    @hiddenFormField(textForm("id"))
+    @hiddenFormField(textForm("externalTextId"))
+    @hiddenFormField(textForm("contributor"))
+    @hiddenFormField(textForm("lang"))
+    @hiddenFormField(textForm("version"))
+    @hiddenFormField(textForm("inGroup"))
+    @hiddenFormField(textForm("isNotSame"))
+    @hiddenFormField(textForm("mayViewContent"))
+    @hiddenField("previousCall", "previousCall", "")
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="row">
+                <div class="col-12 control-label">
+                @Messages("text.label.isOnInternet")
+                </div>
+
+                <div class="col-12">
+                    <div id="b-isOnInternet" class="funkyradio inline mt-2">
+                        <div class="funkyradio-primary">
+                            <input id="isOnInternet-true" type="checkbox" name="actortype-true" value="true"
+                                @if(textForm("isOnInternet").value == "true"){checked="checked"}>
+                            <label for="isOnInternet-true">@Messages("label.yes")</label>
+                        </div>
+                        <div class="funkyradio-primary">
+                            <input id="isOnInternet-false" type="checkbox" name="actortype-0" value="false"
+                                @if(textForm("isOnInternet").value == "false"){checked="checked"}>
+                            <label for="isOnInternet-false">@Messages("label.no")</label>
+                        </div>
+                        @hiddenFormField(textForm("isOnInternet"))
+                    </div>
+
+                    @mapErrors(textForm, "isOnInternet", false)
+                </div>
+            </div>
+
+            <div id="text-left-fields" style="display: none">
+
+                <div class="row">
+                    <div id="urldiv" class="col-12" style="display: none;">
+                    @textInput(
+                        textForm("url"),
+                        Messages("text.label.url"),
+                        Messages("text.place.url"),
+                        null, null,
+                        Messages("text.help.url")
+                    )
+                    </div>
+
+                    <div class="col-12">
+                    @textInput(
+                        textForm("title"),
+                        Messages("text.label.title"),
+                        Messages("text.place.title"),
+                        true
+                    )
+                    </div>
+
+                    <div class="col-12 help-inline">
+                        <button id="show_title_translations" type="button" class="btn btn-sm btn-link secondary" data-toggle="collapse" data-target="#titles">
+                            @Messages("text.titles.show")&nbsp;<span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="titles" class="row mt-2 collapse
+                @(if(textForm.errors.keySet.exists(k => k.startsWith("titles"))) "in")">
+                    <label class="col-12 control-label">@Messages("text.titles.title")</label>
+
+                    <div class="col-12">
+                    @repeatWithIndex(textForm("titles"), min = 1) { (title, i) =>
+                        @entryFlexFormGroup("titles_".concat(i.toString)) {
+                            <div class="col-12 input-field">
+                            @selectInput(
+                                textForm(title.name.concat(".lang")),
+                                helper.getLanguages(ctx.lang.code),
+                                Messages("text.title.lang.label"),
+                                Messages("actor.place.namelang")
+                            )
+                            </div>
+                            <div class="col-12 input-field">
+                            @textInput(
+                                textForm(title.name.concat(".name")),
+                                Messages("text.title.name.label"),
+                                Messages("text.title.place.name")
+                            )
+                            </div>
+                        }
+                    }
+                    </div>
+                </div>
+
+
+                <div class="mt-2"></div>
+                @authordiv(textForm, "authors", "text.label.author", false)
+
+                @tagdiv(textForm, "tags", "text.label.tag", false)
+
+                <div class="row">
+                    <div class="col-12 form-group mt-2 mb-0">
+                        <label for="publicationDate" class="mb-1 p-1">@Messages("text.label.publicationDate")</label>
+                        @helpbubble("bubble.title","bubble.entry.text.publication")
+
+                        <div id="publicationDateGroup">
+                            <div class="flex-grow-1">
+                            @textInput(
+                                textForm("publicationDate"),
+                                null,
+                                Messages("text.place.publicationDate"),
+                                null, null,
+                                Messages("text.help.publicationDate"),
+                                null, null, null, null,
+                                unknownDate()
+                            )
+                            </div>
+                        </div>
+
+                        @mapErrors(textForm, "publicationDateGroup", false)
+                    </div>
+
+                    <div id="textType" class="col-12">
+                    @selectInput(
+                        textForm("textType"),
+                        helper.getTextTypes(ctx.lang.code),
+                        Messages("text.label.textType"),
+                        Messages("text.place.textType"),
+                        null, null,
+                        helpbubble("bubble.title","bubble.entry.text.textType")
+                    )
+                    </div>
+
+                    <div id="sourceTitle" class="col-12">
+                    @textInput(
+                        textForm("sourceTitle"),
+                        Messages("text.label.sourceTitle"),
+                        Messages("text.place.sourceTitle"),
+                        null, null, null,
+                        helpbubble("bubble.title","bubble.entry.text.sourceTitle")
+                    )
+                    </div>
+                </div>
+
+                <div class="col-sm-8 input-field"></div>
+
+            </div>
+
+        </div> <!--  end first row -->
+
+        <div id="text-right-fields" class="col-md-6" style="display: none">
+
+            @hiddenFormField(textForm("textVisibility"))
+
+            <div class="row">
+                <label class="col-12 form-control-label">
+                    @Messages("text.label.content") @helpbubble("bubble.title","bubble.entry.text.area")
+                </label>
+
+                @if(textForm("id").value != "-1" && textForm("textarea").value == "" && textForm("noContent").value != "true") {
+                    <div class="col-12">
+                        <span class="text-warning">@Messages("text.label.content.notviewable")</span>
+                        @helpbubble(Messages("text.title.notviewable"), Messages("text.desc.notviewable"))
+                    </div>
+                }
+                @hiddenFormField(textForm("noContent"))
+                @* pdf upload *@
+                <div id="upload-div" class="col-12 input-field" @if(!textForm.hasErrors){style="display: none"}>
+                    <div class="input-group file-input-group">
+                        <span class="input-group-addon">@Messages("text.label.upload")</span>
+                        @fileInput(
+                            textForm("filename"),
+                            null
+                        )
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default file-input-clear">
+                                <span class="fa fa-remove"></span>
+                                <span class="file-input-title">@Messages("general.label.btn.clear")</span>
+                            </button>
+                            <div class="btn btn-default file-input-group-input">
+                                <span class="fa fa-tag-open-o"></span>
+                                <span class="file-input-title">@Messages("general.label.btn.browse")</span>
+                                <input type="file" accept="application/pdf" name="upload"/>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div id="language-div" class="col-12 input-field" style="display: none">
+                @selectInput(
+                    textForm("language"),
+                    helper.getLanguages(ctx.lang.code),
+                    Messages("text.title.lang.label"),
+                    Messages("actor.place.namelang")
+                )
+                </div>
+
+                <div id="text-import-copyright" class="col-12 bg-danger" style="display: none">@Messages("text.error.copyright")</div>
+
+                <div class="col-12">
+                    @textareaInput(
+                        textForm("textarea"),
+                        null,
+                        Messages("text.place.area"),
+                        false,
+                        30
+                    )
+
+                    @mapErrors(textForm, "textarea", false)
+                </div>
+
+            </div>
+        </div>
+    </div>
+</fieldset>

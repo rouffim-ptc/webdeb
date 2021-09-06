@@ -1,0 +1,53 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable button to show the edition actions for a given argument
+*
+* @param user the current user that could click on button
+* @param linksActions true if actions for links must be displayed
+*
+* @author Martin Rouffiange
+*@
+
+@import helper._
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@(
+        user : WebdebUser,
+        linksActions : Boolean = true
+)
+
+@if(linksActions) {
+    <button class="dropdown-item debate-tag-edit-btn" title="">
+        <span><i class="fas fa-edit fixed-size"></i>&nbsp;@Messages("viz.admin.actions")</span>
+    </button>
+
+    <button class="dropdown-item debate-delete-link-btn" title="">
+        <span><i class="fas fa-trash-alt fixed-size"></i>&nbsp;@Messages("general.label.btn.clearlink")</span>
+    </button>
+
+} else {
+    <button class="dropdown-item debate-edit-btn" title="">
+        <span><i class="fas fa-edit fixed-size"></i>&nbsp;@Messages("viz.admin.actions")</span>
+    </button>
+}
+
+<button class="dropdown-item contribution-claim-btn" title="">
+    <span><i class="fas fa-exclamation-circle fixed-size"></i>&nbsp;@Messages("contribution.claim.title")</span>
+</button>

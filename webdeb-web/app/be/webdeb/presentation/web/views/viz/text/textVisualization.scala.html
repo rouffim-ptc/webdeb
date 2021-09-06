@@ -1,0 +1,226 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Main (tabbed) template to visualize a Text, containing its cartography, radiography, sociography and details.
+*
+* @param text the text to visualize
+* @param filters the list of filters that apply here
+* @param tab the EVizPane to select which pane is displayed
+* @param pov the point of view to select, if any in the selected pane
+* @param user the user profile data
+* @param map the message map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.viz.text.TextVizHolder
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.viz.text.textDetails
+@import be.webdeb.presentation.web.views.html.util.message
+@import be.webdeb.presentation.web.views.html.util.helpButton
+@import be.webdeb.presentation.web.controllers.viz.text.ETextVizPane
+
+@import be.webdeb.presentation.web.views.html.util.nav.navvpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordion
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordionMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordionContent
+
+@import be.webdeb.util.ValuesHelper
+
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@import be.webdeb.presentation.web.views.html.viz.common.util.contributionHeader
+@import be.webdeb.presentation.web.views.html.viz.text.textCitations
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+    text : TextVizHolder,
+    filters : java.util.Map[String, java.util.Collection[java.util.Map.Entry[String, String]]],
+    tab : ETextVizPane,
+    pov: Integer,
+    helper : ContributionHelper,
+    user : WebdebUser,
+    map : java.util.Map[String, String]
+)
+
+
+@scripts = {
+  <title>@text.getContributionMediaTitle @Messages("general.metatitle")</title>
+
+  <meta name="description" content="@text.getContributionMediaDescription">
+
+  <meta property="og:title" content="@text.getContributionMediaTitleOG">
+  <meta property="og:description" content="@text.getContributionMediaDescriptionOG">
+  <meta property="og:url" content="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.text(text.getId, if(tab != null){tab.id}else{-1}, pov).absoluteURL()" />
+  <meta property="og:image" content="https://webdeb.be@routes.Assets.at("images/webdeb_sharable2.png")" />
+
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/dragndrop2.css")">
+
+  <script src="@routes.Assets.at("javascripts/sliderform.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/context-arguments-dragndrop.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/textAnnotator.js")" type="text/javascript"></script>
+
+  <script src="@routes.Assets.at("javascripts/actor-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/argument-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/text-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/citation-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/debate-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/tag-scripts.js")" type="text/javascript"></script>
+  <script type="text/javascript">
+    var annotatedText = null;
+
+    $(document).ready(function() {
+      let container = $('#text-viz');
+
+      handleTabs(container, @tab.id, @pov);
+
+      initMediaShareButtonListeners(container);
+      initLoadMoreActorsListeners(container);
+
+      let params = [@ETextVizPane.ARGUMENTS.id];
+      manageChangeTab(getTextLinkedContributions, @text.getId, params, container);
+      // auto-creation modal if any
+      getAutoCreatedModals();
+
+      getContributionSuggestions(container, @text.getId);
+
+      initTextArgumentsStructureHandler(container);
+
+    });
+  </script>
+}
+
+
+@main(user, scripts, Html(""), "no-min-height") {
+
+  <div id="text-viz" class="container-fluid">
+    <div id="msg-div">
+      @message(flash)
+      @message(map)
+
+      <div id="error-save" class="alert alert-fixed alert-danger" style="display: none">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>@Messages("danger")</strong> @Messages("text.links.save.error")
+      </div>
+
+      <div id="warning-link-exists" class="alert alert-fixed alert-warning" style="display: none">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>@Messages("warning")</strong> @Messages("argument.links.alreadyexist")
+      </div>
+
+      <div id="success-save" class="alert alert-fixed alert-success" style="display: none">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>@Messages("success")</strong> @Messages("text.links.save.success")
+      </div>
+
+      <div id="success-delete" class="alert alert-fixed alert-success" style="display: none">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>@Messages("success")</strong> @Messages("general.delete.success")
+      </div>
+
+      <div id="error-delete" class="alert alert-fixed alert-danger" style="display: none">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>@Messages("danger")</strong> @Messages("general.delete.error")
+      </div>
+    </div>
+
+    <div class="row contribution-viz-header">
+      @contributionHeader(text, helper.getValuesHelper, user)
+    </div>
+
+    <!--  viz areas -->
+    <div class="row viz-body">
+
+      @* FOR BIG SCREENS *@
+
+      @navvpillMenu("col-xl-2 d-none d-xl-block vertical-nav pt-2"){
+        <li role="presentation" class="fake-tab">
+          <div>@helpButton("viz.text")</div>
+        </li>
+        <li role="presentation" class="fake-tab">
+          <hr>
+        </li>
+        @navpillMenuItem(ETextVizPane.PRESENTATION.id.toString, Messages("contribution.viz.presentation.title"), tab == ETextVizPane.PRESENTATION, "contribution-pane")
+        @navpillMenuItem(ETextVizPane.CITATIONS.id.toString, Messages("contribution.viz.citations.title"), tab == ETextVizPane.CITATIONS, "contribution-pane")
+        @navpillMenuItem(ETextVizPane.ARGUMENTS.id.toString, Messages("contribution.viz.argumentation.title"), tab == ETextVizPane.ARGUMENTS, "contribution-pane")
+      }
+
+      @navContent("col-xl-10 d-none d-xl-block"){
+        @navContentItem(ETextVizPane.PRESENTATION.id.toString, tab == ETextVizPane.PRESENTATION){
+          @textDetails(text, user)
+        }
+
+        @navContentItem(ETextVizPane.CITATIONS.id.toString, tab == ETextVizPane.CITATIONS){
+          <div class="d-flex justify-content-between">
+            <div class="contributions-container contributions-list">
+              @textCitations(text, helper, user, pov, "1")
+            </div>
+            <div class="contribution-suggestions">
+
+            </div>
+          </div>
+        }
+
+        @navContentItem(ETextVizPane.ARGUMENTS.id.toString, tab == ETextVizPane.ARGUMENTS){
+          <div class="d-flex justify-content-between">
+            <div class="contributions-container">
+              @waitforit("waiting", true)
+              <div class="content"></div>
+            </div>
+            <div class="contribution-suggestions">
+
+            </div>
+          </div>
+        }
+      }
+  
+      @* FOR MIDDLE AND SMALL SCREENS *@
+
+      @navAccordion("col-12 d-xl-none p-0") {
+        @navAccordionMenu(ETextVizPane.PRESENTATION.id.toString, Messages("contribution.viz.presentation.title"), tab == ETextVizPane.PRESENTATION, "contribution-pane")
+
+        @navAccordionContent(ETextVizPane.PRESENTATION.id.toString, tab == ETextVizPane.PRESENTATION) {
+          <div class="container-fluid">
+            @textDetails(text, user)
+          </div>
+        }
+
+        @navAccordionMenu(ETextVizPane.CITATIONS.id.toString, Messages("contribution.viz.citations.title"), tab == ETextVizPane.CITATIONS, "contribution-pane")
+
+        @navAccordionContent(ETextVizPane.CITATIONS.id.toString, tab == ETextVizPane.CITATIONS) {
+          <div class="container-fluid">
+            @textCitations(text, helper, user, pov, "2")
+          </div>
+        }
+
+        @navAccordionMenu(ETextVizPane.ARGUMENTS.id.toString, Messages("contribution.viz.argumentation.title"), tab == ETextVizPane.ARGUMENTS, "contribution-pane")
+
+        @navAccordionContent(ETextVizPane.ARGUMENTS.id.toString, tab == ETextVizPane.ARGUMENTS) {
+          @waitforit("waiting", true)
+          <div class="content container-fluid"></div>
+        }
+      }
+  
+    </div>
+  </div>
+}

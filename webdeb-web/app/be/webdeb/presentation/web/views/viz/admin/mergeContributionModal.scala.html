@@ -1,0 +1,158 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to search for a contribution to merge
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.browse.SearchForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, hiddenField, inlineform}
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@(
+    contribution: ContributionHolder,
+    searchForm : Form[SearchForm],
+    user : WebdebUser
+)
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+    // bind typeahead / load argument on selection handler in search bar (no switch in scala templates)
+    if (@contribution.getType.id === @EContributionType.ACTOR.id) {
+      addActorTypeahead('#query', -1);
+    } else if (@contribution.getType.id === @EContributionType.TEXT.id) {
+      addTextTypeahead('#query');
+    } else if (@contribution.getType.id === @EContributionType.DEBATE.id) {
+      addDebateTypeahead('#query', @contribution.getId);
+    } else if (@contribution.getType.id === @EContributionType.CITATION.id) {
+      addCitationTypeahead('#query', @contribution.getId);
+    } else {
+      addTagTypeahead('#query', -1, @contribution.getId);
+    }
+
+    var query = $('#query');
+    // do post on search button pressed
+    $('#search-btn').on('click', function() {
+      runSearch();
+    });
+
+    query.on('typeahead:selected', function() {
+      runSearch();
+    });
+
+    query.keyup(function(e){
+      if(e.keyCode === 13) {
+        runSearch();
+      }
+    });
+
+    // select is disabled by default
+    var selectbtn = $('#select-btn');
+    selectbtn.prop('disabled', true);
+    selectbtn.on('click', function() {
+      window.location = '/entry/domerge?origin=' + @contribution.getId
+          + '&replacement=' + $('.selected').prop('id').split('_')[1]
+          + '&type=' + @contribution.getType.id;
+    });
+  });
+
+  // launch search and remove this contribution from list after the search promise returns
+  function runSearch() {
+    executeSearch('#search', '#result-anchor', '.toggleable', false, true);
+  }
+</script>
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+@inputAppend() = {
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button" id="search-btn" title="@Messages("browse.search.tooltip")" data-placement="bottom">
+      <span class="fa fa-search"></span>
+    </button>
+  </span>
+}
+
+@emptyModalframe("merge-contrib", false, "form", "", false) {
+  <div class="modal-header">
+    <h5 class="small-caps text-muted">
+      @Messages("viz.admin.merge.search.title")
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid mt-3 mb-5">
+
+      <div id="search-content" class="row">
+        <form id="search" class="col-12" autocomplete="off">
+
+            @textInput(
+              searchForm("query"),
+              Messages("viz.admin.merge.search.label." + contribution.getType.id()) ,
+              Messages("viz.admin.merge.search.place." + contribution.getType.id()),
+              false,
+              true,
+              null, null, null, null, null, null,
+              inputAppend(),
+              "mb-0"
+            )
+
+            @hiddenField("isText", "isText", contribution.getType == EContributionType.TEXT)
+            @hiddenField("isArgument", "isArgument", contribution.getType == EContributionType.ARGUMENT)
+            @hiddenField("isDebate", "isDebate", contribution.getType == EContributionType.DEBATE)
+            @hiddenField("isCitation", "isCitation", contribution.getType == EContributionType.CITATION)
+            @hiddenField("isActor", "isActor", contribution.getType == EContributionType.ACTOR)
+            @hiddenField("isTag", "isTag", contribution.getType == EContributionType.TAG)
+            @hiddenField("inGroup", "inGroup", user.getGroup.getGroupId)
+            @hiddenField("ignore", "ignore", contribution.getId)
+
+          <p class="instructions mt-1">
+            @Html(Messages("viz.admin.merge.search.instructions"))
+          </p>
+        </form>
+      </div>
+
+      <div class="row">
+        <div id="result-anchor" class="col-12 pointable-content large-font"></div>
+      </div>
+    </div> @* search-content *@
+  </div>
+
+  <div class="modal-footer">
+    <div class="flex-grow-1">
+      <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">
+        @Messages("general.btn.cancel")
+      </button>
+    </div>
+
+    <button id="select-btn" type="button" class="btn btn-primary toggleable" title="@Messages("viz.admin.merge.submit.title")">
+      @Messages("viz.admin.merge.submit.btn")
+    </button>
+  </div>
+}

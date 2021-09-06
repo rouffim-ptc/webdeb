@@ -1,0 +1,82 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* List of claims
+*
+*
+* @author Martin Rouffiange
+*@
+@import be.webdeb.presentation.web.controllers.account.ClaimHolder
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@(
+       claims : java.util.List[ClaimHolder]
+)
+
+@for(claim <- claims) {
+    <div class="card claim-container">
+        <div class="card-body">
+            <div class="card-title d-flex">
+                <div class="flex-grow-1">
+                    <span>@claim.getDate</span>
+
+                    <span> - </span>
+
+                    <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(claim.getContributorId, ESettingsPane.PROFILE.id)" class="normal-style">
+                        @claim.getContributorName
+                    </a>
+                </div>
+
+                <button class="btn btn-link primary delete-claim" data-contribution="@claim.getContributionId" data-contributor="@claim.getContributorId">
+                    <i class="fas fa-trash"></i>
+                </button>
+
+            </div>
+
+            <div class="card-text">
+                <div>
+                    <span>@claim.getContributionType</span>
+                    <span>@claim.getContributionId</span>
+                </div>
+                <a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.details(claim.getContributionId)" class="normal-style">
+                    <i class="@Messages("browse.search.tip." + claim.getContributionType)"></i>
+                    @claim.getContributionTitle
+                </a>
+            </div>
+
+            <div class="card-text">
+                <hr>
+
+                <div>
+                    <span class="text-muted">@Messages("contribution.claim.from.title") : </span>
+                    <a href="@claim.getUrl" class="normal-style">@claim.getUrl</a>
+                </div>
+
+                <div class="mt-3">
+                    <span class="text-muted">@Messages("viz.argument.label.type") : </span>
+                    @Messages("contribution.claim.type." + claim.getType.id())
+                </div>
+
+                <div class="mt-3">
+                    <span class="text-muted">@Messages("group.mail.mailContent") : </span>
+                    @claim.getComment
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

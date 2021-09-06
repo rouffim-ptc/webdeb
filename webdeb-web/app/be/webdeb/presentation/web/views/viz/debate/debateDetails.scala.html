@@ -1,0 +1,67 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Debate details showing name, tag and places
+*
+* @param tag the tag to display the details for
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.viz.debate.DebateVizHolder
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debateCard
+@import be.webdeb.presentation.web.views.html.viz.place.showPlaces
+
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debateContainerList
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@(
+        debate: DebateVizHolder,
+        user : WebdebUser,
+        placeId: String = "vizmap"
+)
+
+<div class="row mt-3 mb-3">
+
+    <div class="col-12 col-md-6">
+        @debateCard(debate, false)
+
+        @if(debate.getSimilarDebates != null && !debate.getSimilarDebates.isEmpty) {
+            <div>
+                <p class="text-muted">@Messages("viz.debate.similar.title")</p>
+
+                @debateContainerList(debate.getSimilarDebates, user)
+            </div>
+        }
+    </div>
+
+    <div class="col-12 col-md-6">
+        <div class="row">
+            @if(debate.getPicture.isDefined) {
+                <div class="col-12 debate-image mb-3" style="background-image: url(@debate.getPicture.getFilename);">
+
+                </div>
+            }
+
+            <div class="col-12">
+                @showPlaces(debate.getPlaces, null, debate.getPlacesAsJson, placeId)
+            </div>
+        </div>
+    </div>
+
+</div>

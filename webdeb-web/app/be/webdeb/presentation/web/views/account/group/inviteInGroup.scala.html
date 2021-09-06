@@ -1,0 +1,140 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to add/invite members in group
+*
+* @param group the group invitation form
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.group.GroupInvitation
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, inlineform, noerrorForm}
+@import helper._
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.hiddenFormField
+@(
+    group : Form[GroupInvitation],
+    helper : ContributionHelper
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    addContributorsTypeahead($('#invitations'));
+    addListeners();
+  });
+
+  function addListeners() {
+    manageAddRmButton('invitations', ['invitation'], "entry.delete.confirm.", null, addContributorTypeahead);
+
+    $('#submit-btn').on('click', function () {
+      sendInvitations($('#invitation-form')).done(function (data) {
+        $('#manage-groups').empty().append(data);
+        addManageGroupListeners();
+        // open div of group
+        $('#show-members_' + @group("groupId").value).trigger('click');
+        hideAndDestroyModal('#inviteMembers');
+        slideDefaultSuccessMessage();
+
+      }).fail(function (jqXHR) {
+        if (jqXHR.status === 400) {
+          replaceContent('#invitation-form', jqXHR.responseText, 'form');
+          addListeners();
+        } else {
+          $('#manage-groups').empty().append(jqXHR.responseText);
+          addManageGroupListeners();
+          hideAndDestroyModal('#inviteMembers');
+        }
+      });
+    });
+  }
+
+</script>
+
+@emptyModalframe("inviteMembers", false, "default", "", false) {
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">
+      @Messages("group.invite.title") <span class="text-primary">@group("name").value</span>
+    </h5>
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <form id="invitation-form" class="col-12">
+          @inputText(
+            group("groupId"),
+            '_label -> null,
+            'class -> "form-control d-none",
+            'autocomplete -> "off"
+          )(handler = inlineform, implicitly[Messages])
+
+          <div id="invitations" class="row">
+
+            <label class="col-12 control-label">@Messages("group.invite.members.label")</label>
+
+            <div class="controls col-12">
+              @repeatWithIndex(group("invitations"), min = 1) { (invitation, i) =>
+                @entryFlexFormGroup("actornames_".concat(i.toString.concat("_names"))) {
+                  <div class="col-lg-4 col-md-5 col-sm-6 input-field">
+                    @selectInput(
+                      group(invitation.name.concat(".roleId")),
+                      helper.getAllContributorRoles(lang().code()),
+                      null,
+                      Messages("group.invite.members.role.select")
+                    )
+                  </div>
+                  <div class="col-lg-8 col-md-9 col-sm-6 input-field">
+                    @hiddenFormField(group(invitation.name.concat(".userId")))
+
+                    @textInput(
+                      group(invitation.name.concat(".invitation"))
+                    )
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+    <button id="submit-btn" type="button" class="btn btn-primary" title="@Messages("group.invite.btn.title")">
+      @Messages("group.invite.btn")
+    </button>
+  </div>
+}

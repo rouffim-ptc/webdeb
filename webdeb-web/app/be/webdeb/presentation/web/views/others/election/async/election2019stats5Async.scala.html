@@ -1,0 +1,128 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Async data about election 2019 stats 3
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorSimpleHolder
+@import be.webdeb.presentation.web.views.html.util.waitforit
+
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.core.api.actor.EPrecisionDate
+@import be.webdeb.presentation.web.controllers.viz.actor.AffiliationViz
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+@(
+        politicalParties : java.util.Map[ActorSimpleHolder, java.util.List[ActorSimpleHolder]],
+        politicalPartiesColors : java.util.Map[Long, String],
+        relatedListIds : java.util.List[Long]
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            $('.funcToNumber').each(function(){
+                let text = $(this).text();
+
+                text = text.split('(')[1];
+                text = text.split('e')[0];
+
+                $(this).text(text);
+            });
+
+            let headers = $('.election-chart-header');
+
+            headers.each(function(){
+                let name = $(this).find('h4 a');
+                name.text(name.text().split('(')[0]);
+            });
+
+            headers.on('click', function(e) {
+                $($(this).data('target')).toggle();
+            });
+        });
+
+</script>
+
+@displayAff(aff : AffiliationViz) = {
+@if(aff != null){
+    <div class="flex-container aff-padding" style="align-items: center;font-size: 24px;">
+        <div style="text-decoration: underline;font-weight: bold">@aff.getGenericFunctionOrDefault</div>
+        <div style="padding-left : 5px;padding-right : 5px"> - </div>
+        <div>
+            <a  href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(aff.getAffiliatedId, EVizPane.CARTO2.id, 0)"
+            class="primary">
+            @aff.getAffiliatedName
+            </a>
+        </div>
+    </div>
+}
+}
+
+@displayNumMember(aff : AffiliationViz) = {
+@if(aff != null){
+    <span class="funcToNumber" style="font-size: 24px;">
+        @aff.getFunction
+    </span>
+}
+}
+
+    @*
+@for((party, members) <- politicalParties) {
+    <div class="col-12 no-padding">
+        <div class="election-chart-header flex-container primary"
+        data-target="#election-@party.getId" data-id="@party.getId"
+        style="background-color: @politicalPartiesColors.get(party.getId)">
+            <div style="flex-grow:1">
+            @affiliationsHighchartsAff(null, party, null, EActorType.PERSON, true, "chartxbig")
+            </div>
+            <div class="election-chart-header-cursor">
+                <span>@members.size</span>
+                <i class="far fa-caret-square-down"></i>
+            </div>
+        </div>
+
+        <div id="election-@party.getId" class="col-12 no-padding" style="display: none">
+        @for(member <- members) {
+            <div class="col-12 no-padding"  style="overflow-y: scroll;">
+                <div class="flex-container" style="min-width: 1200px;">
+                    <div class="candidat-number">
+                        @displayNumMember(member.getMostRecentAffiliationsRelatedTo(party.getId))
+                    </div>
+                    <div style="width:400px">
+                        @affiliationsHighchartsAff(null, member, null, EActorType.ORGANIZATION, true, "chartxbig")
+                    </div>
+                    <div style="flex-grow: 1">
+                        @displayAff(member.getMostRecentAffiliationsRelatedTo(relatedListIds))
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 no-padding">
+                <hr class="hr-small hr-grey">
+            </div>
+        }
+        </div>
+    </div>
+}
+*@

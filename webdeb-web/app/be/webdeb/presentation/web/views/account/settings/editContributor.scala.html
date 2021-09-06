@@ -1,0 +1,92 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Contributor's details page
+*
+* @param contributorForm the form with the contributor's details
+* @param user the current user profile data
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+* @param map the message map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@import be.webdeb.presentation.web.controllers.account.register.ContributorForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.account.settings.contributorFormOnly
+@import be.webdeb.presentation.web.views.html.util.message
+
+@import helper._
+
+
+@(
+    contributorForm: Form[ContributorForm],
+    user : WebdebUser,
+    helper : ContributionHelper,
+    map : java.util.Map[String, String]
+)
+
+
+@main(user) {
+
+  <div class="container">
+
+    <div id="msg-div">
+      @message(map)
+      @message(flash)
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h3 class="col-12 small-caps text-muted">@Messages("contributor.edit.title")</h3>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row" id="signupdiv">
+      <div class="col-12">
+        <p class="instructions">@Messages("general.required.fields")</p>
+
+        @form(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.saveUpdate, 'enctype -> "multipart/form-data") {
+          <fieldset>
+            @contributorFormOnly(contributorForm, user, helper)
+
+            <div class="form-actions">
+              <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(
+                contributorForm("id").value.toInt, ESettingsPane.PROFILE.id)"
+                  class="btn btn-default">
+                <span class="fa fa-times-circle"></span> &nbsp; @Messages("general.btn.cancel")
+              </a>
+              <button type="submit" class="btn btn-primary">
+                @Messages("viz.contributor.update.btn") &nbsp; <span class="fa fa-check-circle"></span>
+              </button>
+            </div>
+          </fieldset>
+        }
+      </div>
+    </div>
+
+  </div>
+
+}

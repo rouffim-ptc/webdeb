@@ -1,0 +1,51 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Create inline list of places linked to a contribution
+*
+* @param places a list of places
+*
+* @author Martin Rouffiange
+* @author Fabian Gilson original template (topicToken)
+*@
+
+@import helper._
+@import be.webdeb.presentation.web.controllers.entry.PlaceForm
+
+@(
+       contributionId : Long,
+       places : java.util.List[PlaceForm]
+)
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // open show places modal
+        $("#place-viz-header-container").find('.btn-place-viz').on('click', function() {
+            openPlacesModal(@contributionId, $(this).data("place-id"));
+        });
+    });
+</script>
+
+<span id="place-viz-header-container">
+    <i class="fas fa-globe"></i>&nbsp;
+    @for(place <- places) {
+        <a class="btn-place-viz button no-decoration cursor-pointer" data-place-id="@place.getId" title="@Messages("browse.search.tooltip.fromplace")">
+            <span class="tokenlike">@place.getName</span>
+        </a>
+    }
+</span>

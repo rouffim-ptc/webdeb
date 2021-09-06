@@ -1,0 +1,112 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Display the actor position
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorThumbnail
+@import be.webdeb.core.impl.helper.ActorDistance
+
+@import be.webdeb.core.api.actor.ESocioGroupKey
+@import be.webdeb.presentation.web.controllers.viz.debate.EDebateVizPane
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@(
+        positions: java.util.List[ActorDistance],
+        actor: Long,
+        actorName: String,
+        actorRelatedName: String,
+        key: ESocioGroupKey,
+        lang: String = null,
+        helper : ContributionHelper = null
+)
+
+<div class="actor-position-gradient">
+
+    @if(helper != null){
+        <div class="row">
+            <div class="col-md-8 offset-md-4 d-flex">
+                <div class="font-italic flex-grow-1">
+                @Messages("viz.positions.actor.debate.close")
+                </div>
+
+                <div class="font-italic">
+                @Messages("viz.positions.actor.debate.far")
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 d-block d-md-none mb-3">
+                <div class="position-line"></div>
+                <hr class="mb-0">
+            </div>
+        </div>
+    }
+
+    @for(distance <- positions){
+        <div class="row align-items-center actor-position-gradient-item">
+            <div class="@if(helper != null){col-md-4}else{col-12 d-flex align-items-center}">
+                @if(helper != null){
+                    @actorThumbnail(distance.getId, helper.getActorSocioName(key, distance.getId, distance.getName, lang), distance.getAvatar)
+                } else {
+                    <a class="m-0 flex-grow-1" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.debate(distance.getId, EDebateVizPane.SOCIOGRAPHY.id())">
+                        <h5 class="mb-0">
+                            <i class="@Messages("browse.search.tip.DEBATE") mr-1"></i>
+                            <span>@distance.getName</span>
+                        </h5>
+                    </a>
+
+
+                    <span class="cursor-pointer ml-2 mr-2 actor-position-debate-citations" data-actor="@actor" data-debate="@distance.getId" data-sub-debate="@distance.getSubDebateId" data-key="@key.id" data-related-actor="@distance.getRelatedId" data-related-actor-name="@actorRelatedName">
+                        <i class="@Messages("browse.search.tip.CITATION") mr-1"></i>
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                }
+            </div>
+
+            <div class="@if(helper != null){col-md-8 mt-md-0 mt-3}else{col-12 mt-2}">
+
+                @if(helper == null) {
+                    <div class="d-flex">
+                        <div class="font-italic flex-grow-1">
+                            @Messages("viz.positions.actor.debate.close")
+                        </div>
+
+                        <div class="font-italic">
+                            @Messages("viz.positions.actor.debate.far")
+                        </div>
+                    </div>
+                }
+
+                <div class="actor-position-details actor-position-debate-citations position-line" data-actor="@actor" data-debate="@distance.getId" data-sub-debate="@distance.getSubDebateId" data-key="@key.id" data-related-actor="@distance.getRelatedId" data-related-actor-name="@actorRelatedName" data-value="@distance.getId" data-distance="@distance.getDistance" title="@if(helper != null){@Messages("viz.actor.position.line.title", distance.getNbDebates, distance.getNbActorLinks, helper.getActorSocioName(key, distance.getId, distance.getName, lang), distance.getNbConcurrentLinks, actorName)}else{@Messages("viz.actor.position.debate.line.title", distance.getNbActorLinks, distance.getRelatedName, distance.getNbConcurrentLinks, actorName)}">
+                    <i class="a-1 fas fa-minus fa-rotate-90" style="display: none"></i>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="actor-position-debate-citations-container pt-2" style="display: none">
+            @waitforit("waiting", true)
+        </div>
+
+        <hr>
+    }
+</div>

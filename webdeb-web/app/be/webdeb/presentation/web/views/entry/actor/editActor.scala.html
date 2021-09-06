@@ -1,0 +1,128 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Template to edit actor details (new and existing)
+*
+* @param actorForm the form with the actor's details (possibly pre-filled)
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+* @param user the current user profile
+* @param map the message map (may be null)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.entry.actor.editActorFields
+@import be.webdeb.presentation.web.views.html.util.{handleNameMatches, message, publishInGroup}
+
+@import helper._
+
+
+@(
+    actorForm: Form[ActorForm],
+    helper : ContributionHelper,
+    user : WebdebUser,
+    map : java.util.Map[String,String]
+)
+
+
+@scripts = {
+  <title> @if(actorForm("id").value == "-1"){@Messages("entry.actor.new")}else{@Messages("entry.actor.existing.ok")} @Messages("general.metatitle")</title>
+  <meta name="description" content="@if(actorForm("id").value == "-1") {
+      @Messages("entry.actor.new")
+    } else {
+      @Messages("entry.actor.modify.btn")}">
+
+  <script src="@routes.Assets.at("javascripts/sliderform.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/actor-scripts.js")" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      let container = $('#actor_@actorForm("id").value');
+
+      manageActorPanel(container, true);
+
+      treatContributionNameMatchesAsync(saveFromModal, manageActorPanel, container, @actorForm("id").value, container.find('#submit'));
+    });
+  </script>
+}
+
+@actorDescription(withLogo : Boolean = true) = {
+  @if(actorForm("id").value == "-1") {
+    @if(withLogo){
+      <i class="@Messages("browse.search.tip.ACTOR")"></i>
+    }
+    @Messages("entry.actor.new")
+  } else {
+    @Messages("entry.actor.modify")
+    @if(actorForm("actortype").value == "0") {
+      <span class="text-primary">
+      @if(actorForm("name.last").value != null && actorForm("name.last").value != "") {
+        @actorForm("name.first").value @actorForm("name.last").value
+        @if(actorForm("name.pseudo").value != null && actorForm("name.pseudo").value != "") {
+          <span class="small-font">(@actorForm("name.pseudo").value)</span>
+        }
+      } else {
+        @actorForm("name.pseudo").value
+      }
+      </span>
+    } else {
+      <span class="text-primary">
+        @actorForm("orgname.last").value
+        @if(actorForm("orgname.first").value !=  null && actorForm("orgname.first").value != "") {
+          <span class="small-font">(@actorForm("orgname.first").value)</span>
+        }
+      </span>
+    }
+  }
+}
+
+
+@main(user, scripts) {
+
+  <div class="container">
+
+    <div id="msg-div">
+      @message(map)
+    </div>
+
+
+    <div class="row">
+      <div class="col-12 mt-3">
+        <h3 class="small-caps text-muted">@actorDescription()</h3>
+      </div>
+
+      <div id="actor_@actorForm("id").value" class="col-12">
+        @form(be.webdeb.presentation.web.controllers.entry.actor.routes.ActorActions.save(actorForm("id").value.toLong), 'enctype -> "multipart/form-data", 'autocomplete -> "off") {
+          <div class="actordiv">
+
+            @editActorFields(actorForm, helper, map)
+
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

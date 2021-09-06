@@ -1,0 +1,88 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial template that displays all details of a debate in a concise way.
+*
+* @param debate a debate holder to be displayed
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debateExternalUrlList
+@import be.webdeb.presentation.web.views.html.viz.place.placesInlineList
+@import be.webdeb.presentation.web.views.html.viz.place.placeList
+@import be.webdeb.presentation.web.views.html.viz.actor.util.authorList
+@import be.webdeb.presentation.web.views.html.viz.tag.tagList
+
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+@import be.webdeb.presentation.web.controllers.viz.tag.ETagVizPane
+@import be.webdeb.core.api.actor.EActorRole
+@(
+        debate : DebateHolder,
+        min : Boolean,
+        inSummary : Boolean = false
+)
+
+<div @if(inSummary){id="summary_@debate.getId" class="summary d-flex align-items-center" data-id="@debate.getId" data-name="@debate.getFullTitle"}else{class="center-flex large"}>
+
+    @if(inSummary) {
+        <p><span class="larger-font">@debate.getFullTitle</span></p>
+    }
+
+    @if(!min) {
+
+        <div>
+            <p class="text-lowercase text-muted small-font">Description :</p>
+            <p>
+                @debate.getDescription
+            </p>
+        </div>
+
+        @if(!debate.getExternalUrls.isEmpty) {
+            <p>
+                <span class="text-lowercase text-muted small-font" style="margin-bottom: 2px">@Messages("debate.edit.more.externalurls.title")</span>
+                @debateExternalUrlList(debate.getExternalUrls, "urls")
+            </p>
+        }
+
+        <p>
+            <span class="text-lowercase text-muted small-font" style="margin-bottom: 2px">@Messages("text.label.tag")</span>
+            @tagList(debate.getTags, ETagVizPane.DEBATES, "tags")
+        </p>
+
+        @*
+        @if(!debate.getPlaces.isEmpty) {
+            <p>
+                <span class="text-lowercase text-muted small-font" style="margin-bottom: 2px">@Messages("text.label.places")</span>
+                @placeList(debate.getPlaces, "places")
+            </p>
+        }
+        *@
+
+        @if(!debate.getCitedactors(4).isEmpty) {
+            <p>
+                <span class="text-muted text-lowercase small-font">@Messages("argument.sumup.actorname")</span>
+                @authorList(debate.getCitedactors(4), if(inSummary){0}else{debate.getNbActors(EActorRole.CITED)}, debate.getId, EActorRole.CITED, EActorVizPane.SOCIOGRAPHY)
+            </p>
+        }
+    }
+
+</div>

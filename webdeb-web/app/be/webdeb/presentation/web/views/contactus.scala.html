@@ -1,0 +1,185 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal form page to contact admin
+*
+* @param folderForm the form to fill in the new tag
+* @param helper helper class to fetch predefined values from (types, ...)
+* @param user the user profile
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.ContactForm
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe, message, hiddenFormField, noerrorForm}
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@(
+        contactForm: Form[ContactForm],
+        map : java.util.Map[String, String]
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            if(navigator.doNotTrack == null || navigator.doNotTrack === undefined || navigator.doNotTrack === "unspecified") {
+                $("#userAgent").val(navigator.userAgent);
+            }
+            addListeners();
+        });
+
+        function addListeners() {
+            $('#submit-btn').on('click', function () {
+                sendContactus($('#contact-form')).done(function (data) {
+                    hideAndDestroyModal($("#modal-contactus"));
+                    slideMessage($('#success-save'));
+                }).fail(function (jqXHR) {
+                    if (jqXHR.status === 400) {
+                        replaceContent('#contact-form', jqXHR.responseText, 'form');
+                        addListeners();
+                    } else {
+                        hideAndDestroyModal($("#modal-contactus"));
+                        slideMessage($('#error-save'));
+                    }
+                });
+            });
+
+            $('#cancel-btn').on('click', function () {
+                hideAndDestroyModal($("#modal-contactus"));
+            });
+        }
+
+</script>
+
+<div id="msg-div">
+    @message(map)
+</div>
+
+<div id="error-save" class="alert alert-fixed alert-danger" style="display: none">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>@Messages("danger")</strong> @Messages("contactus.fail")
+</div>
+<div id="success-save" class="alert alert-fixed alert-success" style="display: none">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>@Messages("success")</strong> @Messages("contactus.success")
+</div>
+
+@emptyModalframe("modal-contactus", false, "default", "", false) {
+
+    <div class="modal-header">
+        <h3 class="modal-title small-caps text-muted">
+        @Messages("menu.contact")
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <form id="contact-form" class="col-12">
+                    <div class="well p-3">
+                        <fieldset>
+                            @hiddenFormField(contactForm("userId"))
+                            @hiddenFormField(contactForm("userAgent"))
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    @textInput(
+                                        contactForm("email"),
+                                        Messages("contributor.label.mail2"),
+                                        Messages("contributor.place.mail")
+                                    )
+                                    @contactForm.errors.map { case (key, error) =>
+                                        @if(key.startsWith("email") && error(0).message != "") {
+                                            <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-sm-4">
+                                    @textInput(
+                                        contactForm("firstname"),
+                                        Messages("contributor.label.firstname"),
+                                        Messages("contributor.place.firstname")
+                                    )
+
+                                    @contactForm.errors.map { case (key, error) =>
+                                        @if(key.startsWith("name") && error(0).message != "") {
+                                            <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-sm-4">
+                                    @textInput(
+                                        contactForm("name"),
+                                        Messages("contributor.place.lastname"),
+                                        Messages("contributor.place.lastname")
+                                    )
+
+                                    @contactForm.errors.map { case (key, error) =>
+                                        @if(key.startsWith("name") && error(0).message != "") {
+                                            <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-12 p-0 mt-2">
+                            @textInput(
+                                contactForm("subject"),
+                                Messages("contact.subject.label"),
+                                 Messages("contact.subject.place")
+                            )
+                            </div>
+                            @contactForm.errors.map { case (key, error) =>
+                                @if(key.startsWith("subject") && error(0).message != "") {
+                                    <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+                                }
+                            }
+                            <div class="col-12 p-0 mt-2">
+                            @textareaInput(
+                                contactForm("content"),
+                                Messages("contact.content.label"),
+                                Messages("contact.content.place"),
+                                false,
+                                8
+                            )
+                            </div>
+                            @contactForm.errors.map { case (key, error) =>
+                                @if(key.startsWith("content") && error(0).message != "") {
+                                    <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+                                }
+                            }
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button id="cancel-btn" type ="button" name="cancel" class="btn btn-default">
+            <span class="fa fa-times-circle"></span> &nbsp; @Messages("entry.actor.notnow")
+        </button>
+        <button id="submit-btn" type ="button" name="submit" class="btn btn-primary">
+            <i class="fas fa-envelope-square"></i> &nbsp; @Messages("contactus.send")
+        </button>
+    </div>
+
+}

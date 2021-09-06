@@ -1,0 +1,96 @@
+@*
+* Copyright 2014-2018 University of Namur (PReCISE) - University of Louvain (Girsef - CENTAL).
+* This is part of the WebDeb software (WDWEB), a collaborative platform to record and analyze
+* argumentation-based debates. This is free software:  you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License version 3 as published by the
+* Free Software Foundation. It is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* See <https://webdeb.be/> for a running instance of a webdeb web platform.
+* See the GNU Lesser General Public License (LGPL) for more details over the license terms.
+*
+* You should have received a copy of the GNU Lesser General Public License along with this copy.
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Contribution details
+*
+* @param details the details for which the details will be displayed
+* @param user current user profile
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+@import be.webdeb.presentation.web.views.html.viz.debate.debateDetails
+@import be.webdeb.presentation.web.views.html.viz.argument.argumentDetails
+@import be.webdeb.presentation.web.views.html.viz.citation.citationDetails
+@import be.webdeb.presentation.web.views.html.viz.actor.actorDetails
+@import be.webdeb.presentation.web.views.html.viz.text.textDetails
+@import be.webdeb.presentation.web.views.html.viz.tag.tagDetails
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+@import be.webdeb.presentation.web.controllers.viz.text.TextVizHolder
+@import be.webdeb.presentation.web.controllers.viz.debate.DebateVizHolder
+@import be.webdeb.presentation.web.views.html.viz.admin.contributionAdminActions
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        holder : ContributionHolder,
+        helper : ContributionHelper,
+        user : WebdebUser
+)
+
+@scripts = {
+
+    <title>@holder.getContributionMediaTitle</title>
+    <meta name="description" content="@Messages("general.more.details.tooltip")">
+
+    <meta property="og:title" content="@holder.getContributionMediaTitleOG">
+    <meta property="og:description" content="@Messages("general.more.details.tooltip")">
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.details(holder.getId).absoluteURL()" />
+    <meta property="og:image" content="@(holder match {
+            case h : ArgumentHolder => { routes.Assets.at("images/webdeb_sharable2.png") }
+            case h : DebateVizHolder => {}
+            case h : CitationHolder => { routes.Assets.at("images/webdeb_sharable2.png") }
+            case h : ActorVizHolder => {}
+            case h : TextVizHolder => { routes.Assets.at("images/webdeb_sharable2.png") }
+            case h : TagHolder => { routes.Assets.at("images/webdeb_sharable2.png") }
+            case _ => {}
+        })" />
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                initLoadMoreActorsListeners($('.contribution-details'));
+            });
+    </script>
+}
+
+@main(user, scripts) {
+
+    <div class="container contribution-details">
+        @contributionAdminActions(holder, true, user)
+
+        <div class="row">
+            @holder match {
+                case h : ArgumentHolder => { @argumentDetails(h, user) }
+                case h : DebateVizHolder => { @debateDetails(h, user) }
+                case h : CitationHolder => { @citationDetails(h, user) }
+                case h : ActorVizHolder => { @actorDetails(h, helper, user) }
+                case h : TextVizHolder => { @textDetails(h, user) }
+                case h : TagHolder => { @tagDetails(h, user) }
+                case _ => { @* ignore *@ }
+                }
+        </div>
+    </div>
+}

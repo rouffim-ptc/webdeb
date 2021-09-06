@@ -1,0 +1,74 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Modal page to select csv files to import actors and/or affiliations
+*
+* @param user the current user
+
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contribution.EContributionType
+
+@(
+    user : WebdebUser
+)
+
+
+<label for="actorFile" style="margin-top: 10px">@Messages("admin.csv.actor")</label>
+
+<div id="csv-for-actor" class="input-group file-input-group">
+  <div class="form-group">
+    <input class="form-control file-input-group-filename d-none" readonly="readonly" type="text">
+  </div>
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default file-input-clear" title="@Messages("admin.csv.tooltip")">
+      <span class="fa fa-remove"></span>
+      <span class="file-input-title">@Messages("general.label.btn.clear")</span>
+    </button>
+    <div class="btn btn-default file-input-group-input">
+      <span class="fa fa-tag-open-o"></span>
+      <span class="file-input-title">@Messages("general.label.btn.browse")</span>
+      <input type="file" accept="text/csv" name="actorFile" id="actorFile"/>
+    </div>
+  </span>
+</div>
+
+
+<label for="affiliationFile" style="margin-top: 10px">@Messages("admin.csv.affiliation")</label>
+
+<div id="csv-for-affiliation" class="input-group file-input-group">
+  <div class="form-group">
+    <input class="form-control file-input-group-filename avatar-field d-none" readonly="readonly" type="text">
+  </div>
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default file-input-clear" title="@Messages("admin.csv.tooltip")">
+      <span class="fa fa-remove"></span>
+      <span class="file-input-title">@Messages("general.label.btn.clear")</span>
+    </button>
+    <div class="btn btn-default file-input-group-input">
+      <span class="fa fa-tag-open-o"></span>
+      <span class="file-input-title">@Messages("general.label.btn.browse")</span>
+      <input type="file" accept="text/csv" name="affiliationFile" id="affiliationFile"/>
+    </div>
+  </span>
+</div>

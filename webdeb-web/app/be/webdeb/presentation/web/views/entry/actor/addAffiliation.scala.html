@@ -1,0 +1,170 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Modal frame to add affiliations to an existing actor
+*
+* @param actorForm an ActorAffiliationForm to add new affiliations
+* @param affiliationPerson boolean saying if the affiliation concerns a person (true) or an organization (false)
+* @param person boolean saying if the affiliated concerns a person (true) or an organization (false)
+* @param helper contribution helper class to retrieve predefined data)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorAffiliationForm
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe, hiddenFormField}
+@import be.webdeb.presentation.web.views.html.entry.actor.affiliationdiv
+
+@import be.webdeb.core.api.actor.EAffiliationSubtype
+@import be.webdeb.core.api.actor.EActorType
+@(
+    actorForm: Form[ActorAffiliationForm],
+    actorType: EActorType,
+    forPerson: Boolean,
+    isAffiliated: Boolean,
+    helper: ContributionHelper
+)
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    let modal = $("#modal-add-aff");
+    let submitBtn = modal.find('button[name="submit"]');
+
+    addAllListeners(modal);
+
+    // manage post requests
+    submitBtn.on('click', function () {
+      let  response = document.createElement('html');
+      let form = modal.find('#affiliation-form');
+
+      addAffiliations(@actorForm("id").value, @isAffiliated, @forPerson, form).done(function (data) {
+        $(document).trigger("reload-viz");
+
+        hideAndDestroyModal(modal);
+        getAutoCreatedModals();
+
+      }).fail(function (xhr) {
+        if (xhr.status === 409) {
+          // name-match to handle, hide this modal and show the other one
+          modal.hide();
+          // show new one (name-matches resolution)
+          $('#modal-namematches').html(xhr.responseText);
+          handleContributionNameMatches(modal.find('[id$="affname"]'), '[id$="_affid"]', '[id$="_isDisambiguated"]', submitBtn, "Actor");
+
+        } else if (xhr.status === 400) {
+          // form errors, rebuild modal content
+          response.innerHTML = xhr.responseText;
+          form.replaceWith(response.getElementsByTagName('form'));
+          addAllListeners(modal);
+        } else {
+          slideDefaultErrorMessage();
+        }
+      });
+    });
+  });
+
+  /**
+   * Add all listeners for this pop-up window
+   *
+   * param container the content jquery selector
+   */
+  function addAllListeners(container) {
+
+    let affiliations = container.find('#affiliationsForm');
+    let actorType = '@(if(isAffiliated && actorType == EActorType.ORGANIZATION){-1}else{if(forPerson){EActorType.PERSON.id()}else{EActorType.ORGANIZATION.id()}})';
+
+    addActorsTypeahead(affiliations, 'affname', actorType);
+    manageActorButton(affiliations, ['affname'], actorType);
+
+    managePrecisionDate(container);
+
+    container.find('[id$="groupEndDate"]').each(function() {
+      var that = this;
+      updateRoundedbox(that);
+      $(this).find('.input-group-addon.roundedbox').each(function() {
+        listenerOnRoundedBox(that, '[name$="ongoingDate"]');
+      });
+    });
+    // handle help bubbles
+    handleHelpBubble(container);
+  }
+</script>
+
+<div id="modal-namematches"></div>
+
+@emptyModalframe("modal-add-aff", false, "form", "", false) {
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">
+      @Messages("viz.actor.affiliation.add.title")
+      <span class="text-primary">@actorForm("fullname").value</span>
+    </h5>
+    <button
+    type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <form id="affiliation-form" class="col-12"  autocomplete="off">
+          @hiddenFormField(actorForm("id"))
+          @hiddenFormField(actorForm("fullname"))
+          @hiddenFormField(actorForm("birthdate"))
+          @hiddenFormField(actorForm("deathdate"))
+          @hiddenFormField(actorForm("lang"))
+          @hiddenFormField(actorForm("actorType"))
+          @hiddenFormField(actorForm("reversed"))
+          @hiddenFormField(actorForm("affiliationPerson"))
+          @hiddenFormField(actorForm("affiliatedPerson"))
+          @hiddenFormField(actorForm("version"))
+
+          @if(isAffiliated) {
+            @affiliationdiv(actorForm, "affiliationsForm", "actor.label.affiliation.org", EActorType.ORGANIZATION, EAffiliationSubtype.AFFILIATED, false, helper)
+          }else {
+            @if(actorType == EActorType.PERSON) {
+              @affiliationdiv(actorForm, "affiliationsForm", "actor.label.affiliated.person", EActorType.PERSON, EAffiliationSubtype.AFFILIATION, false, helper)
+            } else {
+              @if(forPerson) {
+                @affiliationdiv(actorForm, "affiliationsForm", "actor.label.affiliated.person2", EActorType.PERSON, EAffiliationSubtype.AFFILIATION, false, helper)
+              } else {
+                @affiliationdiv(actorForm, "affiliationsForm", "actor.label.affiliated.org", EActorType.ORGANIZATION, EAffiliationSubtype.AFFILIATION, false, helper)
+              }
+            }
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="flex-grow-1">
+      <button type ="button" name="cancel" class="btn btn-secondary" data-dismiss="modal">
+        @Messages("general.btn.cancel")
+      </button>
+    </div>
+
+    <button type="button" name="submit" class="btn btn-primary">
+      @Messages("viz.actor.affiliation.submit")
+    </button>
+  </div>
+}

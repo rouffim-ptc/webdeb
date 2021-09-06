@@ -1,0 +1,72 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Inteface test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.util.ValuesHelper
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.views.html.viz.admin.contributionAdminActions
+@import be.webdeb.presentation.web.views.html.util.contributionUpdateDiv
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.entry.tag.TagHolder
+@(
+        holder : ContributionHolder,
+        values : ValuesHelper,
+        user : WebdebUser
+)
+
+<div class="d-flex align-items-center flex-grow-1 contribution-viz-title @if(holder.getType == EContributionType.ACTOR){actor-thumbnail chartxsbig}">
+    @holder match {
+        case h: ActorHolder => {
+            <div class="thumbnail-holder" style="background-color: white;
+                background-image: url(@h.getSomeAvatar);"></div>
+        }
+        case h : DebateHolder => {
+            <span class="primary" style="font-size: 28px;">
+                <i class="@Messages("browse.search.tip.DEBATE")"></i>
+            </span>
+        }
+        case h : TextHolder => {
+            <span class="primary" style="font-size: 28px;">
+                <i class="@Messages("browse.search.tip.TEXT")"></i>
+            </span>
+        }
+        case h : TagHolder => {
+            <span class="primary" style="font-size: 28px;">
+                <i class="@Messages("browse.search.tip.TAG")"></i>
+            </span>
+        }
+        case _ => {}
+    }
+
+    <h4 class="card-title contribution-title card-title-smart flex-grow-1 ml-3 mt-0 mb-0 mr-0 pt-xl-2 pb-xl-2 pt-1 pb-1">@holder.getContributionTitle</h4>
+
+</div>

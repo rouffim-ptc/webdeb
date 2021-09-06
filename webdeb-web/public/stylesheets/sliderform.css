@@ -1,0 +1,127 @@
+/*
+ * WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+ *
+ * List of the contributors to the development of WebDeb: see AUTHORS file.
+ * Description and complete License: see LICENSE file.
+ *
+ * This program (WebDeb) is free software:
+ * you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program (see COPYING file).  If not,
+ * see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+.excerpt-preview.preview {
+    padding: 10px;
+    display: inline-block;
+    font-style : italic;
+}
+
+.step-form-container{
+    overflow: hidden;
+    position: relative;
+}
+
+.step-form{
+    margin-bottom : 30px;
+    position: relative;
+    display: none;
+    float: left;
+    width: 100%;
+    margin-right: -100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.step-form.active{
+    left : 0 !important;
+}
+
+.step-form.active,
+.step-form.prev{
+    display: block;
+}
+
+.step-form.right {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+.step-form.left {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+.step-form > hr:first-of-type {
+    margin-bottom : 30px
+}
+
+.step-form > hr:last-of-type {
+    margin-top : 40px
+}
+
+.form-option .form-group {
+    margin-bottom: 0 !important;
+}
+
+.form-option {
+    display: none;
+}
+
+.form-question{
+    font-size : large;
+}
+
+.dropdown-toggle-simple:after {
+    content: none
+}
+
+.fa-points{
+    position : relative;
+    bottom : 5px;
+}
+
+.no-padding {
+    padding : 0 !important;
+}
+
+.justify {
+    color : green;
+}
+
+.opposes {
+    color : red;
+}
+
+.draggable {
+    cursor: pointer;
+}
+
+.unselectable, .unselectable * {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.color-white {
+    color : white;
+}
+
+.color-white:hover, .color-white:active {
+    color : #e7e7e7;
+}
+
+.button.no-decoration {
+   text-decoration: none !important;
+}

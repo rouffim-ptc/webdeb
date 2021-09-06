@@ -1,0 +1,180 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Actor cartography pane (affiliations), ie, a view where all affiliations and affiliated actors (if given actor is an
+* organization) are shown together with their pictures and affiliation history. (Lazy loaded)
+*
+* @param actor the actor to build a radiography for
+* @param filters the list of filters that apply here
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@import be.webdeb.core.api.actor.EActorRole
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.presentation.web.views.html.util.waitingContainer
+@import be.webdeb.presentation.web.views.html.util.filtersContainer
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        actor : ActorVizHolder,
+        viewBy : EActorRole,
+        id : String,
+        pov : Integer,
+        user : WebdebUser,
+        helper : ContributionHelper
+)
+
+<div class="actor-citations-@viewBy.id row mt-3 mb-3">
+
+    <div class="col-12">
+
+        @if(actor.getEActortype != EActorType.UNKNOWN) {
+            <button type="button" class="btn btn-info contribution-add-citation-btn mt-0 mb-3" title="" data-id="@actor.getId" data-role="@viewBy.id">
+                <i class="fas fa-plus fixed-size"></i>&nbsp;
+                <span>@Messages("general.add.btn.citation") <i class="@Messages("browse.search.tip.CITATION")"></i></span>
+            </button>
+        }
+
+        @navpillMenu(if(actor.getCitations(viewBy).isEmpty){"d-none d-md-block"}else{""}, "actor-citations-" + viewBy.id + "-" + id + "-tab"){
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" style="min-width: 95px">@Messages("general.btn.display.by")</a>
+            </li>
+
+            @navpillMenuItem("tags-" + viewBy.id + "-" + id, Messages("viz.actor.citations.tags.title") +
+                    ActorVizHolder.hasNoContent(actor.getTagsCitations(viewBy).isEmpty)
+                , (pov == null || pov == -1 || pov == 0 || (pov > 4 && viewBy == EActorRole.CITED) || (pov > 3 && viewBy == EActorRole.AUTHOR)), "btn-pov")
+
+            @navpillMenuItem("debates-" + viewBy.id + "-" + id, Messages("viz.actor.citations.debates.title") +
+                    ActorVizHolder.hasNoContent(actor.getDebatesCitations(viewBy).isEmpty)
+                , pov == 1, "btn-pov")
+
+            @navpillMenuItem("texts-" + viewBy.id + "-" + id, Messages("viz.actor.citations.texts.title") +
+                    ActorVizHolder.hasNoContent(actor.getTextsCitations(viewBy).isEmpty)
+                , pov == 2, "btn-pov")
+
+            @navpillMenuItem("citations-" + viewBy.id + "-" + id, Messages("viz.actor.citations.list.title") +
+                    ActorVizHolder.hasNoContent(actor.getCitations(viewBy).isEmpty)
+                , pov == 3, "btn-pov")
+
+            @if(viewBy == EActorRole.CITED) {
+                @navpillMenuItem("actors-" + viewBy.id + "-" + id, Messages("viz.actor.citations.actors.title") +
+                        ActorVizHolder.hasNoContent(actor.getActorsWhoQuotes().isEmpty)
+                    , pov == 4, "btn-pov")
+            }
+        }
+
+    </div>
+
+    <div class="col-12 p-0">
+        @navContent("mt-2", "actor-citations-tab"){
+
+            @navContentItem("tags-" + viewBy.id + "-" + id, pov == null || pov == -1 || pov == 0) {
+                <div class="tags-tab" data-id="@actor.getId" data-role="@viewBy.id()">
+
+                    @filtersContainer(user, EContributionType.TAG, helper)
+
+                    <div class="results-container"></div>
+
+                    @waitingContainer()
+
+                    <div class="no-result-container">
+                        <p class="instructions mt-2 pl-2 pr-2">@Messages("viz.actor.citations.list.empty.title." + viewBy.id)</p>
+                    </div>
+
+                </div>
+            }
+
+            @navContentItem("debates-" + viewBy.id + "-" + id, pov == 1) {
+                <div class="debates-tab" data-id="@actor.getId" data-role="@viewBy.id()">
+
+                    @filtersContainer(user, EContributionType.DEBATE, helper)
+
+                    <div class="results-container"></div>
+
+                    @waitingContainer()
+
+                    <div class="no-result-container">
+                        <p class="instructions mt-2 pl-2 pr-2">@Messages("viz.actor.citations.empty.debates.title." + viewBy.id)</p>
+                    </div>
+
+                </div>
+            }
+
+            @navContentItem("texts-" + viewBy.id + "-" + id, pov == 2) {
+                <div class="texts-tab" data-id="@actor.getId" data-role="@viewBy.id()">
+
+                    @filtersContainer(user, EContributionType.TEXT, helper, false, false, true)
+
+                    <div class="results-container"></div>
+
+                    @waitingContainer()
+
+                    <div class="no-result-container">
+                        <p class="instructions mt-2 pl-2 pr-2">@Messages("viz.actor.citations.list.empty.title." + viewBy.id)</p>
+                    </div>
+
+                </div>
+            }
+
+            @navContentItem("citations-" + viewBy.id + "-" + id, pov == 3, "citations-tab") {
+
+                @filtersContainer(user, EContributionType.CITATION, helper)
+
+                <div class="results-container"></div>
+
+                @waitingContainer()
+
+                <div class="no-result-container">
+                    <p class="instructions mt-2 pl-2 pr-2">@Messages("viz.actor.citations.list.empty.title." + viewBy.id)</p>
+                </div>
+            }
+
+            @if(viewBy == EActorRole.CITED) {
+                @navContentItem("actors-" + viewBy.id + "-" + id, pov == 4) {
+                    <div class="actors-tab" data-id="@actor.getId" data-role="@viewBy.id()">
+
+                        @filtersContainer(user, EContributionType.ACTOR, helper)
+
+                        <div class="results-container"></div>
+
+                        @waitingContainer()
+
+                        <div class="no-result-container">
+                            <p class="instructions mt-2 pl-2 pr-2">@Messages("viz.actor.citations.list.empty.title." + viewBy.id)</p>
+                        </div>
+
+                    </div>
+                }
+            }
+        }
+    </div>
+
+</div>

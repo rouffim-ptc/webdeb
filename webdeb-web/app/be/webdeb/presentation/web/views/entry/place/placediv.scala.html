@@ -1,0 +1,72 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial page to handle places linked with contributions
+*
+* @param form the form that contains the place-related fields
+* @param labelName base name of all labels in form
+* @param many true if many place can be added, false if only one.
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.util.helpbubble
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.hiddenFormField
+@import be.webdeb.presentation.web.views.html.util.form.addrmButtons
+
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@(
+        form: Form[_],
+        labelName: String,
+        many: Boolean = true,
+        required: Boolean = false
+)
+
+<div id="places" class="row">
+    <div class="controls col-12 form-super-group">
+        @repeatWithIndex(form("places"), min = 1) { (place, i) =>
+            @entryFlexFormGroup("places_".concat(i.toString), true, many) {
+                <div class="col-12 input-field">
+                    @textInput(
+                        form(place.name.concat(".completeName")),
+                        null,
+                        Messages("argument.place.place"),
+                        required,
+                        null,
+                        null,
+                        null,
+                        false,
+                        "placeselector"
+                    )
+                    @hiddenFormField(form(place.name.concat(".id")))
+                    @hiddenFormField(form(place.name.concat(".geonameId")))
+                </div>
+
+            }
+
+            @mapErrors(form, place.name)
+        }
+    </div>
+
+</div>
+

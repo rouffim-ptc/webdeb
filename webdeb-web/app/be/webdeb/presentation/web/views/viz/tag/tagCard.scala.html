@@ -1,0 +1,107 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial template that displays all details of a tag in a concise way.
+*
+* @param tag a tag holder to be displayed
+* @param min true if the minimal
+* @param inSummary boolean saying if the card must be put in a ".summary" class div
+*
+* @author Martin Rouffiange
+*@
+@import be.webdeb.presentation.web.views.html.viz.tag.tagList
+@import be.webdeb.presentation.web.views.html.util.hiddenField
+@import be.webdeb.presentation.web.controllers.entry.tag.{SimpleTagForm, TagHolder}
+@import be.webdeb.presentation.web.controllers.viz.tag.ETagVizPane
+@(
+        tag : TagHolder,
+        min : Boolean,
+        inSummary : Boolean
+)
+
+@item(hierarchy : java.util.List[SimpleTagForm], hierarchyType : String) = {
+  <div>
+    @if(hierarchy.isEmpty){
+      <div class="padding-large-left">
+        -
+      </div>
+    }else{
+      @tagList(hierarchy, ETagVizPane.ARGUMENTS, hierarchyType)
+    }
+  </div>
+}
+
+@if(inSummary) { <div id="summary_@tag.getId" class="summary" data-id="@tag.getId" data-name="@tag.getTagName"> }
+<div class="center-flex large">
+  @* used when handling name matches *@
+  @hiddenField("card-name", "card-name", tag.getTagName)
+  <div class="col-sm-12 contribution-card no-padding-xs">
+    @if(min) {
+      <p>
+        <span class="far fa-tag"></span>&nbsp;<span class="larger-font">@tag.getTagName</span>
+        @if(!tag.getTagRewordingNames.isEmpty){
+          <span>(@tag.getTagRewordingNames(3).mkString(", "))</span>
+        }
+      </p>
+    }else{
+      <span class="text-lowercase text-muted small-font" style="margin-bottom: 2px">@Messages("tag.names.title2")</span>
+      <div class="padding-large-left">
+      @for((name, index) <- tag.getTagNames.zipWithIndex) {
+        <p>@name.getName (@name.getLang)</p>
+      }
+      </div>
+    }
+
+    @if(!min || !tag.getTagRewordingNames.isEmpty) {
+      @if(!min) {
+        <span class="text-lowercase text-muted small-font" style="margin-bottom: 2px">@Messages("tag.rewordingnames.title")</span>
+        <div class="padding-large-left">
+        @if(tag.getTagRewordingNames.isEmpty){
+          -
+        }else {
+          @for((name, index) <- tag.getTagRewordingNames.zipWithIndex) {
+            <p>@name.getName (@name.getLang)</p>
+          }
+        }
+        </div>
+      }
+    }
+
+    @if(!min || !tag.getParents.isEmpty) {
+      @if(min) { <p> }
+      <span class="text-lowercase text-muted small-font" style="margin-bottom: 2px">@Messages("tag.parent")</span>
+      @if(min){
+        <span>@tag.getParentsName(3).mkString(", ")</span></p>
+      }else{
+        @item(tag.getParents, "parents")
+      }
+    }
+
+    @if(!min || !tag.getChildren.isEmpty) {
+      @if(min) { <p> }
+      <span class="text-lowercase text-muted small-font" style="margin-bottom: 2px">@Messages("tag.child")</span>
+      @if(min){
+        <span>@tag.getChildrenName(3).mkString(", ")</span></p>
+      }else{
+        @item(tag.getChildren, "children")
+      }
+    }
+
+  </div>
+</div>
+@if(inSummary) { </div> }

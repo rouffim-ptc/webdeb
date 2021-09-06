@@ -1,0 +1,47 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@**
+* Generate an HTML input checkbox
+*
+* Typically used as :
+*   @checkbox(
+*   myForm("myField"),
+*   '_label -> "a-label",
+*   '_name -> "a-name",
+*   'type -> "checkbox" | "radio" (default radio)
+*   'class -> "funkyradio-default" (default funkyradio-primary if none passed)
+*   )(handler = funkyCheckbox, implicitly[Messages])
+*
+* @param elements a list fo field elements (label is mandatory, class and name are optional)
+*@
+
+
+@import helper._
+
+
+@(
+    elements: FieldElements
+)
+
+
+<div class="@elements.args.getOrElse('class, "funkyradio-primary")">
+  <input type="@elements.args.getOrElse('type, "checkbox")" id="@elements.id" name="@elements.name" value="true"
+    @if(elements.field.value == Some("true")){checked="checked"}>
+  <label for="@elements.id">@elements.label</label>
+</div>

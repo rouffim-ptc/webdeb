@@ -1,0 +1,285 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Tab content to show all groups a user manages
+*
+* @param contributor the contributor that is the owner of the groups to show
+* @param messages the messages map (used when partial page is rebuilt on new group)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.core.api.contributor.EPermission
+@import be.webdeb.presentation.web.controllers.account.ContributorHolder
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@import be.webdeb.presentation.web.views.html.util.helpButton
+
+@(
+    contributor : ContributorHolder,
+    messages : java.util.Map[String, String]
+)
+
+
+@if(contributor.getSubscriptions.isEmpty) {
+  <div class="alert alert-info"><strong>@Messages("info") </strong>
+    @Messages("group.manage.none")
+  </div>
+}
+
+<div id="success-save" class="alert alert-fixed alert-success" style="display: none">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>@Messages("success")</strong> @Messages("group.changefollow.success")
+</div>
+
+
+    <div class="col-12">
+        @helpButton("group", true)
+        <div id="action-buttons" class="pull-right">
+            <button id="join-group" class="btn btn-link btn-lg primary no-padding" style="margin-right : 5px;">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>@Messages("group.join.new")</span>
+            </button>
+            <button id="create-group" class="btn btn-link btn-lg primary no-padding">
+                <i class="fa fa-plus"></i>
+                <span>@Messages("group.manage.new")</span>
+            </button>
+            @* dropdown for preferences *@
+            <div class="btn-group">
+                <a class="btn btn-link btn-lg primary dropdown-toggle" data-toggle="dropdown" href="#" id="group-preferences">
+                    <i class="fa fa-cogs"></i>
+                    <span>@Messages("group.preferences.btn.label")</span>
+                </a>
+
+                <ul class="select-group-box dropdown-menu group-dropdown" role="menu" aria-labelledby="group-preferences">
+                    <p></p>
+                    <li>
+                        <button id="follow-group" class="btn btn-link primary no-padding">
+                            <i class="fas fa-cog"></i>
+                            <span>@Messages("group.preferences.changefollow.btn")</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="toggle-follow-group" class="btn btn-link primary no-padding">
+                            <span><i class="fas fa-bell-slash"></i>&nbsp;@Messages("group.preferences.filterfollowed.hide.btn")</span>
+                            <span style="display: none"><i class="fas fa-bell"></i>&nbsp;@Messages("group.preferences.filterfollowed.show.btn")</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="save-buttons" class="pull-right" style="display: none">
+            <button id="save-follow-group" class="btn btn-link btn-lg primary no-padding" style="margin-right : 5px;">
+                <i class="fas fa-save"></i>
+                <span>@Messages("group.preferences.save.label")</span>
+            </button>
+        </div>
+        <br>
+    </div>
+
+    <div class="funkyradio inline group-followed-form" style="display: none">
+        <div class="funkyradio-primary">
+            <input id="group-followed-checkall" type="checkbox" checked="checked">
+            <label for="group-followed-checkall">@Messages("group.merge.checkall")</label>
+        </div>
+    </div>
+
+    @for(group <- contributor.getSubscriptions) {
+      <div class="col-12 summary group-detail @if(!group.isFollowed){notfollowed-group}">
+        <h3>
+            <input type="checkbox" class="group-followed-form" name="group-followed-form" value="@group.isFollowed"
+                @if(group.isFollowed){checked="checked"} style="display: none" data-group="@group.getGroup.getGroupId">
+            <span id="group-name_@group.getGroup.getGroupId">@group.getGroup.getGroupName</span>
+          <span class="small-font text-muted">(@Messages("group.isopen." + group.getGroup.isOpen) @if(group.isDefault){, @Messages("group.isdefault")} )</span>
+
+          @* dropdown for actions on group *@
+          <div class="btn-group">
+            <a class="btn btn-link primary dropdown-toggle" data-toggle="dropdown" href="#" id="group-actions_@group.getGroup.getGroupId">
+              @Messages("group.manage.actions") &nbsp; <span class="fa fa-cogs"></span>
+            </a>
+
+            <ul class="select-group-box dropdown-menu group-dropdown" role="menu" aria-labelledby="group-actions_@group.getGroup.getGroupId" style="width: 300px">
+              <p class="instructions small-font">@Messages("group.manage.actions.desc")</p>
+                @if( group.getRole.id >= EContributorRole.OWNER.id) {
+                    <li>
+                        <button id="edit-group_@group.getGroup.getGroupId" title="@Messages("group.manage.edit.tooltip")" type="button" class="btn btn-link primary">
+                            <span class="falogo fixed-size"><i class="fa fa-edit fixed-size"></i></span>&nbsp;@Messages("group.manage.edit.label")
+                        </button>
+                    </li>
+                    <li>
+                        <button id="open-add-member_@group.getGroup.getGroupId" title="@Messages("group.invite.member.tooltip")" type="button" class="btn btn-link primary">
+                            <span class="falogo fixed-size"><i class="fa fa-plus fixed-size"></i></span>&nbsp;@Messages("group.invite.member")
+                        </button>
+                    </li>
+                    @if(group.getGroup.getMembers.size() <= 50) {
+                        <li>
+                            <button id="open-change-member-role_@group.getGroup.getGroupId" title="@Messages("group.manage.changerole.tooltip")" type="button" class="btn btn-link primary">
+                                <span class="falogo fixed-size"><i class="fa fa-user fixed-size"></i></span>&nbsp;@Messages("group.manage.changerole.label")
+                            </button>
+                        </li>
+                    }
+                    <li>
+                        <button id="open-send-mail_@group.getGroup.getGroupId" title="@Messages("group.mail.members.tooltip")" type="button" class="btn btn-link primary">
+                            <span class="falogo fixed-size"><i class="fa fa-envelope-o fixed-size"></i></span>&nbsp;@Messages("group.mail.members")
+                        </button>
+                    </li>
+
+                    @*
+                    <li>
+                        <a href="@be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.markContributions(group.getGroup.getGroupId)"
+                        class="btn btn-link primary" title="@Messages("group.manage.mark.tooltip")">
+                            <span class="falogo fixed-size"><i class="fa fa-magic fixed-size"></i></span>&nbsp;@Messages("group.manage.mark.label")
+                        </a>
+                    </li>
+                    *@
+
+                    @if(group.getRole.id >= EContributorRole.OWNER.id) {
+                        <li>
+                            <a href="@be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.allContributions(group.getGroup.getGroupId, 0, 0)"
+                            class="btn btn-link primary" title="@Messages("group.seeall.title")">
+                                <span class="falogo fixed-size"><i class="far fa-comments fixed-size"></i></span>&nbsp;@Messages("group.seeall.label")
+                            </a>
+                        </li>
+                    }
+                    @if(group.getGroup.getPermissions.contains(EPermission.MERGE_CONTRIBUTION)) {
+                        <li>
+                            <a href="@be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.mergeContributions(group.getGroup.getGroupId, 0, 0)"
+                            class="btn btn-link primary" title="@Messages("group.manage.merge.tooltip")">
+                                <span class="falogo fixed-size"><i class="fa fa-external-link fixed-size"></i></span>&nbsp;@Messages("group.manage.merge.label")
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <button id="empty-group_@group.getGroup.getGroupId" title="@Messages("group.manage.empty.tooltip")" type="button" class="btn btn-link primary">
+                            <span class="falogo fixed-size"><i class="fa fa-eraser fixed-size"></i></span>&nbsp;@Messages("group.manage.empty.label")
+                        </button>
+                    </li>
+                    <li>
+                        <button id="close-group_@group.getGroup.getGroupId" title="@Messages("group.manage.close.tooltip")" type="button" class="btn btn-link primary">
+                            <span class="falogo fixed-size"><i class="fa fa-trash fixed-size"></i></span>&nbsp;@Messages("group.manage.close.label")
+                        </button>
+                    </li>
+                }
+                @if(!group.isDefault) {
+                    <li>
+                        <button id="switch-group_@group.getGroup.getGroupId" title="@Messages("group.switch.title")" type="button"
+                        class="btn btn-link primary" value="@group.getGroup.getGroupName">
+                            <span class="falogo fixed-size"><i class="fa fa-star fixed-size"></i></span>&nbsp;@Messages("group.switch.label")
+                        </button>
+                    </li>
+                    @if( group.getRole.id == EContributorRole.CONTRIBUTOR.id ||  group.getRole.id == EContributorRole.ADMIN.id) {
+                        <li>
+                            <button id="leave-group_@group.getGroup.getGroupId" title="@Messages("group.leave.title")" type="button"
+                            class="btn btn-link primary" value="@group.getGroup.getGroupName">
+                                <span class="falogo fixed-size"><i class="fa fa-trash fixed-size"></i></span>&nbsp;@Messages("group.leave.label")
+                            </button>
+                        </li>
+                    }
+                    @if(group.isFollowed) {
+                        <li>
+                            <button id="do_unfollow_group_@group.getGroup.getGroupId" title="@Messages("group.leave.title")" type="button"
+                            class="btn btn-link primary" value="@group.getGroup.getGroupName">
+                                <span class="falogo fixed-size"><i class="fas fa-bell-slash"></i></span>&nbsp;@Messages("group.preferences.changefollow.unfollow.btn")
+                            </button>
+                        </li>
+                    }
+                }
+                @if(!group.isFollowed) {
+                    <li>
+                        <button id="do_follow_group_@group.getGroup.getGroupId" title="@Messages("group.leave.title")" type="button"
+                        class="btn btn-link primary" value="@group.getGroup.getGroupName">
+                            <span class="falogo fixed-size"><i class="fas fa-bell"></i></span>&nbsp;@Messages("group.preferences.changefollow.follow.btn")
+                        </button>
+                    </li>
+                }
+            </ul>
+          </div>
+
+        </h3>
+
+        <div>
+          @Messages("group.change.tooltip",
+            Messages("group.contribution.visibility." + group.getGroup.getContributionVisibility.id),
+            Messages("group.member.visibility." + group.getGroup.getMemberVisibility.id))
+            @if( group.getRole.id >= EContributorRole.OWNER.id) {
+                <button id="show-members_@group.getGroup.getGroupId" type="button" class="btn btn-sm btn-link secondary"
+                data-toggle="collapse" data-target=".showall-@group.getGroup.getGroupId">
+                    @Messages("group.members.showmore") &nbsp;
+                    <span class="fa fa-chevron-down"></span>
+                </button>
+            }
+
+          <br>
+
+          <span class="text-muted small-font italic">
+            @for(p <- group.getGroup.getPermissions) {
+              @Messages("group.manage.label.permission." + p.id)
+            }
+          </span>
+
+        </div>
+
+          @if( group.getRole.id >= EContributorRole.OWNER.id) {
+              <div class="col-12 collapse showall-@group.getGroup.getGroupId">
+              @for(member <- group.getGroup.getMembers) {
+                  @if(member.getRole.id < EContributorRole.ADMIN.id || group.getRole.id == EContributorRole.ADMIN.id) {
+                      <div>
+                          <div class="col-12 group-member-detail">
+                              <span @if(member.isBanned) {
+                                  style="text-decoration: line-through;" }>
+                                  <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(
+                                      member.getContributor.getId, ESettingsPane.PROFILE.id)" class="normal-style">
+                                      @member.getContributor.getFirstname @member.getContributor.getLastname
+                                  </a>
+
+                                  <span class="text-muted"> - @member.getContributor.getEmail</span>
+                                  <span> ( @Messages("role.label." + member.getRole.id()) )</span>
+                              </span>
+                              @if(member.getContributor.getId == contributor.getId) {
+                                  <span class="text-success" style="padding-left: 12px">@Messages("group.member.you." + member.getRole.id)</span>
+                              } else {
+                                  @if(member.isBanned) {
+                                      <button id="revoke-member-false_@member.getContributor.getId.toString.concat("_" + member.getGroup.getGroupId)"
+                                      class="btn btn-link btn-sm primary">
+                                      @Messages("group.member.revoke.false")
+                                      </button>
+                                  } else {
+                                      <button id="revoke-member-true_@member.getContributor.getId.toString.concat("_" + member.getGroup.getGroupId)"
+                                      class="btn btn-link btn-sm primary">
+                                      @Messages("group.member.revoke.true")
+                                      </button>
+                                  }
+                              }
+                              @if(member.getRole.id() <= group.getRole.id() && member.getContributor.getId != contributor.getId) {
+                                  <button id="open-change-member-role_@group.getGroup.getGroupId" class="btn btn-link btn-sm primary" data-user="@member.getContributor.getId">
+                                  @Messages("group.member.changerole")
+                                  </button>
+                              }
+                          </div>
+                      </div>
+                  }
+              }
+              </div>
+          }
+      </div>
+
+}
+
+<input type="text" id="contributor" value="@contributor.getId" style="display: none;">

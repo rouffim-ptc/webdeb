@@ -1,0 +1,63 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable button to show the edition actions for a given citation
+*
+* @param user the current user that could click on button
+* @param linksActions true if actions for links must be displayed
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@import be.webdeb.presentation.web.controllers.viz.EActionType
+@(
+        user : WebdebUser,
+        linksActions : Boolean = true,
+        subActionType : EActionType = null,
+        changePositionShade : Boolean = true,
+        transformInArgument : Boolean = true
+)
+
+<button class="dropdown-item citation-edit-btn" title="">
+    <span><i class="fas fa-edit fixed-size"></i>&nbsp;@Messages("entry.citation.edit")</span>
+</button>
+
+@if(linksActions) {
+
+    @if(transformInArgument) {
+        <button class="dropdown-item citation-argument-btn" title="">
+            <span><i class="fas fa-edit fixed-size"></i>&nbsp;@Messages("entry.citation.argument.transform.label")</span>
+        </button>
+    }
+
+    @if(changePositionShade) {
+        <button class="dropdown-item citation-position-change-shade-btn" title="">
+            <span><i class="fas fa-trash-alt fixed-size"></i>&nbsp;@Messages("entry.citation.position.change.shade.label")</span>
+        </button>
+    }
+
+    <button class="dropdown-item citation-delete-link-btn" title="">
+        <span><i class="fas fa-trash-alt fixed-size"></i>&nbsp;@Messages("general.label.btn.clearlink")</span>
+    </button>
+}
+
+<button class="dropdown-item contribution-claim-btn" title="">
+    <span><i class="fas fa-exclamation-circle fixed-size"></i>&nbsp;@Messages("contribution.claim.title")</span>
+</button>

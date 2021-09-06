@@ -1,0 +1,96 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Theme page about environnement.
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title>Politiques de l'environnement à Bruxelles @Messages("general.metatitle")</title>
+    <meta name="description" content="Vous trouverez ci-dessous des liens vers pages de la plateforme WebDeb. Dans ces pages, vous pourrez voir la liste des textes à propos des débats sur l'environnement et des informations sur les principaux acteurs qui interviennent dans ces débats.">
+}
+
+
+@main(user, scripts) {
+    <div class="row">
+
+        <div id="webdeb-theme-presentation" class="col-12">
+            <br>
+            <h2 class="small-margin">Politiques de l'environnement à Bruxelles</h2>
+            <hr class="hr-xs-sensible">
+            <div class="col-12 no-padding">
+                <h4>
+                    Vous trouverez ci-dessous des liens vers pages de la plateforme WebDeb. Dans ces pages, vous pourrez voir la liste des textes à propos des débats sur l'environnement et des informations sur les principaux acteurs qui interviennent dans ces débats.
+                </h4>
+
+                <div class="col-12 col-sm-6" style="padding-left : 0;padding-right : 15px">
+                    <h3>Textes sur l'environnement à Bruxelles</h3>
+                    <ul style="font-size:18px">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/tag?id=117479&pane=4" class="primary">Textes du débat sur la pollution électromagnétique</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/tag?id=117569&pane=4" class="primary">Textes du débat sur la transition écologique</a></li>
+                        <hr class="hr-small">
+                    </ul>
+                </div>
+
+                <div class="col-12 col-sm-6 no-padding">
+                    <h3>Personnes et organisations intervenant dans les politiques de l'environnement à Bruxelles</h3>
+                    <h5>Ces liens vous donnent accès à la liste (encore incomplète) des dirigeants de ces organisations. En cliquant sur les noms de ces dirigeants, vous pourrez obtenir davantage d'informations sur eux (cependant encore incomplètes). N'héitez pas à compléter ou corriger les informations sur ces personnes ou ces organisations.</h5>
+                    <ul style="font-size:18px">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2181&pane=0" class="primary">Gouvernement de la Région de Bruxelles-Capitale</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=6384&pane=0" class="primary">Céline Frémault, ministre de l'environnement</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123273&pane=0" class="primary">Cabinet de Céline Frémault</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2618&pane=0" class="primary">Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=118065&pane=0" class="primary">Commission de l'Environnement et de l'Energie du Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=28779&pane=0" class="primary">Bruxelles Environnement</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=669&pane=0" class="primary">Proximus</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=5109&pane=0" class="primary">IEB - inter-environnement Bruxelles</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=28763&pane=0" class="primary">BRAL - Mouvement Urbain pour Bruxelles</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=117485&pane=0" class="primary">grONDES</a></li>
+                        <hr class="hr-small">
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,49 @@
+@*
+* Copyright 2014-2018 University of Namur (PReCISE) - University of Louvain (Girsef - CENTAL).
+* This is part of the WebDeb software (WDWEB), a collaborative platform to record and analyze
+* argumentation-based debates. This is free software:  you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License version 3 as published by the
+* Free Software Foundation. It is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* See <https://webdeb.be/> for a running instance of a webdeb web platform.
+* See the GNU Lesser General Public License (LGPL) for more details over the license terms.
+*
+* You should have received a copy of the GNU Lesser General Public License along with this copy.
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Choose citation position shade
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.api.debate.EDebateShade
+
+@(
+        subContextId : Long,
+        shade : EDebateShade
+)
+
+<div class="card card-body add-position-container">
+    <div class="form-group d-flex flex-column align-items-center">
+        <p class="position-range-title">
+            <span class="indecision">@Messages("viz.debate.position." + shade.id() + ".2")</span>
+        </p>
+
+        <input type="range" class="form-control-range position-range" id="position-range" min="0" max="4" step="1" value="2">
+
+        <p class="instructions mb-0 d-none d-sm-block">
+            @Messages("viz.debate.position.instructions")
+        </p>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-info add-position-btn" @if(subContextId != null){data-sub-debate="@subContextId"}>
+            @Messages("general.continue.title")
+        </button>
+    </div>
+</div>

@@ -1,0 +1,648 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Modal frame to display the history of a contribution
+*
+* @param title the contribution "title"
+* @param history a list of history api objects
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@import be.webdeb.core.api.contribution.ContributionHistory
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@import be.webdeb.util.ValuesHelper
+@(
+    title : String,
+    contributionId : Long,
+    contributionType : EContributionType,
+    history : List[ContributionHistory],
+    values : ValuesHelper,
+    user : WebdebUser
+)
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    let modal = $('#contrib-history');
+
+    modal.find('.send-contributor-mail').on('click', function(){
+      userContactUser($(this).data('contributor-id')).done(function(content){
+        hideAndDestroyModal(modal, null, false);
+        loadAndShowModal($('#modal-anchor'), content);
+      });
+    });
+
+    transformTraces(modal, modal.find('.trace')).then();
+  });
+
+  async function transformTraces(modal, traces){
+    let traceObjects = [];
+    let tracesArray = [];
+
+    modal.find('.waiting').show();
+
+    traces.each(function(){ tracesArray.push($(this)); });
+
+    for(let i in tracesArray){
+      let traceString = tracesArray[i].text();
+
+      switch(@contributionType.id){
+        case @EContributionType.ACTOR.id :
+          traceObjects.unshift(await transformActorTrace(traceString));
+          break;
+        case @EContributionType.DEBATE.id :
+          traceObjects.unshift(await transformDebateTrace(traceString));
+          break;
+        case @EContributionType.ARGUMENT.id :
+          traceObjects.unshift(await transformArgumentTrace(traceString));
+          break;
+        case @EContributionType.CITATION.id :
+          traceObjects.unshift(await transformCitationTrace(traceString));
+          break;
+        case @EContributionType.TEXT.id :
+          traceObjects.unshift(await transformTextTrace(traceString));
+          break;
+        case @EContributionType.TAG.id :
+          traceObjects.unshift(await transformTagTrace(traceString));
+          break;
+      }
+    }
+
+    comparingTraces(modal, traceObjects, @contributionType.id);
+  }
+
+
+  function transformActorTrace(traceString){
+    return new Promise(async function(resolve, reject) {
+      let trace = {};
+
+      if(traceExists(traceString)) {
+
+        switch(traceString.split(' ')[0]){
+          case 'person' :
+            await setTraceObjectNamesAttribute(trace, 'named', traceString, ' named: {', '}, affiliations: ');
+            await setTraceObjectAffiliationsAttribute(trace, 'affiliations', traceString, ', affiliations: {', '}, url: ');
+            await setTraceObjectSimpleAttribute(trace, 'url', traceString, ', url: ', ', picture');
+            await setTraceObjectSimpleAttribute(trace, 'picture', traceString, ', picture: ', ', person');
+            await setTraceObjectSimpleAttribute(trace, 'gender', traceString, ', gender: ', ', date of birth: ', 2);
+            await setTraceObjectDateAttribute(trace, 'date_of_birth', traceString, ', date of birth: ', ', date of death: ');
+            await setTraceObjectDateAttribute(trace, 'date_of_death', traceString, ', date of death: ', ', residence: ');
+            await setTraceObjectSimpleAttribute(trace, 'country', traceString, ', residence: ', ', groups: ', 2);
+            break;
+          case 'organization' :
+            await setTraceObjectNamesAttribute(trace, 'named', traceString, ' named: {', '}, affiliations: ');
+            await setTraceObjectAffiliationsAttribute(trace, 'affiliations', traceString, ', affiliations: {', '}, url: ');
+            await setTraceObjectSimpleAttribute(trace, 'url', traceString, ', url: ', ', picture');
+            await setTraceObjectSimpleAttribute(trace, 'picture', traceString, ', picture: ', ', organization');
+            await setTraceObjectSimpleAttribute(trace, 'official_number', traceString, ', official number:', ', status: ');
+            await setTraceObjectSimpleAttribute(trace, 'legal_status', traceString, ', status: ', ', sectors: ', 2);
+            await setTraceObjectSimpleArrayAttribute(trace, 'business_sector', traceString, ', sectors: ', ', created: ', 2);
+            await setTraceObjectDateAttribute(trace, 'date_created', traceString, ', created: ', ', terminated: ');
+            await setTraceObjectDateAttribute(trace, 'date_terminated', traceString, ', terminated: ', ', places: ');
+            await setTraceObjectSimpleArrayAttribute(trace, 'country', traceString, ', places: [', '], tags: ', 1);
+            await setTraceObjectSimpleArrayAttribute(trace, 'social_objects', traceString, ', tags: [', '], groups: ', 0);
+            break;
+          default :
+            await setTraceObjectNamesAttribute(trace, 'name', traceString, ' named: ', ' , affiliations: ');
+            await setTraceObjectSimpleAttribute(trace, 'url', traceString, ', url: ', ', groups');
+        }
+      }
+
+      return resolve(trace);
+    });
+  }
+
+  function transformDebateTrace(traceString){
+    return new Promise(async function(resolve, reject) {
+      let trace = {};
+
+      if(traceExists(traceString)) {
+        await setTraceObjectSimpleAttribute(trace, 'name', traceString, 'debate [', '], argument_shaded: ', 0);
+        await setTraceObjectSimpleAttribute(trace, 'debate_shade_type', traceString, ', debate shade: [', '] ', 2);
+        await setTraceObjectSimpleAttribute(trace, 'description', traceString, ', description: ', ', picture: ');
+        await setTraceObjectSimpleAttribute(trace, 'picture', traceString, ', picture: ', ', external urls: ');
+        await setTraceObjectSimpleArrayAttribute(trace, 'external_urls', traceString, ', external urls: [', '], actors: ');
+        await setTraceObjectAuthorsAttribute(trace, 'actors', traceString, ', actors: ', ', places: ');
+        await setTraceObjectSimpleArrayAttribute(trace, 'places', traceString, ', places: [', '], tags: [', 1);
+        await setTraceObjectSimpleArrayAttribute(trace, 'tags', traceString, ', tags: [', '], groups: [', 0);
+      }
+
+      return resolve(trace);
+    });
+  }
+
+  function transformArgumentTrace(traceString){
+    return new Promise(async function(resolve, reject) {
+      let trace = {};
+
+      if(traceExists(traceString)) {
+        await setTraceObjectSimpleAttribute(trace, 'name', traceString, '], name: [', ', context: [');
+        await setTraceObjectSimpleAttribute(trace, 'arg_shade_type', traceString, ', argument_type: ', ', actors: ', 2);
+      }
+
+      return resolve(trace);
+    });
+  }
+
+  function transformCitationTrace(traceString){
+    return new Promise(async function(resolve, reject) {
+      let trace = {};
+
+      if(traceExists(traceString)) {
+        await setTraceObjectSimpleAttribute(trace, 'original_excerpt', traceString, ', original citation: [', '], working citation: [');
+        await setTraceObjectSimpleAttribute(trace, 'working_excerpt', traceString, ', working citation: [', '], language: ');
+        await setTraceObjectSimpleAttribute(trace, 'language', traceString, ', language: ', ', from text: ');
+        await setTraceObjectSimpleAttribute(trace, 'text', traceString, ', from text: [', '], actors: ', 0);
+        await setTraceObjectAuthorsAttribute(trace, 'actors', traceString, ', actors: ', ', tags: ');
+        await setTraceObjectSimpleArrayAttribute(trace, 'places', traceString, ', places: [', '], tags: [', 1);
+        await setTraceObjectSimpleArrayAttribute(trace, 'tags', traceString, ', tags: [', '], groups: [', 0);
+      }
+
+      return resolve(trace);
+    });
+  }
+
+  function transformTextTrace(traceString){
+    return new Promise(async function(resolve, reject) {
+      let trace = {};
+
+      if(traceExists(traceString)) {
+        await setTraceObjectSimpleAttribute(trace, 'name', traceString, '], name: [', '], translations: ');
+        await setTraceObjectNamesAttribute(trace, 'translations', traceString, ', translations: ', ', lang: ');
+        await setTraceObjectSimpleAttribute(trace, 'lang', traceString, ', lang: ', ', published: ');
+        await setTraceObjectDateAttribute(trace, 'date_publication', traceString, ', published: ', ', type: ');
+        await setTraceObjectSimpleAttribute(trace, 'text_type', traceString, ', type: ', ', source type: ', 2);
+        await setTraceObjectSimpleAttribute(trace, 'text_source', traceString, ', source: source: ', ', url: ');
+        await setTraceObjectSimpleAttribute(trace, 'url', traceString, ', url: ', ', visibility: ');
+        await setTraceObjectAuthorsAttribute(trace, 'actors', traceString, ', actors: ', ', groups: ');
+      }
+
+      return resolve(trace);
+    });
+  }
+
+  function transformTagTrace(traceString){
+    return new Promise(async function(resolve, reject) {
+      let trace = {};
+
+      if(traceExists(traceString)) {
+        await setTraceObjectNamesAttribute(trace, 'name', traceString, ', named: ', ', rewording names: ');
+        await setTraceObjectNamesAttribute(trace, 'reworded', traceString, ', rewording names: {', '}, ');
+        await setTraceObjectSimpleArrayAttribute(trace, 'tag_parent', traceString, ', parents: [', '], children: [');
+        await setTraceObjectSimpleArrayAttribute(trace, 'tag_children', traceString, ', children: [', '], type: ');
+      }
+
+      return resolve(trace);
+    });
+  }
+
+  function setTraceObjectSimpleAttribute(traceObject, attributeName, trace, limit1, limit2, idToMatch, checkEnd){
+    let options = { "idToMatch" : idToMatch};
+    return setTraceObjectAttribute(traceObject, attributeName, trace, limit1, limit2, options, idToMatch, checkEnd)
+  }
+
+  function setTraceObjectSimpleArrayAttribute(traceObject, attributeName, trace, limit1, limit2, idToMatch, checkEnd){
+    let options = { "isArray" : true, "idToMatch" : idToMatch};
+    return setTraceObjectAttribute(traceObject, attributeName, trace, limit1, limit2, options, checkEnd)
+  }
+
+  function setTraceObjectDateAttribute(traceObject, attributeName, trace, limit1, limit2, checkEnd){
+    let options = { "isDate" : true};
+    return setTraceObjectAttribute(traceObject, attributeName, trace, limit1, limit2, options, checkEnd)
+  }
+
+  function setTraceObjectAffiliationsAttribute(traceObject, attributeName, trace, limit1, limit2, checkEnd){
+    let options = { "isAffiliation" : true, "isArray" : true, "keySeparatedArray" : [' affiliation: ', true]};
+    return setTraceObjectAttribute(traceObject, attributeName, trace, limit1, limit2, options, checkEnd)
+  }
+
+  function setTraceObjectAuthorsAttribute(traceObject, attributeName, trace, limit1, limit2, checkEnd){
+    let options = { "isAuthor" : true, "isArray" : true, "keySeparatedArray" : [' contribution_has_actor: ', true]};
+    return setTraceObjectAttribute(traceObject, attributeName, trace, limit1, limit2, options, checkEnd)
+  }
+
+  function setTraceObjectNamesAttribute(traceObject, attributeName, trace, limit1, limit2, checkEnd){
+    let options = { "isArray" : true, "keySeparatedArray" : [']', false]};
+    return setTraceObjectAttribute(traceObject, attributeName, trace, limit1, limit2, options, checkEnd)
+  }
+
+  function initOptions(options){
+    let eOptions = {};
+
+    eOptions.isAffiliation = options.isAffiliation === undefined ? false : options.isAffiliation;
+    eOptions.isAuthor = options.isAuthor === undefined ? false : options.isAuthor;
+    eOptions.isDate = options.isDate === undefined ? false : options.isDate;
+    eOptions.isArray = options.isArray === undefined ? false : options.isArray;
+    eOptions.keySeparatedArray = options.keySeparatedArray === undefined ? false : options.keySeparatedArray;
+    eOptions.idToMatch = options.idToMatch === undefined ? false : options.idToMatch;
+
+    return eOptions;
+  }
+
+  function setTraceObjectAttribute(traceObject, attributeName, trace, limit1, limit2, options, checkEnd){
+    return new Promise(async function(resolve, reject) {
+      let eOptions = initOptions(options);
+
+      let separatedTrace = separateTrace(trace, limit1, limit2, checkEnd);
+      if(separatedTrace != null){
+        let traceSubObj = {};
+        let value = eOptions.isArray ? separatedTrace.split((eOptions.keySeparatedArray && !eOptions.keySeparatedArray[1] ? eOptions.keySeparatedArray[0] : '')
+                + ',' + (eOptions.keySeparatedArray && eOptions.keySeparatedArray[1] ? eOptions.keySeparatedArray[0] : '')) : separatedTrace;
+
+        if(eOptions.isArray && eOptions.keySeparatedArray){
+          for(let i in value){
+            let val = value[i];
+            let key = eOptions.keySeparatedArray[0].trimStart();
+
+            val = val.startsWith('{') ? val.substring(1) : val;
+            val = val.endsWith('}') ? val.substring(0, val.length - 1) : val;
+            val = val.trim();
+
+            value[i] = val ? (eOptions.keySeparatedArray[1] && !val.startsWith(key)) ||
+                        (!eOptions.keySeparatedArray[1] && !val.endsWith(key)) ?
+                    eOptions.keySeparatedArray[1] ? key + val : val + key : val : val;
+          }
+        }
+
+        traceSubObj.attributeName = attributeName;
+        traceSubObj.options = eOptions;
+        traceSubObj.value = eOptions.isDate && !eOptions.isArray ? transformTraceDateToReadableDate(value) : typeof value === 'string' ? value.trim() : value;
+
+        traceObject[attributeName] = traceSubObj;
+      }
+
+      resolve();
+    });
+  }
+
+  function separateTrace(trace, limit1, limit2, checkEnd){
+    checkEnd = checkEnd === undefined ? true : checkEnd;
+
+    let separatedTrace = trace.split(limit1);
+
+    if(separatedTrace.length >= 2 && !separatedTrace[1].startsWith(limit2)){
+      separatedTrace = separatedTrace[1].split(limit2);
+      return !checkEnd || separatedTrace.length >= 2 ? separatedTrace[0] : null;
+    }
+
+    return null;
+  }
+
+  function transformTraceToTreatment(trace, treatmentFunction, param1, param2){
+    return new Promise(async function(resolve, reject) {
+      if (Array.isArray(trace)) {
+        let valueCpy = [];
+        for(let i in trace){
+          valueCpy.push(await treatmentFunction(trace[i], param1, param2));
+        }
+        trace = valueCpy;
+      } else {
+        trace = await treatmentFunction(trace, param1, param2);
+      }
+
+      resolve(trace);
+    });
+  }
+
+  function transformTraceToAffiliation(trace){
+    return new Promise(async function(resolve, reject) {
+
+      if(trace != null && trace.length > 0) {
+
+        let actorId1 = separateTrace(trace, "], actor: ", ", ");
+        let actorId2 = separateTrace(trace, ", orga: ", ", ");
+        let professionId = separateTrace(trace, ", function: ", ", dates: ");
+        let typeId = separateTrace(trace, ", type: ", ", ");
+
+        let actor = await transformTraceToTreatment(parseInt(actorId1) === @contributionId ? actorId2 : actorId1, transformTraceToMatchedId, 0);
+        let professionOrType = professionId != null ?
+                await transformTraceToTreatment(separateTrace(trace, ", function: ", ", dates: "), transformTraceToMatchedId, 3) :
+                typeId != null ? typeId : '';
+        let dates = separateTrace(trace, ", dates: ", ", ");
+
+        resolve(
+                actor
+                + ', ' + professionOrType
+                + (dates === 'null-null' ? '' : ', ' + transformAffiliationDatesToReadableDates(dates))
+        );
+      }else{
+        resolve("");
+      }
+
+    });
+  }
+
+  function transformTraceToAuthor(trace){
+    return new Promise(async function(resolve, reject) {
+
+      if(trace != null && trace.length > 0) {
+
+        let actor = await transformTraceToTreatment(separateTrace(trace, ", actor: ", ", "), transformTraceToMatchedId, 0);
+        let aff_id = separateTrace(trace, ", affiliation: ", ", ");
+        let affiliation = aff_id !== "null" ? await transformTraceToTreatment(aff_id, transformTraceToMatchedId, 4) : '';
+
+        resolve(
+                actor
+                + ", " + getAuthorState(trace)
+                + ", " + affiliation
+        );
+      }else{
+        resolve("");
+      }
+
+    });
+  }
+
+  function getAuthorState(trace){
+    let state = null;
+
+    if(separateTrace(trace, ", roles: author ", ", ") === "true") {
+      state = "actors.author";
+    } else if(separateTrace(trace, ", reporter ", ", ") === "true") {
+      state = "actors.reporter";
+    } else if(separateTrace(trace, ", is about ", ", ") === "true") {
+      state = "actors.is_about";
+    }
+
+    return state != null ? Messages("viz.admin.history.element." + state) : '';
+  }
+
+  function transformTraceToMatchedId(id, idToMatch, valueToMatch){
+    return new Promise(function(resolve, reject) {
+      let toCall;
+
+      switch (idToMatch) {
+        case 1 :
+          toCall = getPlaceName;
+          break;
+        case 2 :
+          toCall = getTechnicalName;
+          break;
+        case 3 :
+          toCall = getProfessionName;
+          break;
+        case 4 :
+          toCall = getAffiliationDescription;
+          break;
+        default :
+          toCall = getContributionName;
+      }
+
+      if(idToMatch === 2 && (valueToMatch === "country" || valueToMatch === "gender")) {
+        resolve(id);
+      } else {
+        toCall(id, valueToMatch).done(function (data) {
+          resolve(data + " [" + id + "]");
+        }).fail(function () {
+          resolve();
+        });
+      }
+    });
+  }
+
+  function traceExists(traceString){
+    return (typeof(traceString) === 'string' || traceString instanceof String) && traceString.length > 0;
+  }
+
+  function comparingTraces(modal, traces, contribution_type){
+    let promises = [];
+
+    traces.forEach(function(item, index){
+      let prevTrace = index > 0 ? traces[index - 1] : null;
+      promises.push(comparingTraceWithPrevious(modal, item, prevTrace, index, contribution_type));
+    });
+
+    Promise.all(promises).then(function(values) {
+      modal.find('.waiting').hide();
+    });
+  }
+
+  function comparingTraceWithPrevious(modal, currTrace, prevTrace, index, contribution_type){
+    return new Promise(async function(resolve, reject) {
+      let traceResult = [];
+
+      for (let attribute in currTrace) {
+        let currentTraceElement = currTrace[attribute];
+
+        if (Array.isArray(currentTraceElement.value)) {
+          for(let iTrace in currentTraceElement.value){
+            let item = currentTraceElement.value[iTrace];
+
+            if (prevTrace == null || !prevTrace.hasOwnProperty(attribute)
+                    || (Array.isArray(prevTrace[attribute].value) && !prevTrace[attribute].value.includes(item)) ||
+                    (!Array.isArray(prevTrace[attribute].value) && prevTrace[attribute].value !== item)) {
+              drawTraceElement(traceResult, prevTrace == null ? null : "add", attribute, await transformTraceItem(currentTraceElement, item), contribution_type);
+            }
+          }
+
+          if (prevTrace != null && prevTrace.hasOwnProperty(attribute) && Array.isArray(prevTrace[attribute].value)) {
+
+            for(let iTrace in prevTrace[attribute].value){
+              let item = prevTrace[attribute].value[iTrace];
+
+              if (!currentTraceElement.value.includes(item)) {
+                drawTraceElement(traceResult, "remove", attribute, await transformTraceItem(prevTrace[attribute], item), contribution_type);
+              }
+            }
+          }
+
+        } else if (prevTrace == null || !prevTrace.hasOwnProperty(attribute)
+                || currentTraceElement.value !== prevTrace[attribute].value) {
+          let value = await transformTraceItem(currentTraceElement);
+          drawTraceElement(traceResult,
+                  setTraceChangeState(prevTrace, currentTraceElement, value, attribute),
+                  attribute,
+                  value,
+                  contribution_type);
+        }
+
+      }
+
+      refreshTrace(modal, traceResult, index);
+      resolve();
+    });
+  }
+
+  function setTraceChangeState(prevTrace, currentTraceElement, value, attribute){
+
+    if(prevTrace == null){
+      return null;
+    }
+
+    if(value === "unset"){
+      return "remove";
+    }
+
+    if(!prevTrace[attribute] || !prevTrace[attribute].value || prevTrace[attribute].value === "unset" || prevTrace[attribute].value === "null" || prevTrace[attribute].value === "none"){
+      return "add";
+    }
+
+    return "modify";
+  }
+
+  function transformTraceItem(item, item_value){
+    return new Promise(async function(resolve, reject) {
+      let value;
+      let trace = getTraceValue(item, item_value);
+
+      if (item.options.idToMatch !== false) {
+        value = item.options.idToMatch === 2 && (!trace || trace === "unset" || trace === "null" || trace === "none") ?
+                "unset" :
+                await transformTraceToTreatment(getTraceValue(item, item_value), transformTraceToMatchedId, item.options.idToMatch, item.attributeName);
+      } else if (item.options.isAffiliation) {
+        value = await transformTraceToTreatment(getTraceValue(item, item_value), transformTraceToAffiliation);
+      } else if (item.options.isAuthor) {
+        value = await transformTraceToTreatment(getTraceValue(item, item_value), transformTraceToAuthor);
+      } else {
+        value = getTraceValue(item, item_value);
+      }
+
+      resolve(value);
+    });
+  }
+
+  function getTraceValue(item, value){
+    return value !== undefined ? value : item.value;
+  }
+
+  function drawTraceElement(container, state, attribute, diff, contribution_type){
+    let stateDraw = state != null ? '<span class="text-uppercase history-' + state +'">' + Messages('viz.admin.history.' + state) + '</span>' : '';
+    let diff_element = !diff || diff === "unset" || diff === "null" ?
+            "" : '<span class="text-muted">' + diff.replace(/[{}]/g, '').trim(); + '</span>';
+
+    if(diff_element || state != null)
+      container.push($('<p><span>' + stateDraw + ' ' + Messages('viz.admin.history.element.' + attribute) + ' : </span>' + diff_element + '</p>'));
+  }
+
+  function refreshTrace(modal, traceResult, index){
+    let item = modal.find('#trace-' + (index + 1));
+
+    traceResult.sort(function(a, b) {
+      return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
+    });
+
+    item.html(traceResult);
+    item.show();
+  }
+
+  function transformTraceDateToReadableDate(date){
+    if(typeof date === 'string' && date.length >= 8){
+      return transformPartTraceDateToReadableDate(date.substr(6, 2))
+              + transformPartTraceDateToReadableDate(date.substr(4, 2))
+              + date.substr(0, 4);
+    }
+    return "";
+  }
+
+  function transformPartTraceDateToReadableDate(part){
+    return part !== '00' ? part + "/" : '';
+  }
+
+  function transformAffiliationDatesToReadableDates(dates){
+    let ch = '';
+
+    if(dates != null) {
+
+      dates = dates.split('-');
+
+      if (dates.length >= 2) {
+        ch += transformTraceDateToReadableDate(dates[0]);
+        ch += ' - ';
+        ch += dates.length === 3 && dates[2] === "1" ? Messages("viz.admin.history.element.date_now") : transformTraceDateToReadableDate(dates[1]);
+      }
+    }
+
+    return ch;
+  }
+
+</script>
+
+
+@emptyModalframe("contrib-history", false, "form", "", false) {
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">
+      @Messages("viz.admin.history.title")
+      <span class="small-caps text-primary">@title</span>
+    </h5>
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+
+        @waitforit("waiting")
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="width: 220px;">@Messages("viz.admin.history.version")</th>
+                <th style="width: 200px;">@Messages("viz.admin.history.author")</th>
+                <th style="width: 100px;">@Messages("viz.admin.history.modification")</th>
+                <th>@Messages("viz.admin.history.trace")</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for((h, i) <- history.zipWithIndex) {
+                <tr>
+                  <td>@values.displayCompleteDate(h.getVersion)</td>
+                  <td>
+                    <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(h.getContributor.getId, ESettingsPane.PROFILE.id)" class="normal-style">
+                      @h.getContributor.getPseudo
+                      @if(h.getContributor.isDeleted){
+                        (<span>@Messages("contributor.isDeleted")</span>)
+                      }else {
+                        @if(user.getERole.id() == EContributorRole.ADMIN.id()) {
+                          ( @h.getContributor.getFirstname @h.getContributor.getLastname )
+                        }
+                      }
+                    </a>
+                    <button class="btn btn-link primary send-contributor-mail" data-contributor-id="@h.getContributor.getId">@Messages("mail.userToUser.contact")</button>
+                  </td>
+                  <td>@h.getModificationStatusTitle(ctx.lang.code)</td>
+                  <td style="min-width: 500px">
+                    <span id="trace-@(history.length - i)" class="trace" style="display:none">@h.getTrace</span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">@Messages("general.btn.close")</button>
+  </div>
+}

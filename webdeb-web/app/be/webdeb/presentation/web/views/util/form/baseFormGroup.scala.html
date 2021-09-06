@@ -1,0 +1,70 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* A text input from a form field
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.util.form.fieldErrorsToString
+
+@(
+        field : Field,
+        label : String = null,
+        infos : String = null,
+        bubble : Html = Html(""),
+        displayErrors : Boolean = true,
+        formGroupClasses : String = "",
+        formLabelClasses : String = "",
+        reversed : Boolean = false
+)(input: Html)
+
+@labelContainer() = {
+    <div class="">
+        @if(label != null) {
+            <label class="@formLabelClasses" for="@field.id" title="@label">@label</label>
+        }
+
+        @if(bubble != null){
+            @bubble
+        }
+    </div>
+}
+
+<div class="form-group @formGroupClasses @if(label != null) {mt-2} p-1">
+
+    @if(reversed == null || !reversed) {
+        @labelContainer
+    }
+
+    @input
+
+    @if(reversed != null && reversed) {
+        @labelContainer
+    }
+
+    @if(infos != null) {
+        <small id="@field.id.concat("-help")" class="form-text text-muted">@infos</small>
+    }
+
+    <div class="invalid-feedback ml-1 mt-2 @if((displayErrors == null || displayErrors) && field.hasErrors) {d-block}">
+        @if(field.hasErrors) {
+            @fieldErrorsToString(field)
+        }
+    </div>
+</div>

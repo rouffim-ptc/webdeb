@@ -1,0 +1,118 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Inteface test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.core.api.actor.EGenderType
+@import be.webdeb.presentation.web.views.html.viz.actor.util.affiliationList
+
+@import be.webdeb.presentation.web.views.html.others.test.interfaceContent
+@import be.webdeb.presentation.web.views.html.others.test.interfaceHeader
+@import be.webdeb.presentation.web.views.html.others.test.interfaceHeader2
+
+@(
+        actor : ActorVizHolder,
+        pane : EActorVizPane,
+        pov : Integer,
+        values : ValuesHelper,
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title></title>
+    <meta name="description" content="@Messages("browse.search.tooltip")">
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/interface.css")">
+
+    <script>
+            $(document).ready(function(){
+
+                $('.nav-link').on('click', function(){
+                    let pane = $(this).data('target-id');
+                    replaceHistory('pane', pane);
+                });
+
+            });
+    </script>
+}
+
+@main(user, scripts) {
+
+    <div class="container-fluid container-fluid-smart mb-4">
+
+        <div class="row sticky-top">
+            @interfaceHeader2(actor, values, user)
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+                <div class="nav flex-column nav-pills mt-2 contribution-nav sticky-top" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    @for(vizPane <- EActorVizPane.values()) {
+                        @header(
+                            vizPane,
+                            Messages("test.viz.actor.pane." + vizPane.id + ".title"),
+                            pane != null && vizPane.id == pane.id
+                        )
+                    }
+                </div>
+            </div>
+
+            <div class="col-sm-9 col-md-10">
+                <div class="tab-content" id="v-pills-tabContent">
+                    @for(vizPane <- EActorVizPane.values()) {
+                        @content(
+                            vizPane,
+                            pane != null && vizPane.id == pane.id
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@header(id : EActorVizPane, title : String, show : Boolean = false) = {
+    <a id="v-pills-@id.id-tab" class="nav-link @if(show){active}" data-toggle="pill" data-target-id="@id.id" href="#v-pills-@id.id" role="tab" aria-controls="v-pills-@id.id" aria-selected="@show">@title</a>
+}
+
+@content(id : EActorVizPane, show : Boolean = false) = {
+    <div id="v-pills-@id.id" class="tab-pane contribution-pane fade @if(show){show active}" role="tabpanel" aria-labelledby="v-pills-@id.id-tab">
+        <div class="card">
+            <div class="card-body contribution-pane-container">
+                @interfaceContent(id, actor, values, user)
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,167 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Simple dropdown to administer contributions (visible for group owners and admins only)
+*
+* @param contribution the contribution to which an action may be performed
+* @param pullRight true if the menu must be displayed at the right of the button
+* @param user current user profile
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.importInGroup
+@import be.webdeb.core.api.contribution.EContributionType
+
+@(
+    contribution : ContributionHolder,
+    pullRight : Boolean,
+    user : WebdebUser
+)
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      let containerViewer = $('#viewer-actions');
+      let container = $('#contrib-actions');
+
+      containerViewer.find('#viewer-btn').on('click', function () {
+          document.location = "@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.login";
+      });
+
+      container.find('#edit-btn').on('click', function () {
+        redirectToEdit(@contribution.getId);
+      });
+
+      container.find('#remove-from-group-btn').on('click', function () {
+        showConfirmationPopup(doDeleteFromGroup, null, "viz.admin.modal.remove." + @contribution.getType.id +".", $('#change-scope').text());
+      });
+
+      container.find('#delete-btn').on('click', function () {
+        showConfirmationPopup(doDelete, null, "viz.admin.modal.delete." + @contribution.getType.id +".");
+      });
+
+      let modalanchor = $('#merge-modal-anchor');
+      container.find('#merge-btn').on('click', function () {
+        getMergeContributionModal(@contribution.getId, @contribution.getType.id).done(function (html) {
+          modalanchor.empty().append(html);
+          modalanchor.find('.modal').modal('show');
+        });
+      });
+
+      container.find('#history-btn').on('click', function () {
+        getContributionHistoryModal(@contribution.getId, @contribution.getType.id).done(function (html) {
+          modalanchor.empty().append(html);
+          modalanchor.find('.modal').modal('show');
+        });
+      });
+
+      claimContributionListener(container);
+
+      container.find('#import-btn').on('click', function () {
+        loadAndShowModal(modalanchor, $('#import-modal-anchor').html());
+
+        initImportInGroupModal(modalanchor.find('#import-in-group'));
+      });
+
+      container.find('#reset-btn').on('click', function () {
+        document.location = "@be.webdeb.presentation.web.controllers.entry.actor.routes.ActorActions.resetActorType(contribution.getId)";
+      });
+    });
+
+    /**
+     * remove definitely (only admins may do that)
+     */
+    function doDelete() {
+    	deleteContribution(@contribution.getId, @contribution.getType.id, 0, true, true);
+    }
+
+    /**
+     * remove from current scope
+     */
+    function doDeleteFromGroup() {
+      deleteContribution(@contribution.getId, @contribution.getType.id, @user.getGroup.getGroupId, false, false);
+    }
+
+  </script>
+
+@if(user.getERole.id() != EContributorRole.VIEWER.id()) {
+  <div id="contrib-actions" class="contrib-actions hidden-xs">
+    <div class="dropdown">
+      <button class="btn btn-link primary dropdown-toggle" data-toggle="dropdown" id="contrib-actions">
+        <span class="fa fa-cogs fixed-size"></span> @Messages("viz.admin.actions")
+      </button>
+
+      <div class="dropdown-menu @if(!pullRight){dropdown-menu-right} group-dropdown" role="menu" aria-labelledby="contrib-actions" style="width: 250px">
+        <div class="instructions ml-2 mr-2 pt-0">@Messages("viz.admin.actions.desc")</div>
+
+        <hr class="hr-small">
+
+        <button id="edit-btn" class="dropdown-item" type="button" title="@Messages("viz.admin.update.tooltip")">
+          <i class="fa fa-pencil-alt fixed-size"></i> @Messages("viz.admin.update.btn")
+        </button>
+
+        <button id="merge-btn" class="dropdown-item" type="button" title="@Messages("viz.admin.merge.title")">
+          <i class="fas fa-link fixed-size"></i>&nbsp;@Messages("viz.admin.merge.label")
+        </button>
+
+        <button id="history-btn" class="dropdown-item" type="button" title="@Messages("viz.admin.history.title")">
+          <i class="fa fa-history fixed-size"></i>&nbsp;@Messages("viz.admin.history.label")
+        </button>
+
+        <button class="dropdown-item contribution-claim-btn" type="button" title="" data-id="@contribution.getId">
+          <span><i class="fas fa-exclamation-circle fixed-size"></i>&nbsp;@Messages("contribution.claim.title")</span>
+        </button>
+
+        @if(user.isAdminOf(contribution)) {
+          @if(contribution.getType != EContributionType.ACTOR && contribution.getType != EContributionType.TAG) {
+            <button id="import-btn" class="dropdown-item" type="button" title="@Messages("viz.admin.import.tooltip")">
+              <i class="fa fa-user-plus fixed-size"></i> @Messages("viz.admin.import.btn")
+            </button>
+
+            <button id="remove-from-group-btn" class="dropdown-item" type="button" title="@Messages("viz.admin.remove.title", user.getGroup.getGroupName)">
+              <i class="fa fa-ban fixed-size"></i>&nbsp;@Messages("viz.admin.remove.label", user.getGroup.getGroupName)
+            </button>
+          }
+          @if(user.getERole.id() == EContributorRole.ADMIN.id() || user.getId == contribution.getCreator) {
+            <button id="delete-btn" class="dropdown-item" type="button" title="@Messages("viz.admin.delete.title")">
+              <i class="fa fa-trash fixed-size"></i>&nbsp;@Messages("viz.admin.delete.label")
+            </button>
+          }
+          @if(user.getERole.id() == EContributorRole.ADMIN.id() && contribution.getType.id() == EContributionType.ACTOR.id()) {
+            <button id="reset-btn" class="dropdown-item" type="button" title="@Messages("viz.admin.reset.title")">
+              <i class="fa fa-trash fixed-size"></i>&nbsp;@Messages("viz.admin.reset.label")
+            </button>
+          }
+        }
+      </div>
+    </div>
+  </div>
+  <div id="import-modal-anchor">@importInGroup(contribution.getId, contribution.getType, user)</div>
+}else{
+    <div id="viewer-actions" class="contrib-actions hidden-xs">
+        <div class="btn-group">
+            <button id="viewer-btn" class="btn btn-link primary">
+                <span class="fa fa-cogs fixed-size"></span> @Messages("viz.viewer.actions")
+            </button>
+        </div>
+    </div>
+}

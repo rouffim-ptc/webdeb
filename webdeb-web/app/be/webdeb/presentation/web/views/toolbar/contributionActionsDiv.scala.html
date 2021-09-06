@@ -1,0 +1,255 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*
+*@
+
+@*
+* Reusable button to show the actions for a given contribution
+*
+* @param contribution a contribution
+* @param linksActions true if actions for links must be displayed
+* @param linkId a link id
+* @param contextId the id of the context
+* @param linkedContributionId the id of a linked contribution if any (ex : an actor id)
+* @param pullRight true if the actions menu must be displayed at the right of the screen
+* @param asBlock true if the actions menu must be displayed as block
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.toolbar.argument.argumentVizActions
+@import be.webdeb.presentation.web.views.html.toolbar.argument.argumentEditActions
+@import be.webdeb.presentation.web.views.html.toolbar.argument.argumentAddActions
+@import be.webdeb.presentation.web.views.html.toolbar.citation.citationVizActions
+@import be.webdeb.presentation.web.views.html.toolbar.citation.citationEditActions
+@import be.webdeb.presentation.web.views.html.toolbar.tag.tagVizActions
+@import be.webdeb.presentation.web.views.html.toolbar.tag.tagEditActions
+@import be.webdeb.presentation.web.views.html.toolbar.tag.tagAddActions
+@import be.webdeb.presentation.web.views.html.toolbar.tagcategory.categoryEditActions
+@import be.webdeb.presentation.web.views.html.toolbar.tagcategory.categoryAddActions
+@import be.webdeb.presentation.web.views.html.toolbar.debate.debateVizActions
+@import be.webdeb.presentation.web.views.html.toolbar.debate.debateEditActions
+@import be.webdeb.presentation.web.views.html.toolbar.debate.debateAddActions
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.viz.EContributionActionType
+@import be.webdeb.presentation.web.controllers.viz.EActionType
+@import be.webdeb.presentation.web.views.html.toolbar.actor.actorEditActions
+@import be.webdeb.presentation.web.views.html.toolbar.text.textEditActions
+@import be.webdeb.presentation.web.views.html.toolbar.text.textVizActions
+@import be.webdeb.presentation.web.views.html.toolbar.actor.actorVizActions
+
+@import be.webdeb.presentation.web.views.html.toolbar.tagdebate.tagdebateEditActions
+@import be.webdeb.presentation.web.views.html.toolbar.tagdebate.tagdebateAddActions
+@(
+    contributionType: EContributionType,
+    user : WebdebUser,
+    linksActions : Boolean = true,
+    actionTypes : scala.collection.mutable.Set[EContributionActionType] = null,
+    argumentCanAddArgument: Boolean = false,
+    subActionType : EActionType = null,
+    other: Boolean = true,
+    other2: Boolean = true,
+    otherId: Long = null
+)
+
+<div class="contribution-actions-container d-flex align-items-center justify-content-center mr-1">
+
+    @if((actionTypes == null || actionTypes.contains(EContributionActionType.VIZ)) && (contributionType != EContributionType.TAG || !linksActions)) {
+        <div class="dropdown d-none d-md-block">
+            <button type="button" class="btn btn-link primary dropdown-toggle dropdown-toggle-no-caret" data-toggle="dropdown">
+                <i class="fas fa-eye"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                @contributionType match {
+                    case EContributionType.ACTOR => {
+                        @actorVizActions(user)
+                    }
+                    case EContributionType.ARGUMENT => {
+                        @argumentVizActions(user, otherId)
+                    }
+                    case EContributionType.CITATION => {
+                        @citationVizActions(user)
+                    }
+                    case EContributionType.DEBATE => {
+                        @debateVizActions(user)
+                    }
+                    case EContributionType.TEXT => {
+                        @textVizActions(user)
+                    }
+                    case EContributionType.TAG_LINK => {
+                        @tagVizActions(user)
+                    }
+                    case EContributionType.TAG => {
+                        @tagVizActions(user)
+                    }
+                    case _ => { @* ignore *@ }
+                }
+            </div>
+        </div>
+    }
+
+    @if(actionTypes == null || actionTypes.contains(EContributionActionType.EDIT)) {
+        <div class="dropdown d-none d-md-block">
+            <button type="button" class="btn btn-link primary dropdown-toggle dropdown-toggle-no-caret" data-toggle="dropdown">
+                <i class="fas fa-pencil-alt"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                @contributionType match {
+                    case EContributionType.ACTOR => {
+                        @actorEditActions(user, linksActions)
+                    }
+                    case EContributionType.ARGUMENT => {
+                        @argumentEditActions(user, linksActions, other)
+                    }
+                    case EContributionType.CITATION => {
+                        @citationEditActions(user, linksActions, subActionType, other, other2)
+                    }
+                    case EContributionType.TAG => {
+                        @categoryEditActions(user, linksActions)
+                    }
+                    case EContributionType.DEBATE => {
+                        @debateEditActions(user, linksActions)
+                    }
+                    case EContributionType.TEXT => {
+                        @textEditActions(user, linksActions)
+                    }
+                    case EContributionType.TAG_LINK => {
+                        @tagEditActions(user, linksActions)
+                    }
+                    case EContributionType.DEBATE_HAS_TAG_DEBATE => {
+                        @tagdebateEditActions(user, linksActions)
+                    }
+                    case _ => { @* ignore *@ }
+                }
+            </div>
+        </div>
+    }
+
+    @if((actionTypes == null || actionTypes.contains(EContributionActionType.ADD)) && (linksActions && contributionType != EContributionType.CITATION)) {
+        <div class="dropdown d-none d-md-block">
+            <button type="button" class="btn btn-link primary dropdown-toggle dropdown-toggle-no-caret" data-toggle="dropdown" title="">
+                <i class="fas fa-plus"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                @contributionType match {
+                    case EContributionType.ARGUMENT => { @argumentAddActions(user, argumentCanAddArgument)}
+                    case EContributionType.TAG => {@categoryAddActions(user)}
+                    case EContributionType.DEBATE => {@debateAddActions(user)}
+                    case EContributionType.TAG_LINK => {@tagAddActions(user, subActionType)}
+                    case EContributionType.DEBATE_HAS_TAG_DEBATE => {
+                        @tagdebateAddActions(user)
+                    }
+                    case _ => { @* ignore *@ }
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<div class="contribution-fake-actions-container pl-1 pr-1 mr-1">
+    <i class="fas fa-ellipsis-h d-none d-md-block"></i>
+</div>
+
+<div class="dropdown d-block d-md-none">
+    <button type="button" class="btn btn-link secondary dropdown-toggle dropdown-toggle-no-caret" data-toggle="dropdown">
+        <i class="fas fa-ellipsis-h"></i>
+    </button>
+
+    <div class="dropdown-menu dropdown-menu-right">
+
+        @if((actionTypes == null || actionTypes.contains(EContributionActionType.VIZ)) && (contributionType != EContributionType.TAG || !linksActions)) {
+            <div>
+                <h6 class="dropdown-header"><i class="fas fa-pencil-alt mr-1"></i>@Messages("general.contribution.action.viz.title")</h6>
+                @contributionType match {
+                    case EContributionType.ACTOR => {
+                        @actorVizActions(user)
+                    }
+                    case EContributionType.ARGUMENT => {
+                        @argumentVizActions(user)
+                    }
+                    case EContributionType.CITATION => {
+                        @citationVizActions(user)
+                    }
+                    case EContributionType.DEBATE => {
+                        @debateVizActions(user)
+                    }
+                    case EContributionType.TEXT => {
+                        @textVizActions(user)
+                    }
+                    case EContributionType.TAG_LINK => {
+                        @tagVizActions(user)
+                    }
+                    case EContributionType.TAG => {
+                        @tagVizActions(user)
+                    }
+                    case _ => { @* ignore *@ }
+                }
+                <div class="dropdown-divider"></div>
+            </div>
+        }
+
+        @if(actionTypes == null || actionTypes.contains(EContributionActionType.EDIT)) {
+            <div>
+                <h6 class="dropdown-header"><i class="fas fa-eye mr-1"></i>@Messages("general.contribution.action.edit.title")</h6>
+                @contributionType match {
+                    case EContributionType.ACTOR => {
+                        @actorEditActions(user, linksActions)
+                    }
+                    case EContributionType.ARGUMENT => {
+                        @argumentEditActions(user, linksActions)
+                    }
+                    case EContributionType.CITATION => {
+                        @citationEditActions(user, linksActions, subActionType)
+                    }
+                    case EContributionType.TAG => {
+                        @categoryEditActions(user, linksActions)
+                    }
+                    case EContributionType.DEBATE => {
+                        @debateEditActions(user, linksActions)
+                    }
+                    case EContributionType.TEXT => {
+                        @textEditActions(user, linksActions)
+                    }
+                    case EContributionType.TAG_LINK => {
+                        @tagEditActions(user, linksActions)
+                    }
+                    case EContributionType.DEBATE_HAS_TAG_DEBATE => {
+                        @tagdebateEditActions(user, linksActions)
+                    }
+                    case _ => { @* ignore *@ }
+                }
+                <div class="dropdown-divider"></div>
+            </div>
+        }
+
+        @if((actionTypes == null || actionTypes.contains(EContributionActionType.ADD)) && (linksActions && contributionType != EContributionType.CITATION)) {
+            <div>
+                <h6 class="dropdown-header"><i class="fas fa-plus mr-1"></i>@Messages("general.contribution.action.add.title")</h6>
+                @contributionType match {
+                    case EContributionType.ARGUMENT => { @argumentAddActions(user, argumentCanAddArgument)}
+                    case EContributionType.TAG => {@categoryAddActions(user)}
+                    case EContributionType.DEBATE => {@debateAddActions(user)}
+                    case EContributionType.TAG_LINK => {@tagAddActions(user, subActionType)}
+                    case EContributionType.DEBATE_HAS_TAG_DEBATE => {
+                        @tagdebateAddActions(user)
+                    }
+                    case _ => { @* ignore *@ }
+                }
+            </div>
+        }
+    </div>
+</div>

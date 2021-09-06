@@ -1,0 +1,42 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable button to show the add actions for a given tag debate
+*
+* @param user the current user that could click on button
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+
+@(
+        user : WebdebUser
+)
+
+<button class="dropdown-item debate-add-category-btn" type="button">
+    <span><i class="fas fa-plus fixed-size"></i>&nbsp;@Messages("general.add.btn.category")</span>
+</button>
+
+<button class="dropdown-item debate-add-argument-btn" type="button">
+    <span><i class="fas fa-plus fixed-size"></i>&nbsp;@Messages("general.add.btn.argument") <i class="@Messages("browse.search.tip.ARGUMENT")"></i></span>
+</button>
+
+<button class="dropdown-item debate-add-citation-btn" type="button">
+    <span><i class="fas fa-plus fixed-size"></i>&nbsp;@Messages("general.add.btn.citation") <i class="@Messages("browse.search.tip.CITATION")"></i></span>
+</button>

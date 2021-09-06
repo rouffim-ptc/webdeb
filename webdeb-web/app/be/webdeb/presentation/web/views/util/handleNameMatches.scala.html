@@ -1,0 +1,102 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal dialog to warn user we found a (set of) possible matches on an actor's name and to ask him to either reuse
+* an existing element or create a new one (see webdeb-scripts.js handleActorNameMatches)
+*
+* @param actors a list of actors that have the same name as one present in a form that has not been recognized by
+* autocomplete feature
+* @param isActor true if we must disambiguate for an actor name, false if it concerns an affiliation name
+* @param idActorForm the position of the desambiguation in the form
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.views.html.viz.actor.util.actorCard
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe, hiddenField}
+
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorSimpleForm
+@(
+    actors: java.util.List[ActorHolder],
+    isActor: Boolean,
+    indexActorForm : Integer,
+    selector : String,
+    createdAsJson : String,
+    values : ValuesHelper
+)
+
+@getNames(actor : ActorHolder) = @{
+  if(actor.getActortype == 0) {
+    actor.getAllnames
+  } else {
+    actor.getAllorgnames
+  }
+}
+
+@emptyModalframe("namesake-modal", true, "large", "", false) {
+
+  <div class="modal-header">
+    <h3 class="modal-title small-caps text-muted">
+      @Messages("entry.actor.namesake.title") &nbsp;
+      <span class="text-primary" id="namesake-name">@actors.get(0).getFullname</span>
+      @* hide all other spellings because spelled namesake may be spelled in another language
+        will be used by js code to flag namesake actor *@
+
+      @hiddenField("isActor", "isActor", isActor)
+      @hiddenField("selector", "selector", selector)
+      @hiddenField("indexActorForm", "indexActorForm", indexActorForm)
+
+      @if(actors.get(0).getActortype == EActorType.ORGANIZATION.id) {
+        <span class="text-muted smaller-font" id="namesake-acro">@actors.get(0).getOrgname.getFirst</span>
+      }
+    </h3>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <p class="instructions">@Messages("entry.actor.namesake.desc")</p>
+          <div class="created-actors d-none">@createdAsJson</div>
+          <div id="namesake-boxes" class="pointable-content pageable smaller-font">
+            @for(actor <- actors) {
+              <div>
+                @actorCard(actor, true, values)
+                <hr>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" id="createnew" class="btn btn-link primary toggleable">
+      @Messages("entry.actor.existing.nok")
+    </button>
+    <button type="button" id="load" class="btn btn-primary toggleable" disabled="">
+      @Messages("entry.actor.existing.ok")
+    </button>
+  </div>
+}

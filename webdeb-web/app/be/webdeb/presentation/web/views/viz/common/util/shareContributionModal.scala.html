@@ -1,0 +1,121 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Template modal to shade a contribution
+*
+* @param user the current user profile
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+
+@(
+        contribution : ContributionHolder,
+        pane : Integer,
+        pov : Integer,
+        user : WebdebUser
+)
+
+<script type="text/javascript">
+
+        $(document).ready(function() {
+            let modal = $("#modal-media-shade-contribution");
+
+            modal.find('.share-url-btn').on('click', function(){
+                let copyText = modal.find('.share-url');
+
+                navigator.clipboard.writeText(copyText.val()).then(function() {
+                    /* clipboard successfully set */
+                    slideDefaultSuccessMessage(Messages('share.link.sucess'));
+                }, function() {
+                    copyText.select();
+                    document.execCommand("copy");
+                    slideDefaultSuccessMessage(Messages('share.link.sucess'));
+                });
+            });
+        });
+
+        function shareByMail(){
+            var subject = encodeURIComponent("@Messages("media.mail.subject." + contribution.getPreciseType.id(), contribution.getContributionTitle)");
+            var body = encodeMailTo("@Messages("media.mail.body." + contribution.getPreciseType.id()) @contribution.getContributionTitle (" + window.location.href + ")@Messages("media.mail.body2." + contribution.getPreciseType.id())");
+            window.open("mailto:?subject=" + subject + "&body= " + body, "_self");
+        }
+
+</script>
+
+@emptyModalframe("modal-media-shade-contribution", false, "default", "", false) {
+
+    <div class="modal-header">
+        <h5>@contribution.getContributionTitle</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center justify-content-sm-center overflow-scroll-y">
+                        <a class="mr-3" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=@be.webdeb.presentation.web.controllers.viz.routes.VizActions.dispatch(contribution.getId, contribution.getTypeNum, pane, pov).absoluteURL()" title="Partager sur Facebook">
+                            <i class="fab fa-facebook" style="color: color: #3b5998;"></i>
+                        </a>
+
+                        <a class="mr-3" target="_blank" href="https://twitter.com/intent/tweet/?text=@contribution.getContributionMediaTitleForUrl&amp;url=@be.webdeb.presentation.web.controllers.viz.routes.VizActions.dispatch(contribution.getId, contribution.getTypeNum, pane, pov).absoluteURL()" title="Partager sur Twitter">
+                            <i class="fab fa-twitter" style="color: #55acee;"></i>
+                        </a>
+
+                        <a class="mr-3" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=@be.webdeb.presentation.web.controllers.viz.routes.VizActions.dispatch(contribution.getId, -1, -1, -1).absoluteURL()&amp;title=@contribution.getContributionMediaTitleForUrl&amp;source=WebDeb" title="Partager via LinkedIn">
+                            <i class="fab fa-linkedin" style="color: #0177b5;"></i>
+                        </a>
+
+                        <a class="d-block d-md-none mr-3" target="_blank" href="fb-messenger://share?link=@contribution.getContributionMediaTitleForUrl%20@be.webdeb.presentation.web.controllers.viz.routes.VizActions.dispatch(contribution.getId, contribution.getTypeNum, pane, pov).absoluteURL()" data-action="share/messenger/share" title="Partager via Facebook Messenger">
+                            <i class="fab fa-facebook-messenger" style="color:#0084ff;"></i>
+                        </a>
+
+                        <a class="d-block d-md-none mr-3" target="_blank" href="whatsapp://send?text=@contribution.getContributionMediaTitleForUrl%20@be.webdeb.presentation.web.controllers.viz.routes.VizActions.dispatch(contribution.getId, contribution.getTypeNum, pane, pov).absoluteURL()" data-action="share/whatsapp/share" title="Partager via Whatsapp">
+                            <i class="fab fa-whatsapp" style="color:white;background-color:#59cb3f;border-radius: 100%;  width: 50px;  height: 50px;  text-align: center;  padding-top: 1px;"></i>
+                        </a>
+
+                        <a href="javascript:shareByMail()" class="btn-share-email">
+                            <i class="fas fa-envelope-square" style="color: grey;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="d-flex">
+                        <input type="url" class="form-control share-url w-100 flex-grow-1 pl-2 pr-2" dir="ltr" readonly="" value="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.dispatch(contribution.getId, contribution.getTypeNum, pane, pov).absoluteURL()">
+                        <button class="btn btn-link share-url-btn">@Messages("general.btn.copy")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Messages("general.btn.close")</button>
+    </div>
+
+}

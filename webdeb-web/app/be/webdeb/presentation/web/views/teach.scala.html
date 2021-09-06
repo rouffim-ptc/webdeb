@@ -1,0 +1,82 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Search page. Contains a search bar. When going directly here (without being redirected from a prefilled-search),
+* will display overviews of results (using a switch on concrete type of ContributionHolder)
+*
+* @param elements a list of contribution holders to be displayed
+* @param user the user profile data
+*
+* @author Julien Mathieu (original design)
+* @author Martin Rouffiange
+*@
+
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+        user : WebdebUser
+)
+
+@scripts = {
+    <title>@Messages("welcome.index.1.title") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")</title>
+    <meta name="description" content="@Messages("welcome.slogan.3") @Messages("welcome.slogan.4")">
+
+    <meta property="og:title" content="@Messages("welcome.index.1.title") @Messages("welcome.slogan.1") @Messages("welcome.slogan.2")" />
+    <meta property="og:description" content="@Messages("welcome.slogan.3") @Messages("welcome.slogan.4")" />
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.index().absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable.png").absoluteURL()" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/teach_styles.css")">
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+            });
+    </script>
+}
+
+@main(user, scripts, Html(""), "", "viz.teach") {
+    <div class="container-fluid pt-3 background_grey">
+
+        <div class="container">
+            <div class="row">
+                <div class="d-flex justify-content-between align-items-center reversed-flex flex-column-sm col-12">
+                    <div>
+                        <h2 class="color_green">@Messages("welcome.index.3.title")</h2>
+                        <img class="webdeb-logo mt-3" src="@routes.Assets.at("images/webdeb.png")" alt="WebDeb">
+                        <p class="pb-2 text-header">
+                        @Html(Messages("welcome.index.3.subtitle"))
+                        </p>
+                    </div>
+                    <img class="teach_img presentation_img mt-2" src="@routes.Assets.at("images/home/enseigner.svg")" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container mt-3 teach-container">
+
+
+    </div>
+
+}

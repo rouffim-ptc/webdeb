@@ -1,0 +1,30 @@
+﻿WebDeb software has been developped by:
+=======================================
+
+Fabian Gilson (UNamur)
+Martin Rouffiange (UCLouvain)
+Julien Mathieu (UCLouvain, design intern)
+
+The authors are indebted to the following people for their guidance:
+-------------------------
+* Promoters *
+-------------------------
+Bernard Delvaux
+Cédrick Fairon
+Pierre-Yves Schobbens
+-------------------------
+* Team *
+-------------------------
+Amélie Cougnon
+André Bittar
+Deniz Uygur
+Pierre Beaulieu
+Robin Dumont 
+Sophie Roekhaut
+-------------------------
+* For their help *
+-------------------------
+Eric Fesler (Audaxis)
+Brice de Behault (EarlyTracks)
+Hubert Naets
+Pascal Francq

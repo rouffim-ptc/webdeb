@@ -1,0 +1,40 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Popover menu to add or edit excerpts when highlighting text excerpts
+*
+* @param text the text details
+* @param newExcerpt form to be filled for the new excerpt
+* @param excds ids of all overlapping excerpts (for proper href to viz details page)
+* @param user the webdeb user asking for the popover
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+
+@(
+        text : TextHolder,
+        user : WebdebUser
+)
+
+<button class="btn btn-sm btn-default btn-new-citation-from-excerpt" title="@Messages("text.args.tooltip.arg.settings")" data-placement="bottom" data-text-id="@text.getId">
+    @Messages("text.args.popover.new") <span class="fa fa-edit"></span>
+    <span class="excerpt-to-add"></span>
+</button>

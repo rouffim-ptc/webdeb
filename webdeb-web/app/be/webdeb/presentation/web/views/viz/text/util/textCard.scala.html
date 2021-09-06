@@ -1,0 +1,92 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial template that displays all details of a text in a concise way.
+*
+* @param text a text holder to be displayed
+* @param user current user profile
+* @param large true if a large citation must be displayed
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.viz.actor.util.authorList
+@import be.webdeb.presentation.web.views.html.viz.tag.tagList
+
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+@import be.webdeb.core.api.actor.EActorRole
+@import be.webdeb.core.api.text.ETextSourceType
+@(
+    text : TextHolder,
+    user : WebdebUser,
+    inSummary : Boolean
+)
+
+
+@if(inSummary) {
+  <div id="summary_@text.getId" class="summary d-flex align-items-center" data-id="@text.getId" data-name="@text.getTitle">
+
+    <div class="mr-1">
+      <i class="@Messages("browse.search.tip.TEXT")"></i>
+    </div>
+
+    <div class="flex-grow-1">
+      <div class="mb-3">
+        <h4 class="border-bottom d-inline pb-2">@text.getTitle</h4>
+      </div>
+  }
+
+  <div class="contribution-card">
+
+    <p><span class="small-font text-muted mr-1">@Messages("text.label.textType")</span> @text.getTextType</p>
+    <p><span class="small-font text-muted mr-1">@Messages("text.label.publicationDate")</span> @text.getPublicationDate</p>
+
+    @if(text.getUrl != null || text.getSourceTitle != null) {
+      <p>
+        @if(text.getSourceTitle != null) {
+          <span class="small-font text-muted mr-1">@Messages("text.args.label.sourceTitle")</span> @text.getSourceTitle
+        }
+        @if(text.getUrl != null) {
+          <span><a href="@text.getUrl" target="_blank">@Messages("general.goto.source")</a></span>
+        }
+      </p>
+    }
+
+    @if(text.getTextSourceType != ETextSourceType.OTHER.id()) {
+      <p class="text-lowercase">
+        <span class="small-font text-muted">@Messages("text.args.label.sourceType")</span>
+        @text.getTextSourceTypeName
+      </p>
+    }
+
+    <p class="text-lowercase">
+      <span class="small-font text-muted">@Messages("text.args.label.language")</span>
+      @text.getLanguage
+    </p>
+
+    <p>
+      <span class="text-lowercase text-muted small-font" style="margin-bottom: 2px">@Messages("text.args.label.author")</span>
+      @authorList(text.getAuthors(4), if(inSummary){0}else{text.getNbActors(EActorRole.AUTHOR)}, text.getId, EActorRole.AUTHOR, EActorVizPane.AFFILIATIONS)
+    </p>
+
+  </div>
+@if(inSummary) { </div></div> }

@@ -1,0 +1,124 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Page to edit free copyright freeSources
+*
+* @param form for edit free freeSources
+* @param user the user profile
+* @param map the message map to display (if any)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, breadcrumb, message, hiddenFormField, noerrorForm}
+@import be.webdeb.presentation.web.views.html.main
+@import helper._
+@import be.webdeb.presentation.web.controllers.account.admin.TextCopyrightfreeSourcesForm
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@(
+        freeSourceForm : Form[TextCopyrightfreeSourcesForm],
+        user : WebdebUser,
+        map : java.util.Map[String, String]
+)
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+
+@scripts = {
+  <title>@Messages("title." + play.Configuration.root().getString("server.type"))</title>
+
+  <script src="@routes.Assets.at("javascripts/text-scripts.js")" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      manageAddRmButton('freeSources', ['domainName'], "admin.freeSource.delete.confirm.", deleteFreeSource);
+    });
+
+    /**
+     * Delete free source in DB
+     *
+     * param deleted the delete button that been pushed
+     */
+    function deleteFreeSource(deleted){
+      var p = $(deleted).parent().parent();
+      var id = p.find('input').val();
+      removeFreeCopyrightSource(id).done(function (data) {
+        removeGenericEntry(deleted);
+        showInformativePopup(data);
+      }).fail(function (jqXHR) {
+        showInformativePopup(jqXHR.responseText);
+      });
+    }
+
+  </script>
+}
+
+@main(user, scripts) {
+
+  <div id="msg-div">
+    @message(flash)
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h3 class="small-caps text-muted" id="formtitle">
+        @Messages("admin.freeSource.edit.title")
+      </h3>
+      <hr>
+    </div>
+
+    <div id="form-content" class="col-12 offset-md-1 col-md-10">
+      @form(be.webdeb.presentation.web.controllers.account.admin.routes.AdminActions.saveFreeCopyrightSources(), 'enctype -> "multipart/form-data") {
+        <fieldset>
+          <div id="freeSources" class="controls col-12">
+            <div class="controls">
+            <label class="control-label">@Messages("admin.freeSource.edit.label")</label>
+              @repeatWithIndex(freeSourceForm("freeSources"), min = 1) { (freeSource, i) =>
+              <div id="freeSource_@i.toString.concat("_name")" class="entry input-group padding-group">
+                @hiddenFormField(freeSourceForm(freeSource.name.concat(".sourceId")))
+                <div class="col-12 input-field">
+                  @inputText(
+                    freeSourceForm(freeSource.name.concat(".domainName")),
+                    'placeholder -> Messages("admin.freeSource.edit.name"),
+                    '_label -> null,
+                    'class -> "form-control profession_name",
+                    'autocomplete -> "off"
+                  )(handler = noerrorForm, implicitly[Messages])
+                </div>
+                <span class="input-group-btn bottom">
+                  <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                  <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                </span>
+              </div>
+              @* must handle error message by hand for inlineforms *@
+              @freeSourceForm.errors.map { case (key, error) =>
+                @if(key.startsWith(freeSource.name) && error(0).message != "") {
+                  <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+                }
+              }
+            }
+            </div>
+          </div>
+        </fieldset>
+        <button type="submit" class="btn btn-primary pull-right" id="submit">
+          @Messages("general.btn.save") &nbsp; <span class="fa fa-check-circle"></span>
+        </button>
+      }
+    </div>
+  </div>
+}

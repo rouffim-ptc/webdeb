@@ -1,0 +1,116 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to merge professions
+*
+* @param profession the profession edit form
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, hiddenFormField, noerrorForm}
+@import helper._
+@import be.webdeb.presentation.web.controllers.account.admin.ProfessionMergeForm
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.controllers.account.admin.ProfessionForm
+@(
+  profession : ProfessionForm,
+  professionForm : Form[ProfessionMergeForm],
+  map : java.util.Map[String, String]
+)
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+<script src="@routes.Assets.at("javascripts/profession-scripts.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    let modal = $("#mergeProfessions");
+
+    addListeners(modal);
+    addProfessionTypeahead(modal.find('#professionTomergewith').find("input").first(), @profession.getId);
+  });
+
+  function addListeners(modal) {
+    let errorContainer = modal.find("#error");
+
+    modal.find('#submit-btn').on('click', function () {
+      sendMergeProfessions(modal.find('#profession-form'), @profession.getId).done(function (data) {
+        hideAndDestroyModal(modal);
+        $(document).trigger("modalRemoved");
+        slideDefaultSuccessMessage();
+      }).fail(function (jqXHR) {
+        // rebuild form from response text
+        errorContainer.html(jqXHR.responseText);
+        errorContainer.show();
+        //addProfessionTypeahead(modal.find('#professionTomergewith').find("input").first());
+      });
+    });
+  }
+</script>
+
+@emptyModalframe("mergeProfessions", false, "default", "", false) {
+<div class="modal-header">
+  <h5 class="modal-title small-caps text-muted">
+    @Messages("admin.merge.professions.title") - <span class="text-primary">@profession.getName</span>
+  </h5>
+
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row mb-5">
+        <div id="form-content" class="col-12 mt-3 mb-5">
+          <form id="profession-form">
+            <fieldset>
+              @hiddenFormField(professionForm("professionId"))
+
+              <div id ="professionTomergewith">
+                <div class="input-field">
+                  @textInput(
+                    professionForm(professionForm("professionTomergewith").name.concat(".name")),
+                    Messages("admin.merge.professions.label")
+                  )
+                  @hiddenFormField(professionForm(professionForm("professionTomergewith").name.concat(".id")))
+                </div>
+
+                <div id="error" style="display:none;"></div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="form-actions pull-left">
+      <button id="submit-btn" type ="button" name="submit" class="btn btn-primary">
+        @Messages("general.btn.merge")
+          &nbsp; <span class="fa fa-check-circle"></span>
+      </button>
+    </div>
+    <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+  </div>
+}

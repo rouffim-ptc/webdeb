@@ -1,0 +1,56 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Partial page
+*
+* @param form the form that contains the place-related fields
+*
+* @author Martin Rouffiange
+*@
+
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.fileInput
+@(
+        form: Form[_],
+        field : String
+)
+
+<div>
+    @fileInput(form(field), null, false, null, null, null, null, "image/png, image/jpeg")
+</div>
+
+@*
+<nav>
+    <div class="nav nav-tabs" role="tablist">
+        <a class="nav-item nav-link active" id="user_illustration-tab" data-toggle="tab" href="#user_illustration" role="tab" aria-controls="user_illustration" aria-selected="true">Parcourir votre ordinateur</a>
+        <a class="nav-item nav-link" id="bank_illustration-tab" data-toggle="tab" href="#bank_illustration" role="tab" aria-controls="bank_illustration" aria-selected="false">Chercher une image dans la banque d’images XXX</a>
+    </div>
+</nav>
+
+<div class="tab-content p-3" style="background-color:white;border-left: 1px solid#ddd;border-right: 1px solid#ddd;border-bottom: 1px solid#ddd;">
+    <div class="tab-pane fade show active" id="user_illustration" role="tabpanel" aria-labelledby="user_illustration-tab">
+        <label for="illustration"><i class="fas fa-exclamation-triangle mr-2"></i>L'illustration doit être libre de droit.</label>
+        <input type="file" accept="image/png, image/jpeg" class="form-control-file" id="illustration">
+    </div>
+
+    <div class="tab-pane fade" id="bank_illustration" role="tabpanel" aria-labelledby="bank_illustration-tab">
+        A déterminer
+    </div>
+</div>
+    *@

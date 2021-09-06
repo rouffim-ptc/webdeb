@@ -1,0 +1,84 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Auto-creation or edition modal page to ask user to fill in more details about new auto-created argument
+*
+* @param argumentForm the form to fill in the new argument
+* @param helper helper class to fetch predefined values from (types, ...)
+* @param user the user profile
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.{hiddenFormField}
+@import be.webdeb.core.api.argument.EArgumentType
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.hiddenField
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+
+@import be.webdeb.core.api.contribution.EContributionType
+@(
+        argumentForm: Form[ArgumentForm],
+        full : Boolean,
+        helper : ContributionHelper,
+        user : WebdebUser,
+        map : java.util.Map[String,String]
+)
+
+<fieldset class="row">
+    @hiddenFormField(argumentForm("id"))
+    @hiddenFormField(argumentForm("contributor"))
+    @hiddenFormField(argumentForm("lang"))
+    @hiddenFormField(argumentForm("version"))
+    @hiddenFormField(argumentForm("inGroup"))
+    @hiddenFormField(argumentForm("argtype"))
+    @hiddenFormField(argumentForm("citationJustificationLinkId"))
+    @hiddenField("previousCall", "previousCall", "")
+
+    @if(argumentForm("argtype").value == EArgumentType.SHADED.id().toString) {
+        <div class="col-12 @if(full){col-xl-4}">
+        @selectInput(
+            argumentForm("shade"),
+            helper.getArgumentShades(ctx.lang.code, !full),
+            Messages("argument.standard.shade.label"),
+            Messages("argument.place.shade"),
+            true
+        )
+        </div>
+    }
+
+    <div class="col-12 @if(full){col-xl-8} input-field tt-all mb-4">
+        @textareaInput(
+            argumentForm("title"),
+            Messages(if(argumentForm("argtype").value == EArgumentType.SHADED.id().toString){"argument.standard.part.label"}else{"argument.standard.part.complete.label"}),
+            null,
+            true,
+            2
+        )
+
+        @hiddenFormField(argumentForm("dictionaryId"))
+        @hiddenFormField(argumentForm("language"))
+    </div>
+</fieldset>

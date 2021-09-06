@@ -1,0 +1,130 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to change members role in group
+*
+* @param the role id of the owner that want to change member role
+* @param roles the change member role form
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+@import be.webdeb.presentation.web.controllers.account.group.GroupForm
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+
+@(
+        group : GroupForm,
+        user : WebdebUser
+)
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    let modal = $('#changeMemberRoles');
+
+    // handle revoke requests
+    modal.find('[id^="revoke-member-"]').on('click', function () {
+      let btn = $(this);
+      let revoke = btn.prop('id').indexOf('true') !== -1;
+      showConfirmationPopup(revokeMember, btn, "group.revoke.modal." + revoke + ".", btn.parent().find('a').text());
+    });
+
+    modal.find('[id^="open-change-member-role_"]').on('click', function () {
+      let btn = $(this);
+      setTimeout(function(){
+        getModalFromFunction(changeMemberRole, $("#modal-anchor"), @group.getId, btn.data('user'));
+      }, 50);
+    });
+
+    modal.find('.searchable-container').searchableContainerJs({
+      sortElements : true
+    });
+  });
+
+</script>
+
+@emptyModalframe("changeMemberRoles", false, "form", "", false) {
+  <div class="modal-header">
+    <h3 class="modal-title small-caps text-muted">
+      @Messages("group.members.showmore")
+    </h3>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+        <div class="row searchable-container">
+
+          <div class="col-12">
+            <div class="input-group mb-2">
+              <input type="text" class="form-control searchable-input" placeholder="@Messages("group.gen.members.search")">
+            </div>
+
+            <hr>
+
+          </div>
+
+          @for(member <- group.getGroup.getMembers) {
+            @if(member.getRole.id < EContributorRole.ADMIN.id || user.getERole == EContributorRole.ADMIN) {
+              <div class="col-12 group-member-detail searchable-element" data-search="@member.getContributor.getPseudo @member.getContributor.getFirstname @member.getContributor.getLastname @member.getContributor.getEmail">
+                <span @if(member.isBanned) {
+                  style="text-decoration: line-through;" }>
+                  <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(
+                    member.getContributor.getId, ESettingsPane.PROFILE.id)" class="normal-style">
+                    @member.getContributor.getPseudo @if(user.getERole == EContributorRole.ADMIN) {- (@member.getContributor.getFirstname @member.getContributor.getLastname)}
+                  </a>
+
+                  <span class="text-muted"> - @member.getContributor.getEmail</span>
+                  <span> ( @Messages("role.label." + member.getRole.id()) )</span>
+                </span>
+                @if(member.getContributor.getId == user.getId) {
+                  <span class="text-success" style="padding-left: 12px">@Messages("group.member.you." + member.getRole.id)</span>
+                } else {
+                  @if(member.isBanned) {
+                    <button id="revoke-member-false_@member.getContributor.getId.toString.concat("_" + member.getGroup.getGroupId)"
+                    class="btn btn-link btn-sm primary">
+                    @Messages("group.member.revoke.false")
+                    </button>
+                  } else {
+                    <button id="revoke-member-true_@member.getContributor.getId.toString.concat("_" + member.getGroup.getGroupId)"
+                    class="btn btn-link btn-sm primary">
+                    @Messages("group.member.revoke.true")
+                    </button>
+                  }
+                }
+                @if(user.belongsTo(group.getId) != null && member.getRole.id() <= user.belongsTo(group.getId).getRole.id() && member.getContributor.getId != user.getId) {
+                  <button id="open-change-member-role_@group.getGroup.getGroupId" class="btn btn-link btn-sm primary" data-user="@member.getContributor.getId" data-dismiss="modal">
+                  @Messages("group.member.changerole")
+                  </button>
+                }
+
+                <hr>
+
+              </div>
+            }
+          }
+        </div>
+      </div>
+    </div>
+
+  <div class="modal-footer">
+      <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+  </div>
+}

@@ -1,0 +1,139 @@
+@*
+ * WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+ *
+ * List of the contributors to the development of WebDeb: see AUTHORS file.
+ * Description and complete License: see LICENSE file.
+ *
+ * This program (WebDeb) is free software:
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+ * If not, see <http://www.gnu.org/licenses/>.
+ *@
+
+
+@*
+* Partial template to edit advices form
+*
+* @param advicesForm the form to edit advices
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+*@
+
+@import be.webdeb.presentation.web.controllers.account.group.GroupMailForm
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, helpbubble, hiddenFormField, inlineform, noerrorForm, formLabel}
+@import helper._
+
+@import be.webdeb.presentation.web.controllers.account.AdvicesForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@(
+        advicesForm : Form[AdvicesForm]
+)
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            let modal = $('#manageAdvicesModal');
+
+            eventsHandler(modal);
+            submitForm(modal)
+        });
+
+        function eventsHandler(modal){
+            let advices = modal.find('#advices');
+
+            manageAddRmButton(advices, null, "entry.delete.confirm.", null, null, null);
+        }
+
+        function submitForm(modal){
+            // handle submit button
+            modal.find('#submit-btn').on('click', function () {
+                sendAdvices(modal.find('form')).done(function (data) {
+                    hideAndDestroyModal(modal);
+                    slideDefaultSuccessMessage();
+                }).fail(function (jqXHR) {
+                    switch (jqXHR.status) {
+
+                        case 400:
+                            // form has errors => clear actor modal and rebuild it with errors
+                            replaceContent('#advices-form', jqXHR.responseText, 'form');
+                            eventsHandler();
+                            fadeMessage();
+                            break;
+
+                        default:
+                            // any other (probably a crash)
+                            hideAndDestroyModal(modal);
+                            slideDefaultErrorMessage();
+                    }
+                });
+            });
+        }
+</script>
+
+@emptyModalframe("manageAdvicesModal", false, "form", "", false) {
+    <div class="modal-header">
+        <h3 id="manageAdvicesModal_title" class="modal-title small-caps text-muted">
+            Astuces
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div id="form-content" class="col-12">
+                <form id="advices-form">
+                    <fieldset>
+                        <div class="controls col-12 p-0" id="advices">
+                            @repeatWithIndex(advicesForm("advices"), min = 1) { (adviceForm, i) =>
+                                <div id="advices_@i" class="entry input-group padding-group">
+                                    <p class="mb-2">Astuce <span class="entry-to-increment">@(i + 1)</span></p>
+                                    <div class="d-flex align-items-end">
+                                        @hiddenFormField(advicesForm(adviceForm.name.concat(".id")))
+
+                                        <div class="flex-grow-1 input-field">
+                                            @textInput(
+                                                advicesForm(adviceForm.name.concat(".frTitle")),
+                                                Messages("explore.advice.title.fr")
+                                            )
+                                        </div>
+
+                                        <div class="flex-grow-1 input-field">
+                                            @textInput(
+                                                advicesForm(adviceForm.name.concat(".enTitle")),
+                                                Messages("explore.advice.title.en")
+                                            )
+                                        </div>
+
+                                        <div class="flex-grow-1 input-field">
+                                            @textInput(
+                                                advicesForm(adviceForm.name.concat(".nlTitle")),
+                                                Messages("explore.advice.title.nl")
+                                            )
+                                        </div>
+
+                                        <span class="input-group-btn bottom">
+                                            <button class="btn btn-default btn-sm advice-name-btn-add btn-add" type="button"><span class="fa fa-plus"></span></button>
+                                            <button class="btn btn-default btn-sm advice-name-btn-remove btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                                        </span>
+                                    </div>
+                                    <hr>
+                                </div>
+                            }
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="col-12">
+            <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+            <button id="submit-btn" type="button" class="btn btn-primary">@Messages("general.btn.save")</button>
+        </div>
+    </div>
+}

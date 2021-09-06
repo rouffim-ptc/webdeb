@@ -1,0 +1,387 @@
+#
+# WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+#
+# List of the contributors to the development of WebDeb: see AUTHORS file.
+# Description and complete License: see LICENSE file.
+#
+# This program (WebDeb) is free software:
+# you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+# Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+# If not, see <http://www.gnu.org/licenses/>.
+#
+
+#
+# This file defines all application routes (Higher priority routes first)
+#
+# IMPORTANT NOTE: this file must be maintained together with "ajax-router.js" since, in some cases,
+# manual redirects have been abstracted into javascript functions because such javascript-based redirected were needed
+# for performance reasons (client-side code)
+#
+
+# Home page
+GET         /                                be.webdeb.presentation.web.controllers.Application.index
+GET         /tour                                be.webdeb.presentation.web.controllers.Application.tour
+GET         /teach                                be.webdeb.presentation.web.controllers.Application.teach
+GET         /language                        be.webdeb.presentation.web.controllers.Application.language(language : String)
+GET         /about                           be.webdeb.presentation.web.controllers.Application.about
+GET         /terms                           be.webdeb.presentation.web.controllers.Application.terms
+GET         /partners                        be.webdeb.presentation.web.controllers.Application.partners
+GET         /acceptcookies                   be.webdeb.presentation.web.controllers.Application.acceptCookies
+POST        /checkoffensive                  be.webdeb.presentation.web.controllers.Application.checkOffensivePicture
+GET         /doc                             be.webdeb.presentation.web.controllers.Application.documentation(q : String, asHtml : Boolean)
+POST        /checkStatus                     be.webdeb.presentation.web.controllers.Application.checkStatus
+GET         /image                           be.webdeb.presentation.web.controllers.Application.imageModal(path : String)
+
+# Project pages
+GET         /2019                            be.webdeb.presentation.web.controllers.Application.defaultDocumentation
+GET         /mobiliteBXL                        be.webdeb.presentation.web.controllers.Application.otherMobilite
+GET         /logementBXL                        be.webdeb.presentation.web.controllers.Application.otherLogement
+GET         /environnementBXL                   be.webdeb.presentation.web.controllers.Application.otherEnvironnement
+GET         /economieBXL                        be.webdeb.presentation.web.controllers.Application.otherEconomie
+GET         /amenagementBXL                     be.webdeb.presentation.web.controllers.Application.otherAmenagement
+GET         /democratieBXL                      be.webdeb.presentation.web.controllers.Application.otherDemocratie
+GET         /election2019                    be.webdeb.presentation.web.controllers.Application.otherElection
+GET         /election2019/stats             be.webdeb.presentation.web.controllers.Application.otherElectionStats
+GET         /election2019/stats/:id             be.webdeb.presentation.web.controllers.Application.otherElectionStatsPage(id : Int)
+GET         /election2019/stats/async/:id             be.webdeb.presentation.web.controllers.Application.otherElectionStatsPageAsync(id : Int)
+
+GET         /covid19                            be.webdeb.presentation.web.controllers.Application.otherCovid
+
+#help
+GET					/help                            be.webdeb.presentation.web.controllers.Application.help
+POST				/help/modal                      be.webdeb.presentation.web.controllers.Application.getHelpModal
+
+# Javascript bindings
+GET         /messages.js                     be.webdeb.presentation.web.controllers.Application.jsMessages
+GET         /assets/javascripts/routes       be.webdeb.presentation.web.controllers.Application.javascriptRoutes
+
+# Map static resources from the /public tag to the /assets URL path
+GET					/robots.txt                      controllers.Assets.at(path="/public", file="robots.txt")
+GET					/favicon.ico                     controllers.Assets.at(path="/public", file="/images/favicon.png")
+GET         /assets/*file                    controllers.Assets.at(path="/public", file)
+GET					/avatar/*file                    be.webdeb.presentation.web.controllers.Application.getFile(file, t: String = "avatar")
+GET					/useravatar/*file                be.webdeb.presentation.web.controllers.Application.getFile(file, t: String = "user")
+GET					/tmp/*file                       be.webdeb.presentation.web.controllers.Application.getFile(file, t: String = "tmp")
+GET					/external/*file                  be.webdeb.presentation.web.controllers.Application.getFile(file, t: String = "external")
+GET					/projectreport/*file                  be.webdeb.presentation.web.controllers.Application.getAdminFile(file, t: String = "project")
+GET					/collaborator/:id                 be.webdeb.presentation.web.controllers.Application.collaboratorDetails(id: String)
+
+GET         /login                           be.webdeb.presentation.web.controllers.account.ContributorActions.login
+POST        /login                           be.webdeb.presentation.web.controllers.account.ContributorActions.authenticate
+POST        /loginOpenId                           be.webdeb.presentation.web.controllers.account.ContributorActions.authenticateWithOpenId
+POST        /authToken                       be.webdeb.presentation.web.controllers.account.ContributorActions.tokenAuthentication
+POST        /checkAuthTokenValidity          be.webdeb.presentation.web.controllers.account.ContributorActions.checkAuthTokenValidity
+GET         /logout                          be.webdeb.presentation.web.controllers.account.ContributorActions.logout
+GET         /logout/async                          be.webdeb.presentation.web.controllers.account.ContributorActions.logoutAsync
+GET         /contactus                       be.webdeb.presentation.web.controllers.account.ContributorActions.contactus
+POST        /contactus                       be.webdeb.presentation.web.controllers.account.ContributorActions.sendContactus
+GET         /checkUserAuth                   be.webdeb.presentation.web.controllers.account.ContributorActions.checkUserAuth
+GET		    /unsubscribeNewsletters          be.webdeb.presentation.web.controllers.account.ContributorActions.unsubscribeNewsletters(contributor : Long, token : String)
+
+POST        /user/externalContributions      be.webdeb.presentation.web.controllers.account.ContributorActions.getContributorExternalContributions(fromIndex : Integer, toIndex : Integer, sourceName : String)
+
+GET         /settings                        be.webdeb.presentation.web.controllers.account.ContributorActions.settings(contributor : Long, pane : Int)
+GET         /settings/update                 be.webdeb.presentation.web.controllers.account.ContributorActions.update(contributor : Long)
+POST        /settings/update                 be.webdeb.presentation.web.controllers.account.ContributorActions.saveUpdate
+POST        /settings/avatar                 be.webdeb.presentation.web.controllers.account.ContributorActions.uploadContributorPicture(id : Long)
+GET         /settings/mail                   be.webdeb.presentation.web.controllers.account.ContributorActions.askChangeMail(id : Long)
+POST        /settings/mail                   be.webdeb.presentation.web.controllers.account.ContributorActions.changeMail(id : Long)
+GET         /settings/pwd                    be.webdeb.presentation.web.controllers.account.ContributorActions.askChangePassword(id : Long)
+POST        /settings/pwd                    be.webdeb.presentation.web.controllers.account.ContributorActions.changePassword(id : Long)
+GET         /settings/contrib                be.webdeb.presentation.web.controllers.account.ContributorActions.searchContributorContributions(searchText : String, id : Long, fromIndex : Int, toIndex : Int)
+POST        /settings/warned                 be.webdeb.presentation.web.controllers.account.ContributorActions.userIsBrowserWarned
+# Registers the user, sending an email to confirm the account.
+GET         /signup                          be.webdeb.presentation.web.controllers.account.ContributorActions.signup
+GET         /projectsignup/:login            be.webdeb.presentation.web.controllers.account.ContributorActions.signupFromProject(login)
+GET         /signup/:token                   be.webdeb.presentation.web.controllers.account.ContributorActions.signupWithToken(token)
+POST        /signup                          be.webdeb.presentation.web.controllers.account.ContributorActions.save
+GET         /confirm/:confirmToken           be.webdeb.presentation.web.controllers.account.ContributorActions.confirm(confirmToken : String)
+GET         /contributor/delete              be.webdeb.presentation.web.controllers.account.ContributorActions.askDeleteAccount(id : Long)
+POST        /contributor/delete              be.webdeb.presentation.web.controllers.account.ContributorActions.deleteAccount(id : Long)
+
+# Password recovery
+GET         /recover                         be.webdeb.presentation.web.controllers.account.ContributorActions.recoverPassword
+POST        /recover                         be.webdeb.presentation.web.controllers.account.ContributorActions.sendPasswordRecovery
+GET         /recover/:token                  be.webdeb.presentation.web.controllers.account.ContributorActions.resetPassword(token:String)
+POST        /recover/:token                  be.webdeb.presentation.web.controllers.account.ContributorActions.doResetPassword(token:String)
+GET         /confirmationMail                be.webdeb.presentation.web.controllers.account.ContributorActions.resendSignupMail
+POST        /confirmationMail                be.webdeb.presentation.web.controllers.account.ContributorActions.sendSignupMail
+
+#  new email
+GET         /email/:token/:email             be.webdeb.presentation.web.controllers.account.ContributorActions.validateEmail(token:String, email : String)
+GET         /email/usertouser            be.webdeb.presentation.web.controllers.account.ContributorActions.userContactUser(contributor: Long)
+POST         /email/usertouser            be.webdeb.presentation.web.controllers.account.ContributorActions.sendUserContactUser()
+
+# look for a place
+GET         /place/search            be.webdeb.presentation.web.controllers.account.ContributorActions.searchPlace(query : String)
+GET         /place/existing/search            be.webdeb.presentation.web.controllers.account.ContributorActions.searchExistingPlace(query : String)
+
+GET         /claim/modal            be.webdeb.presentation.web.controllers.account.ContributorActions.getClaimContribution(contribution: Long, url : String)
+POST         /claim/save            be.webdeb.presentation.web.controllers.account.ContributorActions.saveClaimContribution
+GET         /claim/delete           be.webdeb.presentation.web.controllers.account.ContributorActions.deleteClaim(contribution: Long, contributor: Long)
+GET         /claims            be.webdeb.presentation.web.controllers.account.ContributorActions.retrieveClaims(fromIndex: Int, toIndex: Int)
+
+# Browse
+GET         /browse                          be.webdeb.presentation.web.controllers.browse.BrowseActions.search
+GET			/browse/:query                   be.webdeb.presentation.web.controllers.browse.BrowseActions.redirectSearch(query : String)
+POST        /browse                          be.webdeb.presentation.web.controllers.browse.BrowseActions.doSearch(card : Boolean, embedded : Boolean, fromIndex: Int, toIndex: Int, filters: String)
+
+# Entries & cross-cutting
+GET         /entry                           be.webdeb.presentation.web.controllers.entry.EntryActions.contribute
+GET         /contribute                      be.webdeb.presentation.web.controllers.entry.EntryActions.contribute
+GET         /entry/edit                      be.webdeb.presentation.web.controllers.entry.EntryActions.edit(id : Long)
+GET         /entry/contributions/search      be.webdeb.presentation.web.controllers.entry.EntryActions.searchContributions(term : String, group : Int, fromIndex : Int, toIndex : Int)
+GET         /entry/contributions/modal       be.webdeb.presentation.web.controllers.entry.EntryActions.contributionSelection(contributionType : Int)
+GET         /entry/merge                     be.webdeb.presentation.web.controllers.entry.EntryActions.getMergeContributionsModal(id : Long, type : Int)
+GET         /entry/domerge                   be.webdeb.presentation.web.controllers.entry.EntryActions.doMerge(origin : Long, replacement : Long, type : Int)
+GET         /entry/delete                    be.webdeb.presentation.web.controllers.entry.EntryActions.delete(id : Long, type : Int, group : Int, force : Boolean, noChange: Boolean, async : Boolean)
+GET         /entry/history                   be.webdeb.presentation.web.controllers.entry.EntryActions.getContributionHistoryModal(id : Long, type : Int)
+GET         /entry/places                    be.webdeb.presentation.web.controllers.entry.EntryActions.getContributionPlaces(id : Long, selected : Long)
+GET			/entry/link/abort                be.webdeb.presentation.web.controllers.entry.EntryActions.abortLinkCreation
+
+# actors
+GET         /entry/actor		                 be.webdeb.presentation.web.controllers.entry.actor.ActorActions.edit(id : Long)
+GET         /entry/actor/modal		                 be.webdeb.presentation.web.controllers.entry.actor.ActorActions.editFromModal(id : Long)
+POST        /entry/actor			               be.webdeb.presentation.web.controllers.entry.actor.ActorActions.save(id : Long)
+POST        /entry/actor/stepvalidation			               be.webdeb.presentation.web.controllers.entry.actor.ActorActions.validateStep
+GET         /entry/actor/autocreatedActors         be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getAutoCreatedActors
+GET         /entry/actor/autocreatedProfessions         be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getAutoCreatedProfessions
+GET         /entry/actor/autonew             be.webdeb.presentation.web.controllers.entry.actor.ActorActions.cancelFromModal()
+POST        /entry/actor/autonew             be.webdeb.presentation.web.controllers.entry.actor.ActorActions.saveFromModal
+GET         /entry/actor/search              be.webdeb.presentation.web.controllers.entry.actor.ActorActions.searchActor(term : String, type : Int, fromIndex : Int, toIndex : Int)
+GET         /entry/actor/affiliations            be.webdeb.presentation.web.controllers.entry.actor.ActorActions.findAffiliations(actor: Long, viewBy: Int, filters : String)
+GET         /entry/actor/partyMembers            be.webdeb.presentation.web.controllers.entry.actor.ActorActions.searchPartyMembers(term : String)
+GET         /entry/actor/get                 be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getActor(id : Long)
+GET         /entry/actor/functions           be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getActorFunctions(id : Long, type : Int, term : String)
+POST				/entry/actor/uploadpic           be.webdeb.presentation.web.controllers.entry.actor.ActorActions.uploadActorPicture(id : Long)
+GET         /entry/actor/searchdetails       be.webdeb.presentation.web.controllers.entry.actor.ActorActions.searchActorDetails(type : Int, isUrl : Boolean, value : String, optional : String)
+GET         /entry/actor/getpicture          be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getPictureFile(url : String)
+GET					/entry/actor/modal/addaff        be.webdeb.presentation.web.controllers.entry.actor.ActorActions.newAffiliations(actorid : Long, isAffiliated : Boolean, isPerson : Boolean)
+POST				/entry/actor/addaff              be.webdeb.presentation.web.controllers.entry.actor.ActorActions.addAffiliations(actorid : Long, isAffiliated : Boolean, isPerson : Boolean)
+GET					/entry/actor/card                be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getActorCard(actorid : Long)
+GET					/entry/actor/contrib             be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getActorContributions(id : Long)
+GET         /entry/actor/professions               be.webdeb.presentation.web.controllers.entry.actor.ActorActions.searchProfessions(query : String, idToIgnore : Long, json : Boolean, fromIndex : Int, toIndex : Int)
+GET         /entry/actor/profession                be.webdeb.presentation.web.controllers.entry.actor.ActorActions.editProfession(professionId : Int)
+POST        /entry/actor/profession                be.webdeb.presentation.web.controllers.entry.actor.ActorActions.sendEditProfession
+GET		/entry/actor/contributions                  be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getLinkedContributions(actorId : Long, panes : String, pov : Int)
+GET		/entry/actor/resetActorType                  be.webdeb.presentation.web.controllers.entry.actor.ActorActions.resetActorType(id : Long)
+GET		/entry/actor/positions/socio                  be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getActorPositionsForSocioValue(actor : Long, key : Int, value : Long)
+GET		/entry/actor/citations                  be.webdeb.presentation.web.controllers.entry.actor.ActorActions.findActorCitations(actor : Long, role : Int, type : Int, fromIndex : Int, toIndex : Int, filters : String)
+GET		/entry/actor/text/citations                     be.webdeb.presentation.web.controllers.entry.actor.ActorActions.getActorTextCitations(actor: Long, text : Long)
+
+# Texts
+GET         /entry/text			                 be.webdeb.presentation.web.controllers.entry.text.TextActions.edit(id : Long)
+GET         /entry/text/modal			                 be.webdeb.presentation.web.controllers.entry.text.TextActions.editFromModal(id : Long)
+POST        /entry/text		                   be.webdeb.presentation.web.controllers.entry.text.TextActions.save(id : Long)
+POST        /entry/text/modal/save		       be.webdeb.presentation.web.controllers.entry.text.TextActions.saveFromModal(id : Long)
+POST        /entry/text/edit			           be.webdeb.presentation.web.controllers.entry.text.TextActions.reloadText
+GET         /entry/text/search               be.webdeb.presentation.web.controllers.entry.text.TextActions.searchText(term : String, fromIndex : Int, toIndex : Int)
+GET         /entry/text/sourcename	         be.webdeb.presentation.web.controllers.entry.text.TextActions.searchTextSource(term : String, fromIndex : Int, toIndex : Int)
+GET         /entry/text/annotated            be.webdeb.presentation.web.controllers.entry.text.TextActions.getAnnotatedText(id : Long, highlighted : Boolean)
+GET         /entry/text/annotatedOrWeb            be.webdeb.presentation.web.controllers.entry.text.TextActions.getTextContentOrHtmlContent(id : Long, highlighted : Boolean)
+GET					/entry/text/content              be.webdeb.presentation.web.controllers.entry.text.TextActions.getTextContent(url : String)
+GET					/entry/text/pdf                  be.webdeb.presentation.web.controllers.entry.text.TextActions.extractPDFContent(url : String)
+GET 				/entry/text/language             be.webdeb.presentation.web.controllers.entry.text.TextActions.getTextLanguage(text : String)
+GET		/entry/text/contributions                   be.webdeb.presentation.web.controllers.entry.text.TextActions.getLinkedContributions(debate : Long, type : String, pov : Int)
+GET		/text/content                        be.webdeb.presentation.web.controllers.entry.text.TextActions.getTextContentModal(textId : Long)
+GET		/entry/gettextcontentfromhtml               be.webdeb.presentation.web.controllers.entry.text.TextActions.getHtmlContent(url : String)
+GET		/text/isFreeSource                     be.webdeb.presentation.web.controllers.entry.text.TextActions.checkFreeSource(domain : String)
+GET		/text/findByUrl                     be.webdeb.presentation.web.controllers.entry.text.TextActions.findTextByUrl(url : String)
+GET		/text/citations                     be.webdeb.presentation.web.controllers.entry.text.TextActions.findTextCitations(id: Long, fromIndex: Int, toIndex: Int, filters: String)
+
+# Arguments
+GET 		/entry/argument/modal/new              be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.newArgument(contextId : Long ?= -1L, subContextId: Long, categoryId: Long, superArgumentId : Long, shade : Int)
+GET 		/entry/argument/citation/modal/new              be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.newArgumentFromCitation(citationId : Long)
+GET         /entry/argument/modal/edit       be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.editFromModal(argId : Long, contextId : Long)
+POST        /entry/argument/modal/save       be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.saveFromModal(argId : Long, contextId : Long)
+GET			/entry/argument/search           be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.searchArgument(query : String, type : Int, shade : Int, fromIndex : Int, toIndex : Int)
+GET			/entry/argument/dictionary/search           be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.searchArgumentDictionary(query : String, fromIndex : Int, toIndex : Int)
+GET		/entry/argument/dictionary/edit      be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.editDictionary(argId : Long)
+POST	/entry/argument/dictionary           be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.saveDictionary(argId : Long)
+POST	/entry/argument/justification           be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.saveArgumentJustificationLink(argId : Long, contextId : Long ?= -1L, subContextId: Long, categoryId : Long ?= -1L, superArgumentId : Long ?= -1L, shade : Int, group : Int ?= -1)
+POST	/entry/argument/similarity           be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.saveArgumentSimilarityLink(originId : Long, destinationId : Long, shade : Int, group : Int)
+POST	/entry/argument/citations           be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.getArgumentCitationLinks(contextId : Long ?= -1L, subContextId: Long, categoryId : Long ?= -1L, argumentId : Long, shade : Int)
+
+# Citations
+GET		/entry/citation/new              be.webdeb.presentation.web.controllers.entry.citation.CitationActions.newCitation(textId : Long, excerpt: String)
+GET         /entry/citation          		be.webdeb.presentation.web.controllers.entry.citation.CitationActions.edit(excId : Long)
+GET         /entry/citation/modal/edit       be.webdeb.presentation.web.controllers.entry.citation.CitationActions.editFromModal(excId : Long, fromContribution : Long, contributionRole : Int)
+POST        /entry/citation                  be.webdeb.presentation.web.controllers.entry.citation.CitationActions.save(excId : Long)
+POST        /entry/citation/modal/save       be.webdeb.presentation.web.controllers.entry.citation.CitationActions.saveFromModal(excId : Long)
+GET			/entry/citation/search           be.webdeb.presentation.web.controllers.entry.citation.CitationActions.searchCitation(query : String, textToIgnore : Long, fromIndex : Int, toIndex : Int)
+POST        /entry/citation/stepvalidation   be.webdeb.presentation.web.controllers.entry.citation.CitationActions.validateStep
+POST         /entry/citation/justification       be.webdeb.presentation.web.controllers.entry.citation.CitationActions.saveCitationJustificationLink(citationId : Long, contextId : Long ?= -1L, subContextId: Long, categoryId : Long ?= -1L, argumentId : Long ?= -1L, shade : Int, group : Int ?= -1)
+POST         /entry/citation/justifications       be.webdeb.presentation.web.controllers.entry.citation.CitationActions.saveCitationJustificationLinks(contextId : Long ?= -1L, subContextId: Long, categoryId : Long ?= -1L, argumentId : Long ?= -1L, shade : Int, group : Int ?= -1)
+POST         /entry/citation/position       be.webdeb.presentation.web.controllers.entry.citation.CitationActions.saveCitationPositionLink(citationId : Long, contextId : Long ?= -1L, subContextId: Long, shade : Int, group : Int ?= -1)
+POST         /entry/citation/positions       be.webdeb.presentation.web.controllers.entry.citation.CitationActions.saveCitationPositionLinks(contextId : Long ?= -1L, subContextId: Long, shade : Int, group : Int ?= -1)
+GET         /entry/citation/modal/selection       be.webdeb.presentation.web.controllers.entry.citation.CitationActions.citationSelection(contextId : Long ?= -1L, subContextId: Long, categoryId : Long ?= -1L, argumentId : Long ?= -1L, isJustification : Boolean, shade : Int)
+GET         /entry/citation/search/byType      be.webdeb.presentation.web.controllers.entry.citation.CitationActions.searchCitationByType(query : String, type: Int, context : Long, subContext : Long ?= -1L, category : Long ?= -1L, argument : Long ?= -1L, isJustification : Boolean, shade : Int ?= -1, fromIndex : Int ?= -1, toIndex : Int ?= -1, filters : String, linkType: Int)
+GET         /entry/citation/position/modal/shade      be.webdeb.presentation.web.controllers.entry.citation.CitationActions.changeCitationPositionShadeModal(positionId : Long)
+POST         /entry/citation/position/shade/save      be.webdeb.presentation.web.controllers.entry.citation.CitationActions.changeCitationPositionShade(positionId : Long, shade : Int)
+
+
+# Debate
+GET         /entry/debate        		    be.webdeb.presentation.web.controllers.entry.debate.DebateActions.edit(id : Long)
+POST        /entry/debate                    be.webdeb.presentation.web.controllers.entry.debate.DebateActions.save(id : Long)
+GET         /entry/debate/modal         		    be.webdeb.presentation.web.controllers.entry.debate.DebateActions.editFromModal(id : Long, fromContribution : Long)
+POST        /entry/debate/modal                   be.webdeb.presentation.web.controllers.entry.debate.DebateActions.saveFromModal(id : Long)
+POST        /entry/debate/stepvalidation          be.webdeb.presentation.web.controllers.entry.debate.DebateActions.validateStep
+GET			/entry/debate/search            be.webdeb.presentation.web.controllers.entry.debate.DebateActions.searchDebate(query : String, fromIndex : Int, toIndex : Int)
+GET		/entry/debate/contributions        be.webdeb.presentation.web.controllers.entry.debate.DebateActions.getLinkedContributions(debate : Long, type : String, pov : Long)
+GET		    /entry/debate/addtext/modal        be.webdeb.presentation.web.controllers.entry.debate.DebateActions.getAddTextToDebateModal(debate : Long)
+POST		/entry/debate/addtext        be.webdeb.presentation.web.controllers.entry.debate.DebateActions.addTextToDebate(debate : Long, text : Long)
+
+# Folders
+GET         /entry/tag/modal/new			                 be.webdeb.presentation.web.controllers.entry.tag.TagActions.newTagCategory(contextId : Long, asCategory : Boolean)
+GET         /entry/tag			                 be.webdeb.presentation.web.controllers.entry.tag.TagActions.edit(id : Long, contextId : Long)
+POST        /entry/tag	                         be.webdeb.presentation.web.controllers.entry.tag.TagActions.save(id : Long)
+GET        /entry/tag/modal                       be.webdeb.presentation.web.controllers.entry.tag.TagActions.editFromModal(id : Long, contextId : Long, fromContribution : Long, asParent : Boolean)
+POST        /entry/tag/modal                       be.webdeb.presentation.web.controllers.entry.tag.TagActions.saveFromModal
+GET         /entry/tag/search                     be.webdeb.presentation.web.controllers.entry.tag.TagActions.searchTag(term : String, idToIgnore : Int, fromIndex : Int, toIndex : Int)
+POST		/entry/tag/link                       be.webdeb.presentation.web.controllers.entry.tag.TagActions.saveTagLink(parent : Long, child : Long)
+GET		/entry/tag/contributions                   be.webdeb.presentation.web.controllers.entry.tag.TagActions.getLinkedContributions(tag : Long, type : String, pov : Int)
+GET		/entry/tag/modal/hierarchy                  be.webdeb.presentation.web.controllers.entry.tag.TagActions.findHierarchy(tag : Long, forParents : Boolean, forContributionType : Int, fromIndex : Int, toIndex : Int, filters : String)
+
+# Context contribution
+GET		/entry/context/async/structure        be.webdeb.presentation.web.controllers.entry.debate.DebateActions.getContextArgumentStructure(context : Long)
+POST		/entry/context/async/changeStructure        be.webdeb.presentation.web.controllers.entry.debate.DebateActions.changeContextArgumentStructure(linkId : Long, newSubContextId : Long, newCategoryId : Long, newSuperArgumentId : Long, newShade : Int, newLink : Boolean, order : Int)
+POST		/entry/context/async/changeJustificationShade        be.webdeb.presentation.web.controllers.entry.debate.DebateActions.changeJustificationShade(link : Long)
+
+# Visualization
+GET					/explore                           be.webdeb.presentation.web.controllers.viz.VizActions.index(pane : Int ?= -1)
+GET					/viz                               be.webdeb.presentation.web.controllers.viz.VizActions.index(pane : Int ?= -1)
+GET					/viz/details/:id                     be.webdeb.presentation.web.controllers.viz.VizActions.details(id : Long)
+GET					/viz/modal/share                     be.webdeb.presentation.web.controllers.viz.VizActions.getShareMediaModal(id : Long, pane : Int, pov : Int)
+GET					/viz/contribution/actors                     be.webdeb.presentation.web.controllers.viz.VizActions.getContributionActors(id : Long, role : Int, pane : Int)
+GET					/viz/contribution/modal/contributions            be.webdeb.presentation.web.controllers.viz.VizActions.getFindContributionsModal(contributionId : Long)
+GET					/viz/contribution/contributions            be.webdeb.presentation.web.controllers.viz.VizActions.findContributions(contributionId : Long, forContributionId : Long, forContributionType : Int, contributionRole : Int, pane : Int, fromIndex : Int, toIndex : Int, filters : String)
+GET					/viz/dispatchonviz/:id               be.webdeb.presentation.web.controllers.viz.VizActions.dispatch(id : Long, type : Int ?= -1, viz : Int ?= -1, pov : Int ?= -1)
+GET					/viz/debate/:id                      be.webdeb.presentation.web.controllers.viz.VizActions.debate(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/debate                      be.webdeb.presentation.web.controllers.viz.VizActions.debate(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/argument/justificationMap   be.webdeb.presentation.web.controllers.viz.VizActions.getJustificationMap(argument : Long, linkType : Int)
+GET					/viz/actor/:id                        be.webdeb.presentation.web.controllers.viz.VizActions.actor(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/actor                        be.webdeb.presentation.web.controllers.viz.VizActions.actor(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/tag/:id                        be.webdeb.presentation.web.controllers.viz.VizActions.tag(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/tag                          be.webdeb.presentation.web.controllers.viz.VizActions.tag(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/folder/:id                        be.webdeb.presentation.web.controllers.viz.VizActions.tag(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/folder                          be.webdeb.presentation.web.controllers.viz.VizActions.tag(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/text/:id                        be.webdeb.presentation.web.controllers.viz.VizActions.text(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/text                        be.webdeb.presentation.web.controllers.viz.VizActions.text(id : Long, pane : Int ?= -1, pov : Int ?= 0)
+GET					/viz/contributionname                  be.webdeb.presentation.web.controllers.viz.VizActions.getContributionName(id : Long)
+GET					/viz/placename                  be.webdeb.presentation.web.controllers.viz.VizActions.getPlaceName(id : Long)
+GET					/viz/technicalname                  be.webdeb.presentation.web.controllers.viz.VizActions.getTechnicalName(id : String, value: String)
+GET					/viz/professionname                  be.webdeb.presentation.web.controllers.viz.VizActions.getProfessionName(id : Int)
+GET					/viz/affiliationdescription                  be.webdeb.presentation.web.controllers.viz.VizActions.getAffiliationName(id : Long)
+GET					/viz/contribution/suggestions         be.webdeb.presentation.web.controllers.viz.VizActions.getSuggestionsContribution(idContribution : Long)
+GET					/viz/context/actorCitationInContext               be.webdeb.presentation.web.controllers.entry.debate.DebateActions.getActorCitationInContext(context : Long, actor : Long)
+GET					/viz/context/textCitationInContext                be.webdeb.presentation.web.controllers.entry.debate.DebateActions.getTextCitationInContext(context : Long, text : Long)
+GET					/viz/context/sociographyCitationInContext         be.webdeb.presentation.web.controllers.entry.debate.DebateActions.getSociographyCitationInContext(context : Long, subContext : Long, key : Int, value : Long, shade : Int, isArgument : Boolean)
+GET					/viz/context/sociographyCitationsConcurrent         be.webdeb.presentation.web.controllers.entry.debate.DebateActions.getSociographyCitationsConcurrent(context : Long, subContext : Long, actor : Long, key : Int, value : Long, isArgument : Boolean)
+GET					/viz/populars                                       be.webdeb.presentation.web.controllers.viz.VizActions.getPopularEntries(type: Int, fromIndex: Int, toIndex: Int, orderBy: Int)
+GET					/viz/url/:url                                       be.webdeb.presentation.web.controllers.viz.VizActions.getUrlContent(url: String)
+
+# External requests
+POST				/external/viz/text               be.webdeb.presentation.web.controllers.entry.text.TextActions.getTextData
+POST				/external/entry/text             be.webdeb.presentation.web.controllers.entry.text.TextActions.saveFromExternal
+POST				/external/entry/citation         be.webdeb.presentation.web.controllers.entry.citation.CitationActions.saveFromExternal
+
+# group
+GET         /group                           be.webdeb.presentation.web.controllers.account.group.GroupActions.index
+GET         /group/search/group              be.webdeb.presentation.web.controllers.account.group.GroupActions.retrieveContributorGroup(groupId : Int)
+GET         /group/search/groups             be.webdeb.presentation.web.controllers.account.group.GroupActions.searchGroups(query : String, fromIndex : Int, toIndex : Int)
+GET         /group/results                   be.webdeb.presentation.web.controllers.account.group.GroupActions.getGroupResults(query : String)
+GET         /group/modal/newsub              be.webdeb.presentation.web.controllers.account.group.GroupActions.newSubscription
+GET         /group/join                      be.webdeb.presentation.web.controllers.account.group.GroupActions.joinGroup(group : Int)
+GET         /group/leave                     be.webdeb.presentation.web.controllers.account.group.GroupActions.leaveGroup(group : Int)
+GET         /group/ban                       be.webdeb.presentation.web.controllers.account.group.GroupActions.setBannedInGroup(user : Long, group : Int, revoke : Boolean)
+GET         /group/default                   be.webdeb.presentation.web.controllers.account.group.GroupActions.changeDefaultGroup(group : Int)
+GET         /group/current                   be.webdeb.presentation.web.controllers.account.group.GroupActions.changeCurrentScope(group : Int)
+GET         /group/edit                      be.webdeb.presentation.web.controllers.account.group.GroupActions.editGroup(group : Int)
+POST        /group/edit                      be.webdeb.presentation.web.controllers.account.group.GroupActions.saveGroup
+GET         /group/invite                    be.webdeb.presentation.web.controllers.account.group.GroupActions.inviteInGroup(group : Int)
+POST        /group/invite                    be.webdeb.presentation.web.controllers.account.group.GroupActions.sendInvitations
+GET         /group/modal/sendMailToGroup     be.webdeb.presentation.web.controllers.account.group.GroupActions.getMailToGroupModal(group : Int)
+POST        /group/sendMailToGroup           be.webdeb.presentation.web.controllers.account.group.GroupActions.sendMailToGroup
+GET         /group/search/contributors       be.webdeb.presentation.web.controllers.account.group.GroupActions.searchContributors(query : String, fromIndex : Int, toIndex : Int)
+GET         /group/mark                      be.webdeb.presentation.web.controllers.account.group.GroupActions.markContributions(group: Int)
+POST        /group/mark                      be.webdeb.presentation.web.controllers.account.group.GroupActions.saveContributionMarks(group: Int)
+GET         /group/empty                     be.webdeb.presentation.web.controllers.account.group.GroupActions.emptyGroup(group: Int, deleteGroup : Boolean)
+GET         /group/seeall                    be.webdeb.presentation.web.controllers.account.group.GroupActions.allContributions(group: Int, fromIndex : Int, toIndex : Int)
+GET         /group/merge                     be.webdeb.presentation.web.controllers.account.group.GroupActions.mergeContributions(group: Int, fromIndex : Int, toIndex : Int)
+POST        /group/merge                     be.webdeb.presentation.web.controllers.account.group.GroupActions.saveContributionsMerge(group: Int)
+GET         /group/addtogroup                be.webdeb.presentation.web.controllers.account.group.GroupActions.addContributionToGroup(group : Int, contribution : Long, type : Int)
+GET         /group/changeRoles                be.webdeb.presentation.web.controllers.account.group.GroupActions.changeMembersRole(group : Int)
+GET         /group/changeRole                be.webdeb.presentation.web.controllers.account.group.GroupActions.changeMemberRole(group : Int, userId : Long)
+POST        /group/changeRole                be.webdeb.presentation.web.controllers.account.group.GroupActions.sendChangeMemberRole(group : Int)
+POST        /group/followGroup               be.webdeb.presentation.web.controllers.account.group.GroupActions.followGroup(group : Int, follow : Boolean)
+POST        /group/followGroups               be.webdeb.presentation.web.controllers.account.group.GroupActions.followGroups()
+GET         /group/editCte                  be.webdeb.presentation.web.controllers.account.group.GroupActions.editContributionsToExplore(group : Int)
+POST        /group/sendCte                  be.webdeb.presentation.web.controllers.account.group.GroupActions.sendContributionsToExplore(group : Int)
+POST        /group/groups                  be.webdeb.presentation.web.controllers.account.group.GroupActions.groups()
+
+# admin
+GET         /admin/roles                     be.webdeb.presentation.web.controllers.account.admin.AdminActions.searchContributorsAndRoles(query : String, sort : String)
+GET         /admin/role                      be.webdeb.presentation.web.controllers.account.admin.AdminActions.changeRole(id : Long, group: Int, role : Int)
+GET         /admin/reportcsv                 be.webdeb.presentation.web.controllers.account.admin.AdminActions.getCsvReports(type : Int)
+GET         /admin/uploadcsv                 be.webdeb.presentation.web.controllers.account.admin.AdminActions.importCsvFile(type : Int)
+POST        /admin/uploadcsv                 be.webdeb.presentation.web.controllers.account.admin.AdminActions.uploadCsvFile(type : Int, charset : String, delimiter : Char, group : Int)
+GET         /admin/twitter                   be.webdeb.presentation.web.controllers.account.admin.AdminActions.getTwitterAccounts
+GET         /admin/edittwitter               be.webdeb.presentation.web.controllers.account.admin.AdminActions.editTwitterAccount(id : Long)
+POST        /admin/edittwitter               be.webdeb.presentation.web.controllers.account.admin.AdminActions.saveTwitterAccount
+GET         /admin/removetwitter             be.webdeb.presentation.web.controllers.account.admin.AdminActions.removeTwitterAccount(account : String)
+GET         /admin/rss                       be.webdeb.presentation.web.controllers.account.admin.AdminActions.getRssFeeders
+GET         /admin/editrss                   be.webdeb.presentation.web.controllers.account.admin.AdminActions.editRssFeed(id : Int)
+POST        /admin/editrss                   be.webdeb.presentation.web.controllers.account.admin.AdminActions.saveRssFeed
+GET         /admin/activaterss               be.webdeb.presentation.web.controllers.account.admin.AdminActions.activateRssFeed(id : Int, activate : Boolean)
+GET         /admin/removerss                 be.webdeb.presentation.web.controllers.account.admin.AdminActions.removeRssFeed(id : Int)
+GET         /admin/profession/haslink        be.webdeb.presentation.web.controllers.account.admin.AdminActions.editProfessionHasLink(professionId : Int)
+POST        /admin/profession/haslink        be.webdeb.presentation.web.controllers.account.admin.AdminActions.sendProfessionHasLink(professionId : Int)
+GET         /admin/profession/merge          be.webdeb.presentation.web.controllers.account.admin.AdminActions.mergeProfessions(professionId : Int)
+GET         /admin/editfreesources           be.webdeb.presentation.web.controllers.account.admin.AdminActions.editFreeCopyrightSources
+POST        /admin/editfreesources           be.webdeb.presentation.web.controllers.account.admin.AdminActions.saveFreeCopyrightSources
+GET         /admin/removefreesource          be.webdeb.presentation.web.controllers.account.admin.AdminActions.removeFreeCopyrightSource(idSource : Int)
+POST        /admin/profession/merge          be.webdeb.presentation.web.controllers.account.admin.AdminActions.sendMergeProfessions(professionId : Int)
+GET         /admin/dictionary/edit           be.webdeb.presentation.web.controllers.account.admin.AdminActions.editArgumentsDictionary
+GET         /admin/mail                      be.webdeb.presentation.web.controllers.account.admin.AdminActions.getAdminEmailForm
+POST        /admin/mail                      be.webdeb.presentation.web.controllers.account.admin.AdminActions.sendAdminEmailForm
+GET         /admin/citations                      be.webdeb.presentation.web.controllers.account.admin.AdminActions.createFakeCitations(nbCitations : Int)
+GET         /admin/positions                      be.webdeb.presentation.web.controllers.account.admin.AdminActions.createFakePositions(nbDebates : Int, nbPositionsPerDebate : Int)
+GET         /admin/editAdvices                  be.webdeb.presentation.web.controllers.account.ContributorActions.editAdvices
+POST        /admin/sendAdvices                 be.webdeb.presentation.web.controllers.account.ContributorActions.sendAdvices
+
+# admin
+GET        /admin/projects                   be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.manageProjects
+GET        /admin/project/:projectId                   be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.manageProject(projectId : Int)
+GET        /admin/projectActivity            be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.getProjectActivity(projectId : Int)
+POST        /admin/project/generateUsers     be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.generateProjectUsers(projectId : Int)
+POST        /admin/project/deleteUsers       be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.deleteProjectUsers(projectId : Int)
+GET        /admin/project                    be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.editProject(projectId : Int)
+POST        /admin/project                   be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.saveProject()
+GET        /admin/projectgroup               be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.editProjectGroup(projectId : Int, projectGroupId : Int)
+POST        /admin/projectgroup              be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.saveProjectGroup()
+GET        /admin/projectsubgroup            be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.editProjectSubgroup(projectId : Int, projectGroupId : Int, projectSubgroupId : Int)
+POST        /admin/projectsubgroup           be.webdeb.presentation.web.controllers.account.admin.project.ProjectActions.saveProjectSubgroup()
+
+GET		    /api/export                         be.webdeb.presentation.web.controllers.Application.exportation
+POST		/api/export                         be.webdeb.presentation.web.controllers.Application.executeApiQuery
+GET		    /api/description                    be.webdeb.presentation.web.controllers.Application.getModelDescription
+
+GET		    /test/pdf                           be.webdeb.presentation.web.controllers.Application.testpdf
+GET		    /test/dragndrop                           be.webdeb.presentation.web.controllers.Application.testdragndrop
+GET		    /test/dragndrop2                           be.webdeb.presentation.web.controllers.Application.testdragndrop2
+GET		    /test/form/debate                          be.webdeb.presentation.web.controllers.Application.testformdebate
+GET		    /test/form/citation                          be.webdeb.presentation.web.controllers.Application.testformcitation
+GET		    /test/form/citation/short                          be.webdeb.presentation.web.controllers.Application.testformcitationshort
+GET		    /test/interface1/:id                         be.webdeb.presentation.web.controllers.Application.testinterface1(id : Long, pane : Integer ?= -1, pov  : Integer ?= -1)
+GET		    /test/interface2/:id                         be.webdeb.presentation.web.controllers.Application.testinterface2(id : Long, pane : Integer ?= -1, pov  : Integer ?= -1)
+GET		    /test/interface3/:id                         be.webdeb.presentation.web.controllers.Application.testinterface3(id : Long, pane : Integer ?= -1, pov  : Integer ?= -1)
+GET		    /test/interface4/:id                         be.webdeb.presentation.web.controllers.Application.testinterface4(id : Long, pane : Integer ?= -1, pov  : Integer ?= -1)
+
+# REST services API for other services (typically not giving back -partial- webpages)
+GET 				/rest/byid/:id/:type             be.webdeb.application.rest.service.RESTAccessor.retrieveById(id : Long, type : Integer)
+GET 				/rest/bycriteria/:query          be.webdeb.application.rest.service.RESTAccessor.retrieveByCriteria(query : String)

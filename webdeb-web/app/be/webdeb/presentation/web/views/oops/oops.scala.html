@@ -1,0 +1,61 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Display a user-friendly 404 page.
+*
+* @param uri the requested uri that caused the 404
+* @param user the usre profile data
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+    uri: String,
+    user: WebdebUser
+)
+
+
+@main(user) {
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mt-4">
+        <h3 class="small-caps text-muted">@Messages("error.oops")
+          <span class="smaller-font">(@uri)</span>
+        </h3>
+        <hr>
+      </div>
+@*
+      <div class="col-12">
+        <iframe src="https://notfound-static.fwebservices.be/fr/404?key=5f48c1b677871" width="100%" height="650" frameborder="0"></iframe>
+      </div>
+*@
+      <div class="col-12">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <img src="@routes.Assets.at("images/error/tb-notfound.png")" alt="Not found" class="img-responsive" width="200">
+          <p>By <a href="http://theoatmeal.com/">Matthew Inman</a>, released under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+}

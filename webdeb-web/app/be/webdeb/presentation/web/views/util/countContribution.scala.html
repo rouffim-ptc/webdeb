@@ -1,0 +1,41 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable counter for given contribution type
+*
+* @param contributionType the type of contribution concerned
+* @param nbContributions the number of contributions of the given type
+*
+* @author Martin Rouffiange
+*@
+@import be.webdeb.core.api.contribution.EContributionType
+
+@(
+        contributionType : EContributionType,
+        nbContributions : Long,
+        withLink : Boolean = false
+)
+
+<div @if(withLink){class="position-relative"}>
+    <i class="block mb-2 @Messages("browse.search.tip." + contributionType)"></i>
+
+    <@if(withLink){a}else{p} class="d-flex align-items-center justify-content-center @if(withLink){stretched-link}" @if(withLink){href="@be.webdeb.presentation.web.controllers.browse.routes.BrowseActions.redirectSearch("contribution_type=" + contributionType.id)"}>
+        <span class="mr-1 mb-0">@nbContributions</span>
+        <span class="d-none d-md-block mb-0">@Messages("general.filter.ctype." + contributionType.id)s</span>
+    </@if(withLink){a}else{p}>
+</div>

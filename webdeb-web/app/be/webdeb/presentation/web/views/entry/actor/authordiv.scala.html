@@ -1,0 +1,118 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial page to handle authors of contributions
+*
+* @param form the form that contains the author-related fields
+* @param fieldName actual name of the field in given form (will also be added as main div classname for javascript handling)
+* @param labelName base name of all labels in form
+* @param help boolean saying if an inline help must be shown
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.util.{helpbubble, hiddenFormField, inlineform, noerrorForm}
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import helper._
+
+@import be.webdeb.core.api.actor.EActorType
+@(
+    form: Form[_],
+    fieldName: String,
+    labelName: String = null,
+    help : Boolean = false,
+    atype : EActorType = null
+)
+
+<div class="row" id="@fieldName.replace(".", "_")">
+
+  @if(labelName != null) {
+    <label class="col-12 control-label">
+      @Messages(labelName)
+      @helpbubble("bubble.title", "bubble.entry.author.".concat(labelName))
+    </label>
+  }
+
+  <div class="controls col-12">
+    @repeatWithIndex(form(fieldName), min = 1) { (authorField,i) =>
+      @entryFlexFormGroup(fieldName.replace(".", "_").concat("_".concat(i.toString.concat("_names")))) {
+        <div class="col-lg-4 col-12 input-field">
+          @textInput(
+            form(authorField.name.concat(".fullname")),
+            Messages(if(atype == null){"text.label.author.name"}else{if(atype == EActorType.PERSON){"text.label.author.pers.name"}else{"text.label.author.org.name"}}),
+            Messages(if(atype == null){"text.label.author.name"}else{if(atype == EActorType.PERSON){"text.label.author.pers.place.name"}else{"text.label.author.org.place.name"}})
+          )
+          @hiddenFormField(form(authorField.name.concat(".id")))
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12 input-field">
+          @textInput(
+            form(authorField.name.concat(".function")),
+            Messages("text.label.author.function"),
+            Messages("text.label.author.place.function")
+          )
+          @hiddenFormField(form(authorField.name.concat(".functionid")))
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12 input-field">
+          @textInput(
+            form(authorField.name.concat(".affname")),
+            Messages("text.label.author.affname"),
+            Messages("text.label.author.place.affname")
+          )
+          @hiddenFormField(form(authorField.name.concat(".affid")))
+        </div>
+
+        <div>
+          @inputText(
+            form(authorField.name.concat(".aha")),
+            '_label -> null,
+            'class -> "form-control d-none",
+            'autocomplete -> "off"
+          )
+          @checkbox(
+            form(authorField.name.concat(".isDisambiguated")),
+            '_label -> null,
+            'class -> "form-control d-none"
+          )(handler = inlineform, implicitly[Messages])
+          @checkbox(
+            form(authorField.name.concat(".isAffDisambiguated")),
+            '_label -> null,
+            'class -> "form-control d-none"
+          )(handler = inlineform, implicitly[Messages])
+          @checkbox(
+              form(authorField.name.concat(".isNew")),
+              '_label -> null,
+              'class -> "form-control d-none"
+          )(handler = inlineform, implicitly[Messages])
+          @checkbox(
+              form(authorField.name.concat(".isAffNew")),
+              '_label -> null,
+              'class -> "form-control d-none"
+          )(handler = inlineform, implicitly[Messages])
+          @hiddenFormField(form(authorField.name.concat(".lang")))
+        </div>
+      }
+      @mapErrors(form, authorField.name)
+    }
+    <p class="help-inline">@(if(help) Messages(labelName + ".help"))</p>
+  </div>
+</div>

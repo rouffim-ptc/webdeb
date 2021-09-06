@@ -1,0 +1,112 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Auto-creation or edition modal page to ask user to fill in more details about new auto-created argument
+*
+* @param argumentForm the form to fill in the new argument
+* @param helper helper class to fetch predefined values from (types, ...)
+* @param user the user profile
+* @param map the message map (may be null)
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.{emptyModalframe, message}
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.entry.argument.editArgumentFields
+@import be.webdeb.presentation.web.views.html.viz.text.util.simpleTextContent
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+@(
+        argumentForm: Form[ArgumentForm],
+        text: TextHolder,
+        citation: CitationHolder,
+        helper : ContributionHelper,
+        user : WebdebUser,
+        map : java.util.Map[String,String]
+)
+
+<div id="msg-div">
+    @message(map)
+</div>
+
+@emptyModalframe("modal-argument", true, "form", "", false) {
+
+    <div class="modal-header">
+        <h5 class="modal-title small-caps text-muted">
+            @if(argumentForm("id").value == "-1"){
+                @Messages("argument.new.title")&nbsp;
+            }else{
+                @Messages("argument.edit.title")&nbsp;
+            }
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            @*
+            <div class="row">
+                <div class="col-12 d-flex">
+                    <div class="instructions flex-grow-1">@Messages("general.required.fields")</div>
+                </div>
+            </div>
+            *@
+
+            <div class="row mb-4">
+                <form id="argument-form" class="col-12 @if(text != null || citation != null) {col-lg-6}" method="post" enctype="multipart/form-data"  autocomplete="off">
+                    @editArgumentFields(argumentForm, text == null, helper, user, map)
+                </form>
+
+                @if(text != null) {
+                    <div class="col-12 col-lg-6">
+                        @simpleTextContent(text, user)
+                    </div>
+                }
+
+                @if(citation != null){
+                    <div class="col-12 col-lg-6">
+                        @citationContainer(citation, user, false, false)
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="flex-grow-1">
+            <button id="cancel-btn" type="button" name="cancel" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+        </div>
+        <button id="submit-btn" type="button" name="submit" class="btn btn-primary" title="@Messages("group.manage.btn.title")">
+            @Messages("general.btn.save")
+        </button>
+    </div>
+
+}

@@ -1,0 +1,59 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Step form container
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.api.contribution.EContributionType
+
+@(
+        field : Field,
+        label : String = null,
+        noIsNext : Boolean = true,
+        target : String = null,
+        optionType : String = null,
+        alwaysNext : Boolean = false
+)
+
+<div class="form-group align-items-center">
+    @if(label != null){
+        <p class="form-question">
+            @label
+        </p>
+    }
+
+    <div class="ml-3">
+        <div class="form-check form-check-inline @if(alwaysNext == null || !alwaysNext){form-option-action}"  @if(alwaysNext == null || !alwaysNext){data-action="@if(noIsNext == null){true}else{@if(!noIsNext){false}else{true}}"} @if(target != null){data-target="@target"} @if(optionType != null){data-type="@optionType"}>
+            <input class="form-check-input @if((alwaysNext != null && alwaysNext) || (noIsNext != null && !noIsNext)){step-next}" type="radio" name="@field.name" id="@field.name.concat("Yes")" value="true" autocomplete="off" @if(field.value.nonEmpty && field.value.get.equals("true")){checked}>
+            <label class="form-check-label font-weight-light" for="@field.name.concat("Yes")">@Messages("label.yes")</label>
+        </div>
+        <div class="form-check form-check-inline  @if(alwaysNext == null || !alwaysNext){form-option-action}"  @if(alwaysNext == null || !alwaysNext){data-action="@if(noIsNext == null){false}else{@if(noIsNext){false}else{true}}"} @if(target != null){data-target="@target"} @if(optionType != null){data-type="@optionType"}>
+            <input class="form-check-input @if((alwaysNext != null && alwaysNext) || (noIsNext != null && noIsNext)){step-next}" type="radio" name="@field.name" id="@field.name.concat("No")" value="false" autocomplete="off" @if(field.value.nonEmpty && field.value.get.equals("false")){checked}>
+            <label class="form-check-label font-weight-light" for="@field.name.concat("No")">@Messages("label.no")</label>
+        </div>
+
+        <div class="invalid-feedback">
+
+        </div>
+    </div>
+</div>

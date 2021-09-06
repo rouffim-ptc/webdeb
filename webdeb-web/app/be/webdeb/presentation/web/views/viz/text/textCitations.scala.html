@@ -1,0 +1,159 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Text arguments list.
+*
+* @param text the text to visualize
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.viz.text.TextVizHolder
+
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@import be.webdeb.presentation.web.views.html.viz.text.util.simpleTextContent
+@import be.webdeb.presentation.web.views.html.viz.citation.citationContainer
+@import be.webdeb.presentation.web.views.html.entry.citation.citationSimpleForm
+@import be.webdeb.presentation.web.views.html.util.filtersContainer
+
+@import be.webdeb.presentation.web.views.html.util.waitingContainer
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@(
+        text : TextVizHolder,
+        helper : ContributionHelper,
+        user : WebdebUser,
+        pov : Integer,
+        id : String
+)
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+      let container = $('#text-citations-viz-@id');
+      let content = container.find('.text-complete');
+
+      checkIframeLoading(container.find('#iframe-@text.getId'), '@text.getUrl', '@text.getSourceTitle');
+
+      citationOptionsHandler(container);
+
+      if(content.exists()) {
+          let lock = false;
+          setHighlighter(container, content);
+
+          container.on('mousedown', async function(e){
+              let target = $(e.target);
+
+              if(!lock && target.hasClass('btn-new-citation-from-excerpt')) {
+                  lock = true;
+                  await openNewCitationModal(@text.getId, target.find('.excerpt-to-add').text());
+                  lock = false;
+              }
+          });
+      }
+
+      let addNewCitation2 = container.find('.citation-simple-form').find('button');
+      addNewCitation2.off('click');
+      addNewCitation2.click(function () {
+          openNewCitationModal(@text.getId, $(this).siblings('textarea').val());
+          $(this).siblings('textarea').val('');
+      });
+
+    container.find('.citations-container').scrollerPager(
+            [@text.getId],
+            findTextCitations,
+            {toExecAfter : citationOptionsHandler});
+
+      container.find('.text-resume-div').find('iframe').scroll(function(){
+          $([document.documentElement, document.body]).animate({
+              scrollTop: container.find('.text-resume-div').prev('.instructions').offset().top
+          }, 2000);
+      });
+
+  });
+
+</script>
+
+<div id="text-citations-viz-@id" class="row mt-3 mb-3" data-id="@text.getId">
+
+    <div class="col-12">
+        <div class="d-flex align-items-center mb-3">
+            @navpillMenu("mr-2", "tab-" + id, true) {
+                <li class="nav-item">
+                    <a class="nav-link disabled pl-1 pr-1" href="#">@Messages("general.btn.see")</a>
+                </li>
+
+                @navpillMenuItem("content-" + id, Messages("contribution.viz.arguments.content.title"), (pov == null || pov == -1 || pov == 0), "btn-pov")
+
+                @navpillMenuItem("list-" + id, Messages("contribution.viz.arguments.list.title"), (pov == 1), "btn-pov")
+            }
+        </div>
+
+        @navContent(){
+
+            @navContentItem("content-" + id, (pov == null || pov == -1 || pov == 0)) {
+
+                @simpleTextContent(text, user, true, true)
+
+            }
+
+            @navContentItem("list-" + id, (pov == 1), "citations-container") {
+
+                @*
+                <div class="p-2 text-citations">
+
+                @filtersContainer(user, true, true, true)
+
+                <div class="results-container">
+
+                </div>
+
+                <div class="waiting-container">
+                <div class="d-flex align-items-center justify-content-center mt-5 mb-5">
+                <div class="spinner-border" role="status">
+                <span class="sr-only"></span>
+                </div>
+                </div>
+                </div>
+
+                </div>
+                *@
+
+                @filtersContainer(user, EContributionType.CITATION, helper, false, true)
+
+                <div class="results-container"></div>
+
+                @waitingContainer()
+
+                <div class="no-result-container">
+                    @Messages("general.citation.none")
+                </div>
+
+            }
+        }
+    </div>
+
+</div>

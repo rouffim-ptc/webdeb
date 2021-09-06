@@ -1,0 +1,147 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Signup page for new contributors
+*
+* @param signupForm the form to sign up
+* @param user the user profile data
+* @param helper helper class to fetch predefined values (countries, genders, types, ...)
+* @param map the message map (may contain global errors to display)
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.register.ContributorForm
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.account.register.userConditions
+@import be.webdeb.presentation.web.views.html.account.settings.contributorFormOnly
+@import be.webdeb.presentation.web.views.html.util.form.passwordInput
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, funkyCheckbox, message}
+
+@import helper._
+
+
+@(
+    contributorForm: Form[ContributorForm],
+    user : WebdebUser,
+    helper : ContributionHelper,
+    map : java.util.Map[String, String]
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+@scripts = {
+  <title>@Messages("contributor.new.btn") @Messages("general.metatitle")</title>
+  <meta name="description" content="@Messages("contributor.new.title")">
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      // manage terms and conditions button
+      $('#acceptTerms-div').on('click', function() {
+        $('#user-conditions').modal('show');
+      });
+
+      $('#pseudo').on('keyup', function(){
+        $('#contributor_pseudo_duplicate').val($(this).val());
+      });
+
+      showHideInputPassword($('#password_password'));
+    });
+
+  </script>
+}
+
+@main(user, scripts) {
+
+  <div class="container">
+    @message(map)
+
+    <div class="row">
+      <div class="col-12">
+        <h3 class="small-caps text-muted mt-3">@Messages("contributor.new.title")</h3>
+
+        <hr>
+
+        <p class="instructions">@Html(Messages("contributor.new.intro", be.webdeb.presentation.web.controllers.routes.Application.terms))</p>
+      </div>
+    </div>
+
+    <div class="row" id="signupdiv">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 mb-3">
+        @form(be.webdeb.presentation.web.controllers.account.routes.ContributorActions.save, 'enctype -> "multipart/form-data") {
+          <fieldset>
+            @contributorFormOnly(contributorForm, user, helper)
+
+            <div class="row">
+              <div class="col-12">
+
+                <input type="text" id="contributor_pseudo_duplicate" name="contributor_pseudo_duplicate" class="d-none">
+
+              @passwordInput(
+                contributorForm("password.password"),
+                Messages("contributor.label.password"),
+                Messages("contributor.place.password"),
+                true,
+                Messages("contributor.help.password")
+              )
+              </div>
+            </div>
+
+            <div id="acceptTerms-div" class="row mt-2">
+              <div class="col-12 funkyradio">
+                @inputText(
+                  contributorForm("acceptTerms"),
+                  '_label -> Messages("contributor.accept.terms")
+                )(handler = funkyCheckbox, implicitly[Messages])
+              </div>
+            </div>
+            @contributorForm.errors.map { case (key, error) =>
+              @if(key.contains("acceptTerms")) {
+                <div class="no-help"><div class="label label-danger">@Messages(error(0).message)</div></div>
+              }
+            }
+
+            <div id="newsletter-div" class="row">
+              <div class="col-12 funkyradio">
+              @inputText(
+                contributorForm("newsletter"),
+                '_label -> Messages("contributor.label.newsletter")
+              )(handler = funkyCheckbox, implicitly[Messages])
+              </div>
+            </div>
+
+            @userConditions()
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                @Messages("contributor.new.btn") &nbsp; <span class="fa fa-thumbs-up"></span>
+              </button>
+            </div>
+          </fieldset>
+        }
+      </div>
+    </div>
+  </div>
+
+}

@@ -1,0 +1,113 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Helper template to validate a contribution (formerly for marks contributions, but it was judged later as a non-pedagogical way to learn)
+*
+* @param h a contribution holder (to be marked)
+* @param contributor contributor that has created this contribution
+* @param validationForm the whole validation form object
+* @param cIndex the current index for this contributor in the markForm list
+* @param hIndex the current index for this contribution in the markForm(cIndex) list
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.group.ContributionValidationForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, funkyCheckbox, hiddenField}
+@import be.webdeb.presentation.web.views.html.browse.overview.actorOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.textOverview
+@import helper._
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+
+@import be.webdeb.presentation.web.views.html.browse.overview.debateOverview
+@import be.webdeb.presentation.web.views.html.browse.overview.citationOverview
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+
+@import be.webdeb.presentation.web.views.html.browse.overview.argumentOverview
+@(
+    h : ContributionHolder,
+    contributor : Long,
+    validationForm : Form[ContributionValidationForm],
+    cIndex : Int,
+    hIndex : Int
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+<div class="col-sm-12 col-12 no-summary-border">
+
+    @hiddenField("validations_".concat(cIndex.toString).concat("_").concat(hIndex.toString).concat("_id"),
+        "validations[".concat(cIndex.toString).concat("][").concat(hIndex.toString).concat("].id"), h.getId)
+
+    @hiddenField("validations_".concat(cIndex.toString).concat("_").concat(hIndex.toString).concat("_type"),
+        "validations[".concat(cIndex.toString).concat("][").concat(hIndex.toString).concat("].type"), h.getType.id)
+
+    <div class="col-sm-7 col-12 @(if(h.getCreator != contributor) "force-muted")">
+    @h match {
+        case h : ArgumentHolder => { @argumentOverview(h, true, true, false, null) }
+        case h : ActorHolder => { @actorOverview(h, true, false, true, null) }
+        case h : DebateHolder => { @debateOverview(h, true, false, true, null) }
+        case h : CitationHolder => { @citationOverview(h, true, false, true, null) }
+        case h : TextHolder => { @textOverview(h, true, true, false, null) }
+        case _ => { @* ignore *@ }
+    }
+    </div>
+
+    <div class="markdiv">
+        <div class="col-sm-3 col-xs-8">
+        @if(h.getCreator == contributor) {
+            <span id="validated_@h.getId" class="funkyradio">
+                @checkbox(
+                    validationForm("validations[".concat(cIndex.toString).concat("][").concat(hIndex.toString).concat("].validated")),
+                    '_name -> "validations[".concat(cIndex.toString).concat("][").concat(hIndex.toString).concat("].validated"),
+                    '_label -> Messages("group.mark.validated"),
+                    'class -> "funkyradio-success input-validate"
+                )(handler = funkyCheckbox, implicitly[Messages])
+            </span>
+        }
+        </div>
+    </div>
+</div>
+
+@* <label class="mark-validate-label" for="validated">@Messages("group.mark.validated")</label>
+<div id="validated_@h.getId" class="funkyradio">
+<div class="mark-validate">
+@checkbox(
+validationForm("validations[".concat(cIndex.toString).concat("][").concat(hIndex.toString).concat("].validated")),
+'_name -> "validations[".concat(cIndex.toString).concat("][").concat(hIndex.toString).concat("].validated"),
+'_label -> Messages("label.yes"),
+'class -> "funkyradio-success validate"
+)(handler = funkyCheckbox, implicitly[Messages])
+</div>
+<div class="mark-validate">
+@checkbox(
+validationForm("validations[".concat(cIndex.toString).concat("][").concat(hIndex.toString).concat("].deleted")),
+'_name -> "validations[".concat(cIndex.toString).concat("][").concat(hIndex.toString).concat("].deleted"),
+'_label -> Messages("label.no"),
+'class -> "funkyradio-danger unvalidate"
+)(handler = funkyCheckbox, implicitly[Messages])
+</div>
+</div> *@

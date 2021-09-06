@@ -1,0 +1,55 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial template to display the pill-button with current scope switcher
+*
+* @param user the current user
+* @param slim true if the pill-button must be slim
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.groupChooseButtonSelector
+
+@(
+        user : WebdebUser,
+        slim : Boolean
+)
+
+@if(user != null && user.getGroup != null) {
+    <script type="text/javascript">
+            $(document).ready(function () {
+                // handle group change
+                $('.change-scope').on('click', function () {
+                    let modal = $('#change-scope-modal');
+                    modal.modal('show');
+                    modal.css('padding-right', '');
+                });
+            });
+    </script>
+
+    <a href="#" class="nav-link dropdown-toggle change-scope" title="@user.getGroup.getGroupName - @Messages("group.change.tooltip",
+        Messages("group.contribution.visibility." + user.getGroup.getContributionVisibility.id),
+        Messages("group.member.visibility." + user.getGroup.getMemberVisibility.id))">
+    @groupChooseButtonSelector(user.getGroup, slim, false, true)
+    </a>
+}

@@ -1,0 +1,125 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to add/invite members in group
+*
+* @param group the group invitation form
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.group.GroupInvitation
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, inlineform, hiddenFormField, noerrorForm}
+@import helper._
+
+@import be.webdeb.presentation.web.controllers.account.admin.ProfessionHasLinkForm
+@import be.webdeb.presentation.web.controllers.account.admin.ProfessionForm
+@import be.webdeb.presentation.web.views.html.util.form.entryFlexFormGroup
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@(
+        profession : ProfessionForm,
+        professionForm : Form[ProfessionHasLinkForm],
+        map : java.util.Map[String, String]
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+<script src="@routes.Assets.at("javascripts/profession-scripts.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+            addListeners();
+            addProfessionTypeahead($('#professionHasLink').find("input").first(), @profession.getId);
+        });
+        function addListeners() {
+            let modal = $("#editProfessionHasLink");
+
+            modal.find('#submit-btn').on('click', function () {
+                sendProfessionHasLink($('#professionlink-form'), @profession.getId).done(function (data) {
+                    hideAndDestroyModal('#editProfessionHasLink');
+                    $(document).trigger("modalRemoved");
+                    slideDefaultSuccessMessage();
+                }).fail(function (jqXHR) {
+                    if (jqXHR.status === 400) {
+                        // rebuild form from response text
+                        replaceContent('#professionlink-form', jqXHR.responseText, 'form');
+                        addProfessionTypeahead($('#professionHasLink').find("input").first());
+                    } else {
+                        $('#admin-professions').empty().append(jqXHR.responseText);
+                        hideAndDestroyModal('#editProfessionHasLink');
+                    }
+                });
+            });
+
+            manageAddRmButton(modal.find('#professionHasLink'), [''], '', null, addProfessionTypeahead);
+        }
+</script>
+
+@emptyModalframe("editProfessionHasLink", false, "default", "", false) {
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">
+      @Messages("admin.edit.profession.haslink.title") - <span class="text-primary">@profession.getName</span>
+    </h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row mb-5">
+                <div id="form-content" class="col-12 mt-3 mb-5">
+                  <form id="professionlink-form">
+                    <fieldset>
+                      @hiddenFormField(professionForm("professionId"))
+
+                      <div id="professionHasLink">
+                          @repeatWithIndex(professionForm("professionHasLink"), min = 1) { (professionHasLink, i) =>
+                              @entryFlexFormGroup("professionlinks_".concat(i.toString.concat("_names"))) {
+                                  <div class="col-12 input-field">
+                                      @textInput(
+                                          professionForm(professionHasLink.name.concat(".name")),
+                                          Messages("admin.edit.profession.edit.sublink"),
+                                          Messages("admin.edit.profession.edit.name")
+
+                                      )
+                                      @hiddenFormField(professionForm(professionHasLink.name.concat(".id")))
+                                  </div>
+                              }
+                          }
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+              </div>
+          </div>
+      </div>
+
+    <div class="modal-footer">
+        <div class="form-actions pull-left">
+            <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+            <button id="submit-btn" type ="button" name="submit" class="btn btn-primary">
+                @Messages("entry.actor.modify.btn")
+                    &nbsp; <span class="fa fa-check-circle"></span>
+            </button>
+        </div>
+    </div>
+}

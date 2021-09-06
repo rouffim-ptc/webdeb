@@ -1,0 +1,85 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Full login page
+*
+* @param user the user profile data
+* @param map the message map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.account.settings.loginFormOnly
+@import be.webdeb.presentation.web.views.html.util.message
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@(
+    user: WebdebUser,
+    map : java.util.Map[String, String]
+)
+
+@scripts = {
+  <script type="text/javascript">
+    $(document).ready(function() {
+      showHideInputPassword($('.login-container').find('#password'));
+    });
+  </script>
+}
+
+@main(user, scripts) {
+
+  <div class="container login-container">
+
+    @message(flash)
+    @message(map)
+
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="centered">
+          <h2>@Messages("login.first")</h2>
+        </div>
+
+          @*
+          Google auth
+          *@
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          @*
+          Facebook auth
+          *@
+          <div class="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="true" data-use-continue-as="true" data-width="" data-onlogin="checkFacebookLoginState();"></div>
+
+        @loginFormOnly(user)
+      </div>
+
+      <div class="col-md-6 mt-3 mt-md-0 mb-3 mb-md-0">
+          <h2>@Messages("login.register")</h2>
+
+          <div class="w-100 d-flex align-items-center justify-content-center mt-5">
+            <a class="btn btn-primary btn-lg"
+              href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.signup">
+              @Messages("welcome.btn.sign.up")
+            </a>
+          </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,142 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Page to manage the dictionary of arguments
+*
+* @param arguments a list of argument dictionary
+*@
+
+@import be.webdeb.presentation.web.views.html.util.message
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+        user : WebdebUser
+)
+
+@scripts = {
+    <title>@Messages("title." + play.Configuration.root().getString("server.type"))</title>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            let container = $('.admin-arguments');
+
+            container.find('#argument-results').scrollerPager(
+                    [''],
+                    searchArgumentDictionary,
+                    {
+                        toExecAfter : argumentListeners,
+                        displayFunction : loadResults,
+                        simpleSearch : true,
+                        searchContainer : container.find('.search-container')
+                    }
+            );
+        });
+
+        function argumentListeners(container){
+            /*
+            container.on('click', '.see-dictionary', function(){
+                openInNewTab(urlOfArgumentViz($(this).parents(".argument-dictionary").data("id"), 1));
+            });
+            */
+
+            let btn = container.find('.edit-dictionary');
+            btn.off();
+            btn.on('click', function(){
+                openEditArgumentDictionaryModal($(this).parents(".argument-dictionary").data("id"));
+            });
+        }
+
+        /**
+         * Load given html data into dedicated result div
+         *
+         * param data the html data to load
+         * param container the container where display the data result
+         */
+        function loadResults(element) {
+            let elementContainer = $('<div class="argument-dictionary" data-id="' + element.id + '"></div>');
+            elementContainer.append('<span style="font-size : 16px;">' + element.title + ' (' + element.lang + ')</span>');
+            //elementContainer.append(addActionBtn("see-dictionary", "eye"));
+            elementContainer.append(addActionBtn("edit-dictionary", "edit"));
+            //elementContainer.append(addActionBtn("delete-dictionary", "trash-alt"));
+            elementContainer.append('<hr>');
+
+            return elementContainer;
+        }
+
+        function addActionBtn(actionName, faIcon){
+            return '<span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-link primary btn-simple-link ' + actionName + '" ' +
+                    'style="font-size : 16px;"><i class="fas fa-' + faIcon + '"></i></i></button></span>'
+        }
+
+        /**
+         * open modal for edit an argument dictionary
+         *
+         * param argId the argument dictionary id to edit
+         */
+        function openEditArgumentDictionaryModal(argId) {
+            editArgumentDictionary(argId).done(function (html) {
+                loadAndShowModal( $('#modal-anchor'), html);
+            }).fail(function (jqXHR) {
+                if(jqXHR.status === 401) {
+                    redirectToLogin();
+                }else{
+                    console.log("Error with argument dictionary edit modal");
+                }
+            });
+        }
+
+    </script>
+}
+
+@main(user, scripts) {
+
+    <div class="container admin-arguments mt-3 mb-3">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="input-group-addon mb-3">@Messages("dictionary.search.label")</h3>
+
+                <div class="input-group search-container d-flex">
+                    <div class="form-group flex-grow-1">
+                        <input id="search-arguments" value="" class="form-control search-input" autocomplete="off" type="text"
+                        placeholder="@Messages("dictionary.search.instructions")">
+                    </div>
+
+                    <span class="input-group-btn">
+                        <button name="name" class="btn btn-secondary search-btn" type="button" title="@Messages("dictionary.search.title")" data-placement="bottom">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+
+                </div>
+
+                <p class="instructions">
+                    @Html(Messages("admin.search.contributor.instructions"))
+                </p>
+            </div>
+
+            <div id="argument-results" class="col-12">
+
+                <hr>
+
+                <div class="results-container"></div>
+            </div>
+        </div>
+    </div>
+}

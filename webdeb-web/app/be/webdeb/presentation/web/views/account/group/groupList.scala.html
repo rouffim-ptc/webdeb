@@ -1,0 +1,178 @@
+@*
+* WebDeb - Copyright (C) <2014-2019>
+<Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see
+<http:
+//www.gnu.org/licenses/>.
+*@
+
+@*
+* Page to display WebDeb groups and others datum about group
+*
+* @param groups the list of webdeb groups
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.group.GroupForm
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.views.html.util.{dropdownItem}
+
+@import be.webdeb.core.api.contributor.EPermission
+
+@import be.webdeb.core.api.contributor.EContributionVisibility
+@(
+    groups : java.util.List[GroupForm],
+    user : WebdebUser
+)
+
+<div class="searchable-elements col-12 no-padding">
+@for(group <- groups){
+    <div class="col-12 searchable-element"
+         data-search-id="@group.getId"
+         data-search-name="@group.getName"
+         data-search-open="@group.getIsOpen"
+         data-search-followed="@user.isFollows(group.getGroup)"
+         data-search-isAdmin="@user.isAdminOf(group.getGroup)"
+         data-search-isMember="@user.isMemberOf(group.getGroup)">
+        <h5>
+            <span style="color : #@group.getGroupColor">  <i class="fas fa-users fixed-size"></i> </span>
+
+            @group.getName
+
+            <span title="@Messages("group.isopen." + group.getIsOpen)">
+                @if(!group.getIsOpen) {
+                    <i class="fas fa-lock"></i>
+                } else {
+                    <i class="fas fa-lock-open"></i>
+                }
+            </span>
+
+            @if(user.isDefaultGroup(group.getId)){
+                <span title="@Messages("group.isdefault")"><i class="fas fa-star"></i></span>
+            }
+
+            @if(group.getContributionVisibility == EContributionVisibility.PUBLIC.id()){
+                <span title="@Messages("group.search.public")"><i class="fas fa-eye"></i></span>
+            } else {
+                <span title="@Messages("group.search.private")"><i class="fas fa-eye-slash"></i></span>
+            }
+
+            @if(user.isAdminOf(group.getGroup)){
+                <span title="@Messages("group.isadmin")"><i class="fas fa-user-shield"></i></span>
+            } else {
+                @if(user.isMemberOf(group.getGroup)) {
+                    <span title="@Messages("group.ismember")"><i class="fas fa-user"></i></span>
+                }
+            }
+
+            @if(user.isFollows(group.getGroup)){
+                <span title="@Messages("group.isfollowed")"><i class="fas fa-bell"></i></span>
+            }
+
+            @if(user.isMemberOf(group.getGroup)) {
+            <a class="dropdown-toggle ml-2" href="#" id="group-actions_@group.getId" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-cogs"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="group-actions_@group.getId">
+                @if(user.belongsTo(group.getId).getRole.id() >= EContributorRole.OWNER.id()) {
+
+                @dropdownItem(null, "edit-group_" + group.getGroup.getGroupId, "group.manage.edit.tooltip",
+                "fa fa-edit fixed-size", "group.manage.edit.label")
+
+                <div class="dropdown-divider"></div>
+
+                @dropdownItem(null, "open-see-members_" + group.getGroup.getGroupId,
+                Messages("group.manage.changerole.tooltip"),
+                "fas fa-users fixed-size", "group.members.showmore")
+
+                @dropdownItem(null, "open-add-member_" + group.getGroup.getGroupId, "group.invite.member.tooltip",
+                "fa fa-plus fixed-size", "group.invite.member")
+
+                @dropdownItem(null, "open-send-mail_" + group.getGroup.getGroupId, "group.mail.members.tooltip",
+                "fa fa-envelope-o fixed-size", "group.mail.members")
+
+                <div class="dropdown-divider"></div>
+
+                @dropdownItem(be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.allContributions(group.getGroup.getGroupId,
+                0, 0).url,
+                null, "group.seeall.title", "far fa-comments fixed-size", "group.seeall.label")
+
+                    @*
+                @dropdownItem(be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.markContributions(group.getGroup.getGroupId).url,
+                null, "group.manage.mark.tooltip", "fa fa-magic fixed-size", "group.manage.mark.label")
+                        *@
+
+
+                @if(group.getGroup.getPermissions.contains(EPermission.MERGE_CONTRIBUTION)) {
+                @dropdownItem(be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.mergeContributions(group.getGroup.getGroupId,
+                0, 0).url,
+                null, "group.manage.merge.tooltip", "fa fa-external-link fixed-size", "group.manage.merge.label")
+                }
+
+                @dropdownItem(null, "empty-group_" + group.getGroup.getGroupId, "group.manage.empty.tooltip",
+                "fa fa-eraser fixed-size", "group.manage.empty.label")
+
+                @dropdownItem(null, "close-group_" + group.getGroup.getGroupId, "group.manage.close.tooltip",
+                "fa fa-trash fixed-size", "group.manage.close.label")
+
+                <div class="dropdown-divider"></div>
+                }
+
+                @if(!user.isDefaultGroup(group.getId)) {
+                    @dropdownItem(null, "switch-group_" + group.getGroup.getGroupId, "group.switch.title",
+                    "fa fa-star fixed-size", "group.switch.label")
+
+                    @if( user.belongsTo(group.getId) != null && user.belongsTo(group.getId).getRole ==
+                    EContributorRole.CONTRIBUTOR) {
+                        @dropdownItem(null, "leave-group_" + group.getGroup.getGroupId, "group.leave.title",
+                        "fa fa-trash fixed-size", "group.leave.label")
+                    }
+                    @if(user.isFollows(group.getGroup)) {
+                        @dropdownItem(null, "do_unfollow_group_" + group.getGroup.getGroupId, null,
+                        "fas fa-bell-slash", "group.preferences.changefollow.unfollow.btn")
+                    }
+                }
+                @if(!user.isFollows(group.getGroup)) {
+                    @dropdownItem(null, "do_follow_group_" + group.getGroup.getGroupId, null,
+                    "fas fa-bell", "group.preferences.changefollow.follow.btn")
+                }
+            </div>
+            }else{
+                @if(group.getIsOpen){
+                    <a id= "join_group-@group.getGroup.getGroupId" class="btn btn-link primary" href="#">
+                        <i class="fas fa-sign-in-alt"></i> @Messages("groupe.join.label")
+                    </a>
+                } else {
+                    @* <a class="btn btn-link primary" href="#">
+                        @Messages("groupe.join.ask.label")
+                    </a> *@
+                }
+            }
+
+        </h5>
+
+        <p class="text-muted">@group.getDescription</p>
+
+        <hr>
+    </div>
+    }
+</div>

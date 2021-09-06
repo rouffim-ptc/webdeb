@@ -1,0 +1,326 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to create or edit group data
+*
+* @param group the group form (with pre-loaded data if existing)
+* @param map the messages map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contributor.EContributionVisibility
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.controllers.account.group.GroupForm
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, funkyCheckbox, hiddenFormField, message, helpButton}
+@import helper._
+@import be.webdeb.presentation.web.views.html.helper.completeInputText
+
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@import be.webdeb.presentation.web.views.html.util.form.colorInput
+
+@import be.webdeb.presentation.web.views.html.util.form.checkboxInput
+@(
+    group: Form[GroupForm],
+    helper : ContributionHelper,
+    map : java.util.Map[String, String]
+)
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    let modal = $("#create-group-modal");
+
+    addEditGroupListeners();
+
+    removeModalBackdrop(modal);
+  });
+
+  /**
+   * Add listeners to the "edit group details" form
+   */
+  function addEditGroupListeners() {
+    manageExclusiveCheckboxes($('#contribution-viz').find('input[type="checkbox"]'), $('#contributionVisibility'), true);
+    manageExclusiveCheckboxes($('#member-viz').find('input[type="checkbox"]'), $('#memberVisibility'), true);
+    // register event on add btn
+    $('#submit-btn').on('click', function () {
+      var timeout = startWaitingModal();
+      saveGroup($('#group-form')).done(function (data) {
+        stopWaitingModal(timeout);
+
+        let results = $('#groups-result');
+        results.empty();
+        results.append(data);
+
+        addManageGroupListeners();
+
+        $('#group-management').searchableContainerJs({
+          sortElements : true,
+          multipleSearch : true,
+          sortBy : "name"
+        });
+
+        hideAndDestroyModal('#create-group-modal');
+      }).fail(function (jqXHR) {
+        stopWaitingModal(timeout);
+        if (jqXHR.status === 400) {
+          // we got the form to amend because it contains errors
+          replaceContent('#group-form', jqXHR.responseText, 'form');
+          addEditGroupListeners();
+        } else {
+          // internal server error, show error message
+          hideAndDestroyModal('#create-group-modal');
+          showErrorMessage(jqXHR);
+        }
+      });
+    });
+    $("#cancel-btn").on('click', function () {
+      hideAndDestroyModal($("#create-group-modal"));
+    });
+  }
+</script>
+
+<style>
+  #create-group-modal .color-div .form-group{
+    padding : 0 !important;
+    margin: 0 !important;
+  }
+  #create-group-modal .color-div label{
+    font-weight: bold;
+  }
+</style>
+
+@emptyModalframe("create-group-modal", true, "form", "", false) {
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">
+      @if(group("id").value != "-1") {
+        @Messages("group.manage.edit.title") <span class="text-primary">@group("name").value</span>
+      } else {
+        @Messages("group.manage.create.title")
+      }
+    </h5>
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div id="form-content" class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-sm-6 instructions d-none d-md-block">@Messages("general.required.fields")</div>
+        <div class="col-12 col-sm-6">@helpButton("group", false)</div>
+        <div class="col-12">
+          <hr>
+        </div>
+      </div>
+
+      <form id="group-form" autocomplete="off">
+        <fieldset>
+          @hiddenFormField(group("id"))
+          @hiddenFormField(group("version"))
+
+          <div class="row">
+            <div class="col-12">
+              @completeInputText(
+                "name",
+                group("name").value,
+                "group.manage.label.name",
+                "form-control",
+                null
+              )
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-6 col-md-9">
+              <div>
+                <label class="control-label font-weight-bold">@Messages("group.manage.toplabel.isopen")</label>
+                <div class="ml-3">
+                @checkboxInput(
+                  group("isOpen"),
+                  Messages("group.manage.label.isopen")
+                )
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <label class="control-label font-weight-bold">@Messages("group.manage.toplabel.ispedagogic")</label>
+                <div class="ml-3">
+                @checkboxInput(
+                  group("isPedagogic"),
+                  Messages("label.yes")
+                )
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-3 color-div">
+              @colorInput(
+                group("groupColorComplete"),
+                Messages("group.manage.label.groupColor"),
+                null,
+                false
+              )
+
+              @* must handle error message by hand for inlineforms *@
+              @group.errors.map { case (key, error) =>
+                @if(key.startsWith("groupColor") && error(0).message != ""){
+                  <div class="label label-danger">@Messages(error(0).message)</div>
+                }
+              }
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row">
+            <label class="control-label font-weight-bold col-12">@Messages("group.manage.label.contribution.visibility").concat(" * ")</label>
+            <div class="col-12">
+              <div id="contribution-viz" class="funkyradio row">
+                  <div class="form-group funkyradio-primary col-md-5 col-sm-6 col-12">
+                      <input id="contributionVisibility-@EContributionVisibility.PUBLIC.id()" type="checkbox" value="@EContributionVisibility.PUBLIC.id()">
+                      <label for="contributionVisibility-@EContributionVisibility.PUBLIC.id()">
+                      @Messages("group.contribution.visibility." + EContributionVisibility.PUBLIC.id())
+                      </label>
+                  </div>
+
+                  <div class="form-group funkyradio-primary col-md-5 col-sm-6 col-12">
+                      <input id="contributionVisibility-@EContributionVisibility.GROUP.id()" type="checkbox" value="@EContributionVisibility.GROUP.id()">
+                      <label for="contributionVisibility-@EContributionVisibility.GROUP.id()">
+                      @Messages("group.contribution.visibility." + EContributionVisibility.GROUP.id())
+                      </label>
+                  </div>
+              </div>
+            </div>
+            @inputText(
+              group("contributionVisibility"),
+              '_label -> null,
+              'class -> "form-control d-none",
+              'autocomplete -> "off"
+            )
+          </div>
+
+          @*
+          <div class="row">
+            <label class="control-label font-weight-bold col-12">@Messages("group.manage.label.member.visibility")</label>
+            <div class="col-12">
+              <div id="member-viz" class="funkyradio row">
+                  <div class="form-group funkyradio-primary col-sm-4 col-12">
+                      <input id="memberVisibility-@EContributionVisibility.PUBLIC.id()" type="checkbox" value="@EContributionVisibility.PUBLIC.id()">
+                      <label for="memberVisibility-@EContributionVisibility.PUBLIC.id()">
+                      @Messages("group.member.visibility." + EContributionVisibility.PUBLIC.id())
+                      </label>
+                  </div>
+
+                  <div class="form-group funkyradio-primary col-sm-4 col-12">
+                    <input id="memberVisibility-@EContributionVisibility.GROUP.id()" type="checkbox" value="@EContributionVisibility.GROUP.id()">
+                    <label for="memberVisibility-@EContributionVisibility.GROUP.id()">
+                      @Messages("group.member.visibility." + EContributionVisibility.GROUP.id())
+                    </label>
+                  </div>
+              </div>
+            </div>
+            @inputText(
+              group("memberVisibility"),
+              '_label -> null,
+              'class -> "form-control d-none",
+              'autocomplete -> "off"
+            )
+          </div>
+            *@
+
+          @*
+          <div class="row">
+            <label class="control-label font-weight-bold col-12">@Messages("group.manage.label.permissions")</label>
+            <div class="col-12 funkyradio ml-2">
+              @checkbox(
+                group("editContributionInGroup"),
+                '_label -> Messages("group.manage.label.permission.15")
+              )(handler = funkyCheckbox, implicitly[Messages])
+            </div>
+          </div>
+          *@
+          <hr>
+
+          <div class="row">
+            <div class="col-12 input-field">
+              @textareaInput(
+                group("description"),
+                Messages("group.manage.label.description"),
+                Messages("group.manage.place.description"),
+                false
+              )
+            </div>
+          </div>
+
+          @*
+          <div class="row">
+            <label class="control-label font-weight-bold col-12">@Messages("group.manage.label.owner.permission")</label>
+            <div class="col-12 funkyradio ml-2">
+            @checkbox(
+              group("editMember"),
+              '_label -> Messages("group.manage.label.permission.6")
+            )(handler = funkyCheckbox, implicitly[Messages])
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="control-label font-weight-bold col-12">@Messages("group.manage.label.user.help")</label>
+            <div class="col-12 funkyradio ml-2">
+              @checkbox(
+                group("disableAnnotation"),
+                '_label -> Messages("group.manage.label.permission.13.bis")
+              )(handler = funkyCheckbox, implicitly[Messages])
+            </div>
+            <div class="col-12 funkyradio ml-2">
+              @checkbox(
+                group("disableClassification1"),
+                '_label -> Messages("group.manage.label.permission.14.bis")
+              )(handler = funkyCheckbox, implicitly[Messages])
+            </div>
+          </div>
+          *@
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="flex-grow-1">
+      <button id="cancel-btn" type="button" name="cancel" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+    </div>
+
+    <button id="submit-btn" type="button" name="submit" class="btn btn-primary" title="@Messages("group.manage.btn.title")">
+      @if(group("id").value == "-1") {
+        @Messages("group.manage.btn.create")
+      } else {
+        @Messages("group.manage.btn.edit")
+      }
+    </button>
+  </div>
+
+  <div id="inner-msg-div">
+    @message(map)
+  </div>
+}

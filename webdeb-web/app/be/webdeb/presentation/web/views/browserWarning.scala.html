@@ -1,0 +1,74 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Page to warn user about ie browser
+*
+* @author Martin Rouffiange
+*@
+
+
+@(
+
+)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#userWarned").on("click", function(){
+            userIsBrowserWarned().done(function (data) {
+                location.reload();
+            })
+        });
+    });
+</script>
+
+<div class="row">
+  <div class="col-12 offset-lg-1 col-lg-10">
+    <h1><i class="larger-font fa fa-warning"></i> @Messages("general.browser.ie.warning.title")</h1>
+    <p class="main-text">@Messages("general.browser.ie.warning.msg")</p>
+    <p class="main-text"><button id="userWarned" type="button" class="btn btn-default">@Messages("general.browser.warned")</button></p>
+
+    <h2 style="padding: 10px;">@Messages("general.browser.advice")</h2>
+    <div class="col-12">
+        <a target="_blank" href="https://www.mozilla.org">
+          <div class="col-sm-4">
+            <p class="center">
+                <img src="@routes.Assets.at("images/logo/firefox.png")" alt="Firefox" style="width : 75%;">
+            </p>
+            <p class="main-text center">@Messages("general.browser.firefox")</p>
+          </div>
+        </a>
+        <a target="_blank" href="https://vivaldi.com">
+          <div class="col-sm-4">
+            <p class="center">
+                <img src="@routes.Assets.at("images/logo/vivaldi.png")" alt="Vivaldi" style="width : 75%;">
+            </p>
+            <p class="main-text center">@Messages("general.browser.vivaldi")</p>
+          </div>
+        </a>
+        <a target="_blank" href="https://www.google.com/chrome/browser/desktop/index.html">
+            <div class="col-sm-4">
+                <p class="center">
+                    <img src="@routes.Assets.at("images/logo/chrome.png")" alt="Chrome" style="width : 75%;">
+                </p>
+                <p class="main-text center">@Messages("general.browser.chrome")</p>
+            </div>
+        </a>
+    </div>
+  </div>
+</div>

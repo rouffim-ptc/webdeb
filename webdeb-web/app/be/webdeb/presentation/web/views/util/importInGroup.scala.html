@@ -1,0 +1,90 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable dropdown menu to change group when publishing contributions
+*
+* @param id the id of the main div of this box
+* @param contributionId the contribution to add to selected group
+* @param cType the contribution type (as defined in EContributionType)
+* @param user the current user profile
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import  be.webdeb.presentation.web.views.html.util.filterFollowedBtn
+
+@import be.webdeb.presentation.web.views.html.util.emptyModalframe
+@(
+    contributionId : Long,
+    cType: EContributionType,
+    user : WebdebUser
+)
+
+@emptyModalframe("import-in-group", false, "default", "", false) {
+
+  <div class="modal-header">
+    <h5 class="modal-title small-caps text-muted">@Messages("entry.import.group")</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <input id="contribution-id" type="text" class="d-none" value="@contributionId">
+    <input id="contribution-type-id" type="text" class="d-none" value="@cType.id()">
+    <input id="import-id" type="text" class="d-none">
+
+    <div class="container-fluid">
+      <div class="row">
+        <div id="form-content" class="col-12">
+          <p class="instructions">
+            @Messages("entry.import.group.desc")
+            @filterFollowedBtn()
+          </p>
+          <div id="select-group" class="row">
+            @for(group <- user.getSubscriptions.filter(s => s.getRole.id >= EContributorRole.CONTRIBUTOR.id)) {
+              <div class="col-12 @if(!group.isFollowed){notfollowed-group}" @if(!group.isFollowed){style="display:none"}>
+                <input id="group_@group.getGroup.getGroupId" type="checkbox" class="mr-1" value="@group.getGroup.getGroupId">
+                <label for="group_@group.getGroup.getGroupId" class="forcewrap">
+                  <span>@group.getGroup.getGroupName</span>
+                  <span class="small-font text-muted">@group.getGroup.getDescription</span>
+                  <span class="small-font text-muted">(@Messages("group.visibility." + group.getGroup.getContributionVisibility.id))</span>
+                </label>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="flex-grow-1">
+      <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+    </div>
+
+    <button id="addto-group" class="btn btn-primary" disabled>@Messages("general.btn.confirm")</button>
+
+  </div>
+}

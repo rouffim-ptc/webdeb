@@ -1,0 +1,58 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Search page. Contains a search bar for browse citation.
+*
+* @param browseType the type of citation search
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.impl.helper.SearchContainer.ECitationBrowseType
+
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@(
+        browseType : ECitationBrowseType
+)
+
+<div class="search-citation-container" data-type="@browseType.id">
+    <form autocomplete="off">
+
+        <p class="instructions">@Messages("general.citations.search.instructions")</p>
+
+        <div class="input-group mb-3 p-1">
+            <div class="input-group-prepend">
+                <button id="button-reload-citation-@browseType.id" type="button" class="btn btn-secondary"><i class="fas fa-sync-alt"></i></button>
+            </div>
+            <input id="search-citation-input-@browseType.id" name="name" type="search" placeholder="@Messages("entry.citation.selection." + browseType.id + ".place")" aria-describedby="button-addon-citation-@browseType.id" class="form-control bg-none" autocomplete="false">
+            <div class="input-group-append">
+                <button id="button-addon-citation-@browseType.id" type="button" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+
+    </form>
+
+    @waitforit("waiting search-waiting")
+
+    <div id="search-citation-@browseType.id" class="mb-4">
+
+    </div>
+
+</div>
+

@@ -1,0 +1,183 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Modal page to add/edit a twitter account
+*
+* @param account the (possibly) pre-filled twitter account to edit
+* (if account("id").value == -1, it is a new account)
+* @param helper the helper class for predefined values
+* @param map the message map (in case of form error)
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.admin.TwitterAccountForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, hiddenFormField, message}
+@import helper._
+
+
+@(
+        account : Form[TwitterAccountForm],
+        helper : ContributionHelper,
+        map : java.util.Map[String, String]
+)
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    addEditTwitterListeners();
+    handleAddRemoveButton($('#edit-twitter'), 'languages', 'select');
+
+    $('#submit-btn').on('click', function () {
+      saveTwitterAccount($('#twitter-form')).done(function (html) {
+        // ok -> rebuild twitter pane only
+        $('#twittercontent').empty().append(html);
+        hideAndDestroyModal($('#edit-twitter'));
+        addTwitterListeners();
+        fadeMessage();
+
+      }).fail(function (xhr) {
+        if (xhr.status === 400) {
+          // we got the form to rebuild (error in form)
+          replaceContent('#twitter-form', xhr.responseText, 'form');
+          addEditTwitterListeners();
+
+        } else {
+          // internal server error -> full rebuild
+          replaceContent('body', xhr.responseText, 'body');
+        }
+      });
+    });
+
+    function addEditTwitterListeners() {
+      manageExclusiveCheckboxes($('#b-gender').find('input[type="checkbox"]'), $('#gender'), true);
+      var fullname = $('#fullname');
+      addActorTypeahead(fullname, 0);
+      fullname.on('typeahead:selected', function (obj, datum) {
+        $('#edit-twitter').find('#id').val(datum['id']);
+      });
+    }
+  });
+</script>
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+@emptyModalframe("edit-twitter", false, "default", "", false) {
+  <div class="modal-header">
+    <h3 class="modal-title small-caps text-muted">
+    @if(account("id").value == "-1") {
+      @Messages("admin.twitter.create.title")
+    } else {
+      @Messages("admin.twitter.edit.title") <span class="text-primary">@account("fullname").value</span>
+    }
+    </h3>
+  </div>
+
+  <div class="modal-body row">
+    <div id="form-content" class="col-12">
+      <p class="instructions">@Messages("general.required.fields")</p>
+      <form id="twitter-form">
+        <fieldset>
+          <div class="col-12" style="padding: 0 0 15px 0">
+            @inputText(
+              account("fullname"),
+              '_label -> Messages("admin.twitter.label.fullname"),
+              'placeholder -> Messages("admin.twitter.place.fullname"),
+              'class -> "form-control",
+              'autocomplete -> "off"
+            )
+            @hiddenFormField(account("id"))
+          </div>
+
+          <div class="col-12 no-padding">
+            <div class="col-sm-6 input-field">
+            @inputText(
+              account("account"),
+              '_label -> Messages("admin.twitter.label.account"),
+              'placeholder -> Messages("admin.twitter.place.account"),
+              'class -> "form-control",
+              'autocomplete -> "off"
+            )
+            </div>
+            <div class="col-sm-6 input-field">
+              <label for="b-gender">@Messages("actor.label.gender").concat(" *")</label>
+              <div id="b-gender" class="funkyradio inline">
+              @for((k,v) <- helper.getGenders(ctx.lang.code)) {
+                <div class="form-group funkyradio-primary">
+                  <input id="gender-@k" type="checkbox" value="@k">
+                  <label for="gender-@k">@v</label>
+                </div>
+              }
+              </div>
+              @hiddenFormField(account("gender"))
+              @account.errors.map { case (key, error) =>
+                @if(key.equals("gender")) {
+                  <div class="label label-danger">@Messages(error(0).message)</div>
+                }
+              }
+            </div>
+          </div>
+
+          <div class="controls" id="languages" style="margin-bottom:10px">
+            <label for="languages">@Messages("admin.twitter.label.languages")</label>
+            @repeat(account("languages"), min = 1) { language =>
+              <div class="entry input-group padding-group">
+                <div class="col-md-12 input-field">
+                  @select(
+                    account(language.name),
+                    options(helper.getLanguages(ctx.lang.code)),
+                    '_default -> Messages("admin.twitter.place.languages"),
+                    '_label -> null,
+                    'class -> "form-control",
+                    'autocomplete -> "off"
+                  )
+                </div>
+                <span class="input-group-btn">
+                  <button class="btn btn-default btn-sm btn-add" type="button"><span class="fa fa-plus"></span></button>
+                  <button class="btn btn-default btn-sm btn-remove" type="button"><span class="fa fa-minus"></span></button>
+                </span>
+              </div>
+            }
+
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col-12">
+      <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+      <button id="submit-btn" type="button" class="btn btn-primary" title="@Messages("admin.twitter.edit.btn.title")">
+      @if(account("id").value == "-1") {
+        @Messages("admin.twitter.btn.create")
+      } else {
+        @Messages("admin.twitter.btn.edit")
+      }
+      </button>
+    </div>
+  </div>
+
+  <div id="inner-msg-div">
+    @message(map)
+  </div>
+}

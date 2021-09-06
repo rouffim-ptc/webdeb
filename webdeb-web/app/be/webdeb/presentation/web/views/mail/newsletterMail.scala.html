@@ -1,0 +1,61 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable html mail to send email to contributors
+*
+* @param mailForm the admin mail form
+* @param contributor the contributor date to get the newsletter unsubscribe link if needed
+* @param hotsname to put the correct unsubscribe link the mail
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.account.admin.AdminMailForm
+@import helper._
+@import be.webdeb.core.api.contributor.Contributor
+
+@(
+        mailForm: AdminMailForm,
+        contributor : Contributor,
+        hostname : String
+)
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>@mailForm.getTitle</title>
+        <style>
+            @Html(mailForm.getStyle)
+        </style>
+    </head>
+
+    <body>
+        <div>
+            @Html(mailForm.getContent)
+        <div>
+        @if(mailForm.getIsNewsletter) {
+            <div style="margin-top:15px;">
+                <a href="@hostname@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.unsubscribeNewsletters(contributor.getId, contributor.getNewsletterToken).url">@Messages("contributor.label.newsletter.unsubscribe")</a>
+            </div>
+        }
+    </body>
+</html>

@@ -1,0 +1,171 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Settings pane to edit users' permissions
+*
+* @param map the messages map (used to warn of ban/unban state changes when partial page is rebuilt)
+*
+* @author Fabian Gilson
+*@
+
+
+@import helper._
+
+
+@(
+    map : java.util.Map[String, String]
+)
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    // load all contributors by default
+    searchForContributors('');
+
+    // handle search for contributors request, lazy load all users at page load
+    var contributors = $('#search-contributors');
+
+    $('.search-btn').on('click', function (e) {
+      searchForContributors(contributors.val(), $(e.target).prop('name'));
+    });
+
+    contributors.keypress(function (e) {
+      if (e.which == 13) {
+        e.preventDefault();
+        searchForContributors(contributors.val());
+      }
+    });
+  });
+
+  /**
+   * Search for contributors
+   *
+   * param query a query string (will look in name, email and affiliations)
+   */
+  function searchForContributors(query, sort) {
+    var waitForIt = $('#spinner');
+    var timeout = setTimeout(function () {
+      showMe(waitForIt, true, true);
+    }, 1000);
+
+    searchContributorsAndRoles(query, sort).done(function (data) {
+      clearTimeout(timeout);
+      showMe(waitForIt, false, true);
+      loadContributorResults(data);
+
+    }).fail(function (jqXHR) {
+      clearTimeout(timeout);
+      showMe(waitForIt, false, true);
+      showErrorMessage(jqXHR);
+    });
+  }
+
+  /**
+   * Load given html data into dedicated result div
+   *
+   * param data the html data to load
+   */
+  function loadContributorResults(data) {
+    $("#contributor-anchor").empty().append(data);
+    new Pager('#contributor-anchor', 10, '#contributor-pager').reset();
+
+    // manage checkboxes for all contributors
+    $('[id^="roles-"]').each(function () {
+      // for all their subscriptions
+      $(this).find('[id^="rolediv-"]').each(function () {
+        // handle exclusive checkboxes and select current role
+        var that = $(this);
+        var boxes = that.find('.funkyradio').find('input[type="checkbox"]');
+        manageExclusiveCheckboxes(boxes, that.find('[id^="roleid-"]'));
+
+        // enable "update role" button on checkbox click
+        boxes.on('click', function () {
+          that.find('[id^="save-role_"]').prop('disabled', false);
+        });
+
+        // ajax call on "update role" click
+        // manage buttons to update roles in groups
+        that.find('[id^="save-role_"]').on('click', function () {
+          var cid = $(this).prop('id').split('_')[1];
+          var gid = $(this).prop('id').split('_')[2];
+          changeRole(cid, gid, that.find('[id^="roleid-"]').val()).done(function (data) {
+            loadContributorResults(data);
+            slideMessage($('#success-save'));
+            //$('#msg-div').append(data);
+            fadeMessage();
+          }).fail(function (jqXHR) {
+            $('#msg-div').append(jqXHR.responseText);
+            fadeMessage();
+          });
+        });
+      });
+    });
+
+    // handle revoke requests (from whole platform)
+    $('[id^="revoke_"]').on('click', function () {
+      var btn = $(this);
+      showConfirmationPopup(revokeMember, btn, "admin.revoke.modal.true.", btn.parent().find('a').text());
+    });
+
+    // handle un-ban requests (from whole platform)
+    $('[id^="unban_"]').on('click', function () {
+      var btn = $(this);
+      showConfirmationPopup(revokeMember, btn, "admin.revoke.modal.false.", btn.parent().find('a').text());
+    });
+  }
+</script>
+
+<div id="success-save" class="alert alert-fixed alert-success" style="display: none">
+  <a href="#" class="close" data-dismiss="alert">&times;</a>
+  <strong>@Messages("success")</strong> @Messages("admin.change.role.ok")
+</div>
+
+<div class="col-12">
+  <div class="col-12 input-group">
+    <span class="input-group-addon">@Messages("admin.search.contributor.addon")</span>
+    <div class="form-group ">
+      <input id="search-contributors" value="" class="form-control" autocomplete="off" type="text"
+      placeholder="@Messages("admin.search.contributor.place")">
+    </div>
+
+    <span class="input-group-btn">
+      <button name="name" class="btn btn-default search-btn" type="button" title="@Messages("admin.search.contributor.title")" data-placement="bottom">
+        <span class="fa fa-search"></span>
+      </button>
+    </span>
+
+  </div>
+  <p class="instructions">
+    @Html(Messages("admin.search.contributor.instructions")) <button name="name" type="button" class="search-btn btn btn-link secondary">@Messages(
+    "admin.search.contributor.title.byname")</button> <button name="date" type="button" class="search-btn btn btn-link secondary">@Messages(
+    "admin.search.contributor.title.bydate")</button>
+  </p>
+</div>
+
+<div class="col-12">
+  <span id="spinner" class="text-muted huge-font">
+    <span class="fa fa-spinner fa-spin"></span>&nbsp;@Messages("general.dialog.wait")
+  </span>
+
+  <div id="contributor-anchor"></div>
+  <div class="col-12">
+    <ul id="contributor-pager" class="pager pagination"></ul>
+  </div>
+
+</div>

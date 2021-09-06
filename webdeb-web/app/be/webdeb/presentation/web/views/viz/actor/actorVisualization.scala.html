@@ -1,0 +1,347 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Main (tabbed) template to visualize an Actor, containing its cartography (affiliations), radiography (talks),
+* sociography (allies/opponents) and details.
+*
+* @param actor the actor to visualize
+* @param filters the list of filters that apply here
+* @param tab the EVizPane ito select which pane is displayed
+* @param pov the point of view to select, if any in the selected pane
+* @param user the user profile data
+* @param map the message map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.viz.actor.{ActorVizHolder, EActorSortKey}
+@import be.webdeb.presentation.web.views.html.util.helpButton
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.viz.admin.contributionAdminActions
+@import be.webdeb.presentation.web.views.html.viz.actor.actorDetails
+@import be.webdeb.presentation.web.views.html.util.message
+@import be.webdeb.presentation.web.controllers.entry.EFilterName
+@import be.webdeb.presentation.web.controllers.entry.FilterTree
+
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+
+@import be.webdeb.presentation.web.views.html.util.nav.navvpillMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuCollapseItem
+@import be.webdeb.presentation.web.views.html.util.nav.navpillMenuItem
+@import be.webdeb.presentation.web.views.html.util.nav.navContent
+@import be.webdeb.presentation.web.views.html.util.nav.navContentItem
+
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordion
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordionMenu
+@import be.webdeb.presentation.web.views.html.util.nav.navAccordionContent
+
+@import be.webdeb.util.ValuesHelper
+
+@import be.webdeb.presentation.web.views.html.util.waitforit
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.presentation.web.views.html.viz.actor.actorCitations
+@import be.webdeb.core.api.actor.EActorRole
+@import be.webdeb.presentation.web.views.html.viz.common.util.contributionHeader
+
+@(
+    actor : ActorVizHolder,
+    filters : java.util.Map[EFilterName, java.util.List[FilterTree]],
+    tab: EActorVizPane,
+    pov: Integer,
+    helper : ContributionHelper,
+    user : WebdebUser,
+    map: java.util.Map[String, String]
+)
+
+
+@scripts = {
+  <title>@actor.getContributionMediaTitle @Messages("general.metatitle")</title>
+
+  <meta name="description" content="@actor.getContributionMediaDescription">
+
+  <meta property="og:title" content="@actor.getContributionMediaTitleOG">
+  <meta property="og:description" content="@actor.getContributionMediaDescriptionOG">
+  <meta property="og:image" content="@actor.getSomeAvatar" />
+  <meta property="og:url" content="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(actor.getId, if(tab != null){tab.id}else{-1}, pov).absoluteURL()" />
+
+  <script src="@routes.Assets.at("javascripts/organizationalChart.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/sliderform.js")" type="text/javascript"></script>
+
+  <script src="@routes.Assets.at("javascripts/tag-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/text-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/citation-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/argument-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/debate-scripts.js")" type="text/javascript"></script>
+
+  <script src="@routes.Assets.at("javascripts/actor-scripts.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/actor-affiliations-scripts.js")" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    // all filterbars must be saved in a js variable to avoid some problems
+
+    $(document).ready(function() {
+      let container = $('#actor-viz');
+
+      handleTabs(container, @tab.id, @pov);
+      initMediaShareButtonListeners(container);
+
+      // manage change tab for filters and content
+      @*let params = [@EActorVizPane.AFFILIATIONS.id, @EActorVizPane.PERSONS.id, @EActorVizPane.ABOUT.id, @EActorVizPane.ARGUMENTS.id, @EActorVizPane.SOCIOGRAPHY.id, @EActorVizPane.BIBLIOGRAPHY.id];*@
+      let params = [@EActorVizPane.AFFILIATIONS.id, @EActorVizPane.PERSONS.id, @EActorVizPane.SOCIOGRAPHY.id, @EActorVizPane.BIBLIOGRAPHY.id];
+      manageChangeTab(getActorLinkedContributions, @actor.getId, params, container);
+      // auto-creation modal if any
+      getAutoCreatedModals();
+
+      initActorVisualization();
+      initShowCitationsListener();
+      manageActorPositions(container);
+
+      initActorCitations(container, @actor.getId, @EActorRole.AUTHOR.id);
+      initActorCitations(container, @actor.getId, @EActorRole.CITED.id);
+@*
+      getContributionSuggestions(container, @actor.getId);
+*@
+
+      container.find('.contribution-edit').on('click', function(){
+        redirectToEditActor(@actor.getId);
+      });
+    });
+
+    /**
+     * Manage events form actor visualization
+     */
+    function initActorVisualization(){
+
+      $(document).on('click', '.contribution-pane', function () {
+        let target = $(this).data('target') !== undefined ? $(this).data('target') : $(this).attr('href');
+        let chart = $(target).find('.organizational-chart');
+
+        if(chart.exists()) {
+          chart.trigger('reflow-chart');
+        }
+      });
+
+      $(document).on('click', '.btn-pov', function () {
+        let chart = $('.organizational-chart');
+
+        if(chart.exists()) {
+          chart.trigger('reflow-chart');
+        }
+      });
+
+    }
+
+  </script>
+}
+
+
+@main(user, scripts, Html(""), "no-min-height") {
+
+  <div id="actor-viz" class="container-fluid">
+    <div id="msg-div">
+      @message(map)
+    </div>
+
+    <div class="row contribution-viz-header">
+      @contributionHeader(actor, helper.getValuesHelper, user)
+    </div>
+
+    <!--  viz areas -->
+    <div class="row viz-body">
+
+      @* FOR BIG SCREENS *@
+
+      @navvpillMenu("col-xl-2 d-none d-xl-block vertical-nav pt-2"){
+        <li role="presentation" class="fake-tab">
+          <div>@helpButton("viz.actor")</div>
+        </li>
+        <li role="presentation" class="fake-tab">
+          <hr>
+        </li>
+        @navpillMenuItem(EActorVizPane.IDENTITY.id.toString, Messages("contribution.viz.identity.title"), tab == null || tab == EActorVizPane.IDENTITY || tab == EActorVizPane.PRESENTATION, "contribution-pane")
+        @navpillMenuItem(EActorVizPane.AFFILIATIONS.id.toString, Messages("contribution.viz.affiliations.title"), tab == EActorVizPane.AFFILIATIONS, "ml-4 contribution-pane")
+        @if(actor.getEActortype == EActorType.ORGANIZATION) {
+          @navpillMenuItem(EActorVizPane.PERSONS.id.toString, Messages("contribution.viz.persons.title"), tab == EActorVizPane.PERSONS, "ml-4 contribution-pane")
+        }
+        @navpillMenuItem(EActorVizPane.ABOUT.id.toString, Messages("contribution.viz.about.title"), tab == EActorVizPane.ABOUT, "ml-4 contribution-pane")
+        @navpillMenuItem(EActorVizPane.ARGUMENTS.id.toString, Messages("contribution.viz.citations.title"), tab == EActorVizPane.ARGUMENTS, "contribution-pane")
+        @navpillMenuItem(EActorVizPane.SOCIOGRAPHY.id.toString, Messages("viz.actor.pill.sociography"), tab == EActorVizPane.SOCIOGRAPHY, "contribution-pane")
+        @navpillMenuItem(EActorVizPane.BIBLIOGRAPHY.id.toString, Messages("contribution.viz.bibliography.title"), tab == EActorVizPane.BIBLIOGRAPHY, "contribution-pane")
+      }
+
+      @navContent("col-xl-10 d-none d-xl-block"){
+        @navContentItem(EActorVizPane.IDENTITY.id.toString, tab == null || tab == EActorVizPane.IDENTITY || tab == EActorVizPane.PRESENTATION){
+          @actorDetails(actor, helper, user)
+        }
+
+        @navContentItem(EActorVizPane.AFFILIATIONS.id.toString, tab == EActorVizPane.AFFILIATIONS){
+          @waitforit("waiting", true)
+          <div class="content"></div>
+        }
+
+        @if(actor.getEActortype == EActorType.ORGANIZATION) {
+          @navContentItem(EActorVizPane.PERSONS.id.toString, tab == EActorVizPane.PERSONS){
+            @waitforit("waiting", true)
+            <div class="content"></div>
+          }
+        }
+
+        @navContentItem(EActorVizPane.ABOUT.id.toString, tab == EActorVizPane.ABOUT){
+          <div class="d-flex justify-content-between">
+            <div class="contributions-container">
+              @actorCitations(actor, EActorRole.CITED, "1", pov, user, helper)
+            </div>
+            <div class="contribution-suggestions">
+
+            </div>
+          </div>
+        }
+
+        @navContentItem(EActorVizPane.ARGUMENTS.id.toString, tab == EActorVizPane.ARGUMENTS){
+          <div class="d-flex justify-content-between">
+            <div class="contributions-container">
+              @actorCitations(actor, EActorRole.AUTHOR, "1", pov, user, helper)
+            </div>
+            <div class="contribution-suggestions">
+
+            </div>
+          </div>
+        }
+
+        @navContentItem(EActorVizPane.SOCIOGRAPHY.id.toString, tab == EActorVizPane.SOCIOGRAPHY){
+          @waitforit("waiting", true)
+          <div class="content"></div>
+        }
+
+        @navContentItem(EActorVizPane.BIBLIOGRAPHY.id.toString, tab == EActorVizPane.BIBLIOGRAPHY){
+          @waitforit("waiting", true)
+          <div class="content"></div>
+        }
+      }
+
+      @* FOR MIDDLE AND SMALL SCREENS *@
+@*
+      @navAccordion("col-12 d-xl-none p-0"){
+        @navAccordionMenu(EActorVizPane.PRESENTATION.id.toString, Messages("contribution.viz.presentation.title"), tab == null || tab.isPresentationSubtype)
+
+        @navAccordionContent(EActorVizPane.PRESENTATION.id.toString, tab == null || tab.isPresentationSubtype, null, "contribution-pane-container-fake"){
+
+          @navAccordion("col-12 d-xl-none p-0", "presentation-sub-tab") {
+            @navAccordionMenu(EActorVizPane.IDENTITY.id.toString, Messages("contribution.viz.identity.title"), tab == null || tab == EActorVizPane.IDENTITY || tab == EActorVizPane.PRESENTATION)
+
+            @navAccordionContent(EActorVizPane.IDENTITY.id.toString, tab == null || tab == EActorVizPane.IDENTITY || tab == EActorVizPane.PRESENTATION, "presentation-sub-tab") {
+              @actorDetails(actor, helper, user)
+            }
+
+            @navAccordionMenu(EActorVizPane.AFFILIATIONS.id.toString, Messages("contribution.viz.affiliations.title"), tab == EActorVizPane.AFFILIATIONS)
+
+            @navAccordionContent(EActorVizPane.AFFILIATIONS.id.toString, tab == EActorVizPane.AFFILIATIONS, "presentation-sub-tab") {
+              @waitforit("waiting", true)
+              <div class="content container-fluid"></div>
+            }
+
+            @if(actor.getEActortype == EActorType.ORGANIZATION) {
+              @navAccordionMenu(EActorVizPane.PERSONS.id.toString, Messages("contribution.viz.persons.title"), tab == EActorVizPane.PERSONS)
+
+              @navAccordionContent(EActorVizPane.PERSONS.id.toString, tab == EActorVizPane.PERSONS, "presentation-sub-tab") {
+                @waitforit("waiting", true)
+                <div class="content container-fluid"></div>
+              }
+            }
+
+            @navAccordionMenu(EActorVizPane.ABOUT.id.toString, Messages("contribution.viz.about.title"), tab == EActorVizPane.ABOUT)
+
+            @navAccordionContent(EActorVizPane.ABOUT.id.toString, tab == EActorVizPane.ABOUT, "presentation-sub-tab") {
+              @waitforit("waiting", true)
+              <div class="content"></div>
+            }
+          }
+        }
+        *@
+
+      @navAccordion("col-12 d-xl-none p-0") {
+
+        @navAccordionMenu(EActorVizPane.IDENTITY.id.toString, Messages("contribution.viz.identity.title"), tab == null || tab == EActorVizPane.IDENTITY || tab == EActorVizPane.PRESENTATION, "contribution-pane")
+
+        @navAccordionContent(EActorVizPane.IDENTITY.id.toString, tab == null || tab == EActorVizPane.IDENTITY || tab == EActorVizPane.PRESENTATION) {
+          <div class="container-fluid">
+            @actorDetails(actor, helper, user)
+          </div>
+        }
+
+
+        @navAccordionMenu(EActorVizPane.AFFILIATIONS.id.toString, Messages("contribution.viz.affiliations.title"), tab == EActorVizPane.AFFILIATIONS, "contribution-pane")
+
+        @navAccordionContent(EActorVizPane.AFFILIATIONS.id.toString, tab == EActorVizPane.AFFILIATIONS) {
+          @waitforit("waiting", true)
+          <div class="content container-fluid"></div>
+        }
+
+
+        @if(actor.getEActortype == EActorType.ORGANIZATION) {
+          @navAccordionMenu(EActorVizPane.PERSONS.id.toString, Messages("contribution.viz.persons.title"), tab == EActorVizPane.PERSONS, "contribution-pane")
+
+          @navAccordionContent(EActorVizPane.PERSONS.id.toString, tab == EActorVizPane.PERSONS) {
+            @waitforit("waiting", true)
+            <div class="content container-fluid"></div>
+          }
+        }
+
+
+        @navAccordionMenu(EActorVizPane.ABOUT.id.toString, Messages("contribution.viz.about.title"), tab == EActorVizPane.ABOUT, "contribution-pane")
+
+        @navAccordionContent(EActorVizPane.ABOUT.id.toString, tab == EActorVizPane.ABOUT) {
+          <div class="container-fluid">
+            @actorCitations(actor, EActorRole.CITED, "2", pov, user, helper)
+          </div>
+        }
+
+
+        @navAccordionMenu(EActorVizPane.ARGUMENTS.id.toString, Messages("contribution.viz.citations.title"), tab == EActorVizPane.ARGUMENTS, "contribution-pane")
+
+        @navAccordionContent(EActorVizPane.ARGUMENTS.id.toString, tab == EActorVizPane.ARGUMENTS){
+          <div class="container-fluid">
+            @actorCitations(actor, EActorRole.AUTHOR, "2", pov, user, helper)
+          </div>
+        }
+
+
+        @navAccordionMenu(EActorVizPane.SOCIOGRAPHY.id.toString, Messages("viz.actor.pill.sociography"), tab == EActorVizPane.SOCIOGRAPHY, "contribution-pane")
+
+        @navAccordionContent(EActorVizPane.SOCIOGRAPHY.id.toString, tab == EActorVizPane.SOCIOGRAPHY){
+          @waitforit("waiting", true)
+          <div class="content container-fluid"></div>
+        }
+
+
+        @navAccordionMenu(EActorVizPane.BIBLIOGRAPHY.id.toString, Messages("contribution.viz.bibliography.title"), tab == EActorVizPane.BIBLIOGRAPHY, "contribution-pane")
+
+        @navAccordionContent(EActorVizPane.BIBLIOGRAPHY.id.toString, tab == EActorVizPane.BIBLIOGRAPHY){
+          @waitforit("waiting", true)
+          <div class="content container-fluid"></div>
+        }
+      }
+
+    </div>
+  </div>
+}

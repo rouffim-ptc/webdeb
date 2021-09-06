@@ -1,0 +1,52 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Reusable popover box in an anchor html element. Must be shown manually with
+*
+* $(@clazz).on("someevent", function (e) { e.preventDefault(); return true; });
+* $(@clazz).popover();
+*
+* @param id the popover's span id
+* @param title the popover's title
+* @param clazz the class to attach to this anchor (for styling)
+* @param datacontent the content of the data-content tag (popover box, must be explicitly "toStringified")
+* @param dataother the other custom tags to pass
+* @param content the html content of the anchor
+*
+* @author Fabian Gilson
+*@
+
+
+@import helper._
+
+
+@(
+    id : String,
+    title : String,
+    clazz : String,
+    datacontent : Html,
+    dataother : String,
+    content : Html
+)
+
+
+<span id="@id" class="@clazz" tabindex="-1" role="button" data-toggle="popover"
+    data-trigger="focus" data-html="true" data-placement="bottom"
+    data-content="@datacontent.toString()" data-title="@title" @Html(dataother)>
+  @content
+</span>

@@ -1,0 +1,266 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Helper template to validate contributions from given group (formerly for marks contributions, but it was judged later as a non-pedagogical way to learn)
+*
+* @param user the user profile
+* @param group the current group for which given list of contribution will be marked
+* @param results the list of contribution that will be marked
+* @param contributors the list of contributors id sorted in the results insertion order (used to build the form because zipWithIndex does not preserve order)
+* @param validationForm the whole form object
+* @param map the messages map
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.core.api.contributor.Group
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+@import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.presentation.web.controllers.account.ContributorHolder
+@import be.webdeb.presentation.web.controllers.account.group.ContributionValidationForm
+@import be.webdeb.presentation.web.controllers.account.settings.ESettingsPane
+@import be.webdeb.presentation.web.views.html.main
+@import be.webdeb.presentation.web.views.html.account.group.markContribution
+@import be.webdeb.presentation.web.views.html.util.{ message, noResultMessage, scrollTopWrapper}
+@import helper._
+
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@(
+    user : WebdebUser,
+    group : Group,
+    results : java.util.Map[ContributorHolder, java.util.List[ContributionHolder]],
+    contributors : java.util.List[Long],
+    validationForm : Form[ContributionValidationForm],
+    map : java.util.Map[String, String]
+)
+
+@scripts = {
+  <title>@Messages("title." + play.Configuration.root().getString("server.type"))</title>
+
+  <script type="text/javascript">
+          $(document).ready(function () {
+            // list of contributor in this group
+            var pager = new Pager('#result-anchor', 5, '#pager');
+
+            // exclusive checkboxes
+            $('[id^="validated_"]').each(function () {
+              manageExclusiveCheckboxes($(this).find('input[type="checkbox"]'), null, false);
+            });
+
+            $('#checkall').on('click', function(e){
+              e.preventDefault();
+              $('.input-validate > input').prop("checked", true);
+              $(this).find('span').show();
+            });
+
+          });
+  </script>
+}
+
+
+@main(user, scripts) {
+
+  <div id="msg-div">
+  @message(map)
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <h3 class="small-caps text-muted">@Messages("group.mark.title") @group.getGroupName</h3>
+      <hr>
+    </div>
+
+    <div class="col-12">
+      <p class="instructions">@Html(Messages("group.mark.desc"))</p>
+      @if(results.isEmpty) {
+        @noResultMessage(null)
+        <div class="form-actions col-12" style="padding-top: 10px">
+          <div class="pull-left">
+            <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(user.getId, ESettingsPane.GROUP_MGMT.id)"
+            class="btn btn-default">
+            @Messages("group.mark.back")
+            </a>
+          </div>
+        </div>
+      } else {
+        @form(be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.saveContributionMarks(group.getGroupId)) {
+          <div id="result-anchor" class="col-12 col-sm-12 no-padding">
+            <fieldset class="pageable">
+            @for((c, holders) <- results) {
+              <div class="col-12 col-sm-12">
+                <h3 class="text-muted">@c.getFirstname @c.getLastname</h3>
+                <div class="col-12 col-sm-12 no-padding">
+                  @* all actors of this contributor *@
+                  @if(holders.exists(h => h.getType.id == EContributionType.ACTOR.id)) {
+                    <h3>
+                      <button id="show-actor_@c.getId" type="button" class="btn btn-link secondary"
+                      data-toggle="collapse" data-target=".showall-actors_@c.getId">
+                        @Messages("viz.contribution.actor")&nbsp;<span class="fa fa-chevron-down"></span>
+                      </button>
+                    </h3>
+                    <div class="collapse showall-actors_@c.getId
+                      @(validationForm.errors.map { case (key, error) => if(key.contains("[".concat(c.getId.toString).concat("]["))) "in" })">
+
+                    @for(h <- holders.filter(h => h.getType.id() == EContributionType.ACTOR.id)) {
+                      <div class="col-12 col-sm-12 manual-bottom-border">
+                      @markContribution(h, c.getId, validationForm, contributors.indexOf(c.getId), holders.indexOf(h))
+                      </div>
+                    }
+                    </div>
+                  }
+                </div>
+
+                @* all texts of this contributor *@
+                @if(holders.exists(h => h.getType.id == EContributionType.TEXT.id)) {
+                  <div class="col-12 col-sm-12 no-padding">
+                    <h3>
+                      <button id="show-text_@c.getId" type="button" class="btn btn-link secondary"
+                      data-toggle="collapse" data-target=".showall-texts_@c.getId">
+                        @Messages("viz.contribution.text")&nbsp;<span class="fa fa-chevron-down"></span>
+                      </button>
+                    </h3>
+                    <div class="collapse showall-texts_@c.getId
+                      @(validationForm.errors.map { case (key, error) => if(key.contains("[".concat(c.getId.toString).concat("]["))) "in" })">
+
+                    @for(h <- holders.filter(h => h.getType.id() == EContributionType.TEXT.id)) {
+                      @* hidden texts (empty title) must have special tag *@
+                      @if(h.asInstanceOf[TextHolder].getTitle.isEmpty) {
+                        @for(a <- holders.filter(a => a.getType.id() == EContributionType.CITATION.id
+                                && a.asInstanceOf[CitationHolder].getTextId == h.getId)) {
+
+                          <div class="col-12 col-sm-12 manual-bottom-border">
+                          @markContribution(a, c.getId, validationForm, contributors.indexOf(c.getId), holders.indexOf(a))
+                          </div>
+                        }
+                      } else {
+                        <div class="col-12 col-sm-12 manual-bottom-border">
+                          @markContribution(h, c.getId, validationForm, contributors.indexOf(c.getId), holders.indexOf(h))
+                          @* for each text, show all arguments *@
+                          @if(holders.exists(a => a.getType.id == EContributionType.CITATION.id
+                                  && a.asInstanceOf[CitationHolder].getTextId == h.getId)) {
+
+                            <div class="col-12 col-sm-12" style="padding-left: 40px">
+                              <button id="show-text-citations_@c.getId.toString.concat("_" + h.getId.toString)" type="button" class="btn btn-link secondary"
+                              data-toggle="collapse" data-target=".showall-text-citations_@c.getId.toString.concat("_" + h.getId.toString)">
+                                @Messages("viz.contribution.citations") &nbsp; <span class="fa fa-chevron-down"></span>
+                              </button>
+
+                              <div class="collapse showall-text-citations_@c.getId.toString.concat("_" + h.getId.toString)
+                                @(validationForm.errors.map { case (key, error) => if(key.contains("[".concat(c.getId.toString).concat("]["))) "in" })">
+
+                              @for(a <- holders.filter(a => a.getType.id() == EContributionType.CITATION.id
+                                      && a.asInstanceOf[CitationHolder].getTextId == h.getId)) {
+
+                                <div class="col-12 col-sm-12 manual-bottom-border">
+                                @markContribution(a, c.getId, validationForm, contributors.indexOf(c.getId), holders.indexOf(a))
+                                </div>
+                              }
+                              </div>
+                            </div>
+                          }
+                          @if(holders.exists(a => a.getType.id == EContributionType.ARGUMENT.id
+                                  && a.asInstanceOf[ArgumentHolder].getId == h.getId)) {
+
+                            <div class="col-12 col-sm-12" style="padding-left: 40px">
+                              <button id="show-text-arguments_@c.getId.toString.concat("_" + h.getId.toString)" type="button" class="btn btn-link secondary"
+                              data-toggle="collapse" data-target=".showall-text-arguments_@c.getId.toString.concat("_" + h.getId.toString)">
+                                @Messages("viz.contribution.arguments") &nbsp; <span class="fa fa-chevron-down"></span>
+                              </button>
+
+                              <div class="collapse showall-text-arguments_@c.getId.toString.concat("_" + h.getId.toString)
+                                @(validationForm.errors.map { case (key, error) => if(key.contains("[".concat(c.getId.toString).concat("]["))) "in" })">
+
+                              @for(a <- holders.filter(a => a.getType.id() == EContributionType.ARGUMENT.id
+                                      && a.asInstanceOf[ArgumentHolder].getId == h.getId)) {
+
+                                <div class="col-12 col-sm-12 manual-bottom-border">
+                                @markContribution(a, c.getId, validationForm, contributors.indexOf(c.getId), holders.indexOf(a))
+                                </div>
+                              }
+                              </div>
+                            </div>
+                          }
+                        }
+                    }
+                    </div>
+                  </div>
+                </div>
+              }
+
+                @* all debates of this contributor *@
+                @if(holders.exists(h => h.getType.id == EContributionType.DEBATE.id)) {
+                  <div class="col-12 col-sm-12 no-padding">
+                    <h3>
+                      <button id="show-debate_@c.getId" type="button" class="btn btn-link secondary"
+                      data-toggle="collapse" data-target=".showall-debates_@c.getId">
+                        @Messages("viz.contribution.debate")&nbsp;<span class="fa fa-chevron-down"></span>
+                      </button>
+                    </h3>
+                    <div class="collapse showall-debates_@c.getId
+                      @(validationForm.errors.map { case (key, error) => if(key.contains("[".concat(c.getId.toString).concat("]["))) "in" })">
+
+                    @for(h <- holders.filter(h => h.getType.id() == EContributionType.DEBATE.id)) {
+                      @* hidden debates (empty title) must have special tag *@
+                        <div class="col-12 col-sm-12 manual-bottom-border">
+                          @markContribution(h, c.getId, validationForm, contributors.indexOf(c.getId), holders.indexOf(h))
+                          @* for each text, show all arguments *@
+
+                        }
+                      </div>
+                    </div>
+                  </div>
+                }
+                  </div>
+              }
+            </fieldset>
+          </div>
+
+          <div class="form-actions col-12" style="padding-top: 10px">
+            <div class="pull-left">
+              <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(user.getId, ESettingsPane.GROUP_MGMT.id)"
+              class="btn btn-default">
+                @Messages("group.mark.back")
+              </a>
+              <button type="submit" class="btn btn-primary" id="submit">
+                @Messages("group.mark.submit")
+              </button>
+              <button class="btn btn-success" id="checkall">
+                @Messages("group.mark.validateall")
+                <span style="display: none"><i class="far fa-check-square"></i></span>
+              </button>
+            </div>
+            <div id="pagerdiv" class="pull-right">
+              <ul id="pager" class="pager pagination"></ul>
+            </div>
+          </div>
+        }
+      }
+
+      @scrollTopWrapper()
+
+    </div>
+  </div>
+}

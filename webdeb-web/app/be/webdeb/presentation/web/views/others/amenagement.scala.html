@@ -1,0 +1,124 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Theme page about amenagement.
+*
+* @param user the user profile data
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+
+@(
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title>Politiques d'aménagement du territoire à Bruxelles @Messages("general.metatitle")</title>
+    <meta name="description" content="Vous trouverez ci-dessous des liens vers pages de la plateforme WebDeb. Dans ces pages, vous pourrez voir la liste des textes à propos des débats sur l'aménagement du territoire et des informations sur les principaux acteurs qui interviennent dans ces débats.">
+}
+
+
+@main(user, scripts) {
+    <div class="row">
+        <div id="webdeb-theme-presentation" class="col-12">
+            <br>
+            <h2 class="small-margin">Politiques d'aménagement du territoire à Bruxelles</h2>
+            <hr class="hr-xs-sensible">
+            <div class="col-12 no-padding">
+                <h4>
+                    Vous trouverez ci-dessous des liens vers pages de la plateforme WebDeb. Dans ces pages, vous pourrez voir la liste des textes à propos des débats sur l'aménagement du territoire et des informations sur les principaux acteurs qui interviennent dans ces débats.
+                </h4>
+
+                <div class="col-12 col-sm-6" style="padding-left : 0;padding-right : 15px">
+                    <h3>Textes sur l'aménagement du territoire à Bruxelles</h3>
+                    <ul style="font-size:18px">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/tag?id=117841&pane=4" class="primary">Textes du débat sur l'élargisement du ring</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/tag?id=117561&pane=4" class="primary">Textes du débat sur le projet Neo/Europea</a></li>
+                        <hr class="hr-small">
+                    </ul>
+                </div>
+
+                <div class="col-12 col-sm-6 no-padding">
+                    <h3>Personnes et organisations intervenant à propos de l'aménagement du territoire à Bruxelles</h3>
+                    <h5>Ces liens vous donnent accès à la liste (encore incomplète) des dirigeants de ces organisations. En cliquant sur les noms de ces dirigeants, vous pourrez obtenir davantage d'informations sur eux (cependant encore incomplètes). N'héitez pas à compléter ou corriger les informations sur ces personnes ou ces organisations.</h5>
+                    <ul style="font-size:18px">
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2181&pane=0" class="primary">Gouvernement de la Région de Bruxelles-Capitale</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=6429&pane=0" class="primary">Rudi Vervoort, ministre-président de la Région bruxelloise</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=6421&pane=0" class="primary">Pascal Smet, ministre de la mobilité et des travaux publics</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=6389&pane=0" class="primary">Didier Gosuin, ministre de l'économie et de l'emploi</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=4036&pane=0" class="primary">Cabinet de Rudi Vervoort</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123513&pane=0" class="primary">Cabinet de Pascal Smet</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=10082&pane=0" class="primary">Cabinet de Didier Gosuin</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=2618&pane=0" class="primary">Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123269&pane=0" class="primary">Commission de l'Infrastructure du Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123229&pane=0" class="primary">Commission du Développement territorial du Parlement bruxellois</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=117078&pane=0" class="primary">Bruxelles Urbanisme et Patrimoine</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123360&pane=0" class="primary">Commission Régionale de Développement</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=117565&pane=0" class="primary">Neo</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123538&pane=0" class="primary">Consortium Unibail-Rodamco / Besix / CFE</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123527&pane=0" class="primary">Unibail-Rodamco</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123528&pane=0" class="primary">Besix</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123529&pane=0" class="primary">CFE</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123530&pane=0" class="primary">De Werkvennootschap</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123531&pane=0" class="primary">UNIZO</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=112842&pane=0" class="primary">UCM - Union ddes Classes Moyennes</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=29013&pane=0" class="primary">ARAU - Atelier de Recherche et d’Action Urbaines </a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123532&pane=0" class="primary">CIBEX - Chambre des Experts Immobiliers de Belgique</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=117563&pane=0" class="primary">Comité de Quartier Triangle Houba-Sobieski-Heyse</a></li>
+                        <hr class="hr-small">
+                        <li><a href="https://webdeb.be/viz/actor?id=123533&pane=0" class="primary">Comité de quartier Marie-Christine/Reine/Stéphanie</a></li>
+                        <hr class="hr-small">
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

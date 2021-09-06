@@ -1,0 +1,136 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Citation
+*
+* @param
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.toolbar.contributionActionsDiv
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.views.html.viz.tag.tagsInlineList
+@import be.webdeb.presentation.web.controllers.viz.EActionType
+@(
+    citation: CitationHolder,
+    user : WebdebUser,
+    withActions : Boolean = true,
+    linksActions : Boolean = true,
+    withButtons : Boolean = false,
+    subActionType : EActionType = null,
+    pane : Integer = -1,
+    debateToIgnoreId : Long = null
+)
+
+@if(withButtons) {
+
+<div class="d-flex align-items-center justify-content-center">
+    <div class="flex-grow-1">
+
+}
+        <div class="contribution-container citation" data-id="@citation.getId" data-pane="@pane" data-text="@citation.getTextId" @if(citation.getPositionId != null){data-position="@citation.getPositionId"}
+                                                                                                                @if(citation.getJustification != null){data-context="@citation.getJustification.getOriginId"
+                                                                                                                    data-sub-context="@citation.getJustification.getSubContextId"
+                                                                                                                    data-category="@citation.getJustification.getCategoryId"
+                                                                                                                    data-argument="@citation.getJustification.getSuperArgumentId"
+                                                                                                                    data-shade="@citation.getJustification.getShadeId"
+                                                                                                                    data-text="@citation.getTextId"
+                                                                                                                    data-link="@citation.getJustification.getId"}>
+
+            <div class="contribution-container-header">
+                <div class="d-block citation-title mb-1 d-flex flex-column pr-2 pl-2">
+
+                    <div class="d-flex align-items-center justify-content-between contribution-title-head">
+                        <i class="fas fa-align-left mr-2 @if(citation.getJustification != null){@citation.getJustification.getEShade.toStyleName}"></i>
+
+                        <div class="d-flex justify-content-end" style="width: 85px">
+                            @if(withActions) {
+                                @contributionActionsDiv(EContributionType.CITATION, user, linksActions, null, false, null, (citation.getPositionId != null), (citation.getJustification != null))
+                            }
+                        </div>
+                    </div>
+
+                    <div>
+                        @citation.getWorkingExcerpt
+                    </div>
+
+
+                </div>
+
+                <div class="d-block citation-legend-title text-muted font-italic pr-2 pl-2">
+                    — @Html(citation.getAuthorsDescriptionWithLink),
+                    <a class="normal-style primary" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.text(citation.getTextId, -1, 0)">
+                        @citation.getTextTitle
+                    </a>
+                    @if(citation.getPublicationDate != null && citation.getPublicationDate.length > 0){, @citation.getPublicationDate}
+                    @if(citation.getSource != null && citation.getSource.length > 0){
+                        @if(citation.getTextUrl != null && citation.getTextUrl.length > 0) {
+                            ,<a class="normal-style primary" href="@citation.getTextUrl" target="_blank">
+                                @citation.getSource
+                            </a>
+                        } else {
+                            @citation.getSource
+                        }
+                    }
+
+                    <p class="mt-1 mb-0">
+                        @tagsInlineList(citation.getTags)
+                    </p>
+
+                    @if(citation.getRandomLinkedDebate(debateToIgnoreId) != null) {
+                        <p class="mt-1 mb-0">
+                            <i class="@Messages("browse.search.tip.DEBATE") ml-1"></i>
+                            <a class="tokenlike" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.debate(citation.getRandomLinkedDebate(debateToIgnoreId).getId, citation.getRandomLinkedDebate(debateToIgnoreId).getRelatedPane.id, 0)" title=" @citation.getRandomLinkedDebate(debateToIgnoreId).getFullTitle">
+                                @citation.getRandomLinkedDebate(debateToIgnoreId).getFullTitle
+                            </a>
+                        </p>
+                    }
+                </div>
+
+                @if(!withButtons) {
+                    <hr>
+                }
+
+            </div>
+
+        </div>
+
+@if(withButtons) {
+
+    </div>
+
+    <div>
+        <a type="button" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.details(citation.getId)" class="btn btn-link primary">
+            <i class="fas fa-eye"></i>
+        </a>
+    </div>
+
+    <div>
+        <a type="button" href="@be.webdeb.presentation.web.controllers.entry.citation.routes.CitationActions.edit(citation.getId)" class="btn btn-link primary">
+            <i class="fas fa-pencil-alt"></i>
+        </a>
+    </div>
+</div>
+
+<hr class="hr-xsmall">
+
+}

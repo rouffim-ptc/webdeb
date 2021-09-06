@@ -1,0 +1,37 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Simplified searchResult for controller (that can't be avoid optional params
+*
+* @param query the query string (for which the elements are the search results)
+* @param holders the results of the above query (unbound types because we need a switch to construct right overview depending on concrete type)
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHolder
+@import be.webdeb.presentation.web.views.html.browse.searchResult
+
+@import be.webdeb.util.ValuesHelper
+@(
+        query : String,
+        holders : java.util.Collection[_ <: ContributionHolder],
+        values : ValuesHelper
+)
+
+@searchResult(query, holders, values)

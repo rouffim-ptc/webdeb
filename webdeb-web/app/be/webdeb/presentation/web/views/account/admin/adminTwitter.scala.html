@@ -1,0 +1,94 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Partial template to display the list of twitter accounts to fetch data from
+*
+* @param accounts the account list to display
+* @param map the message map (may be null)
+*@
+
+
+@import be.webdeb.presentation.web.controllers.account.admin.TwitterAccountForm
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+@import be.webdeb.presentation.web.views.html.util.message
+
+
+@(
+        accounts : java.util.List[TwitterAccountForm],
+        map  : java.util.Map[String, String]
+)
+
+
+@twitter(account : TwitterAccountForm) = {
+  <div class="col-12 summary group-detail">
+    <h3>
+      <span><a href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.actor(account.getId, EVizPane.CARTO.id, 0)"
+      class="normal-style">@account.getFullname</a></span>
+      <span id="account-name_@account.getAccount" class="smaller-font text-muted">
+        <a href="https://twitter.com/@account.getAccount.substring(1)" target="_blank">@account.getAccount</a>
+      </span>
+      <span class="evensmaller-font text-muted italic">@account.getLanguages.mkString(", ")</span>
+
+      @* dropdown for actions on twitter accounts *@
+      <div class="btn-group">
+        <a class="btn btn-link primary dropdown-toggle" data-toggle="dropdown" href="#" id="twitter-actions_@account.getId">
+          @Messages("admin.twitter.actions") &nbsp; <span class="fa fa-cogs"></span>
+        </a>
+
+        <ul class="select-group-box dropdown-menu group-dropdown" role="menu" aria-labelledby="twitter-actions_@account.getId" style="width: 300px">
+          <p class="instructions small-font">@Messages("admin.twitter.actions.desc")</p>
+          <li>
+            <button id="edit-twitter_@account.getId" title="@Messages("admin.twitter.edit.title")" type="button" class="btn btn-link primary">
+              <span class="fa fa-edit fixed-size"></span>&nbsp;@Messages("admin.twitter.edit.btn")
+            </button>
+          </li>
+          <li>
+            <button id="remove-twitter_@account.getAccount" title="@Messages("admin.twitter.remove.title")" type="button" class="btn btn-link primary">
+              <span class="fa fa-trash fixed-size"></span>&nbsp;@Messages("admin.twitter.remove.btn")
+            </button>
+          </li>
+        </ul>
+      </div>
+    </h3>
+  </div>
+}
+
+@message(map)
+
+@if(accounts.size > 4) {
+
+  @for(account <- accounts.subList(0, 4)) {
+    @twitter(account)
+  }
+  <div class="col-12 no-padding">
+    <button class="btn btn-sm btn-link secondary pull-right" data-toggle="collapse" data-target=".showall-twitter">
+      @Messages("admin.twitter.showmore") (@(accounts.size - 4))
+      &nbsp;<span class="fa fa-chevron-down"></span>
+    </button>
+    <div class="collapse showall-twitter">
+    @for(account <- accounts.drop(4)) {
+      @twitter(account)
+    }
+    </div>
+  </div>
+} else {
+  @for(account <- accounts) {
+    @twitter(account)
+  }
+}

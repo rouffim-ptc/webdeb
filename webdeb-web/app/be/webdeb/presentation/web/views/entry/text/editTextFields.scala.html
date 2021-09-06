@@ -1,0 +1,190 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Form to add a new text into the knowledge base
+*
+* @param textForm the form that holds the text values
+* @param values the values factory
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextForm
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+
+@import be.webdeb.presentation.web.views.html.util.{hiddenField, hiddenFormField}
+@import be.webdeb.presentation.web.views.html.util.helpButton
+@import helper._
+
+@import be.webdeb.presentation.web.views.html.util.form.mapErrors
+@import be.webdeb.presentation.web.views.html.entry.text.editTextMainFields
+
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@import be.webdeb.presentation.web.views.html.util.form.selectInput
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@import be.webdeb.presentation.web.views.html.util.helpbubble
+@import be.webdeb.core.api.contributor.EContributionVisibility
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.core.api.text.ETextVisibility
+@(
+        textForm: Form[TextForm],
+        helper : ContributionHelper,
+        user : WebdebUser
+)
+
+<hr>
+
+<fieldset>
+
+    @hiddenField("previousCall", "previousCall", "")
+
+    <div class="row">
+        <div class="col-12 control-label">
+            @Messages("text.label.isOnInternet")
+        </div>
+
+        <div class="col-12">
+            <div id="b-isOnInternet" class="funkyradio inline mt-2">
+                <div class="funkyradio-primary">
+                    <input id="isOnInternet-true" type="checkbox" name="actortype-true" value="true"
+                        @if(textForm("isOnInternet").value == "true"){checked="checked"}>
+                    <label for="isOnInternet-true">@Messages("label.yes")</label>
+                </div>
+                <div class="funkyradio-primary">
+                    <input id="isOnInternet-false" type="checkbox" name="actortype-0" value="false"
+                        @if(textForm("isOnInternet").value == "false"){checked="checked"}>
+                    <label for="isOnInternet-false">@Messages("label.no")</label>
+                </div>
+            </div>
+
+            @mapErrors(textForm, "isOnInternet", false)
+        </div>
+    </div>
+
+    <div id="text-left-fields" class="row" style="display: none">
+        <div class="col-12">
+
+            <hr>
+
+            @editTextMainFields(textForm, helper, user)
+
+        </div>
+
+        @if(textForm("id").value != "-1" && user.getERole.equals(EContributorRole.ADMIN)) {
+            <div class="col-12">
+                <label class="control-label">@Messages("text.title.notviewable")</label>
+                <div>
+                    <div id="text-viz" class="funkyradio row">
+                    @for(viz <- ETextVisibility.values()) {
+                        <div class="form-group funkyradio-primary col-sm-4 col-12">
+                            <input id="textVisibility-@viz.id" type="checkbox" value="@viz.id" @if(textForm("textVisibility").value == viz.id.toString){checked}>
+                            <label for="textVisibility-@viz.id">
+                                @Messages("text.visibility." + viz.id)
+                            </label>
+                        </div>
+                    }
+                    </div>
+                </div>
+
+                <div class="d-none">
+                    @inputText(
+                        textForm("textVisibility"),
+                        '_label -> null,
+                        'class -> "form-control",
+                        'autocomplete -> "off"
+                    )
+                </div>
+            </div>
+        }
+
+        <div class="col-12">
+
+            <hr>
+
+            <label class="form-control-label">
+                @Messages("text.label.content")
+                <span class="text-on-internet">@helpbubble("bubble.title","bubble.entry.text.area")</span>
+                <span class="text-non-internet">@helpbubble("bubble.title","bubble.entry.text.area.2")</span>
+            </label>
+
+            @* pdf upload *@
+            <div id="upload-div" class="padding-fiel">
+
+                @if(textForm("filename").value != "" && textForm("filename").value.endsWith(".pdf")) {
+                    <div>@Messages("text.label.pdf.current") @textForm("filename").value</div>
+                }
+
+                <div class="d-flex">
+                    @hiddenFormField(textForm("filename"))
+
+                    <div class="input-group-addon">
+                        @if(textForm("filename").value != "") {
+                            @Messages("text.label.upload.update")
+                        } else {
+                            @Messages("text.label.upload")
+                        }
+                    </div>
+
+                    <div class="btn btn-default file-input-group-input">
+                        <input type="file" accept="application/pdf" name="upload"/>
+                    </div>
+
+                    <button type="button" class="btn btn-default file-input-clear" style="display: none">
+                        <span class="fa fa-remove"></span>
+                        <span class="file-input-title">@Messages("general.label.btn.clear")</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <div id="language-div" class="col-12 padding-field" style="display: none">
+                @selectInput(
+                    textForm("language"),
+                    helper.getLanguages(ctx.lang.code),
+                    Messages("actor.place.namelang"),
+                    Messages("text.title.lang.label")
+                )
+            </div>
+
+            @if(user.getERole.id() >= EContributorRole.OWNER.id()) {
+                <div class="d-flex">
+                    <button type="button" class="btn btn-info text-import">@Messages("text.label.import.content")</button>
+                    <button type="button" class="btn btn-danger text-delete ml-3">@Messages("text.label.delete.content")</button>
+                </div>
+            }
+
+            <div id="text-import-copyright" class="bg-warning p-3" style="display: none">@Messages("text.error.copyright")</div>
+
+            @textareaInput(
+                textForm("textarea"),
+                null,
+                Messages("text.place.area"),
+                false,
+                12
+            )
+
+            <input type="text" id="fakeTextarea" class="d-none">
+
+            @mapErrors(textForm, "textarea", false)
+        </div>
+    </div>
+
+</fieldset>

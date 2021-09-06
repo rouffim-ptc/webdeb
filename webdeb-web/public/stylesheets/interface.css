@@ -1,0 +1,130 @@
+/*
+ * WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+ *
+ * List of the contributors to the development of WebDeb: see AUTHORS file.
+ * Description and complete License: see LICENSE file.
+ *
+ * This program (WebDeb) is free software:
+ * you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program (see COPYING file).  If not,
+ * see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+.contribution-edit {
+    display: none;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    font-size: 14px;
+}
+
+.contribution-attribute:hover .contribution-edit {
+    display: initial;
+}
+
+.contribution-pane:not(:first-child) .contribution-pane-container {
+    min-height : 64vh;
+}
+
+.contribution-pane-title{
+    cursor: pointer;
+    font-size: x-large !important;
+}
+
+.contribution-img{
+    max-height:100px;
+    max-width:300px;
+    height:auto;
+    width:auto;
+}
+
+.contribution-header{
+    background-color: #fafafa;
+    border : 1px solid silver;
+}
+
+.contribution-nav{
+    top:60px;
+    z-index: 1000;
+}
+
+
+.contribution-container-collapse {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.debate{
+    border : 1px solid silver;
+    background-color: #fafafa;
+}
+
+.debate .argument:first-of-type > hr:first-of-type{
+    display: none;
+}
+
+.argument-title{
+    color :#c18614;
+}
+
+.debate-category, .argument > .contribution-container-collapse{
+    border-left-width : 4px;
+    border-left-style: solid;
+}
+
+.debate-category {
+    min-height: 150px;
+}
+
+.citation-logo {
+    color : grey;
+}
+
+.shaded-container .argument-title, .shaded-container .citation-logo{
+    color : inherit;
+}
+
+.citation-title {
+    color : black;
+}
+
+.justify {
+    color : #2a8637;
+}
+
+.shaded {
+    color : orange;
+}
+
+.opposes {
+    color : #df0008;
+}
+
+.count_badged{
+    display : flex;
+    align-items: flex-start;
+}
+
+.count_badged i{
+    font-size : x-large;
+    margin-top : 5px;
+    position: relative;
+    right: -3px;
+}
+
+.count_badged .badge{
+    font-size : small;
+    position : relative;
+    left : -3px;
+}

@@ -1,0 +1,102 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to contact another contributor
+*
+* @param contactForm the contactForm
+*
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, hiddenFormField}
+@import helper._
+
+@import be.webdeb.presentation.web.controllers.account.ContactUserToUserForm
+
+@import be.webdeb.presentation.web.views.html.util.form.textareaInput
+@import be.webdeb.presentation.web.views.html.util.form.textInput
+@(
+        contactForm : Form[ContactUserToUserForm]
+)
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            let modal = $('#contact-user-to-user-modal');
+
+            modal.find('#submit-btn').on('click', function() {
+                let form = modal.find('form');
+
+                sendUserContactUser(form).done(function (data) {
+                    slideDefaultSuccessMessage();
+                    hideAndDestroyModal(modal);
+                }).fail(function (jqXHR) {
+                    if (jqXHR.status === 400) {
+                        // rebuild form from response text
+                        replaceContent(form, jqXHR.responseText, 'form');
+                    } else {
+                        slideDefaultErrorMessage();
+                        hideAndDestroyModal();
+                    }
+                });
+            });
+        });
+</script>
+
+@emptyModalframe("contact-user-to-user-modal", false, "form", "", false) {
+    <div class="modal-header">
+        <h3 class="modal-title small-caps text-muted">
+        @Messages("mail.userToUser.modal.title")
+        </h3>
+    </div>
+
+    <div class="modal-body row">
+        <div id="form-content" class="col-12">
+            <p class="instructions">@Messages("mail.userToUser.modal.desc", contactForm("pseudoUserReceiver").value, contactForm("emailUserSender").value)</p>
+            <form>
+                <fieldset>
+
+                    @hiddenFormField(contactForm("emailUserSender"))
+                    @hiddenFormField(contactForm("emailUserReceiver"))
+
+                    @textInput(
+                        contactForm("subject"),
+                        Messages("group.mail.mailTitle")
+                    )
+                    @textareaInput(
+                        contactForm("content"),
+                        Messages("group.mail.mailContent"),
+                        null,
+                        false,
+                        10
+                    )
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="col-12">
+            <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+            <button id="submit-btn" type="button" name="submit" class="btn btn-primary">@Messages("general.btn.confirm")</button>
+        </div>
+    </div>
+}

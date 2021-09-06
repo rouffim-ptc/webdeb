@@ -1,0 +1,118 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Inteface test
+*
+* @param user the webdeb user
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@import be.webdeb.presentation.web.controllers.viz.actor.ActorVizHolder
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+@import be.webdeb.util.ValuesHelper
+@import be.webdeb.core.api.actor.EActorType
+@import be.webdeb.core.api.actor.EGenderType
+@import be.webdeb.presentation.web.views.html.viz.actor.util.affiliationList
+
+@import be.webdeb.presentation.web.views.html.others.test.interfaceContent
+@import be.webdeb.presentation.web.views.html.others.test.interfaceHeader
+@(
+        actor : ActorVizHolder,
+        pane : EActorVizPane,
+        pov : Integer,
+        values : ValuesHelper,
+        user : WebdebUser
+)
+
+
+@scripts = {
+    <title></title>
+    <meta name="description" content="@Messages("browse.search.tooltip")">
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/interface.css")">
+
+    <script>
+            $(document).ready(function(){
+
+                $('.contribution-pane-title').on('click', function(){
+                    let pane= $(this).data('target-id');
+
+                    if($(this).attr('aria-expanded') === "true"){
+                        deleteFromHistory('pane');
+                        window.location.href = '#';
+                    }
+                    else {
+                        replaceHistory('pane', pane);
+                        window.location.href = pane === 0 ? '#' : '#pane_header_' + (pane - 1);
+                    }
+
+                });
+
+            });
+    </script>
+}
+
+@main(user, scripts) {
+
+    <div class="container-fluid container-fluid-smart mb-4">
+
+        <div class="row">
+            <div class="col-12">
+
+                @interfaceHeader(actor, values, user)
+
+                <div class="accordion" id="pane_accordion">
+
+                @for(vizPane <- EActorVizPane.values()) {
+                    @content(
+                        vizPane,
+                        Messages("test.viz.actor.pane." + vizPane.id + ".title"),
+                        pane != null && vizPane.id == pane.id
+                    )
+                }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@content(id : EActorVizPane, title : String, show : Boolean = false) = {
+    <div class="card contribution-pane">
+        <div id="pane_header_@id.id" class="card-header" id="heading_@id.id">
+            <h2 class="m-0 d-flex contribution-pane-title" data-toggle="collapse" data-target="#pane_@id.id" data-target-id="@id.id" aria-expanded="@show" aria-controls="pane_@id.id">
+                <span class="flex-grow-1">@title</span>
+                <i class="fa fa-chevron-down"></i>
+            </h2>
+        </div>
+
+        <div id="pane_@id.id" class="collapse contribution-pane-container @if(show) {show}" aria-labelledby="headingOne" data-parent="#pane_accordion">
+            <div class="card-body">
+                @interfaceContent(id, actor, values, user)
+            </div>
+        </div>
+    </div>
+}

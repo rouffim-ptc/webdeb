@@ -1,0 +1,52 @@
+@*
+* Copyright 2014-2018 University of Namur (PReCISE) - University of Louvain (Girsef - CENTAL).
+* This is part of the WebDeb software (WDWEB), a collaborative platform to record and analyze
+* argumentation-based debates. This is free software:  you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License version 3 as published by the
+* Free Software Foundation. It is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* See <https://webdeb.be/> for a running instance of a webdeb web platform.
+* See the GNU Lesser General Public License (LGPL) for more details over the license terms.
+*
+* You should have received a copy of the GNU Lesser General Public License along with this copy.
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Argument details pane, showing its originating argument, its text details
+*
+* @param details the details for which the details will be displayed
+* @param user current user profile
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.controllers.entry.argument.ArgumentHolder
+
+@(
+        argument : ArgumentHolder,
+        user : WebdebUser
+)
+
+
+<div class="col-12 no-padding-xs">
+
+    <div class="col-12 col-md-6 no-padding-xs">
+        <p>
+            <span class="text-muted text-lowercase small-font">@Messages("argument.sumup.actorname")</span>
+            @argument.getTitle
+        </p>
+
+        <p>
+            <span class="text-muted text-lowercase small-font">@Messages("argument.sumup.actorname")</span>
+            @argument.getLanguage
+</p>
+    </div>
+
+</div>

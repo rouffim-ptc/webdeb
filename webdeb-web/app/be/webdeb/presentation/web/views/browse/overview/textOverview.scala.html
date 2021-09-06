@@ -1,0 +1,62 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Helper template to give an overview of a text
+*
+* @param text the text details (may not be null, but empty)
+* @param withLink true if the title is clickable to go to detail page of clicked element
+* @param detailed true if the verbose overview is shown (with types, classes and citation) (UNUSED atm)
+* @param withCreator true if the creator (contributor name) must be shown too
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+
+@import be.webdeb.presentation.web.controllers.browse.EOverviewType
+@import be.webdeb.presentation.web.views.html.browse.overview.contributionOverview
+
+@(
+        text: TextHolder,
+        withLink: Boolean,
+        detailed: Boolean,
+        withCreator: Boolean = false,
+        displayType : EOverviewType = EOverviewType.SIMPLE
+)
+
+@contributionOverview(text.getId, text.getId, text.getTitle, text.getType, text.getType, null, withLink, displayType){
+    <ul class="fa-ul searched mb-0 ml-3 mt-1">
+
+        @if(detailed) {
+            <li style="font-family: 'gandhi_serifregular', serif;">
+                <i class="@Messages("browse.search.tip.ACTOR")"></i>
+
+                <span class="forcewrap">
+                    @Html(text.getAuthorsDescription)
+                </span>
+            </li>
+        }
+
+        @if(withCreator) {
+            <li><i class=" fa fa-user-circle"></i> @Messages("viz.contributor.creator") @text.getCreatorName</li>
+        }
+    </ul>
+}

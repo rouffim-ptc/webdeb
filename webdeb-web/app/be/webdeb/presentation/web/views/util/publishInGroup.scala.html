@@ -1,0 +1,107 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Reusable dropdown menu to change group when publishing contributions
+*
+* @param id the id of the main div for this box
+* @param fieldId a field id that will receive the associated name to the selected group
+* @param user the current user, to retrieve all his/her groups
+*
+* @author Fabian Gilson
+*@
+
+
+@import be.webdeb.core.api.contributor.EContributorRole
+@import be.webdeb.presentation.web.controllers.SessionHelper
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.util.{groupChooseButton, groupChooseButtonSelector, filterFollowedBtn}
+@import be.webdeb.core.api.contributor.Group
+
+@(
+    id : String,
+    fieldId : String,
+    user : WebdebUser,
+    dropup: Boolean = false,
+    dropright: Boolean = false
+)
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      let that = $('#@id');
+
+      let pager_publish_in_group = new Pager(that.find('.pageable'), 5,
+              that.find('#pager-change-scope'), undefined, undefined, true, 1, 1);
+      // on ubuntu firefox button seems to be hidden
+      that.find('.notfollowed-group').addClass("filtered");
+      pager_publish_in_group.reset();
+      toggleFollowedGroups(that, pager_publish_in_group);
+
+      // update given field with selected value
+      that.find('button').on('click', function (e) {
+        e.preventDefault();
+        that.click();
+
+        $('#@fieldId').val($(this).val());
+        $('#selected-item_@id').text($(this).find('[id^="group-name_"]').text());
+        // close dropdown
+        that.find('.dropdown-toggle').dropdown('toggle');
+        retrieveContributorGroup($(this).val()).done(function (data) {
+            $("#select-group").empty().append(data);
+        }).fail(function (jqXHR) {
+            console.log("Error in retrieveContributorGroup, "+jqXHR);
+        });
+
+      })
+    });
+  </script>
+
+  <div id="@id" class="btn-group @if(dropup){dropup}">
+    <a href="#" class="dropdown-toggle no-decoration" data-toggle="dropdown" id="select-group">
+      @groupChooseButton(user.getGroup, false)
+    </a>
+
+    <div class="select-group-box dropdown-menu @if(dropright){dropdown-menu-right}" role="menu" aria-labelledby="select-group" style="min-width : 450px;">
+      <div class="pl-3 pr-3">
+        <p class="instructions small-font">@Messages("entry.select.group.desc")</p>
+
+        <ul class="list-unstyled pageable col-12 no-padding mb-0">
+        @for(group <- user.getSubscriptionsSortedByDate) {
+          <li class="@if(!group.isFollowed){notfollowed-group}" @if(!group.isFollowed){style="display:none"}>
+            <button type="button" class="btn btn-link primary btn-group-choose" value="@group.getGroup.getGroupId">
+              @groupChooseButtonSelector(group.getGroup, false, true, false)
+            <span class="text-muted small-font">
+            @Messages("group.visibility." + group.getGroup.getContributionVisibility.id)
+            </span>
+            </button>
+            @if(group.getGroup.getGroupId == Group.getGroupPublic && user.getSubscriptionsSortedByDate.length > 1){<hr class="hr-small">}
+          </li>
+        }
+        </ul>
+      </div>
+
+      <div id="pager-change-scope" class="pager pagination"></div>
+
+      <div class="dropdown-divider"></div>
+
+      <div class="pl-3 pr-3">
+        @filterFollowedBtn()
+      </div>
+    </div>
+  </div>
+

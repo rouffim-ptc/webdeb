@@ -1,0 +1,65 @@
+Sur smartphone boutton recherche marche po dans navbar V
+explorer charger uniquement 8 derniere contributions puis proposer un boutons voir toutes les derniers contributions. V
+Dossiers : scroller-pager pour débat / citations. V
+Boutton partager. V
+Trier par ordre de citation acteur citation et a propos et quand on clique sur un item afficher les citations de l'acteur qui s'y rapportent. : V
+sitemaps V
+écran débat argument trop grand sur smartphone V
+Smartphone, les scroller affiche wait for it inutile V
+Smartphone affiliations pas top.. V
+REfaire barre de navigatin : mettre explorer / contribuer / (group ?) / (recherche ?) en bas. Au dessus logo / aide / recherche ? / se connecter V
+Effet du partage sur les médias sociaux. V
+Session Helper 521 is null when link from face V
+Ajouter un éventuel débat lié aux citations dans leur container (choisis au hasar). Et dans le bouttons oeil la liste complete des débats ainsi que dans la fiche citation. V
+Bug drag n drop bernard V
+Faire deux versions du dropdown contribution / un comme tel l'autre sur smartphone quand on clique sur les 3 petit points on affiche eye / crayon / plus en une fois. V
+Quand fusion de dossiers supprimer lien entre de hierarchie (ex covid_19 affilié a lui même). V
+pop-up fonction V
+Meilleure importation des infos du texte via les balises og V
+Mes contributions : scroller pager V
+recherche : scroller pager V
+Historique V
+Historique : quand un lien (aff, position, justification) est ajouté a une contribution, update timestamp V
+Faire les filtres (affiliations) V
+ordre sous debat categories argument citation + (bug quand on déplace un argument déja dans la catégorie a une autre position). V
+debat biiblio des positions V
+ajout de texte dans la biblio V
+Boutton importer contenu du text formulaire text. V
+xframe texte V
+
+
+ajout d un sous debat depuis un argument
+
+
+inscription + facile. Méthode actuelle incomprésible. Donc facilitation avec Google et Facebook. https://blog.google/topics/google-news-initiative/introducing-subscribe-google/
+
+https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
+https://developers.facebook.com/docs/facebook-login/web/
+Certains compte peuvent ne pas avoir d'email !
+
+
+contribution bloquée, permettre a certaine personne d'y contribuer -> importer dans un groupe visibilité publique et ajouter une option : edition reservée aux membres. Dans la foulée les autres options peuvent être supprimées ?
+Peut être une forme de groupe simplifié, mais réutiliser le système car tout est la.
+
+
+Faire ajout massif de citations.
+
+Le drag n drop sur smartphone.
+
+
+Quand on recharge la page de la recherche ca affiche pas de résultat ?
+La recherche de citation, ne pas afficher le logo quand uniquement des résultat de citation (par ex ajotuer une citation depuis un débat) ? 
+
+
+Show citations of bibliography rapatrié dans la fonction findContributions
+
+
+Fusion des dossiers quand rewording name ?
+
+
+
+Plusieurs url pour un acteur : lien wiki, lien page perso, lien linkedin, lien twitter
+Citation acteurs -> lister les tweets des 7 derniers jours.
+
+Quand on rejoind un groupe changer la vue courrante.
+

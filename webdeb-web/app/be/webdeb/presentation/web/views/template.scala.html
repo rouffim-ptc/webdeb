@@ -1,0 +1,466 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Main html canvas with all javascript/css imports, without navigation bar and with footer. For bootstrap 4
+*
+* @param user the user profile data
+* @param meta possibly empty meta to be appende to this template's header
+* @param scripts possibly empty scripts to be appended to this template's scripts
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+* @author Julien Mathieu (footer design)
+*@
+
+
+@import be.webdeb.presentation.web.controllers.SessionHelper
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.account.group.changeCurrentScope
+@import be.webdeb.presentation.web.views.html.util.loadingpanel
+@import be.webdeb.core.api.contributor.{EContributorRole, EOpenIdType}
+@import be.webdeb.presentation.web.views.html.browserWarning
+@import be.webdeb.presentation.web.views.html.toolbar.languagebox
+@import be.webdeb.core.api.debate.EDebateShade
+@(
+        user : WebdebUser,
+        scripts: Html = Html(""),
+        meta: Html = Html(""),
+        currentPageId : String = null
+)(content: Html)
+
+
+<!DOCTYPE html>
+
+<html lang="@ctx.lang.code">
+    <head>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v8.0" nonce="a6VSGIa4"></script>
+        <script>
+                window.fbAsyncInit = function() {
+                    FB.init({
+                        appId      : '1041556339596017',
+                        cookie     : true,
+                        xfbml      : true,
+                        version    : 'v8.0'
+                    });
+
+                    FB.getLoginStatus(function(response) {
+                        treatFacebookOpenIdAuthentication(response, @EOpenIdType.FACEBOOK.id(), false);
+                    });
+                };
+
+
+                function checkFacebookLoginState() {
+                    FB.getLoginStatus(function(response) {
+                        treatFacebookOpenIdAuthentication(response, @EOpenIdType.FACEBOOK.id(), true);
+                    });
+                }
+        </script>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+
+        <script src="https://apis.google.com/js/platform.js?onload=onLoadGoogle" async defer></script>
+        <script>
+            function onSignIn(googleUser) {
+               treatGoogleOpenIdAuthentication(googleUser, @EOpenIdType.GOOGLE.id());
+            }
+            function onLoadGoogle() {
+                gapi.load('auth2', function() {
+                    gapi.auth2.init();
+                });
+            }
+        </script>
+
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110380799-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-110380799-1');
+        </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="google-site-verification" content="p7sMsQU_2piyOopxliC4ucfCGutYN-D5yqu1WmR8qFs" />
+        <meta name="google-signin-client_id" content="273465418500-vkr1p1h1cs144fkr4mtos3j40gp2o5m3.apps.googleusercontent.com">
+
+        @meta
+
+        <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,900,700," rel="stylesheet">
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/ee.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery-ui.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/openLayers.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/annotator.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/all.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/v4-shims.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/organizationalChart.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/sliderform.css")">
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+
+        <link rel="icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <link rel="apple-touch-icon" href="@routes.Assets.at("images/webdeb.png")"/>
+
+        <script src="@routes.Assets.at("javascripts/jquery-3.2.1.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/popper.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/typeahead.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootbox.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/trunk8.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
+
+        <script src="@routes.Assets.at("javascripts/jquery-extension.js")"></script>
+        <script src="@routes.Assets.at("javascripts/webdeb-pager.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/scroller-pager.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/webdeb-scripts.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/ajax-router.js")" type="text/javascript"></script>
+
+        <script type="text/javascript" src="@be.webdeb.presentation.web.controllers.routes.Application.jsMessages()"></script>
+        <script type="text/javascript" src="@be.webdeb.presentation.web.controllers.routes.Application.javascriptRoutes()"></script>
+
+        <script type="text/javascript">
+
+                //Fix menu drop down disappearing on click (for userbox)
+                $(document).ready(function () {
+                    @*
+                    @if(!user.isBrowserWarned){
+                    if (detectIE()) {
+                        var mainContent = $("#main-content");
+                        var warningContent = $("#ie-warning");
+                        warningContent.show();
+                        mainContent.html(warningContent);
+                    }
+                    }
+                    *@
+
+
+                    $('.logout-google-auth').on('click', function(){
+                        logoutFromGoogle();
+                    });
+
+                    $('.logout-facebook-auth').on('click', function(){
+                        logoutFromFacebook();
+                    });
+
+
+                    $('.dropdown-menu').click(function (e) {
+                        e.stopPropagation();
+                    });
+
+                    @if(user.getGroup != null){
+                        // add typeahead to navbar
+                        let query = $('#main-query');
+                        addSearchTypeahead(query , @user.getGroup.getGroupId, query.parents('header'));
+                    }
+
+                    let search_input = $('.search_input');
+
+                    search_input.on('click', function(){
+                        if($(window).width() > BOOTSTRAP_SM_MAX) {
+                            let margin1 = $(this).parents('ul').css('margin-left');
+                            let margin2 = $(this).parents('ul').prev().css('margin-right');
+                            let margin = parseFloat(margin1.substr(0, margin1.length - 2)) + parseFloat(margin2.substr(0, margin2.length - 2));
+                            $(this).width($(this).width() + (margin - 15));
+                        }else{
+                            search_input.css('width', '100%');
+                        }
+                    });
+
+                    search_input.on('focusout', function(){
+                        if($(window).width() > BOOTSTRAP_SM_MAX) {
+                            search_input.width(0);
+                        }else{
+                            search_input.css('width', '100%');
+                        }
+                    });
+
+                    $(window).on('resize', function(){
+                        if($(window).width() > BOOTSTRAP_SM_MAX) {
+                            search_input.width(0);
+                        }else{
+                            search_input.css('width', '100%');
+                        }
+                    });
+
+                    // do post on main search button pressed
+                    $('[id^="main-query"]').on('typehead-selected', function() {
+                        redirectSearch($(this));
+                    });
+
+                    $('.nav-searchbar').find('.input-group-text').on('click', function() {
+                        redirectSearch($('#main-query'));
+                    });
+
+                    $('[id^="main-query"]').keypress(function(e) {
+                        if (e.which === 13) {
+                            e.preventDefault();
+                            redirectSearch($(this));
+                        }
+                    });
+
+                    // animated alerts
+                    let alerts = $('.alert-fixed');
+                    if (alerts.length > 0) {
+                        fadeMessage();
+
+                        alerts.on("close.bs.alert", function () {
+                            $(this).hide();
+                            return false;
+                        });
+                    }
+
+                    // cookie notification
+                    $('#got-it').on('click', function () {
+                        acceptCookies();
+                        $('.alert-fixed').fadeTo(500, 0).slideUp(500, function (){ $(this).remove(); });
+                    });
+
+                    // recover password
+                    $('#forgot-pwd').on('click', function () {
+                        recoverPassword().done(function (modal) {
+                            loadAndShowModal($('#autocreated'), modal);
+
+                        }).fail(function (jqXHR) {
+                            showErrorMessage(jqXHR);
+                        });
+                    });
+
+                    // resent confirmation mail
+                    $('#confirmation-mail').on('click', function () {
+                        resendSignupMail().done(function (modal) {
+                            loadAndShowModal($('#autocreated'), modal);
+                        }).fail(function (jqXHR) {
+                            showErrorMessage(jqXHR);
+                        });
+                    });
+
+                    // contact administrator
+                    $('.contactus-btn').on('click', function () {
+                        getContactus().done(function (modal) {
+                            loadAndShowModal($('#autocreated'), modal);
+                        }).fail(function (jqXHR) {
+                            showErrorMessage(jqXHR);
+                        });
+                    });
+
+                    showHideInputPassword($('.user-toolbar').find('#password'));
+                });
+
+                /**
+                 * Detect if browser is Internet Explorer
+                 *
+                 * return true if browser is Internet Explorer
+                 */
+                function detectIE() {
+                    var ua = window.navigator.userAgent;
+
+                    var msie = ua.indexOf('MSIE ');
+                    if (msie > 0) {
+                        return true;
+                    }
+
+                    var trident = ua.indexOf('Trident/');
+                    if (trident > 0) {
+                        return true;
+                    }
+
+                    // other browser
+                    return false;
+                }
+
+                /**
+                 * Call manual redirection to browse page (will show wait-for-it panel)
+                 *
+                 * param div the div containing the query
+                 */
+                function redirectSearch(div) {
+                    // must get the suffix from div to know which search input contains the value
+                    // because we have two inputs (one responsive, one not)
+                    if (div.val() !== '') {
+                        redirectToBrowse(div.val(), div.attr('data-id'));
+                    }
+                }
+
+                function manageDebateShadeFormChange(shade, title, isMultipleContainer){
+                    let canBeMultipleShades = createArrayFromDebateMultipleShades();
+
+                    shade.change(function(){
+                        title.typeahead('destroy');
+                        title.parents('.form-group').show();
+                        shade.children('option[value=""]').remove();
+                        addArgumentTypeahead(title, 1, shade.children("option:selected").val());
+
+                        if(isMultipleContainer.exists()) {
+                            let selectedValue = $(this).children("option:selected").val();
+    console.log(selectedValue);
+    console.log(canBeMultipleShades.find(s => s === selectedValue));
+                            if (canBeMultipleShades.find(s => s === selectedValue)) {
+                                console.log(isMultipleContainer);
+                                isMultipleContainer.show();
+                            } else {
+                                isMultipleContainer.hide();
+                            }
+                        }
+                    });
+                }
+
+                function createArrayFromDebateMultipleShades() {
+                    return "@EDebateShade.shadesToIds(EDebateShade.canBeMultipleShades)".replace('[', '').replace(']', '').split(', ');
+                }
+
+        </script>
+
+        @scripts
+
+    </head>
+
+    <body>
+        <div id="fb-root"></div>
+
+        @content
+
+        <nav class="navbar fixed-bottom navbar-light navbar-bottom bg-light d-block d-md-none">
+            <div class="navbar-nav d-flex align-items-center justify-content-around flex-row">
+                <div class="nav-item">
+                    <a class="nav-link @if(currentPageId == "viz.index"){active}" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.index()">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <i class="fas fa-eye"></i>
+                            <span class="mt-1">@Messages("general.metatitle.explore.title")</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link @if(currentPageId == "contribute.index"){active}" href="@be.webdeb.presentation.web.controllers.entry.routes.EntryActions.contribute">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span class="mt-1">@Messages("contribute.contribute.title")</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link @if(currentPageId == "contribute.teach"){active}" href="@be.webdeb.presentation.web.controllers.routes.Application.teach">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span class="mt-1">@Messages("general.metatitle.teach.title")</span>
+                        </div>
+                    </a>
+                </div>
+
+                @if(user.getERole.id() > EContributorRole.VIEWER.id()) {
+                    <div class="nav-item">
+                        <a class="nav-link @if(currentPageId == "group.index") {active}" href="@be.webdeb.presentation.web.controllers.account.group.routes.GroupActions.index">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                <i class="fas fa-users"></i>
+                                <span class="mt-1">@Messages("toolbox.menu.group.admin")</span>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </nav>
+
+        <div class="wrapper_footer">
+            <footer>
+                <section class="footer">
+                    <div class="footer_content pt-4 pb-0">
+                        <div>
+                            <ul class="mb-0">
+                                @languagebox()
+                                <li><a href="@be.webdeb.presentation.web.controllers.routes.Application.about">@Messages("menu.about")</a></li>
+                                <li><a href="@be.webdeb.presentation.web.controllers.routes.Application.help">@Messages("menu.help")</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="mb-0">
+                                <li><a href="@be.webdeb.presentation.web.controllers.routes.Application.terms">@Messages("menu.terms")</a></li>
+                                <li><a role="button" class="contactus-btn btn-footer">@Messages("menu.contact")</a></li>
+                                @if(user.getERole.id() == EContributorRole.VIEWER.id()) {
+                                    <li><a role="button" id="confirmation-mail" class="btn-footer">@Messages("menu.nomail")</a></li>
+                                }
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="social">
+                                <a href="https://www.facebook.com/webdebBE"><i class="fab fa-facebook"></i></a>
+                                <a href="https://twitter.com/WebDebBE"><i class="fab fa-twitter"></i></a>
+                                @* <a href="#"><i class="fab fa-instagram"></i></a> *@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="copyright_content pt-0">
+
+                        <hr class="mt-2">
+                        <p class="mb-1">Copyright &copy; since 2014 - UCLouvain & UNamur</p>
+                        <p class="m-0">
+                            Some icons made by <a target="_blank" class="primary" href="https://www.freepik.com/">Freepik</a>
+                            from <a target="_blank" class="primary" href="https://www.flaticon.com/home">www.flaticon.com</a> licensed under CC BY 3.0
+                        </p>
+                    </div>
+
+                </section>
+            </footer>
+        </div>
+
+        <div id="autocreated"></div>
+
+        <div id="modal-anchor"></div>
+
+        <div id="modal-help-anchor"></div>
+
+        <div id="merge-modal-anchor"></div>
+
+        <div id="filter-anchor"></div>
+
+        @* general loading panel *@
+        @loadingpanel("wait-for-it")
+
+        @* change scope modal frame *@
+        @changeCurrentScope(user)
+
+        @* general error message to be shown when ajax request crashed *@
+        <div id="error-div" class="col-12" style="display: none">
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>@Messages("danger")</strong> @Messages("error.crash")
+            </div>
+        </div>
+
+        @* check if user acknowledged on cookie usage *@
+        @if(request.cookie(SessionHelper.ACCEPT_COOKIE) == null ||
+                !"true".equals(request.cookie(SessionHelper.ACCEPT_COOKIE).value)) {
+            <div class="alert alert-fixed alert-cookie fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                @Html(Messages("welcome.cookie", be.webdeb.presentation.web.controllers.routes.Application.terms))
+                <button style="margin: 0 10px;" id="got-it" class="btn btn-sm btn-primary pull-right">
+                    <i class="fa fa-check-square-o">&nbsp;</i>@Messages("general.got.it")
+                </button>
+            </div>
+        }
+
+        <div id="ie-warning" style="display : none;">@browserWarning()</div>
+
+        <input id="user-id" class="d-none" value="@user.getId">
+    </body>
+</html>

@@ -1,0 +1,57 @@
+@*
+* Copyright 2014-2018 University of Namur (PReCISE) - University of Louvain (Girsef - CENTAL).
+* This is part of the WebDeb software (WDWEB), a collaborative platform to record and analyze
+* argumentation-based debates. This is free software:  you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License version 3 as published by the
+* Free Software Foundation. It is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* See <https://webdeb.be/> for a running instance of a webdeb web platform.
+* See the GNU Lesser General Public License (LGPL) for more details over the license terms.
+*
+* You should have received a copy of the GNU Lesser General Public License along with this copy.
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Argument details pane, showing its originating citation, its text details and classification details
+*
+* @param argument the argument for which the details will be displayed
+* @param user current user profile
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.views.html.viz.actor.util.authorList
+
+@import be.webdeb.presentation.web.views.html.viz.place.placeList
+@import be.webdeb.presentation.web.controllers.entry.citation.CitationHolder
+@import be.webdeb.presentation.web.views.html.viz.tag.tagList
+
+@import be.webdeb.presentation.web.controllers.viz.text.ETextVizPane
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+@import be.webdeb.presentation.web.controllers.viz.tag.ETagVizPane
+@import be.webdeb.core.api.actor.EActorRole
+@import be.webdeb.presentation.web.views.html.viz.debate.util.debateContainerList
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@(
+        citation : CitationHolder,
+        user : WebdebUser
+)
+
+<div class="center-flex large">
+    <div class="col-sm-12 contribution-card">
+        <p><span class="serif">@citation.getWorkingExcerpt</span></p>
+        <p><span class="text-muted text-lowercase small-font">@Messages("excerpt.original.excerpt") : </span> <span class="serif">@citation.getOriginalExcerpt</span></p>
+
+        <p>
+            <span class="text-muted text-lowercase small-font">@Messages("viz.text.title")</span>
+            <a class="primary" href="@be.webdeb.presentation.web.controllers.viz.routes.VizActions.text(citation.getTextId, ETextVizPane.PRESENTATION.id, 0)">
+                @citation.getTextTitle
+            </a>
+        </p>
+    </div>
+</div>

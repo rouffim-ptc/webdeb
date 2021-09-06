@@ -1,0 +1,75 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Abstract helper template to give an overview of a contribution
+*
+* @param withLink true if the title is clickable to go to it's detail's page
+* @param withCreator true if the creator (contributor name) must be shown too
+* @param detailed true if the verbose overview is shown
+*
+* @author Fabian Gilson
+* @author Martin Rouffiange
+*@
+
+
+@import be.webdeb.presentation.web.controllers.viz.EVizPane
+@import be.webdeb.presentation.web.controllers.browse.EOverviewType
+@import be.webdeb.core.api.contribution.EContributionType
+
+@(
+        contributionId: Long,
+        redirectionId : Long,
+        contributionName : String,
+        contributionType : EContributionType,
+        contributionRedirectType : EContributionType,
+        avatar : String,
+        withLink: Boolean = true,
+        displayType : EOverviewType = EOverviewType.SIMPLE
+)(description: Html)
+
+<div id="summary_@contributionId" class="contributionPop_container @if(displayType != EOverviewType.QUADRA){contributionPop_container_white} @if(!withLink){summary} filterable-item no-padding-xs pl-2 pr-2 @if(displayType == null){@EOverviewType.SIMPLE.getBootstrapDivision}else{@displayType.getBootstrapDivision}" data-id="@contributionId">
+
+    <a class="contributionPop_content @if(displayType != null && displayType.id >= EOverviewType.QUADRA.id) {contributionPop_content_no_border} d-flex flex-wrap align-items-center"
+    href="@if(withLink){@be.webdeb.presentation.web.controllers.viz.routes.VizActions.dispatch(redirectionId, contributionRedirectType.id, -1, 0)}else{#}">
+
+        <div class="p-3 col-12 d-flex flex-nowrap @if(displayType != null && displayType.id >= EOverviewType.QUADRA.id){flex-column} align-items-center">
+
+            @if(contributionType == EContributionType.ACTOR) {
+                <div class="actorPop_img @if(displayType != null && displayType.id >= EOverviewType.QUADRA.id){m-0}else{mr-3}" style="background-image: url(@avatar)"></div>
+            }else{
+                <div class="d-flex justify-content-center mr-3" style="width:50px">
+                    <i class="icon_left @Messages("browse.search.tip." + contributionType.name)"></i>
+                </div>
+            }
+
+            <div class="inline @if(displayType == null || displayType.id < EOverviewType.QUADRA.id){mr-auto} flex-grow-1 d-flex flex-column @if(displayType != null && displayType.isMultiple){contributionDescription}else{justify-content-center}">
+                <p class="@if(displayType != null && displayType.id >= EOverviewType.QUADRA.id) {text-center} @if(contributionType == EContributionType.CITATION){small}" >@contributionName</p>
+                @if(displayType == null || displayType.id < EOverviewType.QUADRA.id) {
+                    @description
+                }
+            </div>
+
+            @if(displayType == null || displayType.id < EOverviewType.QUADRA.id) {
+                <i class="icon_right fas fa-caret-right"></i>
+            }
+        </div>
+
+    </a>
+
+</div>

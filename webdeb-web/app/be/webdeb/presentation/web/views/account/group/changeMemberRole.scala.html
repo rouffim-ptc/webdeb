@@ -1,0 +1,111 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Modal frame to change members role in group
+*
+* @param the role id of the owner that want to change member role
+* @param roles the change member role form
+* @param helper helper class to fetch predefined values from (countries, genders, types, ...)
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.api.contributor.GroupSubscription
+@import be.webdeb.presentation.web.controllers.account.group.RoleForm
+@import be.webdeb.presentation.web.views.html.util.{bootstrapInput, emptyModalframe, noerrorForm, hiddenFormField}
+@import helper._
+@import be.webdeb.presentation.web.controllers.entry.ContributionHelper
+
+@(
+    owner : GroupSubscription,
+    role : Form[RoleForm],
+    helper : ContributionHelper
+)
+
+
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapInput.render) }
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        addListeners();
+    });
+
+    function addListeners() {
+        $('#submit-btn').on('click', function () {
+            sendChangeMemberRole(@owner.getGroup().getGroupId, $('#role-form')).done(function (data) {
+                $('#manage-groups').empty().append(data);
+                addManageGroupListeners();
+                hideAndDestroyModal('#changeMemberRoles');
+            }).fail(function (jqXHR) {
+                if (jqXHR.status === 400) {
+                    replaceContent('#role-form', jqXHR.responseText, 'form');
+                    addListeners();
+                } else {
+                    $('#manage-groups').empty().append(jqXHR.responseText);
+                    addManageGroupListeners();
+                    hideAndDestroyModal('#changeMemberRoles');
+                }
+            });
+        });
+    }
+
+</script>
+
+@emptyModalframe("changeMemberRoles", false, "form", "", false) {
+    <div class="modal-header">
+        <h3 class="modal-title small-caps text-muted">
+            @Messages("group.changerole.title") <span class="text-primary">@owner.getGroup().getGroupName</span>
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div id="form-content" class="row">
+                <p class="instructions">@Messages("group.changerole.instructions")</p>
+
+                <form id="role-form" class="col-12">
+                    <div class="col-12 no-padding">
+                        <div class="col-sm-4 no-padding">
+                            @select(
+                            role("roleId"),
+                            options(helper.getAllContributorRoles(ctx().lang().code(), owner.getRole.id())),
+                            '_default -> Messages("group.invite.members.role.select"),
+                            '_label -> null,
+                            'class -> "form-control",
+                            'autocomplete -> "off"
+                            )(handler = noerrorForm, implicitly[Messages])
+                        </div>
+                        <div class="col-sm-8" style="padding-top: 27px;">
+                            @hiddenFormField(role("userId"))
+                            @hiddenFormField(role("invitation"))
+                            <span>@role("invitation").value</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button id="cancel-btn" type="button" class="btn btn-default" data-dismiss="modal">@Messages("general.btn.cancel")</button>
+        <button id="submit-btn" type="button" class="btn btn-primary" title="@Messages("group.changerole.btn.title")">
+        @Messages("group.changerole.btn")
+        </button>
+    </div>
+}

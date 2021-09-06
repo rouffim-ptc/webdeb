@@ -1,0 +1,61 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Show a list of given professions and allow edition of them
+*
+* @param lang the lang in which profession names are displayed
+* @param professions the list of professions
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.core.api.actor.Profession
+@(
+  lang : String,
+  professions : java.util.List[Profession]
+)
+
+<div id="professions">
+  <script type="text/javascript">
+          $(document).ready(function() {
+            addManageProfessionListeners();
+          });
+  </script>
+
+  <div class="pageable">
+    @for(profession <- professions) {
+      <div id="profession-@profession.getId" class="col-12 summary">
+        <div class="col-12 large-font">
+          <span>@profession.getGendersNames(lang)</span>
+        </div>
+        <div class="col-12">
+          <button id="edit-profession_@profession.getId" title="@Messages("admin.edit.profession.names.tooltip")" type="button" class="btn btn-link primary">
+            <span class="fa fa-edit fixed-size"></span>&nbsp;@Messages("admin.edit.profession.names")
+          </button>
+          <button id="edit-profession-haslink_@profession.getId" title="@Messages("admin.edit.profession.haslink.tooltip")" type="button" class="btn btn-link primary">
+            <span class="fa fa-edit fixed-size"></span>&nbsp;@Messages("admin.edit.profession.haslink")
+          </button>
+          <button id="merge-professions_@profession.getId" title="@Messages("admin.merge.professions.tooltip")" type="button" class="btn btn-link primary">
+            <span class="fa fa-edit fixed-size"></span>&nbsp;@Messages("admin.merge.professions")
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

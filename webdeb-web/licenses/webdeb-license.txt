@@ -1,0 +1,26 @@
+Copyright 201 Université de Namur, Université Catholique de Louvain. This is the main license of the WebDeb
+software (WD), a collaborative platform to record and analyze argumentation-based debates. This is free
+software:  you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
+version 3 as published by the Free Software Foundation. It is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+Coding contributors:
+* Fabian Gilson (PReCISE, UNamur)
+* Cyril Carlier (UNamur)
+
+See <http://webdeb.be> for a running instance of a webdeb web platform.
+See the GNU Lesser General Public License (LGPL) for more details over the license terms.
+
+You should have received a copy of the GNU Lesser General Public License along with this WebDeb copy.
+If not, see <http://www.gnu.org/licenses/>.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided
+that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this list of conditions and
+	the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and
+	the following disclaimer in the documentation and/or other materials provided with the distribution.
+* The names of its contributors may be used to endorse or promote products derived from this software
+	without specific prior written permission.

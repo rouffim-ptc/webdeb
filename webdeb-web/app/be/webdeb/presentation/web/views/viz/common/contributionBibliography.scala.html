@@ -1,0 +1,89 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+@*
+* Debate details showing name, tag and places
+*
+* @param tag the tag to display the details for
+*
+* @author Martin Rouffiange
+*@
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.viz.text.util.textBox
+@import be.webdeb.presentation.web.controllers.entry.ContextContributionHolder
+
+@import be.webdeb.presentation.web.controllers.entry.text.TextHolder
+@import be.webdeb.core.api.contribution.EContributionType
+@import be.webdeb.presentation.web.controllers.viz.actor.EActorVizPane
+@(
+        contributionId : Long,
+        ctype : EContributionType,
+        textsMap : java.util.Map[Long, Integer],
+        textHoldersMap : java.util.Map[Long, TextHolder],
+        user : WebdebUser
+)
+
+<div class="row mt-3 mb-3 context-biblio-container-@contributionId">
+
+    @if(ctype == EContributionType.DEBATE){
+        <div class="col-12">
+            <button type="button" class="btn btn-info debate-add-text-btn mt-0 mb-3" title="" data-debate="@contributionId">
+                <i class="fas fa-plus fixed-size"></i>&nbsp;
+                <span>@Messages("entry.new.text.btn") <i class="@Messages("browse.search.tip.TEXT")"></i></span>
+            </button>
+        </div>
+    }
+
+    @if(textsMap.isEmpty) {
+
+        <div class="col-12">
+            <p class="instructions mb-3">@Messages("viz.citations.empty")</p>
+        </div>
+
+    } else {
+
+        <div class="col-12 mt-2">
+            @for((textId, nbTimes) <- textsMap){
+                <div>
+                    <div class="d-flex align-items-center pr-lg-2 pl-lg-2">
+                        <div class="flex-grow-1">
+                            @textBox(textHoldersMap.get(textId), if(ctype == EContributionType.TAG){EActorVizPane.BIBLIOGRAPHY}else{EActorVizPane.AFFILIATIONS})
+                        </div>
+
+                        <div class="ml-2 ml-lg-4">
+                            @if(ctype == EContributionType.DEBATE && nbTimes == 0) {
+                                <button type="button" class="btn btn-link debate-delete-text-link-btn pr-0" data-link="@textHoldersMap.get(textId).getLinkId">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            } else {
+                                <button type="button" class="btn btn-link show-citations pr-0" @if(ctype == EContributionType.ACTOR){data-id}else{data-context}="@contributionId" data-text="@textId">
+                                    @nbTimes <i class="@Messages("browse.search.tip.CITATION")"></i>
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <hr>
+                </div>
+            }
+        </div>
+
+        <div class="pager pagination no-margin p-0 mt-2"></div>
+    }
+
+</div>
