@@ -363,12 +363,22 @@ public class TextForm extends TextHolder {
       logger.error("unknown language code " + language, e);
     }
 
+    Integer parsedTextVisibility;
+
     try {
-      text.setTextVisibility(textFactory.getTextVisibility(user.isPublicAdmin() && textVisibility != null && !textVisibility.isEmpty() ?
-              Integer.parseInt(textVisibility) :
-              isFreeSource ? ETextVisibility.PUBLIC.id() : ETextVisibility.PEDAGOGIC.id()));
+      parsedTextVisibility = Integer.parseInt(textVisibility);
+    } catch (NumberFormatException e) {
+      logger.warn("Error when parsing text visibility " + textVisibility + ", put public by default", e);
+      parsedTextVisibility = ETextVisibility.PUBLIC.id();
+    }
+
+    try {
+      ETextVisibility parsedTextVisibilityEnum = ETextVisibility.value(parsedTextVisibility);
+
+      text.setTextVisibility(textFactory.getTextVisibility(user.isPublicAdmin() && parsedTextVisibilityEnum != null ?
+              parsedTextVisibilityEnum.id() : ETextVisibility.PUBLIC.id()));
     } catch (NumberFormatException | FormatException e) {
-      logger.error("unknown visibility id " + textVisibility, e);
+      logger.error("unknown visibility id " + textVisibility + ", put public by default", e);
     }
 
     // bound actors

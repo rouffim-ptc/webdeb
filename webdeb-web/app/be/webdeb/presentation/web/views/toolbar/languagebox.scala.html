@@ -22,8 +22,9 @@
 * @author Fabian Gilson
 *@
 
+@import be.webdeb.core.api.contributor.EContributorRole
 
-@()
+@(withMessage: Boolean = true)
 
 @box(code : String, last : Boolean) = {
     @if(lang.code != code){
@@ -45,8 +46,10 @@
 
 <li>
     <a href="#" id="navbarDropdownLang" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="mr-1">@Messages("menu.lang")</span>
-        <img height="20" alt="current" class="hidden-xs mr-1 mb-1" src="@routes.Assets.at("images/picto/flag-"+lang.code+".png")">
+        @if(withMessage) {
+            <span class="mr-1">@Messages("menu.lang")</span>
+        }
+        <img height="20" alt="current" class="hidden-xs mr-1 @if(withMessage){mb-1}else{mt-2}" src="@routes.Assets.at("images/picto/flag-"+lang.code+".png")">
     </a>
 
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownLang">

@@ -439,19 +439,10 @@
         @* change scope modal frame *@
         @changeCurrentScope(user)
 
-        @* general error message to be shown when ajax request crashed *@
-        <div id="error-div" class="col-12" style="display: none">
-            <div class="alert alert-danger fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>@Messages("danger")</strong> @Messages("error.crash")
-            </div>
-        </div>
-
         @* check if user acknowledged on cookie usage *@
         @if(request.cookie(SessionHelper.ACCEPT_COOKIE) == null ||
                 !"true".equals(request.cookie(SessionHelper.ACCEPT_COOKIE).value)) {
-            <div class="alert alert-fixed alert-cookie fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <div class="alert alert-fixed alert-info show" role="alert">
                 @Html(Messages("welcome.cookie", be.webdeb.presentation.web.controllers.routes.Application.terms))
                 <button style="margin: 0 10px;" id="got-it" class="btn btn-sm btn-primary pull-right">
                     <i class="fa fa-check-square-o">&nbsp;</i>@Messages("general.got.it")
