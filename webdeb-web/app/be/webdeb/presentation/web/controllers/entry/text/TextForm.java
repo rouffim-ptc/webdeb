@@ -131,6 +131,7 @@ public class TextForm extends TextHolder {
     urlOrTitle = values.isBlank(text.getUrl()) ? text.getTitle(lang) : text.getUrl();
     title = text.getTitle(lang);
     url = text.getUrl();
+    embedCode = text.getEmbedCode();
     url2 = text.getUrl();
 
     try {
@@ -295,7 +296,7 @@ public class TextForm extends TextHolder {
   public Map<Integer, List<Contribution>> save(Long contributor) throws FormatException, PermissionException, PersistenceException {
     logger.debug("try to save " + toString() + " with version " + version + " in group " + inGroup);
 
-    boolean isFreeSource = (!values.isBlank(url) && helper.isFreeSource(url, contributor)) || (values.isURL(urlOrTitle) && helper.isFreeSource(urlOrTitle, contributor));
+    //boolean isFreeSource = (!values.isBlank(url) && helper.isFreeSource(url, contributor)) || (values.isURL(urlOrTitle) && helper.isFreeSource(urlOrTitle, contributor));
     inGroup = values.isBlank(inGroup) ? 0 : inGroup;
 
     if(values.isBlank(language)) {
@@ -325,6 +326,7 @@ public class TextForm extends TextHolder {
 
     if(!isOnInternet) {
       url = null;
+      embedCode = null;
       urlOrTitle = null;
     }
 
@@ -351,6 +353,7 @@ public class TextForm extends TextHolder {
     if (!values.isBlank(url) || values.isURL(urlOrTitle)) {
       try {
         text.setUrl(values.isBlank(url) ? urlOrTitle.trim() : url.trim());
+        text.setEmbedCode(embedCode);
       } catch (FormatException e) {
         logger.error("unparsable url " + url, e);
       }
@@ -489,6 +492,15 @@ public class TextForm extends TextHolder {
    */
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  /**
+   * Set the embed code for display web content from plaform.
+   *
+   * @param embedCode the embed code (like iframe)
+   */
+  public void setEmbedCode(String embedCode) {
+    this.embedCode = embedCode;
   }
 
   /**

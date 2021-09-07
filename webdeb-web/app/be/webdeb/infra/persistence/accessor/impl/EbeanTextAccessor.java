@@ -421,6 +421,7 @@ public class EbeanTextAccessor extends AbstractContributionAccessor<TextFactory>
     text.setLanguage(TLanguage.find.byId(apiText.getLanguage().getCode()));
     text.setVisibility(TTextVisibility.find.byId(apiText.getTextVisibility().getType()));
     text.setUrl(apiText.getUrl());
+    text.setEmbedCode(apiText.getEmbedCode());
 
     if(!values.isBlank(apiText.getPublicationDate()))
       text.setPublicationDate(values.toDBFormat(apiText.getPublicationDate()));

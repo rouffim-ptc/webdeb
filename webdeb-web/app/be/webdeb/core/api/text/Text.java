@@ -175,6 +175,20 @@ public interface Text extends ContextContribution {
   String getUrl();
 
   /**
+   * Get the embed code for display web content from plaform.
+   *
+   * @return the embed code, if any (like iframe)
+   */
+  String getEmbedCode();
+
+  /**
+   * Set the embed code for display web content from plaform.
+   *
+   * @param embedCode the embed code (like iframe)
+   */
+  void setEmbedCode(String embedCode);
+
+  /**
    * Retrieve the list of citations coming from this Text
    *
    * @return a possibly empty list of Citation that have been defined from this Text

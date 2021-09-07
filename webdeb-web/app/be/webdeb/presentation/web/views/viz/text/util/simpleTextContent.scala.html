@@ -39,111 +39,123 @@
         withLimit : Boolean = false
 )
 
-@if(user.mayViewTextContent(text.getId)) {
-    @if(!text.getTextarea.isEmpty) {
-        <div class="text-div">
-            <blockquote>
-                @if(withCitationForm){
-                    <div class="instructions p-0 mb-3">
-                    @Messages("text.args.add.new")
-                    </div>
-                }
-
-                <div>
-
-                    <div class="text-complete">
-                        <div class="text-complete-content @if(withLimit){limited}">
-                        @Html(text.getTextarea)
-                        </div>
-
-                        @* "add new excerpt" box *@
-                        <div class="highlighter-container" style="display:none">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <i class="fas fa-sort-up"></i>
-                            </div>
-                            <div>
-                            @citationEditBox(text, user)
-                            </div>
-                        </div>
-
-                        <div class="excerpt-too-long-msg" style="display: none">
-                        @Messages("citation.error.original.length")
-                        </div>
-                    </div>
-
-                    @if(withCitationForm) {
-                        <div class="text-complete-citation-form">
-                        @citationSimpleForm()
-                        </div>
-                    }
-
-                    <br>
-                    <br>
-                </div>
-            </blockquote>
-        </div>
-    } else {
-        @if(withCitationForm){
-            <div href="text-iframe-instructions" class="instructions p-0 mb-3">
-                @Messages("text.args.add.new")
-            </div>
-        }
-
-        <div class="text-resume-div">
-
-            @if(text.getTextSourceType == ETextSourceType.PDF.id() || (text.getUrl != null && text.getUrl.endsWith(".pdf"))
-            || (text.getFilename != null && text.getFilename.endsWith(".pdf"))) {
-                @if(text.getFilename != null && text.getFilename.endsWith(".pdf")){
-                    <embed src="/external/@text.getFilename" type="application/pdf">
-                } else { @if(text.getUrl != null) {
-                    @if(text.getUrl.startsWith("https") && text.getUrl.endsWith(".pdf")) {
-                        <iframe src="@text.getUrl" >
-                            <p>Your browser does not support iframes.</p>
-                        </iframe>
-                    } else {
-                        <a href="@text.getUrl" class="primary">@Messages("general.goto.source")</a>
-                    }
-                } else {
-                    @Messages("text.args.nocontent")
-                }
-                }
-            } else {
-                @if(text.getEncodedUrl != null && !text.getEncodedUrl.isEmpty) {
-                    <iframe id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
-                        <p>Your browser does not support iframes.</p>
-                    </iframe>
-                } else {
-                    <div class="pt-2 pb-2">{
-                        @Messages("text.args.nocontent")
-                    </div>
-                }
-            }
-
-            @if(withCitationForm) {
-                <div class="text-complete-citation-form">
-                @citationSimpleForm()
-                </div>
-            }
-        </div>
-    }
-    }
-} else {
-    @if(text.getEncodedUrl != null && !text.getEncodedUrl.isEmpty) {
-        <iframe id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
-            <p>Your browser does not support iframes.</p>
-        </iframe>
-    } else {
-        <div class="pt-2 pb-2">
-            @Messages("text.args.unautautorized")
-        </div>
-    }
+@if(text.getEmbedCode != null) {
+    @Html(text.getEmbedCode)
 
     @if(withCitationForm) {
-
         <hr>
 
         <div class="text-complete-citation-form">
             @citationSimpleForm()
         </div>
+    }
+} else {
+    @if(user.mayViewTextContent(text.getId)) {
+        @if(!text.getTextarea.isEmpty) {
+            <div class="text-div">
+                <blockquote>
+                    @if(withCitationForm){
+                        <div class="instructions p-0 mb-3">
+                        @Messages("text.args.add.new")
+                        </div>
+                    }
+
+                    <div>
+
+                        <div class="text-complete">
+                            <div class="text-complete-content @if(withLimit){limited}">
+                            @Html(text.getTextarea)
+                            </div>
+
+                            @* "add new excerpt" box *@
+                            <div class="highlighter-container" style="display:none">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-sort-up"></i>
+                                </div>
+                                <div>
+                                @citationEditBox(text, user)
+                                </div>
+                            </div>
+
+                            <div class="excerpt-too-long-msg" style="display: none">
+                            @Messages("citation.error.original.length")
+                            </div>
+                        </div>
+
+                        @if(withCitationForm) {
+                            <div class="text-complete-citation-form">
+                            @citationSimpleForm()
+                            </div>
+                        }
+
+                        <br>
+                        <br>
+                    </div>
+                </blockquote>
+            </div>
+        } else {
+            @if(withCitationForm){
+                <div href="text-iframe-instructions" class="instructions p-0 mb-3">
+                    @Messages("text.args.add.new")
+                </div>
+            }
+
+            <div class="text-resume-div">
+
+                @if(text.getTextSourceType == ETextSourceType.PDF.id() || (text.getUrl != null && text.getUrl.endsWith(".pdf"))
+                || (text.getFilename != null && text.getFilename.endsWith(".pdf"))) {
+                    @if(text.getFilename != null && text.getFilename.endsWith(".pdf")){
+                        <embed src="/external/@text.getFilename" type="application/pdf">
+                    } else { @if(text.getUrl != null) {
+                        @if(text.getUrl.startsWith("https") && text.getUrl.endsWith(".pdf")) {
+                            <iframe src="@text.getUrl" >
+                                <p>Your browser does not support iframes.</p>
+                            </iframe>
+                        } else {
+                            <a href="@text.getUrl" class="primary">@Messages("general.goto.source")</a>
+                        }
+                    } else {
+                        @Messages("text.args.nocontent")
+                    }
+                    }
+                } else {
+                    @if(text.getEncodedUrl != null && !text.getEncodedUrl.isEmpty) {
+                        <iframe id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
+                            <p>Your browser does not support iframes.</p>
+                        </iframe>
+                    } else {
+                        <div class="pt-2 pb-2">{
+                            @Messages("text.args.nocontent")
+                        </div>
+                    }
+                }
+
+                @if(withCitationForm) {
+                    <div class="text-complete-citation-form">
+                    @citationSimpleForm()
+                    </div>
+                }
+            </div>
+        }
+        }
+    } else {
+        @if(text.getEncodedUrl != null && !text.getEncodedUrl.isEmpty) {
+            <iframe id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+        } else {
+            <div class="pt-2 pb-2">
+                @Messages("text.args.unautautorized")
+            </div>
+        }
+
+        @if(withCitationForm) {
+
+            <hr>
+
+            <div class="text-complete-citation-form">
+                @citationSimpleForm()
+            </div>
+        }
     }
 }

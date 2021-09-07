@@ -389,6 +389,7 @@ public class EbeanAPIMapper implements APIObjectMapper {
     if (text.getUrl() != null) {
       wrapped.setUrl(text.getUrl());
     }
+    wrapped.setEmbedCode(text.getEmbedCode());
 
     wrapped.setSourceTitle(text.getSourceName() != null ? text.getSourceName().getName() : null);
     wrapped.setNbContributions(text.getNbContributions());

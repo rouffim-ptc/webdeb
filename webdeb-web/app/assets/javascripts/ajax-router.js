@@ -511,6 +511,16 @@ function getTextContent(url) {
 }
 
 /**
+ * Get twitter embed html code from twitter url
+ *
+ * @param url a twitter url to get embed code
+ * @returns *
+ */
+function getTwitterEmbed(url) {
+    return jsRoutes.be.webdeb.presentation.web.controllers.entry.text.TextActions.getTwitterEmbed(url).ajax({ async: true });
+}
+
+/**
  * Get the content of a PDF from a given url
  *
  * @param url an url pointing to a pdf file

@@ -32,6 +32,8 @@ import be.webdeb.core.exception.PersistenceException;
 import be.webdeb.core.impl.helper.SearchContainer;
 import be.webdeb.infra.ws.external.ExternalForm;
 import be.webdeb.infra.ws.nlp.RequestProxy;
+import be.webdeb.infra.ws.nlp.TweetFeedClient;
+import be.webdeb.infra.ws.util.WebService;
 import be.webdeb.presentation.web.controllers.CommonController;
 import be.webdeb.presentation.web.controllers.entry.NameMatch;
 import be.webdeb.presentation.web.controllers.entry.actor.ActorHolder;
@@ -70,6 +72,8 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -93,6 +97,9 @@ public class TextActions extends CommonController {
 
   @Inject
   private CacheApi cache;
+
+  @Inject
+  private WebService ws;
 
   private TextVizHolder viz;
 
@@ -601,6 +608,22 @@ public class TextActions extends CommonController {
     logger.debug("Get is free source : " + domain);
 
     return CompletableFuture.supplyAsync(() -> ok(Json.toJson(textFactory.sourceIsCopyrightfree(domain, sessionHelper.getUser(ctx()).getId()))), context.current());
+  }
+
+  /**
+   * Get twitter embed html code from twitter url
+   *
+   * @param url a twitter url to get embed code
+   * @return ok with the corresponding code, if any or badrequest if error
+   */
+  public CompletionStage<Result> getTwitterEmbed(String url){
+    try{
+      final String twitterUrl = "https://publish.twitter.com/oembed?url=" + URLEncoder.encode(url, StandardCharsets.UTF_8.toString());
+      return ws.getWithJsonResponse(twitterUrl).thenApply(content -> ok(content));
+    } catch(Exception e) {
+      logger.error("unable to call Twitter url : " + url);
+      return sendBadRequest();
+    }
   }
 
   /*

@@ -59,6 +59,7 @@ class ConcreteText extends AbstractContextContribution<TextFactory, TextAccessor
 
   private String sourceTitle;
   private String url;
+  private String embedCode;
 
   private Map<Long, String> filenames = new HashMap<>();
   private String content;
@@ -244,6 +245,21 @@ class ConcreteText extends AbstractContextContribution<TextFactory, TextAccessor
     } else {
       throw new FormatException(FormatException.Key.TEXT_ERROR, "url has a non valid format " + url);
     }
+  }
+
+  @Override
+  public String getEmbedCode() {
+    return embedCode;
+  }
+
+  @Override
+  public void setEmbedCode(String embedCode) {
+    this.embedCode = embedCode;
+  }
+
+  @Override
+  public Long getCurrentSuperContextId() {
+    return super.getCurrentSuperContextId();
   }
 
   @Override

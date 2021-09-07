@@ -85,6 +85,9 @@ public class Text extends WebdebModel {
   @Column(name = "url", length = 2048)
   private String url;
 
+  @Column(name = "embed_code", nullable = true)
+  private String embedCode;
+
   @Column(name = "fetched")
   private int fetched;
 
@@ -367,6 +370,24 @@ public class Text extends WebdebModel {
    */
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  /**
+   * Get the embed code for display web content from plaform.
+   *
+   * @return the embed code, if any (like iframe)
+   */
+  public String getEmbedCode() {
+    return embedCode;
+  }
+
+  /**
+   * Set the embed code for display web content from plaform.
+   *
+   * @param embedCode the embed code (like iframe)
+   */
+  public void setEmbedCode(String embedCode) {
+    this.embedCode = embedCode;
   }
 
   /**

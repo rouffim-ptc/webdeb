@@ -70,6 +70,7 @@
 @hiddenFormField(form(prefix + "mayViewContent"))
 @hiddenFormField(form(prefix + "textSourceType"))
 @hiddenFormField(form(prefix + "isOnInternet"))
+@hiddenFormField(form(prefix + "embedCode"))
 
 <div id="isAdmin" class="d-none" data-admin="@(user.getERole.id() >= EContributorRole.OWNER.id())">
 

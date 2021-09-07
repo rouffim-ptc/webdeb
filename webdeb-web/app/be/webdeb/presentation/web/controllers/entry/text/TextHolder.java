@@ -71,6 +71,7 @@ public class TextHolder extends ContextContributionHolder {
   protected String textSourceTypeName;
   protected Boolean isOnInternet = null;
   protected String url;
+  protected String embedCode;
   protected String textarea;
   protected ETextVisibility eTextVisibility;
   protected String textVisibility = "";
@@ -164,6 +165,8 @@ public class TextHolder extends ContextContributionHolder {
 
     eTextVisibility = text.getTextVisibility().getEType();
     textVisibility = text.getTextVisibility().getName(lang);
+
+    embedCode = text.getEmbedCode();
   }
 
   /*
@@ -301,6 +304,15 @@ public class TextHolder extends ContextContributionHolder {
    */
   public String getUrl() {
     return url;
+  }
+
+  /**
+   * Get the embed code for display web content from plaform.
+   *
+   * @return the embed code, if any (like iframe)
+   */
+  public String getEmbedCode() {
+    return embedCode;
   }
 
   /**
