@@ -1156,7 +1156,7 @@ function unlockSearch(){
 }
 
 function createEmbedCode(embedCodeInput, urlInput) {
-    urlInput.on('keyup', function(){
+    urlInput.on('change', function(){
         try {
             let embedCode;
             let url = new URL(urlInput.val());

@@ -206,6 +206,10 @@ header{
     background-color: silver;
 }
 
+.text-content-iframe {
+    width : 100%;
+    min-height: 85vh;
+}
 .text-resume-div > iframe, .text-resume-div > embed {
     min-height: 85vh;
 }

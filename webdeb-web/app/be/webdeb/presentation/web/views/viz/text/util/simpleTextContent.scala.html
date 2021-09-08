@@ -108,7 +108,7 @@
                         <embed src="/external/@text.getFilename" type="application/pdf">
                     } else { @if(text.getUrl != null) {
                         @if(text.getUrl.startsWith("https") && text.getUrl.endsWith(".pdf")) {
-                            <iframe src="@text.getUrl" >
+                            <iframe class="text-content-iframe" src="@text.getUrl" >
                                 <p>Your browser does not support iframes.</p>
                             </iframe>
                         } else {
@@ -122,7 +122,7 @@
                     }
                 } else {
                     @if(text.getEncodedUrl != null && !text.getEncodedUrl.isEmpty) {
-                        <iframe id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
+                        <iframe class="text-content-iframe"  id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
                             <p>Your browser does not support iframes.</p>
                         </iframe>
                     } else {
@@ -149,14 +149,14 @@
 
             @if(text.getUrl != null && text.getUrl.endsWith(".pdf")) {
                 @if(text.getUrl.startsWith("https") && text.getUrl.endsWith(".pdf")) {
-                    <iframe src="@text.getUrl" >
+                    <iframe class="text-content-iframe"  src="@text.getUrl" >
                         <p>Your browser does not support iframes.</p>
                     </iframe>
                 } else {
                     <a href="@text.getUrl" class="primary">@Messages("general.goto.source")</a>
                 }
             } else {
-                <iframe id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
+                <iframe class="text-content-iframe"  id="iframe-@text.getId" src="https://webdeb.be/viz/url/@text.getEncodedUrl" sandbox="allow-top-navigation-by-user-activation allow-forms allow-scripts allow-modals allow-popups">
                     <p>Your browser does not support iframes.</p>
                 </iframe>
             }
