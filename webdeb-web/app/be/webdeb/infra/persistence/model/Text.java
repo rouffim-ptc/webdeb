@@ -19,12 +19,15 @@ package be.webdeb.infra.persistence.model;
 
 import be.webdeb.core.api.contribution.EContributionType;
 import be.webdeb.core.api.text.ETextVisibility;
+import be.webdeb.infra.helpers.StringHelper;
 import be.webdeb.infra.persistence.model.annotation.Unqueryable;
 import com.avaje.ebean.*;
 import com.avaje.ebean.annotation.PrivateOwned;
 import com.avaje.ebean.annotation.CacheBeanTuning;
+import org.apache.commons.io.Charsets;
 
 import javax.persistence.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -387,7 +390,7 @@ public class Text extends WebdebModel {
    * @param embedCode the embed code (like iframe)
    */
   public void setEmbedCode(String embedCode) {
-    this.embedCode = embedCode;
+    this.embedCode = StringHelper.toUtf8(embedCode);
   }
 
   /**

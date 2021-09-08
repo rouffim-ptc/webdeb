@@ -1210,7 +1210,7 @@ public class Application extends CommonController {
         be.webdeb.presentation.web.controllers.entry.text.routes.javascript.TextActions.checkFreeSource(),
         be.webdeb.presentation.web.controllers.entry.text.routes.javascript.TextActions.findTextByUrl(),
         be.webdeb.presentation.web.controllers.entry.text.routes.javascript.TextActions.findTextCitations(),
-        be.webdeb.presentation.web.controllers.entry.text.routes.javascript.TextActions.getTwitterEmbed(),
+        be.webdeb.presentation.web.controllers.entry.text.routes.javascript.TextActions.getEmbed(),
         // arguments
         be.webdeb.presentation.web.controllers.entry.argument.routes.javascript.ArgumentActions.newArgument(),
         be.webdeb.presentation.web.controllers.entry.argument.routes.javascript.ArgumentActions.newArgumentFromCitation(),

@@ -511,13 +511,14 @@ function getTextContent(url) {
 }
 
 /**
- * Get twitter embed html code from twitter url
+ * Get embed html code from a platform (Twitter, TikTok, ...) url
  *
- * @param url a twitter url to get embed code
+ * @param url an url to get embed code
+ * @param platform the type of platform (Twitter, TikTok, ...)
  * @returns *
  */
-function getTwitterEmbed(url) {
-    return jsRoutes.be.webdeb.presentation.web.controllers.entry.text.TextActions.getTwitterEmbed(url).ajax({ async: true });
+function getEmbed(url, platform) {
+    return jsRoutes.be.webdeb.presentation.web.controllers.entry.text.TextActions.getEmbed(url, platform).ajax({ async: true });
 }
 
 /**

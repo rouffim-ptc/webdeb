@@ -194,7 +194,7 @@ GET		/entry/gettextcontentfromhtml               be.webdeb.presentation.web.cont
 GET		/text/isFreeSource                     be.webdeb.presentation.web.controllers.entry.text.TextActions.checkFreeSource(domain : String)
 GET		/text/findByUrl                     be.webdeb.presentation.web.controllers.entry.text.TextActions.findTextByUrl(url : String)
 GET		/text/citations                     be.webdeb.presentation.web.controllers.entry.text.TextActions.findTextCitations(id: Long, fromIndex: Int, toIndex: Int, filters: String)
-GET		/text/twitter/embed                     be.webdeb.presentation.web.controllers.entry.text.TextActions.getTwitterEmbed(urls: String)
+GET		/text/embed                     be.webdeb.presentation.web.controllers.entry.text.TextActions.getEmbed(urls: String, platform: String)
 
 # Arguments
 GET 		/entry/argument/modal/new              be.webdeb.presentation.web.controllers.entry.argument.ArgumentActions.newArgument(contextId : Long ?= -1L, subContextId: Long, categoryId: Long, superArgumentId : Long, shade : Int)

@@ -611,19 +611,34 @@ public class TextActions extends CommonController {
   }
 
   /**
-   * Get twitter embed html code from twitter url
+   * Get embed html code from a platform (Twitter, TikTok, ...) url
    *
-   * @param url a twitter url to get embed code
+   * @param url an url to get embed code
+   * @param platform the type of platform (Twitter, TikTok, ...)
    * @return ok with the corresponding code, if any or badrequest if error
    */
-  public CompletionStage<Result> getTwitterEmbed(String url){
+  public CompletionStage<Result> getEmbed(String url, String platform){
     try{
-      final String twitterUrl = "https://publish.twitter.com/oembed?url=" + URLEncoder.encode(url, StandardCharsets.UTF_8.toString());
-      return ws.getWithJsonResponse(twitterUrl).thenApply(content -> ok(content));
+      String platformUrl = null;
+
+      switch (platform) {
+        case "TWITTER" :
+          platformUrl = "https://publish.twitter.com/oembed?url=";
+          break;
+        case "TIKTOK" :
+          platformUrl = "https://www.tiktok.com/oembed?url=";
+          break;
+      }
+
+      if(platformUrl != null) {
+        platformUrl += URLEncoder.encode(url, StandardCharsets.UTF_8.toString());
+        return ws.getWithJsonResponse(platformUrl).thenApply(content -> ok(content));
+      }
     } catch(Exception e) {
       logger.error("unable to call Twitter url : " + url);
       return sendBadRequest();
     }
+    return sendBadRequest();
   }
 
   /*

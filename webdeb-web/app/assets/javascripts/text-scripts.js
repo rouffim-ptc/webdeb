@@ -1182,7 +1182,13 @@ function createEmbedCode(embedCodeInput, urlInput) {
                     }
                     break;
                 case 'twitter.com' :
-                    getTwitterEmbed(url.href).done(function (data) {
+                    getEmbed(url.href.split('?')[0], "TWITTER").done(function (data) {
+                        embedCode = data.html;
+                        embedCodeInput.val(embedCode);
+                    });
+                    break;
+                case 'tiktok.com' :
+                    getEmbed(url.href.split('?')[0], "TIKTOK").done(function (data) {
                         embedCode = data.html;
                         embedCodeInput.val(embedCode);
                     });
