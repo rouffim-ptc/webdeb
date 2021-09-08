@@ -1083,9 +1083,13 @@ public class Application extends CommonController {
     String values [] = {
             "bases",
             "login_group",
-            "debate",
-            "text",
-            "actor"
+            "entry.debate",
+            "entry.text",
+            "entry.actor",
+            "entry.citation",
+            "analyze.debate",
+            "analyze.text",
+            "create_group"
     };
 
     return Arrays.asList(values);

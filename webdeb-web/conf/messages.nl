@@ -2845,17 +2845,25 @@ help.btn.title=Display help
 
 help.title.bases=$Les bases de WebDeb
 help.title.login_group=$Se connecter et rejoindre un group
-help.title.debate=$Encoder un débat sur WebDeb
-help.title.text=$Encoder un texte
-help.title.actor=Voer een actor in
+help.title.entry.debate=$Entry a debate
+help.title.entry.text=$Entry a text
+help.title.entry.actor=Voer een actor in
+help.title.entry.citation=$Entry a citation
+help.title.analyze.debate=$Analyser un débat
+help.title.analyze.text=$Analyser un texte
+help.title.create_group=$Créer un groupe
 
 help.manual.bases=bases.pdf
 help.manual.login_group=login_group.pdf
-help.manual.debate=debate.pdf
-help.manual.text=text.pdf
-help.manual.actor=actor.pdf
+help.manual.entry.debate=entry_debate.pdf
+help.manual.entry.text=entry_text.pdf
+help.manual.entry.actor=entry_actor.pdf
+help.manual.entry.citation=entry_citation.pdf
+help.manual.analyze.debate=analyze_debate.pdf
+help.manual.analyze.text=analyze_text.pdf
+help.manual.create_group=create_group.pdf
 
-help.video.entry.actor=mWEPrnGmf78
+#help.video.entry.actor=mWEPrnGmf78
 
 #
 # entities (NLP helps)

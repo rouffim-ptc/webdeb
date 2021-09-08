@@ -304,13 +304,15 @@ public class TextForm extends TextHolder {
       this.language = language == null ? lang : language;
     }
 
-    if (filename.contains(".") || !values.isBlank(urlOrTitle) || (!values.isBlank(url) && url.endsWith(".pdf"))) {
+    if(!values.isBlank(url)) {
+      isOnInternet = true;
+      textSourceType = url.endsWith(".pdf") ? ETextSourceType.PDF.id() : ETextSourceType.INTERNET.id();
+    } else if (filename.contains(".") || !values.isBlank(urlOrTitle)) {
       isOnInternet = values.isURL(urlOrTitle);
       textSourceType = ETextSourceType.PDF.id();
-    } else if(!values.isBlank(url)) {
-      isOnInternet = true;
-      textSourceType = ETextSourceType.INTERNET.id();
+      embedCode = null;
     } else {
+      isOnInternet = false;
       textSourceType = ETextSourceType.OTHER.id();
     }
 

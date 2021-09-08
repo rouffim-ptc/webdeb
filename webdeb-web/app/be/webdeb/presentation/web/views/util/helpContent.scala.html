@@ -49,7 +49,7 @@
 
         @if(Messages("help.manual." + name) != "help.manual." + name){
             <div class="col-12 @(if(Messages("help.video." + name) != "help.video." + name) "col-md-12 col-lg-6")">
-                <embed src="/assets/static/rsc/manuals/@ctx.lang.code/@(name.concat(".pdf"))" width="100%" height="@(if(Messages("help.video." + name) != "help.video." + name){"315"}else{"520"})" alt="pdf"
+                <embed src="@("/assets/static/rsc/manuals/" + ctx.lang.code + "/" + Messages("help.manual." + name))" width="100%" height="@(if(Messages("help.video." + name) != "help.video." + name){"315"}else{"520"})" alt="pdf"
                 pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
             </div>
         }

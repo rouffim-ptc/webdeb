@@ -254,7 +254,7 @@ class ConcreteText extends AbstractContextContribution<TextFactory, TextAccessor
 
   @Override
   public void setEmbedCode(String embedCode) {
-    this.embedCode = embedCode;
+    this.embedCode = embedCode != null && !embedCode.isEmpty() ? embedCode : null;
   }
 
   @Override

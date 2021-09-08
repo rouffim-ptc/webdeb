@@ -3373,17 +3373,26 @@ help.btn.title=Afficher l''aide
 
 help.title.bases=Les bases de WebDeb
 help.title.login_group=Se connecter et rejoindre un group
-help.title.debate=Encoder un débat sur WebDeb
-help.title.text=Encoder un texte
-help.title.actor=Encoder un actor
+help.title.entry.debate=Encoder un débat
+help.title.entry.text=Encoder un texte
+help.title.entry.actor=Encoder un acteur
+help.title.entry.citation=Encoder une citation
+help.title.analyze.debate=Analyser un débat
+help.title.analyze.text=Analyser un texte
+help.title.create_group=Créer un groupe
 
 help.manual.bases=bases.pdf
 help.manual.login_group=login_group.pdf
-help.manual.debate=debate.pdf
-help.manual.text=text.pdf
-help.manual.actor=actor.pdf
+help.manual.entry.debate=entry_debate.pdf
+help.manual.entry.text=entry_text.pdf
+help.manual.entry.actor=entry_actor.pdf
+help.manual.entry.citation=entry_citation.pdf
+help.manual.analyze.debate=analyze_debate.pdf
+help.manual.analyze.text=analyze_text.pdf
+help.manual.create_group=create_group.pdf
 
-help.video.actor=mWEPrnGmf78
+#help.video.entry.actor=mWEPrnGmf78
+
 help.video.help.test.robin=dQw4w9WgXcQ
 
 #
