@@ -51,6 +51,7 @@ GET         /election2019/stats/:id             be.webdeb.presentation.web.contr
 GET         /election2019/stats/async/:id             be.webdeb.presentation.web.controllers.Application.otherElectionStatsPageAsync(id : Int)
 
 GET         /covid19                            be.webdeb.presentation.web.controllers.Application.otherCovid
+GET         /debagora                            be.webdeb.presentation.web.controllers.Application.debagora
 
 #help
 GET					/help                            be.webdeb.presentation.web.controllers.Application.help

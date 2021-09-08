@@ -45,12 +45,12 @@
 }
 
 @menuLink(name : String) = {
-    <li><a href="#help-@name">@Messages("help.title." + name)</a></li>
+    <li class="h4 mb-2"><a href="#help-@name">@Messages("help.title." + name)</a></li>
 }
 
 @main(user, scripts) {
 
-  <div class="container mt-3 mb-3">
+  <div class="container mt-3 mb-5">
     <div class="row">
       <div class="col-12">
         <h3 class="small-caps text-muted">@Messages("help.title")</h3>
@@ -60,7 +60,7 @@
       <div class="col-12">
         <h3>@Messages("help.desc")</h3>
 
-        <ol id="help-menu-links">
+        <ol id="help-menu-links" class="mt-3">
           @for(a <- helpKeys) {
             @menuLink(a)
           }

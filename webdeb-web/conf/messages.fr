@@ -74,6 +74,7 @@ welcome.index.3.title=Enseigner avec
 welcome.index.1.subtitle=Pour savoir qui est qui et qui dit quoi.</br>Et y voir clair dans ce qui fait débat.
 welcome.index.2.subtitle=Pour partager des arguments qui interpellent.</br> Et signaler des liens entre acteurs.
 welcome.index.3.subtitle=Pour apprendre à traiter les infos avec rigueur.</br> Et à décoder les prises de position.
+welcome.index.3.subtitle.nohtml=Pour apprendre à traiter les infos avec rigueur. Et à décoder les prises de position.
 
 welcome.index.whatis.1=Ce qu''est
 welcome.index.whatis.2=Une mémoire partagée    
@@ -3370,16 +3371,19 @@ help.novideo=Votre navigateur ne supporte pas les vidéos...
 help.modal.title=Aide
 help.btn.title=Afficher l''aide
 
-help.title.entry.actor=Encoder un acteur
-help.title.group=Gérer un groupe
-help.title.help.subscribe=S'inscrire sur WebDeb
-help.title.help.test.robin=Fiche test (look at me, I'm coding!)
+help.title.bases=Les bases de WebDeb
+help.title.login_group=Se connecter et rejoindre un group
+help.title.debate=Encoder un débat sur WebDeb
+help.title.text=Encoder un texte
+help.title.actor=Encoder un actor
 
-help.manual.entry.actor=entry.actor.pdf 
-help.manual.group=group.pdf
-help.manual.help.subscribe=help.subscribe.pdf
+help.manual.bases=bases.pdf
+help.manual.login_group=login_group.pdf
+help.manual.debate=debate.pdf
+help.manual.text=text.pdf
+help.manual.actor=actor.pdf
 
-help.video.entry.actor=mWEPrnGmf78
+help.video.actor=mWEPrnGmf78
 help.video.help.test.robin=dQw4w9WgXcQ
 
 #

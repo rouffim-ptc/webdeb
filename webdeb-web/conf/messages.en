@@ -73,6 +73,7 @@ welcome.index.3.title=$Enseigner avec
 welcome.index.1.subtitle=find out who's who and what they are saying <br> learn what is the heart of a debate
 welcome.index.2.subtitle=sharing arguments that stand out <br> identifying links between actors
 welcome.index.3.subtitle=treat data critically <br> identify different standpoints
+welcome.index.3.subtitle.nohtml=treat data critically identify different standpoints
 
 
 welcome.index.whatis.1=What is   
@@ -2857,15 +2858,19 @@ help.novideo=Your browser does not support videos...
 help.modal.title=Help
 help.btn.title=Display help
 
-help.title.entry.actor=Entry an actor
-help.title.group=Manage a group
-help.title.help.subscribe=Subscribe to WebDeb
+help.title.bases=$Les bases de WebDeb
+help.title.login_group=$Se connecter et rejoindre un group
+help.title.debate=$Encoder un débat sur WebDeb
+help.title.text=$Encoder un texte
+help.title.actor=Entry an actor
 
-help.manual.entry.actor=entry.actor.pdf
-help.manual.group=group.pdf
-help.manual.help.subscribe=help.subscribe.pdf
+help.manual.bases=bases.pdf
+help.manual.login_group=login_group.pdf
+help.manual.debate=debate.pdf
+help.manual.text=text.pdf
+help.manual.actor=actor.pdf
 
-help.video.entry.actor=mWEPrnGmf78
+help.video.actor=mWEPrnGmf78
 
 #
 # entities (NLP helps)

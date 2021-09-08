@@ -73,6 +73,7 @@ welcome.index.3.title=$Enseigner avec
 welcome.index.1.subtitle=te weten wie is wie en wie wat zegt <br> begrijpen wat het debat doet leven
 welcome.index.2.subtitle=spraakmakende meningen <br> te delen banden tussen actoren te tonen
 welcome.index.3.subtitle=correct met informatie te  leren <br> omgaan de posities in het debat te leren begrijpen
+welcome.index.3.subtitle.nohtml=correct met informatie te  leren omgaan de posities in het debat te leren begrijpen
 
 
 welcome.index.whatis.1=Wat is
@@ -2842,13 +2843,17 @@ help.novideo=Uw browser ondersteunt geen video's ...
 help.modal.title=Help
 help.btn.title=Display help
 
-help.title.entry.actor=Voer een actor in
-help.title.group=Beheer een groep
-help.title.help.subscribe=Abboneer op WebDeb
+help.title.bases=$Les bases de WebDeb
+help.title.login_group=$Se connecter et rejoindre un group
+help.title.debate=$Encoder un débat sur WebDeb
+help.title.text=$Encoder un texte
+help.title.actor=Voer een actor in
 
-help.manual.entry.actor=entry.actor.pdf
-help.manual.group=group.pdf
-help.manual.help.subscribe=help.subscribe.pdf
+help.manual.bases=bases.pdf
+help.manual.login_group=login_group.pdf
+help.manual.debate=debate.pdf
+help.manual.text=text.pdf
+help.manual.actor=actor.pdf
 
 help.video.entry.actor=mWEPrnGmf78
 

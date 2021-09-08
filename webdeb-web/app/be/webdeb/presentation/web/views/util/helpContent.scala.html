@@ -33,14 +33,14 @@
     hideTitle : Boolean
 )
 
-<div id="help-@name">
+<div id="help-@name" class="mt-5">
     <div id="help-@name" class="row">
         @if(!hideTitle) {
             <div class="col-12"><h3>@if(index != null){@index.} @Messages("help.title." + name)</h3></div>
         }
 
     </div>
-    <div class="row">
+    <div class="row mt-2">
         @if(Messages("help.video." + name) != "help.video." + name){
             <div class="col-12 @(if(Messages("help.manual." + name) != "help.manual." + name) "col-md-12 col-lg-6")">
                 <iframe width="100%" height="@(if(Messages("help.manual." + name) != "help.manual." + name){"315"}else{"520"})" src="https://www.youtube.com/embed/@Messages("help.video." + name)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

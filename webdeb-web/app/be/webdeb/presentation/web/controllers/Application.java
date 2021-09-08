@@ -175,6 +175,15 @@ public class Application extends CommonController {
   }
 
   /**
+   * Display the Debagora page
+   *
+   * @return the debagora page
+   */
+  public CompletionStage<Result> debagora() {
+    return sendOk(debagora.render(sessionHelper.getUser(ctx())));
+  }
+
+  /**
    * Update 'Accept cookies' notification state (called from ajax)
    *
    * @return an empty result with a cookie to avoid displaying 'accept cookie policy' for a while
@@ -1072,9 +1081,11 @@ public class Application extends CommonController {
    */
   private List<String> getHelpList(){
     String values [] = {
-            "entry.actor",
-            "group",
-            "help.subscribe"
+            "bases",
+            "login_group",
+            "debate",
+            "text",
+            "actor"
     };
 
     return Arrays.asList(values);

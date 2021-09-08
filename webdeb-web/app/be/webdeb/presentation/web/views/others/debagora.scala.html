@@ -1,0 +1,298 @@
+@*
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+*
+* List of the contributors to the development of WebDeb: see AUTHORS file.
+* Description and complete License: see LICENSE file.
+*
+* This program (WebDeb) is free software:
+* you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+* warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program (see COPYING file).
+* If not, see <http://www.gnu.org/licenses/>.
+*@
+
+
+@*
+* Search page. Contains a search bar. When going directly here (without being redirected from a prefilled-search),
+* will display overviews of results (using a switch on concrete type of ContributionHolder)
+*
+* @param elements a list of contribution holders to be displayed
+* @param user the user profile data
+*
+* @author Julien Mathieu (original design)
+* @author Martin Rouffiange
+* @author Mohammad Al Saleh
+* @author Mohammad Al Saleh
+*@
+
+
+
+@import be.webdeb.presentation.web.controllers.permission.WebdebUser
+@import be.webdeb.presentation.web.views.html.main
+
+@(
+        user : WebdebUser
+)
+
+@scripts = {
+    <title></title>
+    <meta name="description" content="">
+
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.debagora().absoluteURL()" />
+    <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable.png").absoluteURL()" />
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/teach_styles.css")">
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+            });
+    </script>
+}
+
+@main(user, scripts, Html(""), "", "viz.debagora") {
+
+    <div class="container mt-3 mb-3 teach-container">
+
+        <div class="row">
+
+            <div class="col-12 col-md-6">
+                <img class="img-fluid mb-3" src="@routes.Assets.at("images/logo/debagora.png")">
+
+                <h3>Un outil modulable</h3>
+
+                <p>
+                    L’outil pédagogique Débagora est utilisable de multiples manières et laisse une large
+                    autonomie au personnes chargées de l’animation. Il est possible de développer :
+                </p>
+                <ul>
+                    <li><b>Un projet intégrant tous les modules. </b>Mais il est aussi possible de modifier l’ordre des modules, de laisser tomber certaines activités ou d’intégrer des activités non présentées dans Débagora.</li>
+                    <li><b>Un projet de plus petite ampleur, </b>combinant quelques modules, à charge parfois pour l’enseignant·e ou l’animateur·trice d’assumer certaines tâches prévues dans des modules antérieurs.</li>
+                    <li><b>Un seul module,</b> en l’intégrant ou non dans d’autres projets ou séquences, y compris sans rapport avec l’éducation au politique ou au débat. Il est par exemple possible de mobiliser le module 2 (formuler une question) en histoire ou le module 3 (conceptions initiales) en religion ou morale.</li>
+                </ul>
+            </div>
+
+
+            <div class="col-12 col-md-6">
+
+                <h3>Débagora : outil d’éducation au politique et au débat</h3>
+
+                <p>
+                    Débagora se situe ainsi à <b>l’intersection de l’éducation au politique et de l’éducation au débat,</b> comme l’indique son nom, contraction des termes débat et agora.
+                </p>
+                <p>
+                    Être capable de collecter du contenu pour nuancer et approfondir son opinion ; pouvoir exprimer un avis ; le soutenir par des arguments et en débattre dans un cadre respectueux : ces compétences suscitent souvent bien des malaises et des craintes chez les personnes qui ont des charges éducatives. Débagora vise à les soutenir dans leur démarche pédagogique d’éducation au débat en proposant des activités et repères conceptuels.
+                </p>
+                <p>
+                    Cet outil pédagogique a également pour objectif d’initier une réflexion sur l’éducation au politique, trop souvent réduite à une introduction aux institutions politiques et aux mécanismes démocratiques et électoraux. Débagora ne se limite pas à la politique. Il déborde de la politique professionnelle, institutionnelle et partisane, en intéressant et initiant aux processus de délibération conflictuelle, démocratique et égalitaire, à propos de ce qui nous est commun.
+                </p>
+                <p>
+                    Pour répondre à cet objectif, Débagora propose des activités pour construire collectivement un cadre de débat respectueux et constructif, et pour expérimenter l’ensemble du processus démocratique, depuis la problématisation d’une question jusqu’à l’intervention dans le débat public.
+                </p>
+
+                <p>
+                    L’outil pédagogique Débagora :
+                    <ul>
+                        <li>est adapté à un public âgé de <b>15 ans et plus</b></li>
+                        <li>se compose de <b>huit modules</b> qui peuvent être combinés, mais aussi utilisés de manière indépendante ;</li>
+                        <li>propose des <b>activités</b> pour favoriser l’apprentissage, ainsi que des <b>repères</b> pour outiller les animateur·trices dans ces activités ;</li>
+                        <li>propose l’usage de la <b>plateforme numérique WebDeb</b> pour favoriser la rigueur et la cumulativité des analyses, ainsi que les échanges entre groupes.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="card col-12 col-md-6 col-lg-3">
+                <img class="card-img-top" src="@routes.Assets.at("images/others/debagora/module1.jpg")">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Module 1 — Créer un cadre de débat démocratique
+                    </h5>
+                    <div class="card-text">
+                        <h6>Ce module propose des activités pour :</h6>
+                        <ul>
+                            <li>co-construire les règles d’un débat en classe ou en groupe ;</li>
+                            <li>s’interroger sur le cadre et les règles du débat démocratique en société ;</li>
+                            <li>questionner le principe de liberté d’expression et ses limites.</li>
+                        </ul>
+                    </div>
+                    <a href="@routes.Assets.at("static/rsc/debagora/" + ctx.lang.code + "/debagora.pdf")" class="stretched-link"></a>
+                </div>
+            </div>
+
+            <div class="card col-12 col-md-6 col-lg-3">
+                <img class="card-img-top" src="@routes.Assets.at("images/others/debagora/module2.jpg")">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Module 2 — Faire émerger et formuler une question de débat
+                    </h5>
+                    <div class="card-text">
+                        <h6>Ce module propose des activités pour :</h6>
+                        <ul>
+                            <li>faire émerger des sujets de préoccupation et d’interrogation ;</li>
+                            <li>transformer des préoccupations en questions politiques, et comprendre ainsi que le politique n’est pas un concept abstrait et touche la vie concrète ;</li>
+                            <li>formuler une question de débat claire et précise.</li>
+                        </ul>
+                    </div>
+                    <a href="@routes.Assets.at("static/rsc/debagora/" + ctx.lang.code + "/debagora.pdf")" class="stretched-link"></a>
+                </div>
+            </div>
+
+            <div class="card col-12 col-md-6 col-lg-3">
+                <img class="card-img-top" src="@routes.Assets.at("images/others/debagora/module3.jpg")">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Module 3 — Récolter les préconceptions sur une question de débat
+                    </h5>
+                    <div class="card-text">
+                        <h6>Ce module propose des activités pour :</h6>
+                        <ul>
+                            <li>récolter et organiser les conceptions initiales des jeunes à propos d’un débat ;</li>
+                            <li>multiplier les angles de vue sur une même question ;</li>
+                            <li>synthétiser et questionner ces conceptions.</li>
+                        </ul>
+                    </div>
+                    <a href="@routes.Assets.at("static/rsc/debagora/" + ctx.lang.code + "/debagora.pdf")" class="stretched-link"></a>
+                </div>
+            </div>
+
+            <div class="card col-12 col-md-6 col-lg-3">
+                <img class="card-img-top" src="@routes.Assets.at("images/others/debagora/module4.jpg")">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Module 4 — Sélectionner des sources pour collecter des arguments
+                    </h5>
+                    <div class="card-text">
+                        <h6>Ce module propose des activités pour :</h6>
+                        <ul>
+                            <li>identifier, sur le Web ou ailleurs, des textes et documents audio-visuels en lien avec le débat ;</li>
+                            <li>faire une première analyse de leur pertinence et de la fiabilité des informations qu’ils contiennent ;</li>
+                            <li>constituer un échantillon représentatif de la diversité des positions défendues, des arguments mobilisés, des personnes impliquées et des types de documents.</li>
+                        </ul>
+                    </div>
+                    <a href="@routes.Assets.at("static/rsc/debagora/" + ctx.lang.code + "/debagora.pdf")" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card col-12 col-md-6 col-lg-3">
+                <img class="card-img-top" src="@routes.Assets.at("images/others/debagora/module5.jpg")">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Module 5 — Analyser des arguments pour nuancer et approfondir le débat
+                    </h5>
+                    <div class="card-text">
+                        <h6>Ce module propose des activités pour :</h6>
+                        <ul>
+                            <li>analyser des textes et des documents audio-visuels qui présentent des arguments ou prennent position par rapport au débat ;</li>
+                            <li>en extraire les propositions de solutions et les arguments pour et contre ;</li>
+                            <li>appuyer les arguments par des citations de personnes et groupes prenant part au débat.</li>
+                        </ul>
+                    </div>
+                    <a href="@routes.Assets.at("static/rsc/debagora/" + ctx.lang.code + "/debagora.pdf")" class="stretched-link"></a>
+                </div>
+            </div>
+
+            <div class="card col-12 col-md-6 col-lg-3">
+                <img class="card-img-top" src="@routes.Assets.at("images/others/debagora/module6.jpg")">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Module 6 — Identifier et positionner les parties prenantes du débat
+                    </h5>
+                    <div class="card-text">
+                        <h6>Ce module propose des activités pour :</h6>
+                        <ul>
+                            <li>répertorier les prises de position des personnalités publiques prenant part au débat ;</li>
+                            <li>identifier les coalitions et les rapports de forces entre elles ;</li>
+                            <li>comprendre les raisons objectives pour lesquelles les parties prenantes défendent ces positions ;</li>
+                            <li>identifier les divers lieux où peuvent se prendre des décisions politiques ainsi que les procédures à respecter pour ces prises de décision.</li>
+                        </ul>
+                    </div>
+                    <a href="@routes.Assets.at("static/rsc/debagora/" + ctx.lang.code + "/debagora.pdf")" class="stretched-link"></a>
+                </div>
+            </div>
+
+            <div class="card col-12 col-md-6 col-lg-3">
+                <img class="card-img-top" src="@routes.Assets.at("images/others/debagora/module7.jpg")">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Module 7 — Défendre une opinion oralement
+                    </h5>
+                    <div class="card-text">
+                        <h6>Ce module propose des activités pour :</h6>
+                        <ul>
+                            <li>exercer une prise de parole argumentée dans une forme claire et convaincante ;</li>
+                            <li>pouvoir interagir avec des contradicteurs·trices, en écoutant et comprenant leur point de vue, et en répliquant avec justesse et respect ;</li>
+                            <li>organiser et animer un débat avec les parties prenantes d’un débat.</li>
+                        </ul>
+                    </div>
+                    <a href="@routes.Assets.at("static/rsc/debagora/" + ctx.lang.code + "/debagora.pdf")" class="stretched-link"></a>
+                </div>
+            </div>
+
+            <div class="card col-12 col-md-6 col-lg-3">
+                <img class="card-img-top" src="@routes.Assets.at("images/others/debagora/module8.jpg")">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Module 8 — Prendre part au débat sur les enjeux de société
+                    </h5>
+                    <div class="card-text">
+                        <h6>Ce module propose des activités pour :</h6>
+                        <ul>
+                            <li>comprendre que les institutions sont « influençables », qu’il est possible de les contacter, d’interagir avec elles et de les influencer partiellement ;</li>
+                            <li>identifier les stratégies possibles, comparer leurs avantages et leur faisabilité ;</li>
+                            <li>mettre en oeuvre celles qui auront été retenues.</li>
+                        </ul>
+                    </div>
+                    <a href="@routes.Assets.at("static/rsc/debagora/" + ctx.lang.code + "/debagora.pdf")" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <h4><a href="@routes.Assets.at("static/rsc/debagora/fr/Debagora.pdf")">Télécharger l’entièreté de l’outil</a></h4>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+
+                <div>
+                    <h3>Débagora : un outil patiemment élaboré</h3>
+                    <p>
+                        L’équipe de recherche ayant travaillé à la rédaction de l’outil pédagogique Débagora est composée de Marie Defreyne (POLI-VUB et Girsef – UCLouvain, chercheuse) ; Bernard Delvaux (Girsef – UCLouvain, coordinateur et co-promoteur) ; Robin Dumont (Girsef – UCLouvain, chercheur).
+                    </p>
+                    <p>
+                        L’équipe associative ayant participé au comité d’accompagnement et à la relecture de l’outil pédagogique est composée de La Ligue des Droits Humains, Le Musée BELvue, Jeune et Citoyen ASBL, et Infor-Jeunes ASBL.
+                    </p>
+                    <p>
+                        Le projet a été financé par Innoviris et parrainé par le Parlement bruxellois.
+                    </p>
+                </div>
+
+                <div class="mt-4 mb-3">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/uclouvain_logo.png")" width="80px">
+                    <img class="img-fluid" src="@routes.Assets.at("images/logo/ulb.jpg")" width="100px">
+                    <img class="img-fluid" src="@routes.Assets.at("images/logo/vub.png")" width="120px">
+                </div>
+                <div class="mb-3">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/jeune&citoyen.png")" width="100px">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/inforjeunesbxl.png")" width="140px">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/ligue_droits_humains.png")" width="100px">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/belvue_museum.jpg")" width="100px">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/innoviris.jpg")" width="80px">
+                    <img class="img-fluid" src="@routes.Assets.at("images/logo/parlement_bxl.png")" width="80px">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
