@@ -41,6 +41,19 @@
     line-height: 1.5;
 }
 
+.module-image-container {
+    margin-top: 1rem;
+    background-color : white;
+}
+.module-image {
+    background: no-repeat center;
+    background-size: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+    height: 200px;
+    width: 100%;
+}
+
 p {
     margin-top: 2rem;
 }
@@ -48,4 +61,29 @@ p {
 h6 {
     font-size:  12px;
     font-weight: bold;
+}
+
+.module1 {
+    background-color: #95d48d;
+}
+.module2 {
+    background-color: #84d2c5;
+}
+.module3 {
+    background-color: #a7c1c8;
+}
+.module4 {
+    background-color: #fbe5c0
+}
+.module5 {
+    background-color: #ece1e5;
+}
+.module6 {
+    background-color: #edf6f3;
+}
+.module7 {
+    background-color: #f8d4d1;
+}
+.module8 {
+    background-color: #fbfcfc;
 }
