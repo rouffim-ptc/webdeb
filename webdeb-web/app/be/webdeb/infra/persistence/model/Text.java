@@ -193,11 +193,12 @@ public class Text extends WebdebModel {
     Optional<TextI18name> match = titles.stream().filter(n ->
         n.getLang().equals(title.getLang())).findAny();
     if (!match.isPresent()) {
+      title.setSpelling(StringHelper.removeBadCharacters(title.getSpelling()));
       titles.add(title);
     }else{
       int i = titles.lastIndexOf(match.get());
       if(i >= 0){
-        titles.get(i).setSpelling(title.getSpelling());
+        titles.get(i).setSpelling(StringHelper.removeBadCharacters(title.getSpelling()));
       }
     }
   }
@@ -390,7 +391,7 @@ public class Text extends WebdebModel {
    * @param embedCode the embed code (like iframe)
    */
   public void setEmbedCode(String embedCode) {
-    this.embedCode = StringHelper.toUtf8(embedCode);
+    this.embedCode = StringHelper.removeBadCharacters(embedCode);
   }
 
   /**

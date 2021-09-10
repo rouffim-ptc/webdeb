@@ -187,7 +187,7 @@ public class GroupForm implements Comparable<GroupForm> {
     group.setGroupName(name);
     group.setDescription(description);
     group.setContributionVisibility(contributionVisibility);
-    group.setMemberVisibility(memberVisibility == null ? EMemberVisibility.PUBLIC : memberVisibility);
+    group.setMemberVisibility(EMemberVisibility.GROUP);
     group.isOpen(isOpen);
     group.isPedagogic(isPedagogic);
     group.setGroupColor(groupColorComplete.replace("#", ""));

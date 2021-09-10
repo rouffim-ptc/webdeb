@@ -31,6 +31,7 @@ import be.webdeb.core.impl.helper.SearchContainer;
 import be.webdeb.infra.persistence.model.annotation.Unqueryable;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
+import com.avaje.ebean.SqlRow;
 
 import javax.persistence.MappedSuperclass;
 import java.io.UnsupportedEncodingException;
@@ -39,6 +40,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Long.getLong;
 
 /**
  * The abstract class for regroup the main behavior between class models
@@ -619,7 +622,9 @@ public abstract class WebdebModel extends Model {
                 " and deleted = 0 and hidden = 0 " +
                 (onlyNew ? "and version > NOW() - INTERVAL 1 WEEK " : "") +
                 "order by rand() limit 1";
-        return Ebean.createSqlQuery(sql).findUnique().getLong("id_contribution");
+        SqlRow random = Ebean.createSqlQuery(sql).findUnique();
+
+        return random != null ? random.getLong("id_contribution") : null;
     }
 
     public static List<String> getLanguages() {

@@ -23,14 +23,10 @@
 
 package be.webdeb.infra.helpers;
 
-import org.apache.commons.io.Charsets;
-
-import java.nio.charset.StandardCharsets;
-
 public class StringHelper {
 
-  public static String toUtf8(String toConvert) {
-    return toConvert == null ? null : new String(toConvert.getBytes(StandardCharsets.UTF_8), Charsets.UTF_8);
+  public static String removeBadCharacters(String toConvert) {
+      return toConvert == null ? null : toConvert.replaceAll("[\\x{10000}-\\x{FFFFF}]", "?");
   }
 
 }
