@@ -94,7 +94,8 @@
                 form(prefix + "url2"),
                 Messages("text.label.url"),
                 Messages("text.place.url"),
-                null, null,
+                null,
+				helpbubble("bubble.title", "bubble.entry.text.URL")
                 Messages("text.help.url")
             )
         </div>
@@ -106,7 +107,10 @@
             form(prefix + "title"),
             Messages("text.label.title"),
             Messages("text.place.title"),
-            prefix == null || prefix == ""
+            prefix == null || prefix == "",
+			null,
+			helpbubble("bubble.title", "bubble.entry.text.title")
+            )
         )
     </div>
 
