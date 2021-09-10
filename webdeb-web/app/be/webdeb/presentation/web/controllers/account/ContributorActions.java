@@ -251,11 +251,11 @@ public class ContributorActions extends CommonController {
     }
 
     LoginFormOpenId loginForm = form.get();
-    OpenIdUserData userData;
+    OpenIdUserData userData = null;
 
     switch (loginForm.getEtype()) {
       case FACEBOOK:
-        userData = checkFacebookAuth(loginForm);
+        //userData = checkFacebookAuth(loginForm);
         break;
       case GOOGLE:
         userData = checkGoogleAuth(loginForm.getToken());

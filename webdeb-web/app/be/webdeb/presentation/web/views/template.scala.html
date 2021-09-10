@@ -49,28 +49,28 @@
 
 <html lang="@ctx.lang.code">
     <head>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v8.0" nonce="a6VSGIa4"></script>
-        <script>
-                window.fbAsyncInit = function() {
-                    FB.init({
-                        appId      : '1041556339596017',
-                        cookie     : true,
-                        xfbml      : true,
-                        version    : 'v8.0'
-                    });
+<!--        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v8.0" nonce="a6VSGIa4"></script>-->
+<!--        <script>-->
+<!--                window.fbAsyncInit = function() {-->
+<!--                    FB.init({-->
+<!--                        appId      : '1041556339596017',-->
+<!--                        cookie     : true,-->
+<!--                        xfbml      : true,-->
+<!--                        version    : 'v8.0'-->
+<!--                    });-->
 
-                    FB.getLoginStatus(function(response) {
-                        treatFacebookOpenIdAuthentication(response, @EOpenIdType.FACEBOOK.id(), false);
-                    });
-                };
+<!--                    FB.getLoginStatus(function(response) {-->
+<!--                        treatFacebookOpenIdAuthentication(response, @EOpenIdType.FACEBOOK.id(), false);-->
+<!--                    });-->
+<!--                };-->
 
 
-                function checkFacebookLoginState() {
-                    FB.getLoginStatus(function(response) {
-                        treatFacebookOpenIdAuthentication(response, @EOpenIdType.FACEBOOK.id(), true);
-                    });
-                }
-        </script>
+<!--                function checkFacebookLoginState() {-->
+<!--                    FB.getLoginStatus(function(response) {-->
+<!--                        treatFacebookOpenIdAuthentication(response, @EOpenIdType.FACEBOOK.id(), true);-->
+<!--                    });-->
+<!--                }-->
+<!--        </script>-->
             <!-- Global site tag (gtag.js) - Google Analytics -->
 
         <script src="https://apis.google.com/js/platform.js?onload=onLoadGoogle" async defer></script>
@@ -311,10 +311,8 @@
 
                         if(isMultipleContainer.exists()) {
                             let selectedValue = $(this).children("option:selected").val();
-    console.log(selectedValue);
-    console.log(canBeMultipleShades.find(s => s === selectedValue));
+
                             if (canBeMultipleShades.find(s => s === selectedValue)) {
-                                console.log(isMultipleContainer);
                                 isMultipleContainer.show();
                             } else {
                                 isMultipleContainer.hide();

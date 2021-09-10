@@ -30,6 +30,7 @@ import be.webdeb.infra.persistence.accessor.api.TagAccessor;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -133,7 +134,8 @@ public class ConcreteDebateFactory extends AbstractContributionFactory<DebateAcc
     @Override
     public List<DebateShade> getDebateShades() {
         if (debateShades == null) {
-            debateShades = accessor.getDebateShades().stream().collect(Collectors.toMap(DebateShade::getType, t -> t));
+            debateShades = new LinkedHashMap<>();
+            accessor.getDebateShades().forEach(shade -> debateShades.put(shade.getType(), shade));
         }
         return new ArrayList<>(debateShades.values());
     }

@@ -74,7 +74,7 @@ public class DebateHolder extends ContextContributionHolder {
    */
   // type, subtype, etc are initialized with -1 instead of empty values
   protected EDebateShade eDebateShade;
-  protected int shade = -1;
+  protected Integer shade = null;
   protected String shadeterm;
   /*
    * simple and multiple  debate attributes
@@ -252,7 +252,7 @@ public class DebateHolder extends ContextContributionHolder {
     return language;
   }
 
-  public int getShade() {
+  public Integer getShade() {
     return shade;
   }
 

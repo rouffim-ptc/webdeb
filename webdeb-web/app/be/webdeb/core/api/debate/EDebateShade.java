@@ -102,6 +102,16 @@ public enum EDebateShade {
     }
 
     /**
+     * Get the enum value for a given id as string
+     *
+     * @param id an String representing an argument shade type
+     * @return the EArgumentShade enum value corresponding to the given id string, null otherwise.
+     */
+    public static EDebateShade value(String id) {
+        return map.get(Integer.valueOf(id));
+    }
+
+    /**
      * Get this id
      *
      * @return an int representation of this argument shade type
@@ -147,7 +157,7 @@ public enum EDebateShade {
     }
 
     public static List<EDebateShade> canBeMultipleShades() {
-        return Arrays.asList(STRONG_WEAK_POINTS);
+        return Arrays.asList(NO_SHADE, STRONG_WEAK_POINTS);
     }
 
     public static List<EDebateShade> alwaysMultipleShades() {

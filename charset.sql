@@ -1,1 +1,0 @@
-ALTER TABLE `webdeb`.`text` CHANGE COLUMN `embed_code` `embed_code` TEXT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci' NULL DEFAULT NULL ;

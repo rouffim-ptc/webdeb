@@ -252,18 +252,18 @@ public class DebateForm extends DebateHolder {
       debate.setShade(debateFactory.getDebateShade(shade));
     } catch (FormatException e) {
       logger.error("unable to set debate shade " + shade);
-      throw new PersistenceException(PersistenceException.Key.SAVE_ARGUMENT, e);
+      throw new PersistenceException(PersistenceException.Key.SAVE_DEBATE, e);
     }
 
-    if(values.isBlank(id)) {
+//    if(values.isBlank(id)) {
       debate.isMultiple(debate.getShade().getEType().isAlwaysMultiple() ||
               (debate.getShade().getEType().canBeMultiple() && isMultiple));
-    } else {
-      Debate debate1 = debateFactory.retrieve(id);
-
-      if(debate1 != null)
-        debate.isMultiple(debate1.isMultiple());
-    }
+//    } else {
+//      Debate debate1 = debateFactory.retrieve(id);
+//
+//      if(debate1 != null)
+//        debate.isMultiple(debate1.isMultiple());
+//    }
 
     EArgumentShade aShade = null;
     // argument type

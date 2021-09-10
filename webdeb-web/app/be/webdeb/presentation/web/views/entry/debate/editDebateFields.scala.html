@@ -53,6 +53,7 @@
 
 @import be.webdeb.presentation.web.views.html.entry.actor.authorsimplediv
 @import be.webdeb.core.api.debate.EDebateType
+@import be.webdeb.core.api.debate.EDebateShade
 @import views.html.helper.repeatWithIndex
 @import be.webdeb.presentation.web.controllers.permission.WebdebUser
 @import be.webdeb.presentation.web.controllers.entry.debate.DebateHolder
@@ -114,17 +115,15 @@
                 </div>
             </div>
 
-            @if(debateForm("id").value == "-1") {
-                <div id="is_multiple" class="row" style="display: none">
-                    <label class="control-label font-weight-bold col-12">@Messages("debate.type.multiple")</label>
-                    <div class="col-12 ml-4">
-                    @checkboxInput(
-                        debateForm("isMultiple"),
-                        Messages("label.yes")
-                    )
-                    </div>
+            <div id="is_multiple" class="row" @if(debateForm("id").value == "-1" || !EDebateShade.canBeMultipleShades.contains(EDebateShade.value(debateForm("shade").value))) {style="display: none"}>
+                <label class="control-label font-weight-bold col-12">@Messages("debate.type.multiple")</label>
+                <div class="col-12 ml-4">
+                @checkboxInput(
+                    debateForm("isMultiple"),
+                    Messages("label.yes")
+                )
                 </div>
-            }
+            </div>
 
         }
 

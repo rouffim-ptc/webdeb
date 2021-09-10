@@ -134,6 +134,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `t_argument_shade_type` WRITE;
 /*!40000 ALTER TABLE `t_argument_shade_type` DISABLE KEYS */;
+INSERT INTO `t_argument_shade_type` (`id_shade`, `en`, `fr`, `nl`) VALUES ('-1', '[Free begin of argument]', '[Début d’argument libre]', '[Vrije begin van argument]');
 INSERT INTO `t_argument_shade_type` VALUES (0,'There is no doubt that','Il est vrai que','Het is waar dat'),(1,'It is necessary to','Il faut','We moeten'),(2,'the strong and weak points','les points fort et faibles','de sterke en zwakke punten'),(3,'les conditions','les conditions','les conditions');
 /*!40000 ALTER TABLE `t_argument_shade_type` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -203,6 +204,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `t_debate_shade_type` WRITE;
 /*!40000 ALTER TABLE `t_debate_shade_type` DISABLE KEYS */;
+INSERT INTO `t_debate_shade_type` (`id_shade`, `en`, `fr`, `nl`) VALUES ('-1', '[Free begin of debate]', '[Début de débat libre]', '[Vrije begin van debate]');
 INSERT INTO `t_debate_shade_type` VALUES (0,'Is it true that','Est-il vrai que','Is het waar dat'),(1,'Should we','Faut-il','Moeten we'),(2,'What are the strong and weak points','Quels sont les points forts et faibles','Wat zijn de sterke en zwakke punten'),(3,'A quelles conditions','A quelles conditions','A quelles conditions');
 /*!40000 ALTER TABLE `t_debate_shade_type` ENABLE KEYS */;
 UNLOCK TABLES;
