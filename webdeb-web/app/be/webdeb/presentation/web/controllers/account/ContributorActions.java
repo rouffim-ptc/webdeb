@@ -1773,7 +1773,7 @@ public class ContributorActions extends CommonController {
         System.out.println("Invalid ID token.");
       }
     } catch (GeneralSecurityException | IOException e) {
-
+      System.out.println("Error with Google auth : " + e);
     }
 
     return user;
