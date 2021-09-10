@@ -1445,7 +1445,7 @@ text.error.area.oldtext=Le contenu soumis ne contient plus l''ancien contenu aya
 text.error.notfound=Une erreur est survenue lors de la modification du contenu de ce texte, veuillez annuler et réessayer.
 
 text.place.title=Un titre
-text.label.title=Titre complet du texte
+text.label.title=Titre complet du texte*
 text.help.title=Le titre complet du texte importé
 text.error.title=Le titre est obligatoire
 text.error.length.title=Le titre ne peut dépasser 255 charactères
@@ -1458,7 +1458,7 @@ text.extract.title=Extraction du PDF réussie
 text.extract.error.msg=Impossible d''extraire le PDF de manière automatique. Vous pouvez ajouter directement le fichier via le bouton "ajouter un fichier PDF"
 text.extract.error.title=Erreur dans l''extraction du PDF
 
-text.label.author=Auteur(s)
+text.label.author=Auteur(s)*
 text.label.author.name=Nom
 text.label.author.org.name=Nom
 text.label.author.pers.name=Prénom et nom
@@ -1509,7 +1509,7 @@ text.external.fromTwitter.url=twitter.com
 text.external.fromTwitter=Tweet de {0} du {1}
 
 text.place.url=http://un.siteweb.com/un-article
-text.label.url=Adresse internet
+text.label.url=Adresse internet*
 text.help.url=Adresse complète (URL) où le texte a été publié
 text.error.url=L''adresse est obligatoire si vous avez sélectionné la boite "disponible sur internet" (au format http://www.unsite.org)
 text.error.url.exiting=Un texte avec cette url est déjà utilisée pour un autre texte dans notre base de données. 
@@ -2026,7 +2026,7 @@ viz.argument.desc.sociography=Position des différentes catégories d''acteurs �
 viz.argument.desc.sociography2=Les organisations ne sont pas reprises dans les statistiques par âge, fonction et genre.
 viz.argument.pill.details=Fiche
 viz.argument.pill.texts=Textes / débats / tags
-viz.argument.desc.texts=$Textes, débats et tags où se trouve l'’opinion (pour modifier l’’opinion, allez dans l’un des textes ou des débats)
+viz.argument.desc.texts=Textes, débats et tags où se trouve l'’opinion (pour modifier l’’opinion, allez dans l’un des textes ou des débats)
 
 viz.argument.texts.pov.0=Textes
 viz.argument.texts.pov.1=Débats
@@ -3717,7 +3717,7 @@ acronyme : entrez <i>Organisation des Nations unies</i> et non <i>ONU</i>. Au fu
 
 bubble.entry.actor.acro=Attention : pas de ponctuation dans les acronymes. On écrira donc : <i>OTAN</i> et non <i>O.T.A.N</i>.
 
-bubble.entry.actor.showoldnames.org=<b>Vous connaissez d''anciens noms de l'organisation<b\> : ajoutez-les ci-dessous. \
+bubble.entry.actor.showoldnames.org=<b>Si l'organisation a changé de nom au cours de son existence <b\> : ajoutez-les ci-dessous. \
 <br /> <br /> <b>L'organisation vient de changer de nom<b\> : déplacez l''ancien nom dans le champ ci-dessous et ajoutez le nouveau dans le champ ci-dessus, intitulé "Nom de l'organisation (si possible en français)".
 
 bubble.entry.actor.orgaffiliationsForm=Affiliation d''une organisation à ses actionnaires ou à une organisation-mère : \
@@ -3753,11 +3753,11 @@ propositions à l’aide de votre pointeur ou des flèches de direction de votre
 bubble.entry.text.language=Si vous cliquez sur « Le texte est une traduction », veuillez indiquer le titre du texte dans sa langue \
 originale et précisez la langue d''origine.
 
-bubble.entry.text.sourceTitle=Ce champ doit être rempli quand le texte est inséré dans un ouvrage collectif (une revue, un magazine, un journal, une émission radio ou TV).\
+bubble.entry.text.sourceTitle=Indiquez ici l'éditeur qui a publié ce texte. Il peut s'agir par exemple:\
 <ul>\
-<li>Dans le cas d''ouvrages collectifs (actes de colloque, recueils en l''honneur de…), indiquez le titre général de l''ouvrage.</li>\
-<li>Dans le cas de revues, magazines ou journaux, indiquez le titre du périodique.</li>\
-<li>Dans le cas d''émissions radio ou TV, indiquez le nom de l''émission.\
+<li>De la maison d'édition qui a publié le livre ou l''article dont est issu le texte.</li>\
+<li>Du nom du magazine ou de la revue qui contient l''article.</li>\
+<li>Du site internet, de l''émission télévisée ou du réseau social à l'origine du texte.\
 </ul>
 
 bubble.entry.tags=Pas de hashtag, mais un, deux ou trois mots ou groupes de mots qui rendent compte des « variables » que contient la phrase.<br><br>\
@@ -3792,12 +3792,15 @@ bubble.entry.text.textType=Veuillez choisir un des types suivants :\
 <li><b>Publicitaire</b> : slogan, argumentaire à visée commerciale.</li>\
 <li><b>Scientifique</b> : article, monographie, compte rendu d''ouvrage, thèse, mémoire, étude de marché... rédigés dans un cadre et avec une visée scientifiques.</li>\
 <li><b>Autre</b></li>\
-</ul>
+</ul> 
 
 bubble.entry.text.area=Vous ne pouvez copier l''intégralité d''un texte que s''il est libre de droit \
   (texte tombé dans le domaine public, ou avec autorisation de reproduction, ou émanant d''instances publiques). \
   Si le texte est un PDF, veuillez si possible insérer son URL (elle doit finir par .pdf), ou alors l''importer depuis vos fichier en appuyant sur le bouton "parcourir". \
-  Dans les autres cas, WebDeb insèrera automatiquement la page du site web si le site qui héberge le texte l''autorise. 
+  Dans les autres cas, WebDeb insèrera automatiquement la page du site web si le site qui héberge le texte l''autorise. <br/><br/>
+  Si vous souhaitez intégrer une vidéo ou une post sur un réseau social, WebDeb l'affichera automatiquement depuis l'URL fourni plus haut. <br/><br/>
+  <b>Attention :</b> Si vous entrez l'URL d'une vidéo, d'un extrait audio ou d'un post d'un réseau social, vous n'aurez pas accès au script ou au texte. \
+  Si vous souhaitez analyser le texte d'une vidéo, par exemple, vous devrez en encoder le texte manuellement.
 
 bubble.entry.text.area.2=Vous ne pouvez copier l''intégralité d''un texte que s''il est libre de droit \
   (texte tombé dans le domaine public, ou avec autorisation de reproduction, ou émanant d'instances publiques). \
@@ -4349,6 +4352,21 @@ contribution.viz.about.title=On en parle
 contribution.viz.debate.title=Débats
 contribution.viz.actors.title=Acteurs
 contribution.viz.authors.title=Auteurs
+
+bubble.entry.actor.url=Copiez et collez ici l''adresse URL de la page wikipédia \
+ ou du site personnel de l''acteur
+bubble.entry.datecreation=Pour les dates avant Jésus-Christ : placer un <i>"-"</i> avant l''année.
+bubble.entry.datetermination=Pour les dates avant Jésus-Christ : placer un <i>"-"</i> avant l''année.
+bubble.entry.actor.residence=Indiquez ici le lieu de résidence principal, s''il y en a plusieurs. \
+N'indiquez pas l''adresse exacte, même si vous la connaissez: limitez-vous à la commune.
+bubble.entry.actor.placelang=Même pour un individu, une traduction peut exister. \
+Par exemple, le nom du président chinois, Xi Jinping, se traduit en mandarin par 习近平.
+bubble.entry.text.title=Indiquez ici le titre du texte tel qu'il apparait dans la source originale. \
+S'il s'agit d'un extrait, indiquez clairement qu'il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
+ du premier volume de Harry Potter, encodez : Harry Potter à l'école des sorciers, chapitre 1, paragraphes 3 à 16.
+bubble.entry.text.URL=Entrez ici l''adresse internet précise du site d''où provient le texte.\
+Si vous ne la connaissez pas, cochez "non" à la question précédente et n'encodez pas d''URL.
+
 
 #covid-19
 covid19.title=Surfez sur les nombreuses pages « Covid-19 »

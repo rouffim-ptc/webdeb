@@ -1,5 +1,5 @@
 @*
-* WebDeb - Copyright (C) <2014-2019> <UniversitŽ catholique de Louvain (UCL), Belgique ; UniversitŽ de Namur (UNamur), Belgique>
+* WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
 *
 * List of the contributors to the development of WebDeb: see AUTHORS file.
 * Description and complete License: see LICENSE file.
@@ -281,7 +281,9 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 input-field">
                 @textInput(
                   actorForm(name.name.concat(".first")),
-                  Messages("actor.label.name")
+                  Messages("actor.label.name"),
+                  null, null, null, null,
+                  helpbubble("bubble.title", "bubble.entry.actor.firstname")
                 )
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 input-field">
@@ -324,7 +326,9 @@
             @textInput(
               actorForm("creationDate"),
               Messages("actor.label.creation"),
-              Messages("actor.place.date")
+              Messages("actor.place.date"),
+              null, null, null,
+              helpbubble("bubble.title", "bubble.entry.actor.creationdate")
             )
             <p class="visible-xs"></p>
           </div>
@@ -332,7 +336,9 @@
           @textInput(
             actorForm("terminationDate"),
             Messages("actor.label.termination"),
-            Messages("actor.place.date")
+            Messages("actor.place.date"),
+            null, null, null,
+            helpbubble("bubble.title", "bubble.entry.actor.terminationdate")
           )
           </div>
         </div>
