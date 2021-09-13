@@ -28,11 +28,21 @@
 
 @(
         label : String = null,
-        id : String = null
+        id : String = null,
+        bubble : Html = Html("")
 )(content : Html)
 
 @if(label != null) {
     <p class="form-question">@label</p>
+    <div class="form-question">
+        @if(label != null) {
+            <label @if(id != null){for="@id"} title="@label">@label</label>
+        }
+
+        @if(bubble != null){
+            @bubble
+        }
+    </div>
 }
 
 <div @if(id != null){id="@id"} class="form-group pl-3 pr-3">

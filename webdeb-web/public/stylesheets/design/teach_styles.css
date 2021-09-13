@@ -34,6 +34,15 @@
     }
 }
 
+.debagora_img {
+    width: 400px;
+}
+@media screen and (max-width: 992px) {
+    .debagora_img {
+        width: 100%;
+    }
+}
+
 .text-header {
     color: #F8F8F8;
     font-weight: 400;
@@ -86,4 +95,9 @@ h6 {
 }
 .module8 {
     background-color: #fbfcfc;
+}
+
+
+.background_debagora {
+    background-color: #bce1da;
 }

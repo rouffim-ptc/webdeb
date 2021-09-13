@@ -1,5 +1,5 @@
 @*
-* WebDeb - Copyright (C) <2014-2019> <UniversitŽ catholique de Louvain (UCL), Belgique ; UniversitŽ de Namur (UNamur), Belgique>
+* WebDeb - Copyright (C) <2014-2019> <Universitï¿½ catholique de Louvain (UCL), Belgique ; Universitï¿½ de Namur (UNamur), Belgique>
 *
 * List of the contributors to the development of WebDeb: see AUTHORS file.
 * Description and complete License: see LICENSE file.
@@ -129,7 +129,7 @@
 
             @citationPreview()
 
-            @stepformOptionsChoices(Messages("entry.citation.text.source.label")){
+            @stepformOptionsChoices(Messages("entry.citation.text.source.label"), null, ){
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.internet.label"), ETextSourceType.INTERNET.id().toString, true, "radio")
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.pdf.label"), ETextSourceType.PDF.id().toString, true, "radio")
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.other.label"), ETextSourceType.OTHER.id().toString, true, "radio")

@@ -4364,3 +4364,25 @@ tag.category.delete.title=Supprimer la catégorie
 
 argument.copy.title=Copier l''argument
 citation.copy.title=Copier la citation
+
+
+#teach
+teach.d1.title=WebDeb, un outil pédagogique tous terrai
+teach.d1.p1=WebDeb a été conçu pour être utilisé en classe ou en formation. La plateforme permet  en  effet  de  faire  réfléchir  un  groupe  de  manière  rigoureuse  sur n’importe quel type de débat en facilitant l’encodage systématique et collaboratif des prises de position et des arguments ainsi que des CV des parties prenantes du débat.
+teach.d1.p2=En plus de développer ainsi des compétences de recherche et d’analyse documentaire, WebDeb permet, par la structuration des données, de servir d’assise à un travail de compréhension du débat, voire à une prise de position informée.
+teach.d1.p3=Les atouts de la plateforme sont nombreux. WebDeb permet en effet de :
+teach.d1.p4=<ul> \
+    <li><b>Systématiser et standardiser </b>les données encodées ;</li> \
+    <li><b>garder en mémoire </b>les analyses effectuées ;</li> \
+    <li><b>mettre en commun</b> les travaux de plusieurs sous-groupes ;</li> \
+    <li><b>modifier facilement </b> les données encodées et les organiser progressivement ;</li> \
+    <li><b>travailler en distanciel </b>;</li> \
+    <li><b>créer des groupes </b>pédagogiques privés ;</li> \
+    <li><b>corriger aisément</b> les contributions.</li> \
+</ul>
+teach.d1.a1=Découvrir et télécharger les tutoriels
+
+teach.d2.title=Débagora : un outil pédagogique mobilisant WebDeb
+teach.d2.p1=WebDeb est mobilisé dans le cadre de Débagora, outil d’éducation au politique et au débat, composé de huit modules (WebDeb y est mobilisé dans les modules 2, 3, 4, 5 et 6).
+teach.d2.p2=Découvrez-le pour voir comment mobiliser WebDeb dans le cadre d’un projet plus large, mais aussi pour voir comment mobiliser ponctuellement WebDeb.
+teach.d2.a1=Découvrir et télécharger l’outil
