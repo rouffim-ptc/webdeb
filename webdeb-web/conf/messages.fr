@@ -4390,10 +4390,21 @@ bubble.entry.citation.toolittleinfo=Ajoutez ou remplacez, entre crochets [], les
 Un pronom peu clair, un adjectif démonstratif sans sujet évident,… Il faut remplacer ces éléments par leur signifiant pour que la citation \
 soit compréhensible sans devoir retourner dans le texte original.
 bubble.entry.argument.start=Sélectionnez dans la liste un début de phrase pour votre argument. Choisissez "Il est vrai que..." pour une phrase descriptive, \
-"Il faut..." pour une phrase prescriptive, et [Début d'argument libre] pour écrire un argument librement, sans début de phrase pré-sélectionné.
+"Il faut..." pour une phrase prescriptive, et [Début d''argument libre] pour écrire un argument librement, sans début de phrase pré-sélectionné.
 bubble.entry.argument.rest=Écrivez ici la suite de votre argument. Donnez tous les éléments nécessaire à la bonne compréhension de l'argument \
 mais tentez de laisser la phrase aussi courte et percutante que possible.
-
+bubble.entry.citation.whatsource=Indiquez ici d''où le document qui contient la citation provient. Si vous n'êtes pas sûr, indiquez "autre source". \
+Si vous n'êtes pas certain du site internet exact, ou que vous ne retrouvez pas le PDF dont la citation est extraite, indiquez également "autre source".
+bubble.entry.citation.whosaydit=Qui parle dans cette citation? S''agit-il d'une personne isolée ou d''un groupe d'individus, ou bien d''une organisation structurée? \
+Commencez à entrer le nom et sélectionnez-le dans le menu déroulant s'il y apparait. <br><br>
+Attention: ne confondez pas l''auteur de la citation et l''auteur du texte, il s''agit parfois de personnes différentes. Dans une interview, par exemple, \
+il faut bien différencier le journaliste de l''autre personne, qui peut être auteur de la citation mais pas du texte.
+bubble.entry.citation.tags=Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand \
+joueur de foot au monde", je pourrais indiquer "que dit-on sur l'identité du plus grand joueur de foot au monde".
+bubble.entry.citation.citedactors=Si la citation mentionne clairement et directement un individu ou une organisation, indiquez-le(s) ici. \
+Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand joueur de foot au monde", indiquez "Romelu Lukaku".
+bubble.entry.citation.citedplace=Si la citation concerne un territoire limité, cochez "oui" et indiquez le lieu concerné. \
+Si la citation n'est pas limitée à une région, mais est valide partout dans le monde, cochez "non".
 
 
 

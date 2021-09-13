@@ -132,7 +132,7 @@
 
             @citationPreview()
 
-            @stepformOptionsChoices(Messages("entry.citation.text.source.label"), null, helpbubble("bubble.title", "bubble.entry.citation.url.url")){
+            @stepformOptionsChoices(Messages("entry.citation.text.source.label"), null, helpbubble("bubble.title", "bubble.entry.citation.whatsource")){
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.internet.label"), ETextSourceType.INTERNET.id().toString, true, "radio")
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.pdf.label"), ETextSourceType.PDF.id().toString, true, "radio")
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.other.label"), ETextSourceType.OTHER.id().toString, true, "radio")
@@ -200,7 +200,10 @@
 
             @citationPreview()
 
-            <p class="form-question">@Messages("entry.citation.authors.title")</p>
+            <p class="form-question">
+			@Messages("entry.citation.authors.title")
+			@helpbubble("bubble.title", "bubble.entry.citation.whosaydit")
+			</p>
 
             @if(citationForm("id").value == "-1") {
 
@@ -279,13 +282,16 @@
 
             @citationPreview()
 
-            <p class="form-question">@Messages("entry.citation.tags.label")</p>
+            <p class="form-question">
+			@Messages("entry.citation.tags.label")
+			@helpbubble("bubble.title", "bubble.entry.citation.tags")
+			</p>
 
             @tagdiv(citationForm, "tags", null, false)
 
             <hr class="mt-4 mb-4">
                 
-            @stepformOptionChoices(citationForm("hasCitedactors"), Messages("entry.citation.citedauthors.label"), null, "2")
+            @stepformOptionChoices(citationForm("hasCitedactors"), Messages("entry.citation.citedauthors.label"), null, "2", helpbubble("bubble.title", "bubble.entry.citation.citedactors"))
 
             @stepformOption(citationForm("hasCitedactors"), "2"){
                 @authorsimplediv(citationForm, "citedactors")
@@ -293,7 +299,7 @@
 
             <hr class="mt-4 mb-4">
 
-            @stepformOptionChoices(citationForm("hasPlaces"), Messages("entry.citation.places.label"), null, "1")
+            @stepformOptionChoices(citationForm("hasPlaces"), Messages("entry.citation.places.label"), null, "1", helpbubble("bubble.title", "bubble.entry.citation.citedplace"))
 
             @stepformOption(citationForm("hasPlaces"), "1"){
                 @placediv(citationForm, "text.label.places")
