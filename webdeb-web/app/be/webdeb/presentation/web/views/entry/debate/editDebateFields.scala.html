@@ -120,7 +120,9 @@
                     <div class="col-12 ml-4">
                     @checkboxInput(
                         debateForm("isMultiple"),
-                        Messages("label.yes")
+                        Messages("label.yes"),
+						null, null, null, null,
+						helpbubble("bubble.title", "bubble.entry.debate.multiple"),
                     )
                     </div>
                 </div>
@@ -177,7 +179,9 @@
 
                 <label class="control-label" for="description"><li class="ml-4">@Messages("debate.edit.more.description.label")</li></label>
                 @textareaInput(
-                    debateForm("description")
+                    debateForm("description"),
+						null, null, null, null, null,
+						helpbubble("bubble.title", "bubble.entry.debate.description"),
                 )
 
                 <div id="externalUrls" class="row mt-3">
@@ -194,14 +198,18 @@
                             @urlInput(
                                 debateForm(name.name.concat(".url")),
                                 Messages("debate.edit.more.externalurls.url.label"),
-                                Messages("debate.edit.more.externalurls.url.place")
+                                Messages("debate.edit.more.externalurls.url.place"),
+								null, null, null,
+								helpbubble("bubble.title", "bubble.entry.debate.urls"),
                             )
                             </div>
                             <div class="col-lg-6">
                             @textInput(
                                 debateForm(name.name.concat(".alias")),
                                 Messages("debate.edit.more.externalurls.alias.label"),
-                                Messages("debate.edit.more.externalurls.alias.place")
+                                Messages("debate.edit.more.externalurls.alias.place"),
+								null, null, null,
+								helpbubble("bubble.title", "bubble.entry.debate.urlstitle"),
                             )
                             </div>
                         }
