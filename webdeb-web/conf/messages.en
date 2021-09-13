@@ -2257,6 +2257,36 @@ viz.debate.position.3.2=$Indécis (peut-être ou ne sait pas)
 viz.debate.position.3.3=$Pas d''accord
 viz.debate.position.3.4=$Pas dutout d''accord
 
+viz.debate.position.4.0=$Tout à fait d''accord
+viz.debate.position.4.1=$Plutôt d''accord
+viz.debate.position.4.2=$Indécis (peut-être ou ne sait pas)
+viz.debate.position.4.3=$Pas d''accord
+viz.debate.position.4.4=$Pas dutout d''accord
+
+viz.debate.position.5.0=$Tout à fait d''accord
+viz.debate.position.5.1=$Plutôt d''accord
+viz.debate.position.5.2=$Indécis (peut-être ou ne sait pas)
+viz.debate.position.5.3=$Pas d''accord
+viz.debate.position.5.4=$Pas dutout d''accord
+
+viz.debate.position.6.0=$Tout à fait d''accord
+viz.debate.position.6.1=$Plutôt d''accord
+viz.debate.position.6.2=$Indécis (peut-être ou ne sait pas)
+viz.debate.position.6.3=$Pas d''accord
+viz.debate.position.6.4=$Pas dutout d''accord
+
+viz.debate.position.7.0=$Tout à fait d''accord
+viz.debate.position.7.1=$Plutôt d''accord
+viz.debate.position.7.2=$Indécis (peut-être ou ne sait pas)
+viz.debate.position.7.3=$Pas d''accord
+viz.debate.position.7.4=$Pas dutout d''accord
+
+viz.debate.position.-1.0=$Tout à fait d''accord
+viz.debate.position.-1.1=$Plutôt d''accord
+viz.debate.position.-1.2=$Indécis (peut-être ou ne sait pas)
+viz.debate.position.-1.3=$Pas d''accord
+viz.debate.position.-1.4=$Pas dutout d''accord
+
 viz.debate.position.instructions=$Déplacez le curseur pour changer le degré de positionnement
 
 viz.debate.arguments.argument=$argument
@@ -2272,6 +2302,24 @@ viz.context.arguments.1.1=$Contre
 
 viz.context.arguments.2.0=$Points forts
 viz.context.arguments.2.1=$Points faibles
+
+viz.context.arguments.3.0=$Pour
+viz.context.arguments.3.1=$Contre
+
+viz.context.arguments.4.0=$Pour
+viz.context.arguments.4.1=$Contre
+
+viz.context.arguments.5.0=$Pour
+viz.context.arguments.5.1=$Contre
+
+viz.context.arguments.6.0=$Pour
+viz.context.arguments.6.1=$Contre
+
+viz.context.arguments.7.0=$Pour
+viz.context.arguments.7.1=$Contre
+
+viz.context.arguments.-1.0=$Pour
+viz.context.arguments.-1.1=$Contre
 
 # text
 viz.text.title=Text

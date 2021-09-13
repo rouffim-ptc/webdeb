@@ -140,6 +140,9 @@ public class ConcreteDebateSimple extends AbstractDebate implements DebateSimple
      */
     private String computeShadeAndTitle(DebateShade shade) {
         if(isValid().isEmpty()) {
+            if(getEShade() == EDebateShade.NO_SHADE) {
+                return getArgument().getTitle() + " ?";
+            }
             String shadeterm = factory.makeShadeReaderFriendly(
                     shade.getName(getArgument().getLanguage().getCode()),
                     getArgument().getTitle(),
