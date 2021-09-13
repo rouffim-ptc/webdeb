@@ -85,7 +85,8 @@
                 Messages("text.label.url"),
                 Messages("text.place.url"),
                 null, null,
-                Messages("text.help.url")
+                Messages("text.help.url"),
+                helpbubble("bubble.title", "bubble.entry.text.URL")
             )
         </div>
     }else{
@@ -94,9 +95,9 @@
                 form(prefix + "url2"),
                 Messages("text.label.url"),
                 Messages("text.place.url"),
-                null,
+                null, null,
+                Messages("text.help.url"),
 				helpbubble("bubble.title", "bubble.entry.text.URL")
-                Messages("text.help.url")
             )
         </div>
     }
@@ -108,7 +109,7 @@
             Messages("text.label.title"),
             Messages("text.place.title"),
             prefix == null || prefix == "",
-			null,
+			null, null,
 			helpbubble("bubble.title", "bubble.entry.text.title")
             )
         )

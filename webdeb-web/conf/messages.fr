@@ -3795,8 +3795,8 @@ bubble.entry.text.textType=Veuillez choisir un des types suivants :\
 bubble.entry.text.area=Vous ne pouvez copier l''intégralité d''un texte que s''il est libre de droit \
   (texte tombé dans le domaine public, ou avec autorisation de reproduction, ou émanant d''instances publiques). \
   Si le texte est un PDF, veuillez si possible insérer son URL (elle doit finir par .pdf), ou alors l''importer depuis vos fichier en appuyant sur le bouton "parcourir". \
-  Dans les autres cas, WebDeb insèrera automatiquement la page du site web si le site qui héberge le texte l''autorise. <br/><br/>
-  Si vous souhaitez intégrer une vidéo ou une post sur un réseau social, WebDeb l''affichera automatiquement depuis l'URL fourni plus haut. <br/><br/>
+  Dans les autres cas, WebDeb insèrera automatiquement la page du site web si le site qui héberge le texte l''autorise. <br/><br/> \
+  Si vous souhaitez intégrer une vidéo ou une post sur un réseau social, WebDeb l''affichera automatiquement depuis l'URL fourni plus haut. <br/><br/> \
   <b>Attention :</b> Si vous entrez l'URL d'une vidéo, d'un extrait audio ou d'un post d'un réseau social, vous n'aurez pas accès au script ou au texte. \
   Si vous souhaitez analyser le texte d'une vidéo, par exemple, vous devrez en encoder le texte manuellement.
 
@@ -4364,8 +4364,8 @@ S'il s''agit d'un extrait, indiquez clairement qu'il s'agit d'un extrait du text
  du premier volume de Harry Potter, encodez : Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.
 bubble.entry.text.URL=Entrez ici l''adresse internet précise du site d''où provient le texte.\
 Si vous ne la connaissez pas, cochez "non" à la question précédente et n'encodez pas d''URL.
-bubble.entry.debate.multiple=Si la question de débat ne va pas comparer plusieurs options différentes, ne cochez rien. \ 
-Si le débat va comparer plusieurs options , cochez la case.
+bubble.entry.debate.multiple=Si la question de débat ne va pas comparer plusieurs options différentes, ne cochez rien. \
+Si le débat va comparer plusieurs options , cochez la case. \
 <b>Exemples</b> : <br>\
 "Quels sont les points forts et faibles de la 5G" ne compare pas plusieurs options; on ne parle que de 5G\
 "Quels sont les points forts et faibles des films du festival de Cannes 2021" compare les différents films.
@@ -4384,9 +4384,9 @@ bubble.entry.citation.url.justtitle=Indiquez ici le titre du texte tel qu''il ap
 S''il s'agit d'un extrait, indiquez clairement qu''il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
 du premier volume de Harry Potter, encodez : Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.
 bubble.entry.citation.toomuchinfo=Supprimez les éléments de langage inutiles, les digressions, les informations personnelles \
-et autres éléments qui ne sont pas nécessaire à la bonne compréhension de la citation. \ 
+et autres éléments qui ne sont pas nécessaire à la bonne compréhension de la citation. \
 Effacez simplement le texte excédentaire, et WebDeb mettra automatiquement les […] nécessaires.
-bubble.entry.citation.toolittleinfo=Ajoutez ou remplacez, entre crochets [], les éléments nécessaires à la compréhension de la citation. \ 
+bubble.entry.citation.toolittleinfo=Ajoutez ou remplacez, entre crochets [], les éléments nécessaires à la compréhension de la citation. \
 Un pronom peu clair, un adjectif démonstratif sans sujet évident,… Il faut remplacer ces éléments par leur signifiant pour que la citation \
 soit compréhensible sans devoir retourner dans le texte original.
 bubble.entry.argument.start=Sélectionnez dans la liste un début de phrase pour votre argument. Choisissez "Il est vrai que..." pour une phrase descriptive, \

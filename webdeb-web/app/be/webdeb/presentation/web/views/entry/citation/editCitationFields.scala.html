@@ -121,7 +121,7 @@
                     null,
                     false,
 					null, null,
-					helpbubble("bubble.title", "bubble.entry.citation.originalexcerpt"),
+					helpbubble("bubble.title", "bubble.entry.citation.originalexcerpt")
 
                 )
             </div>
@@ -132,7 +132,7 @@
 
             @citationPreview()
 
-            @stepformOptionsChoices(Messages("entry.citation.text.source.label"), null, ){
+            @stepformOptionsChoices(Messages("entry.citation.text.source.label"), null, helpbubble("bubble.title", "bubble.entry.citation.url.url")){
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.internet.label"), ETextSourceType.INTERNET.id().toString, true, "radio")
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.pdf.label"), ETextSourceType.PDF.id().toString, true, "radio")
                 @stepformOptionChoice(citationForm("text.textSourceType"), Messages("entry.citation.text.source.other.label"), ETextSourceType.OTHER.id().toString, true, "radio")
@@ -149,7 +149,7 @@
                             null,
                             false,
 							null, null,
-							helpbubble("bubble.title", "bubble.entry.citation.url.url"),
+							helpbubble("bubble.title", "bubble.entry.citation.url.url")
                         )
                         @hiddenFormField(citationForm("textIdFromUrl"))
                     </div>
@@ -168,7 +168,7 @@
                             null,
                             true,
 							null, null,
-							helpbubble("bubble.title", "bubble.entry.citation.url.ortitle"),
+							helpbubble("bubble.title", "bubble.entry.citation.url.ortitle")
                         )
                         @hiddenFormField(citationForm("textIdFromUrlOrTitle"))
                     </div>
@@ -187,7 +187,7 @@
                             null,
                             true,
 							null, null,
-							helpbubble("bubble.title", "bubble.entry.citation.url.justtitle"),
+							helpbubble("bubble.title", "bubble.entry.citation.url.justtitle")
                         )
                         @hiddenFormField(citationForm("textIdFromTitle"))
                     </div>
@@ -322,7 +322,7 @@
                         null,
                         true,
 						null, null,
-						helpbubble("bubble.title", "bubble.entry.citation.toomuchinfo"),
+						helpbubble("bubble.title", "bubble.entry.citation.toomuchinfo")
 						)
                 </div>
             }
@@ -342,7 +342,7 @@
                     null,
                     true,
 					null, null,
-					helpbubble("bubble.title", "bubble.entry.citation.toolittleinfo"),
+					helpbubble("bubble.title", "bubble.entry.citation.toolittleinfo")
                     )
                 </div> 
             }

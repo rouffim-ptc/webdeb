@@ -31,6 +31,7 @@
 @import be.webdeb.presentation.web.controllers.entry.argument.ArgumentForm
 @import be.webdeb.presentation.web.controllers.permission.WebdebUser
 @import be.webdeb.presentation.web.views.html.util.{hiddenFormField}
+    @import be.webdeb.presentation.web.views.html.util.helpbubble
 @import be.webdeb.core.api.argument.EArgumentType
 @import helper._
 
@@ -66,7 +67,7 @@
             Messages("argument.place.shade"),
             true,
 			null,
-			helpbubble("bubble.title", "bubble.entry.argument.start"),
+			helpbubble("bubble.title", "bubble.entry.argument.start")
 			)
         </div>
     }
@@ -79,7 +80,7 @@
             true,
             2,
 			null,
-			helpbubble("bubble.title", "bubble.entry.argument.rest"),
+			helpbubble("bubble.title", "bubble.entry.argument.rest")
 			)
 
         @hiddenFormField(argumentForm("dictionaryId"))
