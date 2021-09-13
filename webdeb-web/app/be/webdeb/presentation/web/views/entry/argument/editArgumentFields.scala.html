@@ -45,7 +45,7 @@
         helper : ContributionHelper,
         user : WebdebUser,
         map : java.util.Map[String,String]
-)
+) 
 
 <fieldset class="row">
     @hiddenFormField(argumentForm("id"))
@@ -64,8 +64,10 @@
             helper.getArgumentShades(ctx.lang.code, !full),
             Messages("argument.standard.shade.label"),
             Messages("argument.place.shade"),
-            true
-        )
+            true,
+			null,
+			helpbubble("bubble.title", "bubble.entry.argument.start"),
+			)
         </div>
     }
 
@@ -75,8 +77,10 @@
             Messages(if(argumentForm("argtype").value == EArgumentType.SHADED.id().toString){"argument.standard.part.label"}else{"argument.standard.part.complete.label"}),
             null,
             true,
-            2
-        )
+            2,
+			null,
+			helpbubble("bubble.title", "bubble.entry.argument.rest"),
+			)
 
         @hiddenFormField(argumentForm("dictionaryId"))
         @hiddenFormField(argumentForm("language"))

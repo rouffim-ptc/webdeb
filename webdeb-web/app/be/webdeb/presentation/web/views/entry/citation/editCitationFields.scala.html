@@ -119,7 +119,10 @@
                     citationForm("originalExcerpt"),
                     Messages("entry.citation.original.label"),
                     null,
-                    false
+                    false,
+					null, null,
+					helpbubble("bubble.title", "bubble.entry.citation.originalexcerpt"),
+
                 )
             </div>
 
@@ -144,7 +147,9 @@
                             citationForm("text.url"),
                             Messages("entry.citation.text.source.internet.url.label"),
                             null,
-                            false
+                            false,
+							null, null,
+							helpbubble("bubble.title", "bubble.entry.citation.url.url"),
                         )
                         @hiddenFormField(citationForm("textIdFromUrl"))
                     </div>
@@ -161,7 +166,9 @@
                             citationForm("text.urlOrTitle"),
                             Messages("entry.citation.text.source.pdf.urlOrTitle.label"),
                             null,
-                            true
+                            true,
+							null, null,
+							helpbubble("bubble.title", "bubble.entry.citation.url.ortitle"),
                         )
                         @hiddenFormField(citationForm("textIdFromUrlOrTitle"))
                     </div>
@@ -178,7 +185,9 @@
                             citationForm("textTitle"),
                             Messages("entry.citation.text.source.other.title.label"),
                             null,
-                            true
+                            true,
+							null, null,
+							helpbubble("bubble.title", "bubble.entry.citation.url.justtitle"),
                         )
                         @hiddenFormField(citationForm("textIdFromTitle"))
                     </div>
@@ -311,8 +320,10 @@
                         citationForm("workingExcerpt1"),
                         Messages("entry.citation.working1.label"),
                         null,
-                        true
-                    )
+                        true,
+						null, null,
+						helpbubble("bubble.title", "bubble.entry.citation.toomuchinfo"),
+						)
                 </div>
             }
         }
@@ -329,9 +340,11 @@
                     citationForm("workingExcerpt2"),
                     Messages("entry.citation.working2.label"),
                     null,
-                    true
+                    true,
+					null, null,
+					helpbubble("bubble.title", "bubble.entry.citation.toolittleinfo"),
                     )
-                </div>
+                </div> 
             }
         }
 

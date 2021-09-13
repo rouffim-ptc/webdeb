@@ -833,16 +833,14 @@ entry.citation.text.source.internet.url.label=URL
 entry.citation.text.source.pdf.urlOrTitle.label=URL ou titre du texte
 entry.citation.text.source.other.title.label=Titre du texte
 
-entry.citation.authors.title=Qui tient les propos mentionnés dans la citation ?
+entry.citation.authors.title=Qui tient les propos mentionnés dans la citation ?*
 entry.citation.authors.person.label=Une ou des personnes ?
 entry.citation.authors.org.label=Une ou des organisations ?
-entry.citation.authors.textauthors.label=S’agit-il des auteurs du texte ?
-entry.citation.authors.textauthors2.label=Les auteurs du texte ?
-entry.citation.authors.person.label2=Une ou plusieurs autres personnes ?
-entry.citation.authors.org.label2=Une ou plusieurs autres organisations ?
+entry.citation.authors.textauthors.label=S’agit-il des auteurs du texte ?*
+
 
 entry.citation.tags.title=Classez la citation dans WebDeb
-entry.citation.tags.label=A quelle(s) question(s) répond la citation ?
+entry.citation.tags.label=A quelle(s) question(s) répond la citation ?*
 entry.citation.tags.tag.label=Que dit-on sur
 entry.citation.citedauthors.label=La citation parle-t-elle d’une personne ou d’une organisation ?
 entry.citation.places.label=La citation concerne-t-elle un ou des territoires ?
@@ -1055,7 +1053,7 @@ context.dragndrop.reload.title=Recharger
 context.dragndrop.close.title=Fermer la classification
 
 context.alliesopponents.title=Afficher par auteurs des arguments
-context.alliesopponents.close.title=Fermer l'affichage par auteurs
+context.alliesopponents.close.title=Fermer l''affichage par auteurs
 
 debate.new.added=Le débat a été ajouté avec succès !
 
@@ -3099,15 +3097,15 @@ Importation texte(s) : <br> \
  </span> \
   <br> \
    <br> \
-<span><b>placeId1</b> : Id du térritoire. Laisser vide pour monde.<br> \
+<span><b>placeId1</b> : Id du territoire. Laisser vide pour monde.<br> \
 </span> \
   <br> \
    <br> \
-<span><b>placeId2</b> : Id d'un autre térritoire si nécessaire<br> \
+<span><b>placeId2</b> : Id d'un autre territoire si nécessaire<br> \
  </span> \
   <br> \
    <br> \
-<span><b>placeId3</b> : Id d'un autre térritoire si nécessaire<br> \
+<span><b>placeId3</b> : Id d'un autre territoire si nécessaire<br> \
 </span> \
    <br> \
  <br> \
@@ -3798,7 +3796,7 @@ bubble.entry.text.area=Vous ne pouvez copier l''intégralité d''un texte que s'
   (texte tombé dans le domaine public, ou avec autorisation de reproduction, ou émanant d''instances publiques). \
   Si le texte est un PDF, veuillez si possible insérer son URL (elle doit finir par .pdf), ou alors l''importer depuis vos fichier en appuyant sur le bouton "parcourir". \
   Dans les autres cas, WebDeb insèrera automatiquement la page du site web si le site qui héberge le texte l''autorise. <br/><br/>
-  Si vous souhaitez intégrer une vidéo ou une post sur un réseau social, WebDeb l'affichera automatiquement depuis l'URL fourni plus haut. <br/><br/>
+  Si vous souhaitez intégrer une vidéo ou une post sur un réseau social, WebDeb l''affichera automatiquement depuis l'URL fourni plus haut. <br/><br/>
   <b>Attention :</b> Si vous entrez l'URL d'une vidéo, d'un extrait audio ou d'un post d'un réseau social, vous n'aurez pas accès au script ou au texte. \
   Si vous souhaitez analyser le texte d'une vidéo, par exemple, vous devrez en encoder le texte manuellement.
 
@@ -4361,11 +4359,43 @@ bubble.entry.actor.residence=Indiquez ici le lieu de résidence principal, s''il
 N'indiquez pas l''adresse exacte, même si vous la connaissez: limitez-vous à la commune.
 bubble.entry.actor.placelang=Même pour un individu, une traduction peut exister. \
 Par exemple, le nom du président chinois, Xi Jinping, se traduit en mandarin par 习近平.
-bubble.entry.text.title=Indiquez ici le titre du texte tel qu'il apparait dans la source originale. \
-S'il s'agit d'un extrait, indiquez clairement qu'il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
- du premier volume de Harry Potter, encodez : Harry Potter à l'école des sorciers, chapitre 1, paragraphes 3 à 16.
+bubble.entry.text.title=Indiquez ici le titre du texte tel qu''il apparait dans la source originale. \
+S'il s''agit d'un extrait, indiquez clairement qu'il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
+ du premier volume de Harry Potter, encodez : Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.
 bubble.entry.text.URL=Entrez ici l''adresse internet précise du site d''où provient le texte.\
 Si vous ne la connaissez pas, cochez "non" à la question précédente et n'encodez pas d''URL.
+bubble.entry.debate.multiple=Si la question de débat ne va pas comparer plusieurs options différentes, ne cochez rien. \ 
+Si le débat va comparer plusieurs options , cochez la case.
+<b>Exemples</b> : <br>\
+"Quels sont les points forts et faibles de la 5G" ne compare pas plusieurs options; on ne parle que de 5G\
+"Quels sont les points forts et faibles des films du festival de Cannes 2021" compare les différents films.
+bubble.entry.debate.description=Introduisez ici une description du débat. Cet espace permet de contextualiser le débat, \
+d’entrer quelques informations supplémentaires ou de guider la réflexion. <br>\
+<b>Attention :</b> n''utilisez pas la description pour donner un avis personnel ou commencer à proposer des  arguments.\
+ Limitez-vous à contextualiser, à donner des informations factuelles et à préciser l''objectif du  débat.
+bubble.entry.debate.urls=Ajoutez des hyperliens menant vers des sites donnant des informations supplémentaires.\
+Entrez l''adresse internet précise de la page et pas uniquement le nom du site.
+bubble.entry.debate.urlstitle=Donnez un titre à cet hyperlien, qui sera visible pour les autres contributeurs.
+bubble.entry.citation.originalexcerpt=Copiez ici le contenu original exact, <b>sans aucune modification</b>, de l''extrait de texte que vous souhaitez encoder.
+bubble.entry.citation.url.url=Entrez l''adresse internet précise de la page qui accueille le texte qui contient la citation.
+bubble.entry.citation.url.ortitle=Entrez l''adresse internet précise de la page qui accueille le pdf qui contient la citation. \
+Si vous n'avez pas trouvé ce texte en ligne, indiquez simplement son titre complet.
+bubble.entry.citation.url.justtitle=Indiquez ici le titre du texte tel qu''il apparait dans la source originale. \
+S''il s'agit d'un extrait, indiquez clairement qu''il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
+du premier volume de Harry Potter, encodez : Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.
+bubble.entry.citation.toomuchinfo=Supprimez les éléments de langage inutiles, les digressions, les informations personnelles \
+et autres éléments qui ne sont pas nécessaire à la bonne compréhension de la citation. \ 
+Effacez simplement le texte excédentaire, et WebDeb mettra automatiquement les […] nécessaires.
+bubble.entry.citation.toolittleinfo=Ajoutez ou remplacez, entre crochets [], les éléments nécessaires à la compréhension de la citation. \ 
+Un pronom peu clair, un adjectif démonstratif sans sujet évident,… Il faut remplacer ces éléments par leur signifiant pour que la citation \
+soit compréhensible sans devoir retourner dans le texte original.
+bubble.entry.argument.start=Sélectionnez dans la liste un début de phrase pour votre argument. Choisissez "Il est vrai que..." pour une phrase descriptive, \
+"Il faut..." pour une phrase prescriptive, et [Début d'argument libre] pour écrire un argument librement, sans début de phrase pré-sélectionné.
+bubble.entry.argument.rest=Écrivez ici la suite de votre argument. Donnez tous les éléments nécessaire à la bonne compréhension de l'argument \
+mais tentez de laisser la phrase aussi courte et percutante que possible.
+
+
+
 
 
 #covid-19
