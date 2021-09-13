@@ -3727,3 +3727,52 @@ teach.d2.title=$Débagora : un outil pédagogique mobilisant WebDeb
 teach.d2.p1=$WebDeb est mobilisé dans le cadre de Débagora, outil d’éducation au politique et au débat, composé de huit modules (WebDeb y est mobilisé dans les modules 2, 3, 4, 5 et 6).
 teach.d2.p2=$Découvrez-le pour voir comment mobiliser WebDeb dans le cadre d’un projet plus large, mais aussi pour voir comment mobiliser ponctuellement WebDeb.
 teach.d2.a1=$Découvrir et télécharger l’outil
+
+#debagora
+debagora.module1.title=$Module 1
+debagora.module1.text=$ Créer un cadre de débat démocratique
+debagora.module2.title=$Module 2
+debagora.module2.text=$ Faire émerger et formuler une question de débat
+debagora.module3.title=$Module 3
+debagora.module3.text=$Récolter les préconceptions sur une question de débat
+debagora.module4.title=$Module 4
+debagora.module4.text=$Sélectionner des sources pour collecter des arguments
+debagora.module5.title=$Module 5
+debagora.module5.text=$Analyser des arguments pour nuancer et approfondir le débat
+debagora.module6.title=$Module 6
+debagora.module6.text=$Identifier et positionner les parties prenantes du débat
+debagora.module7.title=$Module 7
+debagora.module7.text=$Défendre une opinion oralement
+debagora.module8.title=$Module 8
+debagora.module8.text=$Prendre part au débat sur les enjeux de société
+
+debagora.download.title=$Télécharger l’entièreté de l’outil
+
+debagora.div1.title=$Education au débat
+debagora.div1.text=$L’outil pédagogique Débagora propose des activités et des repères pour :\
+<ul> \
+   <li>Collecter du contenu</li> \
+   <li>Soutenir une opinion par des arguments</li> \
+   <li>Multiplier les angles de vue sur une même question</li> \
+   <li>Mettre cette opinion en débat dans un cadre respectueux  </li> \
+</ul>
+
+debagora.div2.title=$Education au politique
+debagora.div2.text=$L’outil pédagogique Débagora propose des activités et des repères pour : \
+<ul> \
+   <li>Initier les jeunes aux processus de délibération conflictuelle et égalitaire</li> \
+   <li>Identifier les parties prenantes au débat et les rapports de force entre elles</li> \
+   <li>Expérimenter l’ensemble du processus démocratique, depuis la problématisation d’une question jusqu’à l’intervention dans le débat public</li> \
+</ul>
+
+debagora.div3.text=$L’outil pédagogique Débagora : \
+<ul> \
+   <li>est adapté à un public âgé de <b>15 ans et plus</b></li> \
+   <li>se compose de <b>huit modules</b> combinables ou utilisables de manière indépendante ;</li> \
+   <li>présente des <b>activités</b> concrètes, mais aussi des <b>repères</b> théoriques et méthodologiques  ;</li> \
+   <li>propose l’usage de la <b>plateforme numérique <a class="primary" href="https://webdeb.be">WebDeb</a></b> pour favoriser les échanges entre participants.</li> \
+</ul>
+
+debagora.div4.text=$Débagora est le <b>fruit d’une collaboration</b> entre trois centres de recherche (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
+et quatre associations (Jeune et Citoyen, musée BELvue, Infor-Jeunes asbl et Ligue des Droits Humains).
+debagora.div4.a1=$Pour toute demande d’information : <a href="mailto:info@debagora.be">info@debagora.be</a>

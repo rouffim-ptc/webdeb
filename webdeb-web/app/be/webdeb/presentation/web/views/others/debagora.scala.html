@@ -47,6 +47,7 @@
     <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable.png").absoluteURL()" />
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/teach_styles.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/contribuer_styles.css")">
 
     <script type="text/javascript">
             $(document).ready(function () {
@@ -197,82 +198,51 @@
             <h4><a href="@routes.Assets.at("static/rsc/debagora/fr/Debagora.pdf")">@Messages("debagora.download.title")</a></h4>
         </div>
 
-        <div class="container-fluid mt-5">
-            <div class="row">
-
-                <div class="col-12">
-                    <h3>Un outil modulable</h3>
-
-                    <p>
-                        L’outil pédagogique Débagora est utilisable de multiples manières et laisse une large
-                        autonomie au personnes chargées de l’animation. Il est possible de développer :
-                    </p>
-                    <ul>
-                        <li><b>Un projet intégrant tous les modules. </b>Mais il est aussi possible de modifier l’ordre des modules, de laisser tomber certaines activités ou d’intégrer des activités non présentées dans Débagora.</li>
-                        <li><b>Un projet de plus petite ampleur, </b>combinant quelques modules, à charge parfois pour l’enseignant·e ou l’animateur·trice d’assumer certaines tâches prévues dans des modules antérieurs.</li>
-                        <li><b>Un seul module,</b> en l’intégrant ou non dans d’autres projets ou séquences, y compris sans rapport avec l’éducation au politique ou au débat. Il est par exemple possible de mobiliser le module 2 (formuler une question) en histoire ou le module 3 (conceptions initiales) en religion ou morale.</li>
-                    </ul>
-                </div>
-
-
-                <div class="col-12 mt-4">
-
-                    <h3>Débagora : outil d’éducation au politique et au débat</h3>
-
-                    <p>
-                        Débagora se situe ainsi à <b>l’intersection de l’éducation au politique et de l’éducation au débat,</b> comme l’indique son nom, contraction des termes débat et agora.
-                    </p>
-                    <p>
-                        Être capable de collecter du contenu pour nuancer et approfondir son opinion ; pouvoir exprimer un avis ; le soutenir par des arguments et en débattre dans un cadre respectueux : ces compétences suscitent souvent bien des malaises et des craintes chez les personnes qui ont des charges éducatives. Débagora vise à les soutenir dans leur démarche pédagogique d’éducation au débat en proposant des activités et repères conceptuels.
-                    </p>
-                    <p>
-                        Cet outil pédagogique a également pour objectif d’initier une réflexion sur l’éducation au politique, trop souvent réduite à une introduction aux institutions politiques et aux mécanismes démocratiques et électoraux. Débagora ne se limite pas à la politique. Il déborde de la politique professionnelle, institutionnelle et partisane, en intéressant et initiant aux processus de délibération conflictuelle, démocratique et égalitaire, à propos de ce qui nous est commun.
-                    </p>
-                    <p>
-                        Pour répondre à cet objectif, Débagora propose des activités pour construire collectivement un cadre de débat respectueux et constructif, et pour expérimenter l’ensemble du processus démocratique, depuis la problématisation d’une question jusqu’à l’intervention dans le débat public.
-                    </p>
-
-                    <p>
-                        L’outil pédagogique Débagora :
-                        <ul>
-                            <li>est adapté à un public âgé de <b>15 ans et plus</b></li>
-                            <li>se compose de <b>huit modules</b> qui peuvent être combinés, mais aussi utilisés de manière indépendante ;</li>
-                            <li>propose des <b>activités</b> pour favoriser l’apprentissage, ainsi que des <b>repères</b> pour outiller les animateur·trices dans ces activités ;</li>
-                            <li>propose l’usage de la <b>plateforme numérique WebDeb</b> pour favoriser la rigueur et la cumulativité des analyses, ainsi que les échanges entre groupes.</li>
-                        </ul>
-                    </p>
+        <div class="contribute row mt-5">
+            <div class="col-12 col-md-6 pl-md-0">
+                <div class="contribute_content">
+                    <h3>@Messages("debagora.div1.title")</h3>
+                    @Html(Messages("debagora.div1.text"))
                 </div>
             </div>
 
-            <div class="row mt-4">
-                <div class="col-12">
+            <div class="col-12 col-md-6 pr-md-0">
+                <div class="contribute_content">
+                    <h3>@Messages("debagora.div2.title")</h3>
+                    @Html(Messages("debagora.div2.text"))
+                </div>
+            </div>
+        </div>
 
-                    <div>
-                        <h3>Débagora : un outil patiemment élaboré</h3>
-                        <p>
-                            L’équipe de recherche ayant travaillé à la rédaction de l’outil pédagogique Débagora est composée de Marie Defreyne (POLI-VUB et Girsef – UCLouvain, chercheuse) ; Bernard Delvaux (Girsef – UCLouvain, coordinateur et co-promoteur) ; Robin Dumont (Girsef – UCLouvain, chercheur).
-                        </p>
-                        <p>
-                            L’équipe associative ayant participé au comité d’accompagnement et à la relecture de l’outil pédagogique est composée de La Ligue des Droits Humains, Le Musée BELvue, Jeune et Citoyen ASBL, et Infor-Jeunes ASBL.
-                        </p>
-                        <p>
-                            Le projet a été financé par Innoviris et parrainé par le Parlement bruxellois.
-                        </p>
-                    </div>
+        <div class="contribute row mt-3">
+            <div class="col-12 col-md-6 pl-md-0">
+                <div class="contribute_content">
+                    @Html(Messages("debagora.div3.text"))
+                </div>
+            </div>
 
-                    <div class="mt-4 mb-3">
-                        <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/uclouvain_logo.png")" width="80px">
-                        <img class="img-fluid" src="@routes.Assets.at("images/logo/ulb.jpg")" width="100px">
-                        <img class="img-fluid" src="@routes.Assets.at("images/logo/vub.png")" width="120px">
-                    </div>
-                    <div class="mb-3">
-                        <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/jeune&citoyen.png")" width="100px">
-                        <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/inforjeunesbxl.png")" width="140px">
-                        <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/ligue_droits_humains.png")" width="100px">
-                        <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/belvue_museum.jpg")" width="100px">
-                        <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/innoviris.jpg")" width="80px">
-                        <img class="img-fluid" src="@routes.Assets.at("images/logo/parlement_bxl.png")" width="80px">
-                    </div>
+            <div class="col-12 col-md-6 pr-md-0">
+                <div class="contribute_content">
+                    @Html(Messages("debagora.div4.text"))
+                    <p>@Html(Messages("debagora.div4.a1"))</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="mt-4 mb-3">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/uclouvain_logo.png")" width="80px">
+                    <img class="img-fluid" src="@routes.Assets.at("images/logo/ulb.jpg")" width="100px">
+                    <img class="img-fluid" src="@routes.Assets.at("images/logo/vub.png")" width="120px">
+                </div>
+                <div class="mb-3">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/jeune&citoyen.png")" width="100px">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/inforjeunesbxl.png")" width="140px">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/ligue_droits_humains.png")" width="100px">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/belvue_museum.jpg")" width="100px">
+                    <img class="img-fluid mr-1" src="@routes.Assets.at("images/logo/innoviris.jpg")" width="80px">
+                    <img class="img-fluid" src="@routes.Assets.at("images/logo/parlement_bxl.png")" width="80px">
                 </div>
             </div>
         </div>
