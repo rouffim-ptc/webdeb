@@ -4406,7 +4406,7 @@ mais tentez de laisser la phrase aussi courte et percutante que possible.
 bubble.entry.citation.whatsource=Indiquez ici d''où le document qui contient la citation provient. Si vous n'êtes pas sûr, indiquez "autre source". \
 Si vous n'êtes pas certain du site internet exact, ou que vous ne retrouvez pas le PDF dont la citation est extraite, indiquez également "autre source".
 bubble.entry.citation.whosaydit=Qui parle dans cette citation? S''agit-il d'une personne isolée ou d''un groupe d'individus, ou bien d''une organisation structurée? \
-Commencez à entrer le nom et sélectionnez-le dans le menu déroulant s'il y apparait. <br><br>
+Commencez à entrer le nom et sélectionnez-le dans le menu déroulant s'il y apparait. <br> \
 <b>Attention :</b> ne confondez pas l''auteur de la citation et l''auteur du texte, il s''agit parfois de personnes différentes. Dans une interview, par exemple, \
 il faut bien différencier le journaliste de l''autre personne, qui peut être auteur de la citation mais pas du texte.
 bubble.entry.citation.tags=Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand \
