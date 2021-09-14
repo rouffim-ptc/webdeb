@@ -82,6 +82,7 @@
 
         <div class="col-12 control-label">
           @Messages("actor.label.actortype")
+		  @helpbubble("bubble.title", "bubble.entry.actor.actortype")
         </div>
 
         <div class="col-12">
@@ -123,6 +124,7 @@
           <div class="col-md-4 col-sm-12 col-12 input-field">
             <label for="picture">@Messages("general.label.pic")</label>
             @picturediv(actorForm, "avatarForm.filename")
+			@helpbubble("bubble.title", "bubble.entry.imageactor")
           </div>
 
         </div>

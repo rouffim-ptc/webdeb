@@ -1018,7 +1018,7 @@ argument.addsub.justify.label=Ajouter un argument pour
 argument.addsub.opposes.label=Ajouter un argument contre
 
 debate.type.simple=réponse simple
-debate.type.multiple=Le débat a t-il de mutiple réponses ?
+debate.type.multiple=Le débat a t-il de mutiples réponses ?*
 debate.edit.select.label=Sélectionnez un type de débat
 debate.edit.title.label=Suite de la question
 
@@ -1221,7 +1221,7 @@ entry.actor.existing.ok=Modifier l''acteur existant
 entry.actor.existing.use=Utiliser l''acteur existant
 entry.actor.existing.nok=Créer un nouvel acteur
 
-actor.label.actortype=Veuillez choisir le type d''acteur *
+actor.label.actortype=Veuillez choisir le type d''acteur*
 actor.label.actortype.-1=Inconnu
 actor.label.actortype.0=Personne individuelle
 actor.label.actortype.desc.0=Une personne physique
@@ -3379,7 +3379,7 @@ help.modal.title=Aide
 help.btn.title=Afficher l''aide
 
 help.title.bases=Les bases de WebDeb
-help.title.login_group=Se connecter et rejoindre un group
+help.title.login_group=Se connecter et rejoindre un groupe
 help.title.entry.debate=Encoder un débat
 help.title.entry.text=Encoder un texte
 help.title.entry.actor=Encoder un acteur
@@ -4415,8 +4415,14 @@ bubble.entry.citation.citedactors=Si la citation mentionne clairement et directe
 Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand joueur de foot au monde", indiquez "Romelu Lukaku".
 bubble.entry.citation.citedplace=Si la citation concerne un territoire limité, cochez "oui" et indiquez le lieu concerné. \
 Si la citation n'est pas limitée à une région, mais est valide partout dans le monde, cochez "non".
-
-
+bubble.entry.actor.actortype=Sélectionnez le type d''acteur que vous soouhaitez encoder. Il peut s'agir d'une personne seule, un individu, ou une organisation. \
+<b> Attention : </b>Un acteur est une personne physique ou morale, un projet, une marque, ...  clairement identifiée. « Les belges » ou « les entreprises \
+de télécommunications » ne sont pas considérés comme des acteurs car ils ne sont pas limités clairement. Par contre, « WebDeb », \
+« Philippe 1er » ou « Coca-Cola » sont valides.
+bubble.entry.imageactor=Ajoutez une photo <b> libre de droits </b> pour une personne, ou un logo pour une organisation. \
+Pour trouver une image libre de droits, la plupart des moteurs de recherche disposent d’une telle option dans la rubrique "outils" ou "paramètres".
+bubble.entry.imagedebate=Ajoutez une photo ou une image <b> libre de droits </b> afin d'illustrer le débat. \
+Pour trouver une image libre de droits, la plupart des moteurs de recherche disposent d’une telle option dans la rubrique "outils" ou "paramètres".
 
 
 
