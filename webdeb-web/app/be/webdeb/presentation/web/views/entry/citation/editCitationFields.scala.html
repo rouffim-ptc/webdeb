@@ -291,7 +291,7 @@
 
             <hr class="mt-4 mb-4">
                 
-            @stepformOptionChoices(citationForm("hasCitedactors"), Messages("entry.citation.citedauthors.label"), null, "2", helpbubble("bubble.title", "bubble.entry.citation.citedactors"))
+            @stepformOptionChoices(citationForm("hasCitedactors"), Messages("entry.citation.citedauthors.label"), null, null, "2", helpbubble("bubble.title", "bubble.entry.citation.citedactors"))
 
             @stepformOption(citationForm("hasCitedactors"), "2"){
                 @authorsimplediv(citationForm, "citedactors")
