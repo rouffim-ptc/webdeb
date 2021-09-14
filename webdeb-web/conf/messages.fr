@@ -4402,6 +4402,15 @@ bubble.entry.argument.start=Sélectionnez dans la liste un début de phrase pour
 "Il faut..." pour une phrase prescriptive, et [Début d'argument libre] pour écrire un argument librement, sans début de phrase pré-sélectionné.
 bubble.entry.argument.rest=Écrivez ici la suite de votre argument. Donnez tous les éléments nécessaire à la bonne compréhension de l'argument \
 mais tentez de laisser la phrase aussi courte et percutante que possible.
+bubble.entry.citation.whatsource=Indiquez ici où vous avez trouvé le document qui contient la citation. Si vous avez un doute, cliquez sur "d''une autre source"\
+Si vous ne vous rappelez pas du site précis, ou que ous avez égaré le pdf d''origine, cliquez également sur "d''une autre source".\
+bubble.entry.citation.whosaydit=C'est ici que l''on encode l''auteur de la citation, la personne qui est vraiment à l'origine de ces propos.\
+Ne confondez pas l''auteur d'un texte ou article et l''auteur d''une citation. Dans le cas d''une interview, par exemple, il faut distinguer \
+le journaliste de la personne interviewée.
+bubble.entry.citation.citedactors=Est-ce que la citation fait directement référence à un acteur identifié, ou une organisation? \
+N''indiquez "oui" que si un acteur ou une organisation est explicitement cité.
+bubble.entry.citation.citedplace=Est-ce que la citation a des limites géographiques, ou est-elle valide partout dans le monde? \
+Si vous n'êtes pas sûr du lieu précis, vous pouvez indiquer une région plus large.
 
 
 
