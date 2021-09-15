@@ -4428,10 +4428,10 @@ Considérez la portée du débat que vous souhaitez lancer. Des questions larges
 qu’à quelques arguments. <br> \
 Exemple : pour un débat autour de la 5G, vous pouvez encoder votre débat sous la forme « Faut-il implémenter la 5G en Belgique? », « Est-il vrai ou non que la 5G est dangereuse pour la santé ? » \
 ou encore « Quels sont les points forts et faibles de la 5G ? ». Chaque formulation modifiera l’angle de réflexion.
-bubble.entry.debate.geolimits=Encodez le territoire concerné, si le débat est limité dans l’espace. Si ce n’'est pas le cas, cochez Non. \ 
+bubble.entry.debate.geolimits=Encodez le territoire concerné, si le débat est limité dans l’espace. Si ce n’'est pas le cas, cochez Non. <br>\ 
 Si vous souhaitez limiter votre débat à une région précise, indiquez-le également dans la question de débat.
-bubble.entry.debate.actorsin=Si le débat concerne directement un acteur (s'’il s’agit d’un débat à propos de quelqu'’un, par exemple),\
-cochez Oui et indiquez son nom. Si WebDeb connait l'’acteur, son nom est proposé dans un menu déroulant. Si le débat ne concerne pas directement une personne,\
+bubble.entry.debate.actorsin=Si le débat concerne directement un acteur (s'’il s’agit d’un débat à propos de quelqu'’un, par exemple), \
+cochez Oui et indiquez son nom. Si WebDeb connait l'’acteur, son nom est proposé dans un menu déroulant. Si le débat ne concerne pas directement une personne, \
 cochez Non. <br> \
 <b>Attention :</b>Un acteur est une personne physique ou morale, un projet, une marque, ...  clairement identifiée. « Les belges » ou « les sociétés de \
 télécommunications » ne sont pas considérés comme des acteurs. Par contre, « WebDeb », « Philippe 1er » ou « Coca-Cola » sont valides.
