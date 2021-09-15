@@ -4426,7 +4426,7 @@ Pour trouver une image libre de droits, la plupart des moteurs de recherche disp
 bubble.entry.debate.shade=Choisissez le début de votre question de débat. Si aucun début de phrase ne vous convient, choisissez "<i>[Début de débat libre]</i>" \
 Considérez la portée du débat que vous souhaitez lancer. Des questions larges mènent à des discussions plus vastes et plus complexes. Unequestion trop spécifique peut ne mener \
 qu’à quelques arguments. <br> \
-Exemple : pour un débat autour de la 5G, vous pouvez encoder votre débat sous la forme « Faut-il implémenter la 5G en Belgique? », « Est-il vrai ou non que la 5G est dangereuse \ 
+Exemple : pour un débat autour de la 5G, vous pouvez encoder votre débat sous la forme « Faut-il implémenter la 5G en Belgique? », « Est-il vrai ou non que la 5G est dangereuse <br> 
 pour la santé ? » ou encore « Quels sont les points forts et faibles de la 5G ? ». Chaque formulation modifiera l’angle de réflexion
 bubble.entry.debate.geolimits=Encodez le territoire concerné, si le débat est limité dans l’espace. Si ce n’'est pas le cas, cochez Non. \ 
 Si vous souhaitez limiter votre débat à une région précise, indiquez-le également dans la question de débat.
