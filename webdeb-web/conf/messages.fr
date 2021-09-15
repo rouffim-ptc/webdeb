@@ -79,7 +79,7 @@ welcome.index.3.subtitle.nohtml=Pour apprendre à traiter les infos avec rigueur
 welcome.index.whatis.1=Ce qu''est
 welcome.index.whatis.2=Une mémoire partagée    
 welcome.index.whatis.3=Pour savoir qui est qui et qui dit quoi et y voir clair dans ce qui fait débat
-welcome.index.whatis.4=Une mine d’informations 
+welcome.index.whatis.4=Une mine d’'informations 
 welcome.index.whatis.5=Sur les acteurs, les débats, les positions et les arguments
 welcome.index.whatis.6=Un site gratuit et ouvert   
 welcome.index.whatis.7=Vous pouvez le consulter sans vous enregistrer   
@@ -94,7 +94,7 @@ welcome.index.whatshows.1=Ce que montre
 welcome.index.whatshows.2=Le parcours d’une personne
 welcome.index.whatshows.3=La composition d’une organisation
 welcome.index.whatshows.4=Les affiliations entre organisations
-welcome.index.whatshows.5=Ce qu’on dit d’une organisation ou d’un acteur
+welcome.index.whatshows.5=Ce qu'’on dit d’une organisation ou d’un acteur
 welcome.index.whatshows.6=Les arguments d’un débat
 welcome.index.whatshows.7=Les acteurs pour ou contre une position
 welcome.index.whatshows.8=La bibliographie d’un débat
@@ -163,8 +163,8 @@ general.print.text=Imprimer le contenu du texte
 general.delete.success=Suppression réussie !
 general.delete.error=Echec de la suppression...
 general.sort.label=Trier les éléments
-general.thisway=Par ici
-general.overthere=Par là
+general.thisway=Par-ici
+general.overthere=Par-là
 general.underconstruct=Cette visualisation n'est pas encore disponible...
 general.share=Partager
 general.more=En savoir plus
@@ -174,9 +174,9 @@ general.contributors=avec {0} contributeurs
 general.contributions=contient {0} contributions
 general.contributions.complete=et
 general.contributions.no.result=Aucun résultat
-general.contributions.search.instructions=Commencez à taper pour rechercher, appuyez ensuite sur enter ou sur la loupe pour voir les résultats. 
+general.contributions.search.instructions=Commencez à taper pour rechercher, appuyez ensuite sur <i>enter</i> ou sur la loupe pour voir les résultats. 
 general.citations.search.instructions=Commencez à taper pour rechercher, appuyez ensuite sur enter ou sur la loupe pour voir les résultats. \
-  Sélectionnez ensuite une ou plusieurs citations et cliquez ensuite sur le bouton enregistrer
+  Sélectionnez ensuite une ou plusieurs citations, puis cliquez sur le bouton <i>enregistrer</i>
 general.continue.title=Continuer
 general.classify.title=Classer
 general.results.see.more=Plus de résultats
@@ -203,9 +203,9 @@ general.actor.none=Il n''y a aucun acteur
 general.text.none=Il n''y a aucun texte
 general.tag.none=Il n''y a aucun dossier
 
-general.message.danger=échec de l'opération...
-general.message.warning=des informations sont à corriger ou à ajouter
-general.message.success=opération réussie avec succès !
+general.message.danger=Échec de l'opération...
+general.message.warning=Des informations sont à corriger ou à ajouter
+general.message.success=Opération réussie !
 
 general.contribution.action.viz.title=Visualisation :
 general.contribution.action.edit.title=Édition :
@@ -215,7 +215,7 @@ general.order.title=Trier par
 general.order.popular.title=Les plus populaires
 general.order.relevance.title=Les plus pertinents
 general.order.version.desc.title=Les plus récents
-general.order.version.asc.title=Date d'ajout (la plus ancienne)
+general.order.version.asc.title=Date d''ajout (la plus ancienne)
 
 general.metatitle= — WebDeb
 
@@ -229,13 +229,13 @@ general.metatitle.title.person.desc=Qui est {0} ? Quelles sont ses opinions, ses
   Voir et compléter ces infos sur la plateforme collaborative WebDeb
 
 general.metatitle.title.org.title={0}
-general.metatitle.title.org.desc={0}. Que dit-on sur cette organisation ? Quels sont ses membres ? Dans quels débats intervient-elle ? 
+general.metatitle.title.org.desc={0}. Que dit-on sur cette organisation ? Qui sont ses membres ? Dans quels débats intervient-elle ? 
 
 general.metatitle.title.debate.title=Un débat sur {0}
-general.metatitle.title.debate.desc=«{0}». WebDeb présente les arguments et les prises de positions du débat
+general.metatitle.title.debate.desc=«{0}». WebDeb affiche les arguments et les prises de positions du débat
 
 general.metatitle.title.tag.title={0}
-general.metatitle.title.tag.desc=WebDeb liste des citations défendues à propos de ce thème. Vous pouvez enrichir cette liste.
+general.metatitle.title.tag.desc=WebDeb liste des citations qui concernent ce thème. Vous pouvez librement enrichir cette liste.
 
 general.metatitle.title.text.title={0}
 general.metatitle.title.text.desc=Voir les citations et arguments contenus dans ce texte.
@@ -258,12 +258,12 @@ general.metatitle.og.text.desc=Retrouvez les citations et arguments du texte sur
 general.dialog.confirm.title=Êtes-vous sûr ?
 general.dialog.confirm.delete=Êtes-vous sûr de vouloir supprimer l''élément sélectionné ?
 general.dialog.wait=Veuillez patienter...
-general.btn.load.more=Charger plus de données
+general.btn.load.more=Montrer plus
 general.more.details=Plus de détails
 general.more.details.tooltip=Voir tous les détails de cette contribution
 general.search.pointable.instructions=Sélectionnez un élément pour continuer
 general.screen.toosmall=Votre écran est trop étroit pour afficher correctement cette page. \
-Si vous naviguez depuis un smartphone, mettez votre écran à l''horizontal.
+Si vous naviguez depuis un smartphone, tenez votre appareil horizontalement.
 
 general.goto.source=voir la source
 general.edit.properties=Éditer les propriétés
@@ -274,7 +274,7 @@ general.chart.export=Exporter
 general.chart.export.title=Exporter cette visualisation
 general.chart.export.desc=Choisissez le format d''exportation
 
-general.label.pic=Photo (libre de droits)
+general.label.pic=Photo (libre de droits!)
 general.label.logo=Logo
 general.label.btn.browse=Parcourir...
 general.label.btn.clear=Supprimer
@@ -284,7 +284,7 @@ general.label.pic.preview=Aperçu
 general.label.pic.noimage=Aucune image...
 general.label.pic.error=L''image est trop volumineuse (max. 5MB).
 general.upload.pic.error=La photo n''a pas pu être enregistrée.
-general.upload.pic.unsafe=La photo ne semble pas appropriée en proposant de la nudité ou de la violence.
+general.upload.pic.unsafe=La photo ne semble pas appropriée, car elle contient de la nudité ou de la violence.
 
 # Pronoum and determiner
 general.pronoun.personal.I=Je
@@ -301,7 +301,6 @@ general.pronoun.personal.they=Ils
 #
 general.filter.show=Filtrer
 general.filter.title=Appliquer les filtres
-general.filter.delete.title=Supprimer les filtres
 general.filter.label.ctype=Type de contribution
 general.filter.ctype.-1=Contribution
 general.filter.ctype.0=Acteur
@@ -326,17 +325,17 @@ general.filter.label.graduating=Afficher uniquement les diplômes
 general.filter.label.atype=Type d''acteur
 general.filter.title.atype=Filtrer par type d''acteur
 
-general.filter.label.arole=Role de l''acteur
-general.filter.title.arole=Filtrer par role de l''acteur
+general.filter.label.arole=Rôle de l''acteur
+general.filter.title.arole=Filtrer par rôle de l''acteur
 
 general.filter.label.afftype=Type d''affiliation
 general.filter.title.afftype=Filtrer par type d''affiliation
 
 general.filter.label.gender=Genre de l''acteur
-general.filter.title.gender=Filtrer selon le sexe de l''acteur
+general.filter.title.gender=Filtrer selon le genre de l''acteur
 
 general.filter.label.birthdate=Date de naissance ou fondation
-general.filter.title.birthdate=Filtrer par date de naissance (personne) ou date de création (organisation)
+general.filter.title.birthdate=Filtrer par date de naissance (individu) ou date de création (organisation)
 
 general.filter.label.country=Pays de l''acteur
 general.filter.title.country=Filtrer par pays de l''acteur ou auteur
@@ -383,7 +382,7 @@ general.filter.label.author=Nom de l''auteur
 general.filter.label.author.text=Nom de l''auteur du texte
 general.filter.label.author.citation=Nom de l''auteur de la citation
 
-general.filter.label.argtype=Type d’opinion
+general.filter.label.argtype=Type d'’opinion
 general.filter.title.argtype=Filtrer par type d’’opinion
 
 general.filter.button.msg=Filtrer les résultats
@@ -400,16 +399,16 @@ general.filter.label.fulltext.actor=Nom
 
 general.browser.ie.warning.title=Attention, il semble que vous utilisiez Internet Explorer.
 general.browser.ie.warning.msg=Microsoft a arreté le support de ce navigateur internet. Celui-ci pourrait empêcher la bonne utilisation de WebDeb. \
-De plus, ce navigateur présente potentiellement des failles de sécurité. Si vous êtes sur Windows 10, préférrez l''utilisation du navigateur Edge.
-general.browser.warned=Continuer quand même sur le site
+De plus, ce navigateur présente potentiellement des failles de sécurité. Si vous êtes sur Windows 10, utilisez préférablement le navigateur Edge.
+general.browser.warned=Continuer la navigation malgré tout.
 general.browser.advice=Nous vous conseillons l''utilisation de WebDeb avec l''un des navigateurs suivant :
 general.browser.firefox=Mozilla Firefox
 general.browser.vivaldi=Vivaldi
 general.browser.chrome=Google Chrome
 
 general.contribution.private.title=Cette contribution est privée ou se trouve dans un groupe privé.
-general.contribution.private.msg=Vous ne pouvez pas la visualiser ou éditer cette contribution
-general.contribution.private.edit.msg=Vous ne pouvez pas éditer cette contribution
+general.contribution.private.msg=Vous n'avez pas accès à cette contribution.
+general.contribution.private.edit.msg=Vous ne pouvez pas éditer cette contribution.
 
 contributions.dropdown.actor.see=Voir l''acteur
 contributions.dropdown.text.see=Voir le texte
@@ -453,8 +452,6 @@ bread.contribute=contribuer
 bread.contribute.actor=éditer acteur
 bread.contribute.text=éditer texte
 bread.contribute.argument=annoter texte
-bread.contribute.argument.edit=éditer une opinion
-bread.contribute.link=nouveau lien
 bread.search=rechercher
 bread.viz=visualiser
 bread.viz.argument=opinion
@@ -466,15 +463,12 @@ bread.dashboard=tableau de bord
 bread.settings=profil
 bread.settings.update=modifier profil
 bread.recover=mot de passe perdu
-bread.validate.link=valider lien
-bread.validate.argument=valider l’’opinion
 bread.help=aide
 bread.partner=partenaires
 bread.terms=conditions générales
 bread.group.mark=valider contributions
 bread.group.seeall=contributions du groupe
 bread.group.merge=fusionner contributions
-bread.editFreeSources.text=éditer les sources sans copyright
 
 # footer
 footer.project.support=avec le soutien de :
@@ -486,18 +480,20 @@ database.freesource.remove.error=Une erreur est survenue lors de la suppression 
 
 # general error messages
 error.hack=Il semblerait que vous tentiez d''accéder à une page à laquelle vous n''avez pas accès...
-error.crash=Une erreur imprévue est survenue, veuillez contacter l''administrateur si celle-ci persiste.
-error.oops=La page que vous cherchez n''existe pas
-error.form=Le formulaire soumis comporte des erreurs, veuillez les corriger s''il vous plaît.
+error.crash=Une erreur imprévue est survenue, veuillez réessayer dans quelques minutes. >
+ Si l''erreur persiste, contactez l''administrateur du site.
+error.oops=La page que vous cherchez n''existe pas/plus.
+error.form=Le formulaire d'encodage comporte des erreurs, veuillez les corriger.
 
 # permission exception message keys (see PermissionException enum, underscores in enum items are replaced by dots)
 permission.affiliation.delete.notpermitted=Vous ne pouvez pas supprimer cette affiliation.
 permission.not.group.member=Vous n''êtes pas un membre de ce groupe.
 permission.not.group.owner=Vous n''êtes pas un gestionnaire de ce groupe.
-permission.not.public.group=Ce groupe n''est pas public.
-permission.text.not.visible=Vous n''êtes pas autorisé à visualiser le contenu de ce texte/
-permission.text.not.private=La visibilité de ce texte ne peut pas être privée car il n''a pas été encodé de manière privée.
-permission.error.scope=Vous ne pouvez pas apporter de changement à cette contribution depuis le groupe courant.
+permission.not.public.group=Ce groupe est un groupe privé.
+permission.text.not.visible=Vous n''êtes pas autorisé à visualiser le contenu de ce texte.
+permission.text.not.private=La visibilité de ce texte ne peut pas être privée car il n''a pas été encodé dans un groupe privé.
+permission.error.scope=Vous ne pouvez pas apporter de changement à cette contribution depuis le groupe.\
+ Rendez vous dans le grope correspondant et réessayez.
 
 # persistence exception messages
 persistence.error.delete.contribution=Une erreur est survenue, votre contribution n''a pas pu être supprimée.
@@ -505,19 +501,16 @@ persistence.error.save.actor=Une erreur est survenue, l''acteur n''a pas pu êtr
 persistence.error.save.affiliation=Une erreur est survenue, l''affiliation n''a pas pu être sauvegardée.
 persistence.error.remove.affiliation=Une erreur est survenue, une affiliation n''a pas pu être supprimée.
 persistence.error.save.text=Une erreur est survenue, le texte n''a pas pu être sauvegardé.
-persistence.error.save.argument=Une erreur est survenue, l''opinion n''a pas pu être sauvegardée.
-persistence.error.save.link=Une erreur est survenue, le lien entre opinions n''a pas pu être sauvegardé.
 persistence.error.save.topic=Une erreur est survenue lors de la sauvegarde des thèmes associés à votre contribution, votre contribution n''a pas pu être sauvegardée.
 persistence.error.save.source=Une erreur est survenue lors de la sauvegarde de la source associée à votre texte, votre contribution n''a pas pu être sauvegardée.
 persistence.error.bind.actor=Une erreur est survenue lors de la mise en lien de votre contribution avec un acteur. Votre contribution n''a pas pu être sauvegardée.
 persistence.error.unbind.actor=Une erreur est survenue lors de la suppression d''un lien de votre contribution avec un acteur, votre contribution n''a pas pu être sauvegardée.
-persistence.error.save.text.links=Une erreur est survenue, les liens de justifications du texte n''ont pas été sauvegardés.
 
 persistence.error.save.tag=Une erreur est survenue, le dossier n''a pas pu être sauvegardé.
 persistence.error.save.tag.link=Une erreur est survenue, le lien entre dossiers n''a pas pu être sauvegardé.
 
 persistence.error.save.contributor=Une erreur est survenue, nous n''avons pas pu enregistrer votre demande d''inscription.
-persistence.error.update.contributor=Une erreur est survenue, nous ne sommes pas en mesure de traiter à votre requête.
+persistence.error.update.contributor=Une erreur est survenue, nous ne sommes pas en mesure de traiter votre requête.
 persistence.error.bind.contributor=Une erreur est survenue en vous associant comme contributeur, votre contribution n''a pas pu être sauvegardée.
 
 persistence.error.add.member=Une erreur est survenue, le contributeur n''a pas été ajouté dans le groupe sélectionné.
@@ -1187,7 +1180,7 @@ argument.delete.error=Une erreur est survenue lors de la connexion avec la base 
 
 argument.sumup.actorname=acteur(s) impliqué(s)
 argument.sumup.author=auteur
-argument.sumup.role=roles des acteurs
+argument.sumup.role=rôles des acteurs
 argument.sumup.firstArgument=Est l''opinion faitière du débat :
 argument.sumup.contextIsText=Est dans la structure argumentative du texte :
 argument.sumup.contextIsDebate=Est dans la structure argumentative du débat :
@@ -3659,6 +3652,8 @@ Membre du Girsef (Groupe interdisciplinaire de recherche sur la socialisation, l
   il est aujourd’hui l’un des chercheurs chargés de l’interprétation des résultats de la recherche autour du \
   projet dispositif « Jeunes et (élections) régionales 2019 ». Il participe également à l’optimisation de la \
   plateforme WebDeb, aux formations à l’utilisation de la plateforme, ainsi qu’à sa diffusion. \
+  Depuis 2020, il s'occupe de la conception de l'outil Débagora, qui vise à redynamiser les jeunes \
+  vis-à-vis de la politique, et qui mobilise WebDeb pour une partie de ses activités.
 <br><a class="btn btn-link secondary pull-right" href="https://uclouvain.be/fr/repertoires/robin.dumont" target="_blank">Plus d''info...</a>
 
 #
@@ -4410,7 +4405,7 @@ Commencez à entrer le nom et sélectionnez-le dans le menu déroulant s'il y ap
 <b>Attention :</b> ne confondez pas l''auteur de la citation et l''auteur du texte, il s''agit parfois de personnes différentes. Dans une interview, par exemple, \
 il faut bien différencier le journaliste de l''autre personne, qui peut être auteur de la citation mais pas du texte.
 bubble.entry.citation.tags=Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand \
-joueur de foot au monde", je pourrais indiquer "que dit-on sur l'identité du plus grand joueur de foot au monde".
+joueur de foot au monde", je pourrais indiquer "l'identité du plus grand joueur de foot au monde".
 bubble.entry.citation.citedactors=Si la citation mentionne clairement et directement un individu ou une organisation, indiquez-le(s) ici. \
 Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand joueur de foot au monde", indiquez "Romelu Lukaku".
 bubble.entry.citation.citedplace=Si la citation concerne un territoire limité, cochez "oui" et indiquez le lieu concerné. \
