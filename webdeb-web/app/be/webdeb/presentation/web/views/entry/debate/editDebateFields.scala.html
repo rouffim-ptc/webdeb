@@ -157,14 +157,16 @@
 
             <hr class="mt-4 mb-4">
 
-            @stepformOptionChoices(debateForm("hasPlaces"), Messages("debate.edit.tags.places.label"), null, "1", helpbubble("bubble.title", "bubble.entry.debate.geolimits"))
-
+            @stepformOptionChoices(debateForm("hasPlaces"), Messages("debate.edit.tags.places.label"), null, "1")
+				@helpbubble("bubble.title", "bubble.entry.debate.geolimits")
+				
             @stepformOption(debateForm("hasPlaces"), "1"){
                 @placediv(debateForm, "text.label.places", false)
             }
 
             <hr class="mt-4 mb-4">
-            @stepformOptionChoices(debateForm("hasCitedactors"), Messages("debate.edit.tags.authors.label"), null, "2", helpbubble("bubble.title", "bubble.entry.debate.actorsin"))
+            @stepformOptionChoices(debateForm("hasCitedactors"), Messages("debate.edit.tags.authors.label"), null, "2")
+				@helpbubble("bubble.title", "bubble.entry.debate.actorsin")
 
             @stepformOption(debateForm("hasCitedactors"), "2"){
                  @authorsimplediv(debateForm, "citedactors", null, "text.label.author.place.name")
