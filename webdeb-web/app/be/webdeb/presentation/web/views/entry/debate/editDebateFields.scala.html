@@ -157,7 +157,7 @@
 
             <hr class="mt-4 mb-4">
 
-            @stepformOptionChoices(debateForm("hasPlaces"), Messages("debate.edit.tags.places.label"), helpbubble("bubble.title", "bubble.entry.debate.geolimits"), "1")
+            @stepformOptionChoices(debateForm("hasPlaces"), helpbubble("bubble.title", "bubble.entry.debate.geolimits"), Messages("debate.edit.tags.places.label"), "1")
 			
             @stepformOption(debateForm("hasPlaces"), "1"){
                 @placediv(debateForm, "text.label.places", false)
