@@ -359,13 +359,17 @@
                   actorForm(name.name.concat(".lang")),
                   helper.getLanguages(ctx.lang.code),
                   Messages("actor.label.namelang"),
-                  Messages("actor.place.namelang")
+                  Messages("actor.place.namelang"),
+				  null, null,
+				  helpbubble("bubble.title", "bubble.entry.actor.translate.orgname")
                 )
                 </div>
                 <div class="col-md-6 col-sm-9 input-field">
                 @textInput(
                   actorForm(name.name.concat(".last")),
                   Messages("actor.label.orgname.simple")
+				  null, null, null, null,
+                  helpbubble("bubble.title", "bubble.entry.actor.orgname")
                 )
                 </div>
                 <div class="col-md-3 col-sm-3 input-field">
@@ -380,7 +384,6 @@
 
               @mapErrors(actorForm, "orgname.", true, false, "Date")
             }
-            <p class="help-inline">@Messages("actor.help.spellings")</p>
           </div>
         </div>
 
@@ -419,7 +422,6 @@
 
               @mapErrors(actorForm, name.name.toString)
             }
-            <p class="help-inline">@Messages("actor.help.oldnames")</p>
           </div>
         </div>
       </div>
