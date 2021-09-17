@@ -4209,7 +4209,7 @@ debagora.div1.title=Outil d'éducation au débat
 debagora.div1.text=L’outil pédagogique Débagora propose des activités et des repères pour :\
 <ul> \
    <li>Collecter du contenu</li> \
-   <li>Soutenir une opinion par des arguments</li> \
+   <li>Soutenir une opinion avec des arguments  solides</li> \
    <li>Multiplier les angles de vue sur une même question</li> \
    <li>Mettre cette opinion en débat dans un cadre respectueux  </li> \
 </ul>
@@ -4218,8 +4218,8 @@ debagora.div2.title=Outil d'éducation au politique
 debagora.div2.text=L’outil pédagogique Débagora propose des activités et des repères pour : \
 <ul> \
    <li>Initier les jeunes aux processus de délibération conflictuelle et égalitaire</li> \
-   <li>Identifier les parties prenantes au débat et les rapports de force entre elles</li> \
-   <li>Expérimenter l’ensemble du processus démocratique, depuis la problématisation d’une question jusqu’à l’intervention dans le débat public</li> \
+   <li>Identifier les parties prenantes au débat et leurs rapports de force</li> \
+   <li>Expérimenter l’ensemble du processus démocratique, depuis la problématisation d’une question jusqu’à l’intervention publique</li> \
 </ul>
 
 debagora.div3.title=Un outil modulable
