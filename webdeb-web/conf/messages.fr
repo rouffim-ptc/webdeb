@@ -4233,5 +4233,5 @@ debagora.div3.text=L’outil pédagogique Débagora : \
 
 debagora.div4.title=Conçu par des professionnels de l’éducation
 debagora.div4.text=Débagora est le <b>fruit d’une collaboration</b> entre trois centres de recherche (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
-et quatre associations (Jeune et Citoyen, musée BELvue, Infor-Jeunes asbl et Ligue des Droits Humains).
+et quatre associations (Jeune et Citoyen, le musée BELvue, Infor-Jeunes asbl et la Ligue des Droits Humains).
 debagora.div4.a1=Pour toute demande d’information : <a href="mailto:info@debagora.be">info@debagora.be</a>
