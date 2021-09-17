@@ -3369,7 +3369,7 @@ Membre du Girsef (Groupe interdisciplinaire de recherche sur la socialisation, l
   projet dispositif « Jeunes et (élections) régionales 2019 ». Il participe également à l’optimisation de la \
   plateforme WebDeb, aux formations à l’utilisation de la plateforme, ainsi qu’à sa diffusion. \
   Depuis 2020, il s'occupe de la conception de l'outil Débagora, qui vise à redynamiser les jeunes \
-  vis-à-vis de la politique, et qui mobilise WebDeb pour une partie de ses activités.
+  vis-à-vis de la politique, et qui mobilise WebDeb pour une partie de ses activités. \
 <br><a class="btn btn-link secondary pull-right" href="https://uclouvain.be/fr/repertoires/robin.dumont" target="_blank">Plus d''info...</a>
 
 #
