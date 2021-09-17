@@ -86,7 +86,6 @@ welcome.index.whatis.7=Vous pouvez le consulter sans vous enregistrer
 welcome.index.whatis.8=Un outil collaboratif  
 welcome.index.whatis.9=Vous pouvez ajouter ou modifier une information
 welcome.index.whatis.10=Un site indépendant
-welcome.index.whatis.11=Aucune opinion n’'est privilégiée
 welcome.index.whatis.12=Une plateforme tous terrains    
 welcome.index.whatis.13=Tous les débats peuvent être abordés, dans toutes les langues   
 
@@ -382,13 +381,10 @@ general.filter.label.author=Nom de l''auteur
 general.filter.label.author.text=Nom de l''auteur du texte
 general.filter.label.author.citation=Nom de l''auteur de la citation
 
-general.filter.label.argtype=Type d'’opinion
-general.filter.title.argtype=Filtrer par type d’’opinion
 
 general.filter.button.msg=Filtrer les résultats
 
 general.filter.label.place=Territoire
-general.filter.title.place=Filtrer par territoire concerné par l''opinion ou la citation
 
 general.filter.label.fulltext.text=Titre du texte
 general.filter.label.fulltext.debate=Titre du débat
@@ -454,7 +450,6 @@ bread.contribute.text=éditer texte
 bread.contribute.argument=annoter texte
 bread.search=rechercher
 bread.viz=visualiser
-bread.viz.argument=opinion
 bread.viz.text=texte
 bread.viz.actor=acteur
 bread.about=à propos du projet
@@ -521,7 +516,7 @@ persistence.error.invite.group=Une erreur est survenue, au moins un membre n''a 
 
 persistence.error.mark.group=Vos validations et cotes n''ont pas été sauvegardées, veuillez contacter l''administrateur.
 persistence.error.merge=Une erreur est survenue en fusionnant les contributions, elles n''ont pas été fusionnées.
-persistence.error.merge.mismatch=Une erreur est survenue en fusionnant les contributions, il semblerait que vous tentiez de fusionner des contributions de types différents.
+persistence.error.merge.mismatch=Les contributions doivent être du même type.
 persistence.error.merge.professions=Une erreur est survenue en fusionnant les professions.
 
 persistence.error.freesource.save=Une erreur est survenue lors de la sauvegarde de la source libre, celle-çi n''a pas pu être sauvegardée.
@@ -576,8 +571,6 @@ general.filter.icon.legal=fa fa-fw fa-university
 contributor.error=Il y a des erreurs dans les informations soumises.
 actor.error=Une erreur est survenue lors de la soumission de l''acteur.
 affiliation.error=Une erreur est survenue lors de la soumission de l''affiliation.
-argument.error=Une erreur est survenue lors de la soumission de l''opinion.
-link.error=Une erreur est survenue lors de la soumission du lien entre opinions.
 text.error=Une erreur est survenue lors de la soumission du texte.
 tag.error=Une erreur est survenue lors de la soumission du dossier.
 tag.link.error=Une erreur est survenue lors de la soumission du lien entre dossiers.
@@ -586,8 +579,6 @@ unknown.gender=L''id du genre soumis n''existe pas
 unknown.legalstatus=L''id du statut légal soumis n''existe pas.
 unknown.sector=L''id du secteur d''activité soumis n''existe pas.
 unknown.profession=L''id de la profession soumis n''existe pas.
-unknwon.argument.type=L''id du type d''opinion soumis n''existe pas.
-unknown.argument.link=l''id du lien entre opinions soumis n''existe pas.
 unknown.tag=l''id du dossier soumis n''existe pas.
 unknown.tag.link=l''id du lien entre dossiers soumis n''existe pas.
 unknown.topic=L''id du thème soumis n''existe pas.
@@ -615,7 +606,7 @@ toolbox.menu.logout=Déconnexion
 # account / registration
 #
 login.first=Vous devez d''abord vous connecter pour contribuer sur WebDeb.
-login.register=Vous n''êtes pas encore membre de la communauté WebDeb ? Rejoignez-nous.
+login.register=Vous n''êtes pas encore membre de la communauté WebDeb ? Rejoignez-nous !
 login.success=Vous venez de vous identifier, bienvenue sur la plateforme WebDeb
 login.failure=Informations de connexion invalide (mail ou mot de passe).
 login.not.validated=Vous n''avez pas confirmé votre adresse email (ou vous avez fait une demande de changement de mot de passe), veuillez vérifier vos emails.
@@ -669,9 +660,9 @@ contributor.edit.other.success=Vous avez mis à jour le profil de {0} avec succ�
 contributor.new.title=Rejoindre WebDeb ?
 contributor.edit.title=Mettre à jour le profil
 contributor.new.btn=Inscription
-contributor.new.intro=Tous les champs sont requis (marqués par une <b>*</b>). Votre adresse mail ne sera pas transmise à des tiers. Elle ne sera visible que par \
-  les administrateurs des groupes que vous pourriez rejoindre et ne sera utilisée que pour la bonne gestion de la plateforme. \
-  Les autres contributeurs pourront vous contacter via cette adresse, sans cependant la voir.\
+contributor.new.intro=Tous les champs doivent être remplis (marqués par une <b>*</b>). Votre adresse mail ne sera pas transmise à des tiers. \
+  Elle ne sera visible que par les administrateurs des groupes que vous pourriez rejoindre et ne sera utilisée que pour la bonne gestion de la \
+  plateforme. Les autres contributeurs pourront vous contacter via cette adresse, sans cependant la voir.\
   <a href="{0}" target="_blank">Plus d''info sur la politique de confidentialité.</a>
 
 contributor.place.mail=Votre pseudo ou adresse mail
@@ -679,7 +670,7 @@ contributor.place.mail2=adresse@exemple.be
 contributor.label.mail=Adresse mail (elle vous sera utile pour vous connecter) *
 contributor.label.mail2=Adresse mail *
 contributor.error.mail=L''adresse email donnée n''est pas valide.
-contributor.error.mail.exist=L''adresse email est déjà utilisée.
+contributor.error.mail.exist=L''adresse email est déjà utilisée, veuillez en proposer une autre.
 
 contributor.place.pseudo=monPseudo02
 contributor.label.pseudo=Votre pseudonyme *
@@ -688,10 +679,10 @@ contributor.error.pseudo.exist=Ce pseudonyme est déjà utilisé.
 
 contributor.place.password=********
 contributor.label.password=Mot de passe *
-contributor.help.password=Au moins 8 caractères de long
+contributor.help.password=Minimum 8 caractères
 contributor.error.password.match=Les deux mots de passe donnés ne correspondent pas
 contributor.error.password.length=Votre mot de passe doit être composé d''au moins 8 caractères
-contributor.error.password.tmp.same=Votre mot de passe est le même que celui de votre classe.
+contributor.error.password.tmp.same=Votre mot de passe est le même que celui de votre groupe.
 
 contributor.place.repassword=********
 contributor.label.repassword=Confirmation mot de passe *
@@ -709,7 +700,7 @@ contributor.label.residence=Votre pays de résidence
 contributor.label.gender=Votre genre
 
 contributor.label.birthyear=Votre année de naissance
-contributor.place.birthyear=1975
+contributor.place.birthyear=1991
 
 contributor.label.affiliation.affiliationsForm=Vos fonctions
 contributor.label.affiliation.help=Votre affiliation est optionnelle. Les dates peuvent être exprimées sous la forme jj/mm/aaaa (date complète), mm/aaaa (mois/année). ou aaaa (année seule)
@@ -723,17 +714,17 @@ contributor.label.affiliation.place.end=aaaa, mm/aaaa, jj/mm/aaaa
 contributor.label.affiliation.ongoingdate=En cours
 
 contributor.label.pedagogic=Je suis professeur, étudiant ou chercheur (je fais partie du milieu pédagogique ou scientifique) *
-contributor.error.pedagogic=Vous devez confirmer si vous faites partie du milieu pédagogique ou non.
+contributor.error.pedagogic=Veuillez confirmer si vous faites partie du milieu pédagogique ou non.
 
 contributor.label.newsletter=Je veux recevoir les newsletters
 contributor.label.newsletter.token=Vous devez vous désabonner des newsletters manuellement
 contributor.label.newsletter.error=Impossible de se désabonner des newsletters
-contributor.label.newsletter.success=Vous êtes maintenant désabonné aux newsletters
+contributor.label.newsletter.success=Vous êtes maintenant désabonné des newsletters
 contributor.label.newsletter.unsubscribe=se désabonner des newsletters
 
-contributor.label.terms=Veuillez accepter nos Conditions Générales *
-contributor.accept.terms=J''accepte ces conditions d''utilisation.
-contributor.error.terms=Vous devez accepter les conditions d''utilisation pour finaliser votre inscription.
+contributor.label.terms=Veuillez accepter les Conditions Générales d''Utilisation*
+contributor.accept.terms=J''accepte les conditions d''utilisation.
+contributor.error.terms=Vous devez accepter les conditions générales d''utilisation pour finaliser votre inscription.
 
 contributor.change.mail=Modifier votre adresse email ?
 contributor.change.mail.instructions=Veuillez introduire votre nouvelle adresse, vous recevrez un email de notre part pour la confirmer.
@@ -749,15 +740,15 @@ contributor.recover.password=Mot de passe perdu ?
 contributor.recover.password.title=Réinitialiser votre mot de passe perdu.
 contributor.recover.password.instructions=Veuillez introduire votre adresse email, vous recevrez un mail de notre part pour le réinitialiser.
 contributor.recover.password.success=Veuillez suivre les instructions dans l''email que nous venons de vous envoyer à l''adresse {0}.
-contributor.recover.password.nomailsent=Une erreur est survenue en vous envoyant un email avec les instructions pour réinitialiser votre mot de passe. Veuillez contacter l''administrateur,
+contributor.recover.password.nomailsent=Une erreur est survenue en vous envoyant un email avec les instructions pour réinitialiser votre mot de passe. Veuillez contacter l''administrateur.
 
 contributor.delete.account=Supprimer définitivement votre compte ?
-contributor.delete.account.instructions=Cette opération est irreversible. Une fois votre compte supprimés, toutes vos informations personelles à l''exception \
-  de votre pseudonym et de vos contributions seront supprimés de notre base de données.
+contributor.delete.account.instructions=Cette opération est irreversible. Une fois votre compte supprimés, toutes vos informations personnelles à l''exception \
+  de votre pseudonyme et de vos contributions seront supprimés de notre base de données.
 contributor.delete.account.fail=Le mot de passe que vous avez entré n''est pas correct.
 contributor.delete.account.success=Votre compte a été supprimé avec succès !
 contributor.delete.account.btn=Supprimer mon compte
-contributor.delete.account.pwd=Mauvais mot de passe !
+contributor.delete.account.pwd=Mot de passe incorrect !
 contributor.isDeleted=Contributeur supprimé
 
 contributor.contributions.recent.true=Voici toutes vos contributions, triées par dates.
@@ -768,9 +759,9 @@ contributor.contributions.search.place.true=Commencez à taper pour chercher par
 contributor.contributions.search.place.false=Commencez à taper pour chercher parmi ses contributions
 
 contributor.resendconfmail.title=Réenvoyer le mail de confirmation ?
-contributor.resendconfmail.instructions=Veuillez introduire votre adresse email, le mail de confirmation vous sera mail envoyer de nouveau.
+contributor.resendconfmail.instructions=Veuillez introduire votre adresse email. Vous recevrez un nouvel email de confirmation.
 
-contributor.role.0=Visionneur
+contributor.role.0=Visiteur
 contributor.role.1=Contributeur
 contributor.role.2=Modérateur
 contributor.role.3=Administrateur
@@ -798,30 +789,26 @@ entry.new.link.btn=Valider un lien
 entry.new.tag.btn=Ajouter un dossier
 entry.new.debate.btn=Ajouter un débat
 entry.new.citation.btn=Ajouter une citation
-entry.validate=Valider depuis un flux automatique
-entry.validate.arg.btn=Valider une opinion
 
 entry.excerpt.existing.citation=Chercher une citation déjà encodée dans WebDeb
 entry.excerpt.existing.text=Chercher dans WebDeb le texte où se trouve la citation
-entry.excerpt.new.text=Encoder un nouveau texte dans Webdeb pour ensuite en extraire une citation
-entry.excerpt.new.externaltext.chrome=Utiliser l''extension Chrome permettant d’extraire la citation sur le net.
-entry.excerpt.new.externaltext.firefox=Utiliser l''extension Firefox permettant d’extraire la citation sur le net.
+entry.excerpt.new.text=Encoder un nouveau texte dans Webdeb afin d'en extraire une citation
 
 excerpt.original.excerpt=Extrait brut
 excerpt.working.excerpt=Extrait retravaillé
 
 entry.citation.new=Ajouter une citation
 entry.citation.modify=Modifier une citation existante
-entry.citation.edit=Editer la citation
+entry.citation.edit=Éditer la citation
 
 entry.citation.original.label=Extrait original
 entry.citation.working1.label=Supprimez du texte ci-dessous les parties en trop
 entry.citation.working2.label=Ajouter les informations supplémentaires entre crochets
 
 entry.citation.text.source.label=La citation provient-elle…
-entry.citation.text.source.internet.label=d’une page web
-entry.citation.text.source.pdf.label=d’un pdf
-entry.citation.text.source.other.label=d’une autre source
+entry.citation.text.source.internet.label=d''une page web
+entry.citation.text.source.pdf.label=d''un pdf
+entry.citation.text.source.other.label=d''une autre source
 entry.citation.text.source.internet.url.label=URL
 entry.citation.text.source.pdf.urlOrTitle.label=URL ou titre du texte
 entry.citation.text.source.other.title.label=Titre du texte
@@ -834,10 +821,10 @@ entry.citation.authors.textauthors.label=S’agit-il des auteurs du texte ?*
 
 entry.citation.tags.title=Classez la citation dans WebDeb
 entry.citation.tags.label=A quelle(s) question(s) répond la citation ?*
-entry.citation.tags.tag.label=Que dit-on sur
+entry.citation.tags.tag.label=Que dit-on sur*
 entry.citation.citedauthors.label=La citation parle-t-elle d’une personne ou d’une organisation ?
 entry.citation.places.label=La citation concerne-t-elle un ou des territoires ?
-entry.citation.skip.form=Pressé ? Vous pouvez enregistrer… mais il ne reste que 3 étapes
+entry.citation.skip.form=Pressé ? Vous pouvez enregistrer maintenant… Mais il ne reste que 3 étapes!
 
 entry.citation.workingExcerpt.label1=Voici l’extrait que vous voulez insérer. Souhaitez-vous supprimer des parties inutiles ?
 entry.citation.workingExcerpt.label2=Faut-il remplacer des pronoms ou ajouter des informations pour rendre l''extrait plus compréhensible hors contexte ?
@@ -851,7 +838,7 @@ entry.citation.selection.new.title=Ajouter une nouvelle citation
 entry.citation.selection.search.title=Rechercher une citation sur WebDeb
 entry.citation.selection.newone.title=Sur WebDeb
 entry.citation.selection.newfromtext.title=Depuis un texte
-entry.citation.selection.newonweb.title=Depuis le Web
+entry.citation.selection.newonweb.title=Sur le Web
 
 entry.citation.selection.0.title=auteur
 entry.citation.selection.1.title=texte
@@ -867,39 +854,14 @@ entry.citation.selection.3.place=nom du dossier avec lequel la citation à été
 entry.citation.selection.4.place=extrait se trouvant dans la citation
 entry.citation.selection.5.place=extrait se trouvant parmis les citations que vous avez ajoutées
 
-entry.citation.selection.fromweb.instructions.extension.title=Sur pc avec l’extension :
-entry.citation.selection.fromweb.instructions.extension.text=<ul class="normal-list"> \
-<li>Si vous n’avez pas l’extension, téléchargez-la sur \
-<a href="https://chrome.google.com/webstore/detail/webdeb-extension/jajhkepdfeglimnjjopjgkigofoadfhc"><i class="fab fa-chrome"></i> Chrome</a> ou <a href="https://addons.mozilla.org/en-US/firefox/addon/webdeb-extension/"><i class="fab fa-firefox"></i> Firefox</a>. <br> \
-<li>Sur votre navigateur préféré (<i class="fab fa-chrome"></i> Chrome ou <i class="fab fa-firefox"></i> Firefox) aller sur une page web (ex : un site journalistique, ...) où se trouve la citation que vous voulez ajouter. </li> \
-<li>Sélectionnez l’extrait de texte qui vous intéresse en le surlignant à l’aide la souris. </li> \
-<li>Faites clic droit, et appuyez sur "ajouter la citation sur WebDeb" </li> \
-<li>Vous pourrez alors l’ajouter via le formulaire citation. </li> \
-<li>Ensuite sur cet écran cliquez sur recherche sur Webdeb, cliquez ensuite sur l’onglet "mes citations" et appuyez sur le bouton <i class="fas fa-sync-alt"></i>. </li> \
-<li>La citation que vous venez d’ajouter sera la première dans la liste qui va alors s’afficher. </li> \
-<li>Sélectionnez-la en faisant un clic gauche dessus, une fois celle-ci surligné en bleu, appuyez sur Enregistrer. </li> \
-<li>Votre citation est alors bien reprise dans la structure du débat. </li> \
-</ul>
-entry.citation.selection.fromweb.instructions.noextension.title=Sans l’extension ou sur smartphone / tablette :
-entry.citation.selection.fromweb.instructions.noextension.text=<ul class="normal-list"> \
-<li>Si vous ne souhaitez pas utiliser l’extension ou que vous êtes sur smartphones, pas de problème. </li> \
-<li>Dans un nouvel onglet de votre navigateur, rendez-vous sur le site internet où se trouve la citation qui vous intéresse. </li> \
-<li>Surlignez-la et copier là. </li> \
-<li>Ensuite sur cet écran, cliquer sur l’onglet nouvelle citation sur Webdeb. </li> \
-<li>Coller la citation dans le premier champ à renseigner. </li> \
-<li>Cliquez sur suivant et sélectionnez web comme source de votre citation, et copiez-y l’url du site d’où provient la citation. </li> \
-<li>Une fois que vous aurez appuyé sur le bouton enregistrer, votre citation sera alors bien reprise dans la structure du débat. </li> \
-</ul>
-
 #citations errors
 citation.error.original.blank=L''extrait est manquant
-citation.error.original.length=l''extrait original ne peut dépasser 600 caractères
+citation.error.original.length=l''extrait original ne peut pas dépasser 600 caractères
 
 citation.error.working.blank=L''extrait retravaillé est manquant
-citation.error.working.length=L''extrait retravaillé ne peut dépasser 600 caractères
-
+citation.error.working.length=L''extrait retravaillé ne peut pas dépasser 600 caractères
 citation.error.text.url=L''url du texte est obligatoire s''il provient d''internet
-citation.error.text.urlOrTitle=L''url du pdf est obligatoire s''il provient d''internet, sinon au moins son titre
+citation.error.text.urlOrTitle=L''url du pdf est obligatoire s''il provient d''internet, si non, indiquez son titre
 citation.error.text.title=Le titre du texte est obligatoire
 
 
@@ -910,58 +872,50 @@ entry.import.group.desc=Vous pouvez importer cette contribution dans votre group
 entry.import.success=Cette contribution a bien été importée dans le groupe {0}.
 entry.import.fail=Une erreur est survenue, la contribution n''a pas été importée dans le groupe {0} {1}.
 
-entry.still.errors=Un ou plusieurs formulaires soumis comportent des erreurs. Veuillez les corriger s''il vous plaît.
+entry.still.errors=Un ou plusieurs formulaires soumis comportent des erreurs. corrigez-les, puis essayez à nouveau.
 entry.delete.confirm.title=Êtes-vous sûr de supprimer cette entrée ?
 entry.delete.confirm.text=Veuillez confirmer que vous désirez supprimer l''élément sélectionné.
 entry.delete.cancel=Annuler la suppression
 entry.delete.confirm=Confirmer la suppression
 
 # generic error messages
-entry.error.url.format=L''adresse donnée ne semble pas valide (de la forme "http://www.monsite.com")
-entry.error.actor.noname=Vous devez mentionner un nom d''acteur si vous avez rempli une fonction
+entry.error.url.format=L''adresse donnée ne semble pas valide (elle doit ressembler à "http://www.webdeb.be")
+entry.error.actor.noname=Vous avez encodé une fonction, mais pas d''acteur. Veuillez encoder l'acteur correspondant.
 
 # affiliation errors
 affiliation.error.function.format=La fonction spécifiée a un format invalide.
 affiliation.error.affname.format=L''affiliation spécifiée a un format invalide.
 affiliation.error.missing.affiliation=Une fonction ou une organisation doit être spécifiée si vous avez encodé une date.
 affiliation.error.missing.person=Le nom de la personne est obligatoire.
-affiliation.error.date.format=La date doit être de la forme 2005, 01/2005 ou 15/01/2005.
+affiliation.error.date.format=La date doit être de la forme aaaa, mm/aaaa ou jj/mm/aaaa.
 affiliation.error.date.order=La date de fin de l''affiliation ne peut pas précéder la date de début.
 affiliation.error.person.start=La date de début ne peut pas précéder la date de naissance.
-affiliation.error.person.end=La date de fin ne peut pas succéder à la date de décès.
-affiliation.error.org.start=La date de début ne peut pas précéder la date de création de cette organisation.
-affiliation.error.org.end=La date de fin ne peut pas être postérieure à la date de dissolution de cette organisation.
-affiliation.error.datetype=Il faut sélectionner une précision de date.
+affiliation.error.person.end=La date de fin ne peut pas être postérieure à la date de décès.
+affiliation.error.org.start=La date de début ne peut pas précéder la date de création de l'organisation.
+affiliation.error.org.end=La date de fin ne peut pas être postérieure à la date de dissolution de l'organisation.
+affiliation.error.datetype=Sélectionnez la précision de la date.
 affiliation.error.before.born.start=La date de début ne peut pas précéder la date de naissance.
 affiliation.error.after.death.end=La date de fin ne peut pas être postérieure à la date de décès.
 affiliation.error.before.creation.start=La date de début de l''affiliation ne peut pas précéder la date de création de l''organisation.
 affiliation.error.after.termination.end=La date de fin de l''affiliation ne peut pas être postérieure à la date de dissolution de l''organisation.
-affiliation.error.notperson=L''acteur ne peut pas être affilié à une personne.
+affiliation.error.notperson=L''acteur ne peut pas être affilié à un individu, seulement à une organisation.
 affiliation.error.notself=L''acteur ne peut pas être affilié à lui-même.
 affiliation.error.oldself=Vous ne pouvez pas utiliser l''ancien nom de l''acteur comme affiliation. Pour ce faire, vous devez d''abord modifier le nom, ensuite ses affiliations en deux étapes.
 affiliation.error.type.unset=Le type d''affiliation est obligatoire.
 affiliation.error.type.wrong=Le type d''affiliation est incorrect pour une affiliation à une personne (seuls les "détenu..." sont valides)
 
 # arguments
-argument.route.noarg=Aucune citation n''a été choisie dans le texte.
-argument.route.link.cancel=Aucun nouveau lien n''a été sauvegardé (vous avez annulé votre demande).
-argument.route.arg.cancel=Vous n''avez apporté aucune modification à l''opinion.
-argument.route.error=Il semblerait que vous ayiez tenté de soumettre une opinion que vous venez de sauvegarder, ou vous avez trop attendu avant de soumetttre vos changements.
+argument.route.noarg=Aucune citation n''a été extraite dans ce texte.
+argument.route.link.cancel=La requête a été annulée. Aucun nouveau lien n''a été sauvegardé.
 
 argument.excerpt.notfound=La citation que vous avez copiée dans le formulaire n''appartient pas au texte.
-argument.not.found=Aucun détail concernant l''opinion choisie n''a pu être trouvé dans la base de connaissance.
-argument.text.notfound=Le texte n''a pas été trouvé dans la base de connaissance.
+argument.text.notfound=Le texte n''a pas été trouvé dans la base de données.
 
-argument.properties.oops=Une erreur est survenue, veuillez introduire à nouveau les propriétés de l''opinion.
-argument.properties.added=La citation a été correctement ajoutée dans la base de connaissance.
+argument.properties.added=La citation a été correctement ajoutée dans la base de données.
 
 argument.new.title=Nouvel argument
 argument.edit.title=Modifier l''argument
 argument.modify.title=Enregistrer
-argument.new.instructions.1=Transformez votre citation en opinion.
-argument.new.instructions.2=Transformez votre citation en opinion.
-argument.new.instructions.3=Veuillez sélectionner une classe pour votre opinion.
-argument.new.instructions.4=Veuillez confirmer l''ajout du lien entre ces opinions.
 argument.label.excerpt=Citation choisie
 argument.label.author=Auteur(s) de la citation
 argument.label.author.name=Nom
@@ -977,7 +931,6 @@ argument.label.reporter.function=Fonction (optionnelle)
 argument.label.reporter.place.function=Fonction ou mandat
 argument.label.reporter.affname=Affiliation (optionnelle)
 argument.label.reporter.place.affname=Affiliation
-argument.label.arg=Acteur(s) dont on parle dans l''opinion
 argument.label.arg.place.name=Personne ou organisation
 argument.label.cited=Acteur(s) dont on parle dans la citation
 argument.label.cited.place.name=Personne ou organisation
@@ -985,9 +938,6 @@ argument.label.cited.function=Fonction (optionnelle)
 argument.label.cited.place.function=Fonction ou mandat
 argument.label.cited.affname=Affiliation (optionnelle)
 argument.label.cited.place.affname=Affiliation
-argument.help.author=Veuillez remplir le(s) acteur(s) ayant énoncé cette opinion
-argument.help.reporter=Veuillez remplir le(s) acteur(s) ayant rapporté cette opinion
-argument.help.cited=Veuillez remplir le(s) acteur(s) cité(s) dans cette opinion
 argument.error.noauthor=Au moins un auteur doit être spécifié
 argument.error.authorisreporter=Un auteur ne peut pas également être rapporteur.
 argument.error.authoriscited=Un acteur cité ne peut pas être un des auteurs ou rapporteurs.
@@ -999,9 +949,6 @@ debate.standard.shade.place=Choisissez le début de débat
 argument.standard.part.complete.label=Formulation de l''argument
 argument.standard.part.label=Suite de l''argument
 debate.standard.part.label=Suite de la question
-argument.standard.part.warning.words=Pour que l''opinion soit compréhensible sans devoir retourner au texte, il vous est demandé de remplacer les pronoms \
-par ce qu''ils signifient. Merci de corriger votre phrase, sauf si le pronom se rapporte à un autre élément inclus dans la phrase.
-
 argument.fake.title=Autres citations
 
 argument.debate.2.start=les points fort et faibles de
@@ -1050,24 +997,7 @@ context.alliesopponents.close.title=Fermer l''affichage par auteurs
 
 debate.new.added=Le débat a été ajouté avec succès !
 
-argument.help.topic=Séparez les thèmes par une virgule ou par la touche entrée. Vous pouvez créer des thèmes qui ne sont pas suggérés quand vous commencez à encoder.
-argument.error.topic=Au moins un thème doit être spécifié
-argument.label.type=Type d''opinion (Merci de vérifier la pertinence du type d''opinion proposé par WebDeb)*
-argument.label.type.0=Descriptive.
-argument.label.type.1=Prescriptive.
-argument.label.type.2=Appréciative.
-argument.label.type.3=Performative.
-argument.label.type.desc.0=<i>L''auteur pense qu''il est vrai, il est faux que...</i>
-argument.label.type.desc.1=<i>L''auteur pense qu''il faut, il ne faut pas,...</i>
-argument.label.type.desc.2=<i>L''auteur aime, déteste, ressent,...</i>
-argument.label.type.desc.3=<i>L''auteur promet, décide, s''engage à, ordonne...</i>
-argument.error.type=Le type d''opinion est obligatoire
-argument.label.type.suggestion.other=Vous pouvez éventuellement modifier la catégorie suggérée par :
 argument.label.type.error=Le contenu du texte ne peut être affiché...
-
-argument.label.timing=Temps de l'’opinion*
-argument.label.timing.sumup=Temporalité
-argument.error.timing=La temporalité est obligatoire
 
 argument.label.subtype.2=Type de sentiment
 argument.label.subtype.Appreciative=Type de sentiment
@@ -1099,93 +1029,15 @@ argument.title.place=territoire(s) concerné(s)*
 argument.label.place=Nom du lieu
 argument.label.place.sumup=territoire concerné
 argument.place.place=Un continent, un pays, une région, une ville.
-argument.help.place=Spécifiez un endroit où cette opinion est valable
 argument.help.placename=Indiquez le nom du lieu, plusieurs propositions seront alors faites, il sera nécessaire de choisir parmi la liste proposée
 argument.error.placename=Le lieu indiqué n''a pas pu être retrouvé
 argument.error.placename.twice=Le lieu est indiqué plusieurs fois
-
-argument.label.time=Spécifiez une date ou un intervalle de temps pour lequel cette opinion est valable (optionnel)
-argument.label.time.sumup=Date ou période
-argument.place.time.from=Une date, le début d''une période ou d''une époque, etc.
-argument.place.time.to=Une date, la fin d''une période ou d''une époque, etc.
-argument.help.time=Spécifiez une date ou un intervalle de temps pour lequel cette opinion est valable
-
-argument.links.transform_from_excerpt=Voulez-vous résumer la citation que vous venez d''encoder en une opinion ?
-
 argument.justification.exists.text=L''argument existe déjà dans cette catégorie.
-argument.links.label.excerpt.other=Extrait d''où provient l''opinion à mettre en lien
-argument.links.label.standard=Forme standardisée
-argument.links.label.standard.other=Forme standardisée de l''opinion à mettre en lien
-argument.label.links.link=Type de relation
-argument.label.tag=Tags *
-argument.label.tag.place.name.0=Tag 1
-argument.label.tag.place.name.1=Tag 2
-argument.label.tag.place.name.2=Tag 3
-
-argument.links.error.toarg=L''opinion est obligatoire
-argument.links.error.linktype=Le type de lien est obligatoire
-argument.links.error.linkshade=La nuance est obligatoire
 argument.links.alreadyexist=Ce lien existe déjà
-
-argument.links.oops=Une erreur est survenue, veuillez introduire  à nouveau les liens de l''opinion.
-argument.links.added=Le lien entre les opinions a été correctement ajouté.
-argument.links.not.added=Une erreur est survenue, le(s) lien(s) entre les opinions n''a (ont) pas été ajouté(s) dans la base de connaissance
-argument.links.empty=Aucun lien entre opinions n''a été défini
-
-argument.links.delete.confirm.title=Êtes-vous sûr de supprimer ce lien ?
-argument.links.delete.confirm.text=Veuillez confirmer la suppression du lien avec l''opinion "{0}"
-
-# argument link types and shades
-argument.links.type.-1=aucun lien
-argument.links.type.0=similarité
-argument.links.type.1=justification
-argument.links.shade.0=est similaire à
-argument.links.shade.1=s''oppose à
-argument.links.shade.2=oui
-argument.links.shade.3=non
-argument.links.shade.4=Illustre
-argument.links.shade.5=Nuance
-argument.links.shade.6=Contre exemple
-argument.links.shade.7=est justifié par
-argument.links.shade.8=est contesté par
-
-argument.links.add.search=Rechercher une opinion existante
-argument.links.add.create=Créer une nouvelle opinion
-argument.links.add.validate=Valider une opinion
-argument.links.validate.noresults=Aucune proposition disponible
 
 argument.excerpt.links.add.search=Choisir ci-dessous une des citations
 argument.excerpt.links.add.create=Extraire une nouvelle citation
 argument.excerpt.links.add.validate=Valider une citation
-
-argument.links.citation.instructions=Surligner l’extrait choisi et cliquer sur le bouton « ajouter » qui apparaît lors du surlignement.
-argument.links.justification.instructions=Sélectionner une des propositions ci-dessous et cliquer sur le bouton “créer le lien“. \
-  Si aucune proposition ne convient, cliquer sur "créer une nouvelle opinion".
-argument.links.shade.justification.label=Type de lien : 
-argument.links.shade.justification.form=Choisissez la réponse
-argument.links.shade.2.form=Ajouter un argument qui soutient l’’opinion
-argument.links.shade.3.form=Ajouter un argument qui conteste l’’opinion
-
-argument.links.shade.illustration=Type de lien : 
-argument.links.shade.illustration.form=Choisissez la réponse
-argument.links.shade.4.form=est illustré par
-argument.links.shade.5.form=est nuancé par
-argument.links.shade.6.form=est contré par
-
-argument.delete.confirm.title=Êtes-vous sûr de supprimer cette opinion ?
-argument.delete.confirm.text=Veuillez confirmer la suppression de l''opinion "{0}"
-
-argument.delete.success=L''opinion a été supprimée
-argument.delete.error=Une erreur est survenue lors de la connexion avec la base de données, l''opinion n''a pas pu être supprimée.
-
-argument.sumup.actorname=acteur(s) impliqué(s)
-argument.sumup.author=auteur
-argument.sumup.role=rôles des acteurs
-argument.sumup.firstArgument=Est l''opinion faitière du débat :
-argument.sumup.contextIsText=Est dans la structure argumentative du texte :
-argument.sumup.contextIsDebate=Est dans la structure argumentative du débat :
-argument.sumup.type=type
-argument.sumup.excerpt=extrait
 
 # actors
 entry.actor.auto=Vous venez d''introduire le nom d''un acteur que nous ne connaissons pas. Voudriez-vous compléter sa fiche ?
@@ -1529,20 +1381,13 @@ text.sumup.topic=thème(s)
 text.sumup.url=page web
 
 # work with text
-text.args.title=Ajouter une opinion
 text.args.label.search=Rechercher un texte
 text.args.label.searchtext=Rechercher dans le texte
 text.args.place.search=Commencez à taper un titre pour rechercher parmi les textes
 text.args.place.searchtext=Commencez à taper un mot ou une phrase pour rechercher dans le texte
-text.args.description=Vous pouvez rechercher votre texte en introduisant son titre dans la barre de recherche ci-dessous et \
-en le sélectionnant dans la liste des propositions. Cliquez ensuite sur <span class="col-xs fa fa-edit"></span> à droite du champ pour charger l''entièreté \
-de son contenu et les opinions qui y sont liées. Si vous ne trouvez pas votre texte, vous pouvez <a href="{0}">l''ajouter</a>.
 text.args.label.text=Contenu du texte
 text.args.label.random=Vous voulez plutôt <a href="{0}">ouvrir un texte choisi aléatoirement</a> ?
-text.args.label.new=Si l''opinion que vous voulez ajouter figure dans un texte déjà encodé dans WebDeb, cherchez-le avec la barre de recherche ci-dessus.
-text.args.label.create=Pour ajouter une opinion, sélectionnez un extrait.
 text.args.btn=Voir le texte
-text.args.btn.tooltip=Voir le texte et toutes ses opinions
 text.args.label.nlphelp=Mise en évidence
 text.args.label.tab.info=Propriétés du texte
 text.args.desc.tab.info=Voici les propriétés du texte. Cliquez sur <b>Éditer les propriétés</b> pour modifier celles-ci.
@@ -1550,7 +1395,6 @@ text.args.label.tab.actors=Acteurs du texte
 text.args.label.tab.text=Voir toutes les données sur le texte
 text.args.desc.tab.actors=Voici les acteurs identifiés dans le texte.
 text.args.label.author=Auteur(s) du texte
-text.args.label.actor=Acteur(s) lié(s) à ce texte en tant qu''acteurs présents dans des opinions
 text.args.add.new=Ajouter une nouvelle citation en surlignant l’extrait dans le texte si dessous ou en encodant la citation dans le formulaire en dessous du texte (et en cliquant ensuite sur le crayon)
 text.exc.label.tab.excerpts=Extraire les citations
 text.exc.label.tab.excerpt.add=Ajouter une citation
@@ -1583,20 +1427,13 @@ text.args.label.textOrigin=origine de la source
 text.args.popover.new=Ajouter
 text.args.popover.edit=Éditer
 text.args.popover.viz=Visualiser
-text.args.argument.excerpt=Copiez ici un extrait du texte contenant une opinion.
 
 text.args.add.argument=Analyser le texte
 text.args.add.actor=Ajouter un acteur cité dans le texte
 text.args.add.actor.submit=Ajouter
 
-text.args.tooltip.arg.add=Ajouter une nouvelle opinion
 text.args.tooltip.actor.add=Ajouter un acteur impliqué dans le texte, mais qui n''en est pas l''auteur
-text.args.tooltip.arg.remove=Supprimer cette opinion
-text.args.tooltip.arg.settings=Éditer les propriétés de cette opinion
-text.args.tooltip.arg.links=Éditer les liens avec d''autres opinions
 text.args.tooltip.text.random=Travailler avec un texte aléatoire
-text.args.tooltip.arg.summary=Afficher un résumé des propriétés et liens de l''opinion
-text.args.tooltip.arg.viz=Visualiser l''opinion
 
 text.args.no.actorname=Aucun nom d''acteur n''a été soumis.
 text.args.actorname.added=L''acteur {0} a été ajouté à la liste des acteurs cités dans le texte
@@ -1607,21 +1444,13 @@ text.tags.label=Dossiers
 
 # work with text (links)
 text.args.label.tab.links=Créer la structure argumentative
-text.args.desc.tab.links=Vous pouvez éditer les liens de justification entre opinions en déplaçant une \
-  opinion depuis la gauche vers la droite de l''écran et en choisissant le type de lien (justifie, nuance, conteste).
-text.args.links.arguments=Opinions
 text.args.links.links=Justifications
 text.args.tooltip.links.save=Appuyez sur ce bouton pour sauvegarder vos modifications.
 text.args.links.save=Sauver les liens dans ...
 text.args.tooltip.links.cancel=Appuyez sur ce bouton pour annuler vos changements non sauvegardés
 text.args.links.cancel=Annuler
 text.links.success=Vous avez correctement mis à jour les liens de justifications dans ce texte
-text.links.tooltip.remove=Supprimer le lien de justification vers cette opinion
-text.links.tooltip.expand=Voir/cacher les opinions liées
 text.links.shade.select=Sélectionner
-text.links.alllinks=Toutes les opinions ont été liées
-text.links.noarg=Aucune opinion...
-text.links.nolink=Déplacez une opinion ci-dessous
 text.links.missing.type=Vous devez choisir un type de justification pour tous les liens
 text.links.nothing=Vous n''avez spécifié aucun lien
 text.links.save.success=Les liens de justification ont été sauvegardés avec succès
@@ -1735,29 +1564,18 @@ browse.view.title.6=Voir les dossiers
 browse.search.title=Rechercher
 browse.search.ingroup=dans le groupe {0}
 browse.search.tooltip=Lancer la recherche dans la base de connaissance
-browse.search.place=Cherchez des acteurs, opinions, textes ou par thèmes
 browse.search.place.alt=Cherchez dans WebDeb
 browse.search.error=Une erreur est survenue lors de l''exécution de votre recherche.
 browse.search.noresult=Aucune contribution n''a été trouvée.
 browse.search.noresult.0=Aucun acteur n''a été trouvé.
 browse.search.noresult.1=Aucun débat n''a été trouvé.
-browse.search.noresult.3=Aucune opinion n''a été trouvée.
 browse.search.noresult.4=Aucune citation n''a été trouvée.
 browse.search.noresult.5=Aucun texte n''a été trouvé.
 browse.search.noresult.6=Aucun dossier n''a été trouvé.
 browse.search.noresult.7=Aucune affiliation n''a été trouvée.
 browse.search.tooltip.fromtopic=Afficher toutes les contributions liées à ce dossier
 browse.search.tooltip.fromplace=Afficher la carte de ce lieu
-browse.search.firstarg.title=Créer une opinion faitière
-browse.search.arg.title=Ajouter une opinion servant d’argument à
-browse.search.arg.title2=Créer une opinion faîtière
-browse.search.arg.title3=Résumer une opinion contenue dans…
-browse.search.arg.instructions=Lancez une recherche avec <span class="fa fa-search"></span>. Vous pouvez aussi \
-  <a href="{0}">ajouter une nouvelle opinion</a>.
-browse.search.selectarg.addon=Rechercher une opinion
-browse.search.selectarg.place=Vous pouvez rechercher sur un titre du texte, un acteur, une citation ou une opinion
 browse.search.selectarg.btn=Créer le lien
-browse.search.selectarg.tooltip=Créer le lien avec l''opinion sélectionnée
 
 browse.search.exc.title=Rechercher la citation à lier à
 browse.search.exc.instructions=Lancez une recherche avec <span class="fa fa-search"></span>.
@@ -1771,15 +1589,12 @@ browse.search.selectexc.tooltip=Créer le lien avec la citation sélectionnée
 browse.search.actor.instructions=Sélectionner une des propositions ci-dessous et cliquer sur le bouton “créer le lien“. Si aucune proposition ne convient, cliquer sur "créer une nouvelle citation".
 
 browse.search.topic=Thèmes populaires
-browse.search.argument=Opinions populaires
-browse.search.argument_contextualized=Opinions populaires
 browse.search.actor=Acteurs populaires
 browse.search.text=Textes populaires
 browse.search.debate=Débats populaires
 browse.search.tag=Dossiers populaires
 browse.search.citation=Citations populaires
 browse.showall.actor=Voir tous les acteurs
-browse.showall.argument=Voir toutes les opinions
 browse.showall.text=Voir tous les textes
 browse.showall.debate=Voir tous les débats
 browse.showall.tag=Voir tous les dossiers
@@ -1818,7 +1633,6 @@ viz.admin.delete.success=La contribution a été supprimée avec succès.
 viz.admin.remove.group.success=La contribution a été enlevée du group {0} avec succès.
 viz.admin.delete.fail=La suppression de la contribution n''a pas fonctionné (peut-être que certains liens n''ont pu être supprimés).
 viz.admin.merge.search.label.0=Rechercher un acteur
-viz.admin.merge.search.label.1=Rechercher une opinion
 viz.admin.merge.search.label.2=Rechercher un texte
 viz.admin.merge.search.label.6=Rechercher un dossier
 viz.admin.merge.search.place.0=Chercher par nom
@@ -1843,21 +1657,15 @@ viz.admin.modal.delete.0.text=Êtes-vous sûr de vouloir supprimer cet acteur ? 
   la suppression ne sera pas permise.
 viz.admin.modal.delete.1.title=Supprimer ce débat ?
 viz.admin.modal.delete.1.text=Êtes-vous sûr de vouloir supprimer ce débat ? Tous ses arguments seront supprimés.
-viz.admin.modal.delete.3.title=Supprimer cette opinion ?
-viz.admin.modal.delete.3.text=Êtes-vous sûr de vouloir supprimer cette opinion ? Tous les liens vers celle-ci seront supprimés.
 viz.admin.modal.delete.4.title=Supprimer cette citation ?
 viz.admin.modal.delete.4.text=Êtes-vous sûr de vouloir supprimer cette citation ? Tous les liens vers celle-ci seront supprimés.
 viz.admin.modal.delete.5.title=Supprimer ce texte ?
-viz.admin.modal.delete.5.text=Êtes-vous sûr de vouloir supprimer ce texte ? Toutes les opinions issues de ce texte seront \
-  aussi supprimées.
 viz.admin.modal.delete.6.title=Supprimer ce dossier ?
 viz.admin.modal.delete.6.text=Êtes-vous sûr de vouloir supprimer ce dossier ? Cela aura des répercusions sur la hiérarchie parents / enfants.
 viz.admin.modal.delete.8.title=Supprimer ce lien de justification ?
 viz.admin.modal.delete.8.text=Êtes-vous sûr de vouloir supprimer ce lien de justification ? Cela aura des répercusions sur la structure argumentative (débat / texte).
 viz.admin.modal.delete.9.title=Supprimer ce lien de similarité ?
 viz.admin.modal.delete.9.text=Êtes-vous sûr de vouloir supprimer ce lien de similarité ?
-viz.admin.modal.delete.10.title=Supprimer ce lien entre l''opinion et la citation ?
-viz.admin.modal.delete.10.text=Êtes-vous sûr de vouloir supprimer ce lien entre l''opinion et la citation ?
 viz.admin.modal.delete.11.title=Supprimer ce lien de similarité ?
 viz.admin.modal.delete.11.text=Êtes-vous sûr de vouloir supprimer ce lien de similarité ?
 viz.admin.modal.delete.12.title=Supprimer ce lien  ?
@@ -1877,8 +1685,6 @@ viz.admin.modal.remove.0.title=Supprimer cet acteur du groupe courant ?
 viz.admin.modal.remove.0.text=Êtes-vous sûr de vouloir supprimer cet acteur du groupe <b>{0}</b> ?
 viz.admin.modal.remove.1.title=Supprimer ce débat du groupe courant ?
 viz.admin.modal.remove.1.text=Êtes-vous sûr de vouloir supprimer ce débat du groupe <b>{0}</b> ?
-viz.admin.modal.remove.3.title=Supprimer cette opinion du groupe courant ?
-viz.admin.modal.remove.3.text=Êtes-vous sûr de vouloir supprimer cette opinion du groupe <b>{0}</b> ?
 viz.admin.modal.remove.4.title=Supprimer cette citation du groupe courant ?
 viz.admin.modal.remove.4.text=Êtes-vous sûr de vouloir supprimer cette citation du groupe <b>{0}</b> ?
 viz.admin.modal.remove.5.title=Supprimer ce texte du groupe courant ?
@@ -1929,14 +1735,10 @@ viz.admin.history.element.picture=Photo
 
 viz.admin.history.element.actor_type=Type d''acteur
 viz.admin.history.element.affiliation_type=Type d''affiliation
-viz.admin.history.element.arg_shade_type=Début du débat / opinion
 viz.admin.history.element.debate_shade_type=Début du débat
-viz.admin.history.element.argument_linktype=Type de lien entre opinion
-viz.admin.history.element.argument_type=Type d''opinion
 viz.admin.history.element.business_sector=Secteur d''activité
 viz.admin.history.element.contribution_type=Type de contribution
 viz.admin.history.element.tag_type=Type de dossier
-viz.admin.history.element.link_shade_type=Type de lien entre opinion
 viz.admin.history.element.place_type=Type de lieu
 viz.admin.history.element.legal_status=Status légal
 viz.admin.history.element.text_type=Type de texte
@@ -1957,9 +1759,7 @@ viz.contributor.change.mail=Modifier l’’email
 viz.contribution.actor=Tous les acteurs créés ou modifiés
 viz.contribution.text=Tous les textes importés
 viz.contribution.debate=Tous les débats créés ou modifiés
-viz.contribution.arguments=Opinions extraites de ce texte
 viz.contribution.citations=Citations extraites de ce texte
-viz.contribution.debate.arguments=Opinions présentes dans le débat
 viz.contributor.creator=Créé(e) par
 
 #viewer
@@ -1994,7 +1794,6 @@ viz.radio.sortby.amount=Nombre
 viz.radio.sortby.text=Texte
 
 viz.showmore.excerpt=Autres citations
-viz.showmore.argument=Autres opinions
 viz.showmore.texts=Autres textes
 viz.showmore.affiliations=Autres affiliations
 viz.showmore.authors=Autres auteurs
@@ -2002,29 +1801,18 @@ viz.showmore.tags=Autres dossiers
 viz.showmore.places=Autres lieux
 
 # argument
-viz.argument.title=Opinion
-viz.argument.btn=Visualiser l''opinion
 viz.argument.btn.details=Vue détaillée
-viz.argument.tooltip.arg=Visualiser les justifications de cette opinion (toutes ses opinions liées)
 viz.argument.tooltip.details.arg=Revenir aux justifications précédentes.
-viz.argument.tooltip.graph.arg=Visualiser le graphe des liens entre opinions
 viz.argument.pill.radiography=Pour/contre
-viz.argument.desc.radiography=Les acteurs pour ou contre l''opinion.
 viz.argument.pill.cartography=Arguments
-viz.argument.desc.cartography=Arguments pour ou contre l''opinion
 viz.argument.pill.sociography=Coalitions
-viz.argument.desc.sociography=Position des différentes catégories d''acteurs à propos de l''opinion.
 viz.argument.desc.sociography2=Les organisations ne sont pas reprises dans les statistiques par âge, fonction et genre.
 viz.argument.pill.details=Fiche
 viz.argument.pill.texts=Textes / débats / tags
-viz.argument.desc.texts=Textes, débats et tags où se trouve l'’opinion (pour modifier l’’opinion, allez dans l’un des textes ou des débats)
 
 viz.argument.texts.pov.0=Textes
 viz.argument.texts.pov.1=Débats
 viz.argument.texts.pov.2=Dossiers
-viz.argument.texts.nodata.texts=L''opinion ne provient d''aucun texte.
-viz.argument.texts.nodata.debates=L''opinion ne provient d''aucun débat.
-viz.argument.texts.nodata.tags=L''opinion n'est liée à aucun tags.
 
 viz.argument.label.type=Type
 viz.argument.label.timing=Temporalité
@@ -2056,20 +1844,15 @@ viz.argument.radio.pov.3=4
 viz.argument.radio.pov.4=Tous
 
 # for argument radiography
-viz.argument.new.title=Ajouter une nouvelle opinion ?
 viz.argument.new.desc=Veuillez choisir le type de lien
 viz.argument.new.0=Ajouter une citation similaire
 viz.argument.new.1=Ajouter une citation qui nuance
 viz.argument.new.2=Ajouter une citation qui conteste
 viz.argument.justification.see=Afficher
 
-viz.argument.contributions=Opinions directement liées à cette contribution
-viz.argument.carto.ssr=ce que l''<b>opinion</b> argumente
-viz.argument.carto.is_ssr=ce qui <b>argumente</b> l''opinion
 viz.argument.carto.sort=trier par le nombre total de liens
 
 viz.argument.carto.supports=Arguments en faveur du oui
-viz.argument.carto.shades=Arguments nuançant l''opinion
 viz.argument.carto.rejects=Arguments en faveur du non
 
 viz.argument.carto.0=citation(s)
@@ -2078,16 +1861,7 @@ viz.argument.carto.nbexcerpts.similar=Au moins {0} citations pour
 viz.argument.carto.nbexcerpts.qualifies=Au moins {0} citations nuancées
 viz.argument.carto.nbexcerpts.opposes=Au moins {0} citations contre
 
-viz.argument.justification.map.is_support={0} opinion(s) soutenue(s) par cet argument
-viz.argument.justification.map.is_shade={0} opinions(s) nuancée(s) par cet argument
-viz.argument.justification.map.is_reject={0} opinion(s) contrée(s) par cet argument 
-viz.argument.justification.map.support={0} argument(s) soutien(nent) cette opinion
-viz.argument.justification.map.shade={0} argument(s) nuance(nt) cette opinion
-viz.argument.justification.map.reject={0} argument(s) contre(nt) cette opinion
 
-viz.argument.carto.add.argument.supports=Ajouter un argument soutenant l''opinion
-viz.argument.carto.add.argument.shades=Ajouter un argument nuançabnt l''opinion
-viz.argument.carto.add.argument.rejects=Ajouter une argument contestant l''opinion
 
 viz.argument.carto.add.argument.title=Ajouter une citation
 
@@ -2097,7 +1871,6 @@ viz.argument.radio.edit.btn=Modifier certains liens de similarité
 viz.argument.radio.save.btn=Enregistrer les modifications
 viz.argument.radio.canceledit.btn=Ne pas modifier les liens de similarité 
 
-viz.argument.select.existing=Nous vous suggérons ces opinions à lier
 
 viz.argument.tags.label=Dossiers*
 
@@ -2113,16 +1886,10 @@ viz.argument.radio3.4=déclarant qu’il est vrai
 viz.argument.radio3.5=nuancé (avis variables en gras)
 viz.argument.radio3.6=déclarant qu’il n''est pas vrai
 
-viz.excerpt.arguments.4=opinions favorables
-viz.excerpt.arguments.5=opinions nuancées
-viz.excerpt.arguments.6=opinions défavorables
 
 viz.argument.cited.actors=acteur(s)
 
-viz.argument.error=L''opinion demandée n''est pas connu ou une erreur inattendue à eu lieu
 
-viz.argument.similarity.fail=Les liens entre opinions n''ont pas pu être sauvés...
-viz.argument.similarity.success=Les liens entre opinions ont été sauvergardés avec succès !
 
 # argument sociography
 viz.argument.socio.pov.author=Auteur
@@ -2134,7 +1901,6 @@ viz.argument.socio.pov.gender=Genre
 viz.argument.socio.pov.publisher=Editeur
 viz.argument.socio.excerpt=Citation(s)
 viz.argument.socio.nodata=Aucun acteur avec la clef de \
-  groupement choisie n''a pris position vis-à-vis de cette opinion.
 
 viz.argument.socio.unshaded=citation(s)
 viz.argument.socio.justify=citation(s) pour
@@ -2154,11 +1920,9 @@ viz.actor.desc.cartography.1=Personnes qui composent cette organisation.
 viz.actor.desc.cartography.1.bis=A quelles organisations est lié cet acteur ? 
 viz.actor.desc.cartography.0=Le CV de {0}
 viz.actor.pill.radiography=Propos
-viz.actor.desc.radiography=Opinions et citations de {0} (les opinions résument les citations et sont rédigées par les contributeurs de WebDeb)
 viz.actor.pill.sociography=Alliés/Adversaires
 viz.actor.desc.sociography=Liste des acteurs ayant pris position par rapport aux propos de cet acteur.
 viz.actor.pill.cited=A propos
-viz.actor.desc.cited=Opinions et citations à propos de {0} (les opinions résument les citations et sont rédigées par les contributeurs de WebDeb)
 viz.actor.pill.texts=Textes
 viz.actor.desc.texts=Textes dont l''acteur est l''auteur, et dans lesquels il est cité.
 viz.actor.pill.details=Fiche
@@ -2209,8 +1973,6 @@ viz.actor.socio.pov.country=Pays
 viz.actor.socio.pov.function=Fonction
 viz.actor.socio.pov.organization=Organisation
 viz.actor.socio.excerpt=Citation(s)
-viz.actor.socio.nodata=Soit cet acteur n''est l''auteur d''aucune opinion, soit aucun autre acteur avec la clef de \
-  groupement choisie n''a pris position vis-à-vis des opinions dont il est l''auteur.
 
 viz.actor.socio.age.-1=âge inconnu
 viz.actor.socio.country.unknown=pays inconnu
@@ -2234,17 +1996,11 @@ viz.actor.socio.opposes=acteur(s) contre
 viz.actor.radio.key=Trier par
 viz.actor.radio.key.date=Date
 viz.actor.radio.key.date.tooltip=Trier par date de publication
-viz.actor.radio.key.excerpts=Nombre d''opinions
-viz.actor.radio.key.excerpts.tooltip=Trier par nombre d''opinions similaires pour cet acteur
 viz.actor.radio.key.p_similar=Degré d''accord
-viz.actor.radio.key.p_similar.tooltip=Trier par la proportion d''opinions similaires énoncés par d''autres acteurs
 viz.actor.radio.key.t_similar=Intensité du débat
-viz.actor.radio.key.t_similar.tooltip=Trier par nombre total d''opinions ayant un lien de similarité (nuances et oppositions comprises)
 viz.actor.radio.showarg=Montrer les arguments ({0})
-viz.actor.radio.citation.nolink=Cette citation n'a pas encore été traduite en opinion. Cliquez pour la résumer.
 viz.actor.radio.showexc=Montrer les citations ({0})
 viz.actor.radio.charttitle=Degré d''accord d''autres acteurs
-viz.actor.radio.nodata.aff=Aucune opinion n''est liée à cet acteur
 viz.actor.radio.nodata.exc=Aucune citation n''est liée à cet acteur
 
 viz.actor.radio.citation.actor.0=Citation(s) de l''auteur
@@ -2252,8 +2008,6 @@ viz.actor.radio.citation.actor.1=Citation(s) d''autre(s) auteur(s)
 viz.actor.radio.citation.text.0=Citation(s) du texte
 viz.actor.radio.citation.text.1=Citation(s) d''autre(s) texte(s)
 
-viz.actor.cited.showarg=Voir les opinions similaires ({0})
-viz.actor.cited.nodata.aff=Aucune opinion dans WebDeb n''est liée à cet acteur.
 viz.actor.cited.nodata.exc=Aucune citation dans WebDeb ne parle de cet acteur.
 
 viz.actor.texts.author=Les <span class="text-primary">{0}</span> texte(s) dont il est l''auteur
@@ -2294,7 +2048,6 @@ viz.actor.type.2=Projes, marques, evènements :
 
 #debate
 debate.creation.error=Impossible de sauvegarder le débat...
-debate.sumup.firstArgument=A pour opinion faitière
 
 debate.candidate.desc=Vous venez d'entrer un débat que nous pensons déjà avoir dans WebDeb. \
   Veuillez vérifier s'il ne se trouve pas déjà parmi les débats suivants pour l''éditer. \
@@ -2404,19 +2157,12 @@ viz.text.default.title=Texte au titre inconnu
 viz.text.pill.cartography=Structure
 viz.text.desc.cartography=La structure argumentative du texte.
 viz.text.pill.radiography=Textes liés
-viz.text.desc.radiography=Les textes contenant des opinions similaires ou opposées à celles de ce texte.
-viz.text.pill.cited=Opinions/citations
 viz.text.pill.details=Fiche
-viz.text.contributions=Opinions (s) extraite(s) de ce texte
 viz.text.args.btn=analyser le texte
-viz.text.args.tooltip=Éditer ou extraire des opinions de ce texte
 
-viz.text.nolinks=Soit aucune opinion n''a été extraite de ce texte ou aucune d''entre elles n''a été liée.
 viz.text.links.btn=Éditer la structure argumentative
 viz.text.links2.btn=Voir le texte et ses citations
-viz.text.links.tooltip=Éditer les liens de justifications entre les opinions de ce texte
 
-viz.text.cited.nodata.aff=Aucune opinion n''est liée à ce texte
 viz.text.cited.nodata.exc=Aucune citation n''est liée à ce texte
 
 viz.text.error=Le texte demandé n''est pas connu ou une erreur inattendue à eu lieu
@@ -2447,44 +2193,30 @@ argument.options.edit.citation.addnotok=Ajouter une citation qui rejette
 argument.options.edit.change.shade=Changer pour / contre
 
 # debate and text options
-debate.options.edit.argument.add=Ajouter une opinion faîtière (niveau d’argumentation n° 1)
 debate.options.edit.argument.add.yes=Ajouter un argument en faveur du oui
 debate.options.edit.argument.add.no=Ajouter un argument en faveur du non
 
 # citation options
 excerpt.options.viz.text.see=Voir le texte
 excerpt.options.viz.excerpts.see=Voir les citations similaires
-excerpt.options.viz.excerpts.arguments=Voir les opinions
-excerpt.options.edit.argument.add=Résumer l’’opinion
 excerpt.add.instruction=Pour sélectionner une citation, cliquez sur l’icône de la citation choisie puis sur le bouton “créer le lien” en bas de page.
 
 # tag
 viz.tag.pill.cartography=Débats
-viz.tag.pill.cited=Opinions/citations
 viz.tag.pill.texts=Textes
 viz.tag.pill.radiography=Hiérarchie
 viz.tag.pill.details=Fiche
 viz.tag.title=Dossier
-viz.tag.arguments=Opinions et citations liées au dossier
 viz.tag.debates=Débats liés au dossier
 viz.tag.texts=Textes liés au dossier
 viz.tag.hierarchy.parents=Les dossiers parents :
 viz.tag.hierarchy.children=Les dossiers enfants :
 
-viz.tag.texts.own=contient <span class="text-primary">{0}</span> opinion(s) et <span class="text-primary">{1}</span> citations
 viz.tag.texts.stats.texts=contient <span class="text-primary">{0}</span> texte(s)
-viz.tag.texts.stats.arguments=<span class="text-primary">{0}</span> opinions issues de ce(s) texte(s)
-
 viz.tag.error=Le dossier demandé n''est pas connu ou une erreur inattendue a eu lieu
-
 viz.tag.argsexcs.pov.1=Citations
-viz.tag.argsexcs.pov.0=Opinions
-
 viz.tag.cited.nodata.exc=Aucune citation n''est liée à ce dossier.
-viz.tag.cited.nodata.aff=Aucune opinion n''est liée à ce dossier.
-
 viz.tag.see=Voir le tag
-
 viz.tag.arguments.citations=ce dossier
 viz.tag.arguments.parents.citations=des dossiers plus larges
 viz.tag.arguments.children.citations=des sous-dossiers
@@ -2513,28 +2245,15 @@ viz.citations.empty.test=essais
 #
 # validate
 #
-validate.link.title=Valider les liens entre opinions
 validate.link.none=Il n''y a actuellement aucun lien à valider, vous pouvez revenir plus tard...
-validate.link.question=Ces opinions sont-elles comparables ?
-validate.link.unconfirmed=Ces opinions ne sont pas liées.
-validate.link.confirmed=Ces opinions sont {0}
-validate.link.select.label=Ces opinions sont-elles ?
 validate.link.shade.0=similaires
 validate.link.shade.1=nuancées
 validate.link.shade.2=opposées
 validate.submit=Valider
 validate.success=de la requête
 validate.error=Une erreur est survenue en traitant votre requête, veuillez réessayer ou contacter l''administrateur.
-validate.argument.success=L''opinion a été correctement sauvegardée.
 validate.link.success=Le lien a été correctement sauvegardée.
 
-validate.argument.title=Valider les opinions
-validate.argument.instructions=WebDeb transforme automatiquement en opinions certains tweets ou extraits des textes \
-  importés. Vous pouvez valider ces affirmations via cette page.<br>\
-  A gauche, l''extrait original. A droite, l''affirmation dérivée automatiquement de cet extrait.<br><br>\
-  Choisissez "non" si vous estimez que l''extrait n''apporte rien au débat.<br>\
-  Choisissez "oui" dans le cas contraire. Vous pourrez alors modifier l''affirmation dérivée si nécessaire et ajouter \
-  certaines informations sur l''auteur ou les thèmes.
 validate.argument.none=Il n''y a actuellement aucune affirmation à valider, vous pouvez revenir plus tard...
 validate.argument.question=Voulez-vous ajouter cet extrait et cette affirmation dans la base de données ?
 validate.argument.confirmed=Cette affirmation a été ajoutée à la base de connaissance.
@@ -2692,8 +2411,6 @@ group.manage.label.permission.6=Les gestionnaires de groupe peuvent éditer les 
 group.manage.label.user.help=Aide à l''encodage pour les utilisateurs.
 group.manage.label.permission.13=L''annotation automatique des textes est désactivée.
 group.manage.label.permission.13.bis=Désactiver l''annotation automatique des textes.
-group.manage.label.permission.14=Les suggestions de la classification des opinions sont désactivées.
-group.manage.label.permission.14.bis=Désactiver les suggestions de la classification des opinions.
 group.manage.label.permission.15=Les non membres du groupe peuvent éditer la contribution.
 group.manage.btn.title=Sauvegarder ce groupe
 group.manage.btn.create=Créer le groupe
@@ -3215,7 +2932,6 @@ admin.rss.label.category=Catégorie du contenu *
 admin.rss.place.category=e.g. international, politique,...
 admin.rss.error.category=La catégorie est obligatoire
 admin.rss.label.subcategory=Sous-catégorie (optionnelle)
-admin.rss.place.subcategory=e.g. opinion, chroniques,...
 admin.rss.label.url=Adresse de la source *
 admin.rss.place.url=http://adresse.source.rss
 admin.rss.error.url=L''adresse est obligatoire
