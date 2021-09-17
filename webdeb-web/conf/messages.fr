@@ -4205,8 +4205,8 @@ debagora.module8.text=Prendre part au débat sur les enjeux de société
 
 debagora.download.title=Télécharger l’entièreté de l’outil
 
-debagora.div1.title=Outil d'éducation au débat
-debagora.div1.text=L’outil pédagogique Débagora propose des activités et des repères pour :\
+debagora.div1.title=Outil d''éducation au débat
+debagora.div1.text=L’'outil pédagogique Débagora propose des activités et des repères pour :\
 <ul> \
    <li>Collecter du contenu</li> \
    <li>Soutenir une opinion avec des arguments  solides</li> \
@@ -4214,8 +4214,8 @@ debagora.div1.text=L’outil pédagogique Débagora propose des activités et de
    <li>Mettre cette opinion en débat dans un cadre respectueux  </li> \
 </ul>
 
-debagora.div2.title=Outil d'éducation au politique
-debagora.div2.text=L’outil pédagogique Débagora propose des activités et des repères pour : \
+debagora.div2.title=Outil d''éducation au politique
+debagora.div2.text=L’'outil pédagogique Débagora propose des activités et des repères pour : \
 <ul> \
    <li>Initier les jeunes aux processus de délibération conflictuelle et égalitaire</li> \
    <li>Identifier les parties prenantes au débat et leurs rapports de force</li> \
@@ -4223,7 +4223,7 @@ debagora.div2.text=L’outil pédagogique Débagora propose des activités et de
 </ul>
 
 debagora.div3.title=Un outil modulable
-debagora.div3.text=L’outil pédagogique Débagora : \
+debagora.div3.text=L’'outil pédagogique Débagora : \
 <ul> \
    <li>est adapté à un public âgé de <b>15 ans et plus</b></li> \
    <li>se compose de <b>huit modules</b> combinables ou utilisables de manière indépendante ;</li> \
@@ -4231,7 +4231,7 @@ debagora.div3.text=L’outil pédagogique Débagora : \
    <li>propose l’usage de la <b>plateforme numérique <a class="primary" href="https://webdeb.be">WebDeb</a></b> pour favoriser les échanges entre participants.</li> \
 </ul>
 
-debagora.div4.title=Conçu par des professionnels de l’éducation
+debagora.div4.title=Conçu par des professionnels de l’'éducation
 debagora.div4.text=Débagora est le <b>fruit d’une collaboration</b> entre trois centres de recherche (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
 et quatre associations (Jeune et Citoyen, le musée BELvue, Infor-Jeunes asbl et la Ligue des Droits Humains).
 debagora.div4.a1=Pour toute demande d’information : <a href="mailto:info@debagora.be">info@debagora.be</a>
