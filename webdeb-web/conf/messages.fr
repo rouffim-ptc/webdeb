@@ -475,7 +475,7 @@ database.freesource.remove.error=Une erreur est survenue lors de la suppression 
 
 # general error messages
 error.hack=Il semblerait que vous tentiez d''accéder à une page à laquelle vous n''avez pas accès...
-error.crash=Une erreur imprévue est survenue, veuillez réessayer dans quelques minutes. >
+error.crash=Une erreur imprévue est survenue, veuillez réessayer dans quelques minutes. <br>\
  Si l''erreur persiste, contactez l''administrateur du site.
 error.oops=La page que vous cherchez n''existe pas/plus.
 error.form=Le formulaire d'encodage comporte des erreurs, veuillez les corriger.
