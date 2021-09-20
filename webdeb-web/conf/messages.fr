@@ -965,8 +965,8 @@ debate.edit.title.label=Suite de la question
 debate.edit.ambiguity.title=Voici les débats déjà encodés dans WebDeb ayant un intitulé similaire. Un de ces débats, déjà dans WebDeb, coïncide-t-il avec le vôtre ?
 debate.edit.ambiguity.yes.label=Oui ? Sélectionnez-le :
 debate.edit.more.title=Quelques informations sur votre débat (par exemple pour définir un terme, présenter le projet en débat, donner quelques éléments du contexte)
-debate.edit.more.description.label=Texte libre (maximum 1500 signes)
-debate.edit.more.description.error=La description doit faire maximum 1500 signes
+debate.edit.more.description.label=Texte libre (maximum 1.500 signes)
+debate.edit.more.description.error=La description doit faire maximum 1.500 signes
 debate.edit.more.externalurls.title=Hyperliens
 debate.edit.more.externalurls.label=Hyperliens pour en savoir plus sur ce débat
 debate.edit.more.externalurls.url.label=URL
@@ -4077,10 +4077,10 @@ S'il s''agit d'un extrait, indiquez clairement qu'il s'agit d'un extrait du text
  du premier volume de Harry Potter, encodez : Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.
 bubble.entry.text.URL=Entrez ici l''adresse internet précise du site d''où provient le texte.\
 Si vous ne la connaissez pas, cochez "non" à la question précédente et n''encodez pas d''URL.
-bubble.entry.debate.multiple=Si le débat ne consiste pas à comparer plusieurs propositions différentes, ne cochez rien. \
+bubble.entry.debate.multiple=Si le débat ne consiste pas à comparer plusieurs propositions différentes, ne cochez rien. <br>\
 Dans le cas contraire, cochez la case. <br><br>\
 <b>Exemples</b> : <br>\
-"Quels sont les points forts et faibles de la 5G" ne compare pas plusieurs options; on ne parle que de 5G\
+"Quels sont les points forts et faibles de la 5G" ne compare pas plusieurs options; on ne parle que de 5G <br>\
 "Quels sont les points forts et faibles des films du festival de Cannes 2021" compare les différents films.
 bubble.entry.debate.description=Introduisez ici une description du débat. Cet espace permet de contextualiser le débat, \
 d’entrer quelques informations supplémentaires ou de guider la réflexion. <br>\
