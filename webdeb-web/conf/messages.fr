@@ -1118,7 +1118,7 @@ actor.label.affiliation.org.affiliations=Affiliations à des organisations ou à
 actor.label.affiliation.org.affiliationsForm=Affiliations à des organisations ou à des actionnaires individuels
 actor.label.affiliation.org.orgaffiliations=Affiliations à des organisations ou à des actionnaires individuels
 actor.label.affiliation.org.orgaffiliationsForm=Affiliations à des organisations ou à des actionnaires individuels
-actor.label.affiliation.org.name=Nom de l’organisation, projet, produit ou événement (ou de la personne qui est actionnaire ou a un cabinet)
+actor.label.affiliation.org.name=Nom de l’organisation, (ou de la personne qui est actionnaire ou a un cabinet)
 actor.label.affiliation.org.allnames=autres noms
 actor.label.affiliation.org.alloldnames=anciens noms
 actor.label.affiliation.org.afftype=Type d''affiliation
@@ -4147,6 +4147,7 @@ Si cet objet social apparait dans le menu déroulant, sélectionnez-le.
 bubble.entry.actor.headoffice=Encodez-ici le lieu qui accueille le siège social de l'organisation. <br>\
 Lors de l'encodage, des propositions aparaissent dans un menu déroulant. Si le lieu que vous souhaitez <br>\
 encoder apparait dans la listen sélectionnez-le.
+bubble.entry.actor.sector=Si c'est nécessaire, cochez plusieurs cases.
 
 #covid-19
 covid19.title=Surfez sur les nombreuses pages « Covid-19 »
