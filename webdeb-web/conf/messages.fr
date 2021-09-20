@@ -4144,7 +4144,9 @@ bubble.entry.actor.translate.orgname=Si l''organisation a un autre nom dans une 
 bubble.entry.actor.tags=Encodez librement l''objet social de l''organisation. <br>\
 Si l''organisation a plusieurs objets sociaux, encodez-les séparément en utilisant le carré +. <br>\
 Si cet objet social apparait dans le menu déroulant, sélectionnez-le.
-
+bubble.entry.actor.headoffice=Encodez-ici le lieu qui accueille le siège social de l'organisation. <br>\
+Lors de l'encodage, des propositions aparaissent dans un menu déroulant. Si le lieu que vous souhaitez <br>\
+encoder apparait dans la listen sélectionnez-le.
 
 #covid-19
 covid19.title=Surfez sur les nombreuses pages « Covid-19 »
