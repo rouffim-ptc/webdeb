@@ -4218,7 +4218,7 @@ debagora.div1.text=L’'outil pédagogique Débagora propose des activités et d
 debagora.div2.title=Outil d''éducation au politique
 debagora.div2.text=L’'outil pédagogique Débagora propose des activités et des repères pour : \
 <ul> \
-   <li>initier les jeunes aux processus de délibération conflictuelle et égalitaire ; </li> \
+   <li>initier les jeunes au processus de délibération conflictuelle et égalitaire ; </li> \
    <li>identifier les parties prenantes au débat et leurs rapports de force ; </li> \
    <li>expérimenter l’ensemble du processus démocratique, depuis la problématisation d’une question jusqu’à l’intervention publique. </li> \
 </ul>
