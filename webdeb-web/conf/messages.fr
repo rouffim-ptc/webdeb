@@ -979,8 +979,9 @@ debate.edit.tags.places.label=Le débat concerne-t-il un ou des territoires part
 debate.edit.tags.authors.label=Le débat porte-t-il sur un ou plusieurs acteurs (individus ou organisations) ?
 debate.tags.label=À quelle(s) question(s) répond le débat ?*
 bubble.entry.tags.debate.tags.label=Exemple : pour le débat "faut-il ou non ajouter des bulles explicatives dans les \
-  formulaires de WebDeb", je pourrais indiquer "que dit-on sur les bulles d''aides explicatives" et \
-  "que dit-on sur les formulaires WebDeb".
+  formulaires de WebDeb", on pourrait indiquer "...les bulles d''aides explicatives" et \
+  "...les formulaires WebDeb". <br><br>\
+  Remplissez au moins l'un des deux champs.
 
 bubble.citation.title.extraitoriginal=Bulle de test
 bubble.citation.content.extraitoriginal=Contenu de la bulle de test. <br>\
