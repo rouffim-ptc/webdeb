@@ -4209,26 +4209,26 @@ debagora.download.title=Télécharger l’entièreté de l’outil
 debagora.div1.title=Outil d''éducation au débat
 debagora.div1.text=L’'outil pédagogique Débagora propose des activités et des repères pour :\
 <ul> \
-   <li>Collecter du contenu</li> \
-   <li>Soutenir une opinion avec des arguments  solides</li> \
-   <li>Multiplier les angles de vue sur une même question</li> \
-   <li>Mettre cette opinion en débat dans un cadre respectueux  </li> \
+   <li>collecter du contenu ; </li> \
+   <li>soutenir une opinion avec des arguments  solides ; </li> \
+   <li>multiplier les angles de vue sur une même question ; </li> \
+   <li>mettre cette opinion en débat dans un cadre respectueux ; </li> \
 </ul>
 
 debagora.div2.title=Outil d''éducation au politique
 debagora.div2.text=L’'outil pédagogique Débagora propose des activités et des repères pour : \
 <ul> \
-   <li>Initier les jeunes aux processus de délibération conflictuelle et égalitaire</li> \
-   <li>Identifier les parties prenantes au débat et leurs rapports de force</li> \
-   <li>Expérimenter l’ensemble du processus démocratique, depuis la problématisation d’une question jusqu’à l’intervention publique</li> \
+   <li>initier les jeunes aux processus de délibération conflictuelle et égalitaire ; </li> \
+   <li>identifier les parties prenantes au débat et leurs rapports de force ; </li> \
+   <li>expérimenter l’ensemble du processus démocratique, depuis la problématisation d’une question jusqu’à l’intervention publique. </li> \
 </ul>
 
 debagora.div3.title=Un outil modulable
 debagora.div3.text=L’'outil pédagogique Débagora : \
 <ul> \
-   <li>est adapté à un public âgé de <b>15 ans et plus</b></li> \
-   <li>se compose de <b>huit modules</b> combinables ou utilisables de manière indépendante ;</li> \
-   <li>présente des <b>activités</b> concrètes, mais aussi des <b>repères</b> théoriques et méthodologiques  ;</li> \
+   <li>est adapté à un public âgé de <b>15 ans et plus ; </b></li> \
+   <li>se compose de <b>huit modules</b> combinables ou utilisables de manière indépendante ; </li> \
+   <li>présente des <b>activités</b> concrètes, mais aussi des <b>repères</b> théoriques et méthodologiques  ; </li> \
    <li>propose l’usage de la <b>plateforme numérique <a class="primary" href="https://webdeb.be">WebDeb</a></b> pour favoriser les échanges entre participants.</li> \
 </ul>
 
