@@ -228,9 +228,8 @@
                     }
 
                     @stepformOption(citationForm("authorType"), EAuthorType.ORGANIZATIONS.id().toString){
-                        @helpbubble("bubble.title", "bubble.entry.citation.orgauthor")
 						<hr>
-						@authorsimplediv(citationForm, "authorsOrgs", null, "text.label.author.org.place.name")
+						@authorsimplediv(citationForm, "authorsOrgs", helpbubble("bubble.title", "bubble.entry.citation.orgauthor"), "text.label.author.org.place.name")
                     }
 
                     @stepformOption(citationForm("authorType"), null, null, null, "citationAuthorsAreTextAuthors") {
