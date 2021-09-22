@@ -816,7 +816,7 @@ entry.citation.text.source.other.title.label=Titre du texte
 entry.citation.authors.title=Qui tient les propos mentionnés dans la citation ?*
 entry.citation.authors.person.label=Une ou des personnes ?
 entry.citation.authors.org.label=Une ou des organisations ?
-entry.citation.authors.textauthors.label=S’agit-il des auteurs du texte ?*
+entry.citation.authors.textauthors.label=S''agit-il du ou des auteurs du texte ?*
 
 
 entry.citation.tags.title=Classez la citation dans WebDeb
