@@ -4123,11 +4123,16 @@ Commencez à entrer le nom et sélectionnez-le dans le menu déroulant s''il y a
 il faut bien différencier le journaliste de l''autre personne, qui peut être auteur de la citation mais pas du texte.
 bubble.entry.citation.tags=Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand \
 joueur de foot au monde", je pourrais indiquer "l''identité du plus grand joueur de foot au monde".<br>\
-Remplissez au moins l'un des deux champs.
+Remplissez au moins l''un des deux champs.
 bubble.entry.citation.citedactors=Si la citation mentionne clairement et directement un individu ou une organisation, indiquez-le(s) ici. \
-Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand joueur de foot au monde", indiquez "Romelu Lukaku".
+Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand joueur de foot au monde", indiquez "Romelu Lukaku". <br><br>\
+Pour une personne, indiquez son prénom et son nom. Pour une organisation, indiquez son nom complet (ex. : Organisation des Nations Unies plutôt qu’ONU). <br>/
+Lors de l’encodage, WebDeb vous proposera peut-être un ou plusieurs noms. Si l’un d’entre eux correspond à celui que vous vouliez encoder, sélectionnez-le. <br>
+Sinon, achevez votre encodage. Si la citation parle de plusieurs personnes ou organisations, distinguez-les en utilisant le bouton +. 
 bubble.entry.citation.citedplace=Si la citation concerne un territoire limité, cochez "oui" et indiquez le lieu concerné. \
-Si la citation n'est pas limitée à une région, mais est valide partout dans le monde, cochez "non".
+Si la citation n''est pas limitée à une région, mais est valide partout dans le monde, cochez "non". <br><br>\
+Sélectionnez obligatoirement l’une des propositions qui vous est faite lorsque vous commencez à encoder le nom du territoire. <br>\
+Si la citation concerne plusieurs territoires, distinguez-les en utilisant le bouton +. 
 bubble.entry.actor.actortype=Sélectionnez le type d''acteur que vous souhaitez encoder. Il peut s''agir d''une personne seule, un individu, ou une organisation. \
 <b> Attention : </b>Un acteur est une personne physique ou morale, un projet, une marque, ...  clairement identifiée. « Les belges » ou « les entreprises \
 de télécommunications » ne sont pas considérés comme des acteurs car ils ne sont pas limités clairement. Par contre, « WebDeb », \

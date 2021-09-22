@@ -291,7 +291,8 @@
 
             <hr class="mt-4 mb-4">
                 
-            @stepformOptionChoices(citationForm("hasCitedactors"), Messages("entry.citation.citedauthors.label"), null, "2") @helpbubble("bubble.title", "bubble.entry.citation.citedactors")
+            @stepformOptionChoices(citationForm("hasCitedactors"), Messages("entry.citation.citedauthors.label"), null, "2")
+			@helpbubble("bubble.title", "bubble.entry.citation.citedactors")
 
             @stepformOption(citationForm("hasCitedactors"), "2"){
                 @authorsimplediv(citationForm, "citedactors")
@@ -300,10 +301,11 @@
             <hr class="mt-4 mb-4">
 
             @stepformOptionChoices(citationForm("hasPlaces"), Messages("entry.citation.places.label"), null, "1")
-
-            @stepformOption(citationForm("hasPlaces"), "1"){
+			@helpbubble("bubble.title", "bubble.entry.citation.citedplace")
+            
+			@stepformOption(citationForm("hasPlaces"), "1"){
                 @placediv(citationForm, "text.label.places")
-				@helpbubble("bubble.title", "bubble.entry.citation.citedplace")
+				
             }
 
             @*
@@ -320,6 +322,7 @@
             @citationPreview()
 
             @stepformOptionChoices(citationForm("removeFromOriginalExcerpt"), Messages("entry.citation.workingExcerpt.label1"), true, "1")
+			@helpbubble("bubble.title", "bubble.entry.citation.toomuchinfo")
 
             @stepformOption(citationForm("removeFromOriginalExcerpt"), "1") {
                 <div class="col-12 input-field">
@@ -329,7 +332,7 @@
                         null,
                         true,
 						null, null,
-						helpbubble("bubble.title", "bubble.entry.citation.toomuchinfo")
+						
 						)
                 </div>
             }
@@ -340,6 +343,7 @@
             @citationPreview()
 
             @stepformOptionChoices(citationForm("addToExcerpt"), Messages("entry.citation.workingExcerpt.label2"), true, "1")
+			@helpbubble("bubble.title", "bubble.entry.citation.toolittleinfo")
 
             @stepformOption(citationForm("addToExcerpt"), "1") {
                 <div class="col-12 input-field">
@@ -349,7 +353,7 @@
                     null,
                     true,
 					null, null,
-					helpbubble("bubble.title", "bubble.entry.citation.toolittleinfo")
+					
                     )
                 </div> 
             }
