@@ -82,12 +82,13 @@ welcome.index.whatis.3=Pour savoir qui est qui et qui dit quoi et y voir clair d
 welcome.index.whatis.4=Une mine d’'informations 
 welcome.index.whatis.5=Sur les acteurs, les débats, les positions et les arguments
 welcome.index.whatis.6=Un site gratuit et ouvert   
-welcome.index.whatis.7=Vous pouvez le consulter sans vous enregistrer   
+welcome.index.whatis.7=Vous pouvez le consulter sans vous enregistrer 
 welcome.index.whatis.8=Un outil collaboratif  
 welcome.index.whatis.9=Vous pouvez ajouter ou modifier une information
 welcome.index.whatis.10=Un site indépendant
+welcome.index.whatis.11=WebDeb n''est lié à aucun parti, mouvement ou administration, et ne soutient aucune cause.
 welcome.index.whatis.12=Une plateforme tous terrains    
-welcome.index.whatis.13=Tous les débats peuvent être abordés, dans toutes les langues   
+welcome.index.whatis.13=Tous les débats peuvent être abordés, dans toutes les langues
 
 welcome.index.whatshows.1=Ce que montre
 welcome.index.whatshows.2=Le parcours d’une personne
@@ -173,9 +174,9 @@ general.contributors=avec {0} contributeurs
 general.contributions=contient {0} contributions
 general.contributions.complete=et
 general.contributions.no.result=Aucun résultat
-general.contributions.search.instructions=Commencez à taper pour rechercher, appuyez ensuite sur <i>enter</i> ou sur la loupe pour voir les résultats. 
+general.contributions.search.instructions=Commencez à taper pour rechercher, appuyez ensuite sur enter ou sur la loupe pour voir les résultats. 
 general.citations.search.instructions=Commencez à taper pour rechercher, appuyez ensuite sur enter ou sur la loupe pour voir les résultats. \
-  Sélectionnez ensuite une ou plusieurs citations, puis cliquez sur le bouton <i>enregistrer</i>
+  Sélectionnez ensuite une ou plusieurs citations, puis cliquez sur le bouton enregistrer.
 general.continue.title=Continuer
 general.classify.title=Classer
 general.results.see.more=Plus de résultats
@@ -309,6 +310,7 @@ general.filter.ctype.3=Citation
 general.filter.ctype.2=Texte
 general.filter.ctype.6=Dossier
 general.filter.title.ctype=Filtrer par type de contribution
+general.filter.delete.title= Réinitialiser les filtres
 
 general.filter.label.name=Nom de l''acteur
 general.filter.title.name=Filtrer par noms de l''acteur ou auteur impliqué
@@ -349,8 +351,8 @@ general.filter.title.sector=Filtrer par secteur d''activité de l''organisation
 general.filter.label.publidate=Date de publication
 general.filter.title.publidate=Filtrer par date de publication
 
-general.filter.label.publidate.from=Depuis (aaaa, mm/aaaa ou dd/mm/aaaa)
-general.filter.label.publidate.to=Jusqu''à (aaaa, mm/aaaa ou dd/mm/aaaa)
+general.filter.label.publidate.from=Depuis (aaaa, mm/aaaa ou jj/mm/aaaa)
+general.filter.label.publidate.to=Jusqu''à (aaaa, mm/aaaa ou jj/mm/aaaa)
 
 general.filter.label.language=Langue
 general.filter.title.language=Filtrer par langue des contributions
@@ -413,8 +415,8 @@ contribution.claim.title=Signaler
 contribution.claim.type.title=Description du problème
 contribution.claim.comment.title=Commentaire
 contribution.claim.from.title=Signalé depuis
-contribution.claim.type.0=Inexacte
-contribution.claim.type.1=Offensant
+contribution.claim.type.0=Contenu inexact
+contribution.claim.type.1=Contenu offensant
 contribution.claim.type.2=Publicité / Spam
 
 #
@@ -751,8 +753,8 @@ contributor.delete.account.btn=Supprimer mon compte
 contributor.delete.account.pwd=Mot de passe incorrect !
 contributor.isDeleted=Contributeur supprimé
 
-contributor.contributions.recent.true=Voici toutes vos contributions, triées par dates.
-contributor.contributions.recent.false=Voici toutes ses contributions, triées par dates.
+contributor.contributions.recent.true=Voici toutes vos contributions, triées par date
+contributor.contributions.recent.false=Voici toutes ses contributions, triées par date
 contributor.contributions.search.addon.true=Chercher une de vos contributions
 contributor.contributions.search.addon.false=Chercher une de ses contributions
 contributor.contributions.search.place.true=Commencez à taper pour chercher parmi vos contributions
@@ -1105,13 +1107,13 @@ actor.label.affiliation.person.affiliationsForm=Fonctions et affiliations de la 
 actor.label.affiliation.person.name=Nom de l’organisation (du projet, de l’événement)
 actor.label.affiliation.person.function=Fonction ou titre
 
-actor.label.affiliation.qualification.qualifications=Formations suivies par la personne 
-actor.label.affiliation.qualification.qualificationsForm=Formations suivies par la personne 
+actor.label.affiliation.qualification.qualifications=Formations 
+actor.label.affiliation.qualification.qualificationsForm=Formations
 actor.label.affiliation.qualification.name=Nom de l’organisation de formation
 actor.label.affiliation.qualification.function=Titre de la formation
 
-actor.label.affiliation.filiation.parents=A comme parents
-actor.label.affiliation.filiation.children=A comme enfants
+actor.label.affiliation.filiation.parents=Nom des parents
+actor.label.affiliation.filiation.children=Nom des enfants
 actor.label.affiliation.filiation.parentsForm=Filiation de la personne
 actor.label.affiliation.filiation.name=Prénom et nom du père ou de la mère
 
@@ -1127,7 +1129,7 @@ actor.place.affiliation.org.afftype=Choisir un type
 
 actor.label.affiliated.person.affiliations=Personnes affiliées et leurs fonctions
 actor.label.affiliated.person.name=Nom de l’organisation, projet, produit ou événement
-actor.label.affiliated.person2.name=Nom de l''individu
+actor.label.affiliated.person2.name=Nom de l''individu*
 actor.label.affiliated.person.function=Fonction ou titre
 actor.label.affiliated.person2.function=Fonction ou titre
 actor.label.affiliated.person.afftype=Type d''affiliation
@@ -1396,7 +1398,7 @@ text.args.label.tab.actors=Acteurs du texte
 text.args.label.tab.text=Voir toutes les données sur le texte
 text.args.desc.tab.actors=Voici les acteurs identifiés dans le texte.
 text.args.label.author=Auteur(s) du texte
-text.args.add.new=Ajouter une nouvelle citation en surlignant l’extrait dans le texte si dessous ou en encodant la citation dans le formulaire en dessous du texte (et en cliquant ensuite sur le crayon)
+text.args.add.new=Ajouter une nouvelle citation en surlignant l’extrait dans le texte ci-dessous ou en encodant la citation dans le formulaire en dessous du texte (et en cliquant ensuite sur le crayon)
 text.exc.label.tab.excerpts=Extraire les citations
 text.exc.label.tab.excerpt.add=Ajouter une citation
 text.exc.desc.tab.excerpts=Voici la liste des citations édités du texte. Pour modifer une citation, cliquez sur \
@@ -1566,6 +1568,7 @@ browse.search.title=Rechercher
 browse.search.ingroup=dans le groupe {0}
 browse.search.tooltip=Lancer la recherche dans la base de connaissance
 browse.search.place.alt=Cherchez dans WebDeb
+browse.search.place=Tapez votre recherche ici
 browse.search.error=Une erreur est survenue lors de l''exécution de votre recherche.
 browse.search.noresult=Aucune contribution n''a été trouvée.
 browse.search.noresult.0=Aucun acteur n''a été trouvé.
@@ -1640,7 +1643,7 @@ viz.admin.merge.search.place.0=Chercher par nom
 viz.admin.merge.search.place.1=Chercher par forme standard, auteur ou titre de texte
 viz.admin.merge.search.place.2=Chercher par titre ou auteur
 viz.admin.merge.search.place.6=Chercher par nom
-viz.admin.merge.search.instructions=Commencez à taper pour afficher les suggestions et lancer la recherche avec <span \
+viz.admin.merge.search.instructions=Commencez à taper pour afficher les suggestions et lancez la recherche avec <span \
   class="fa fa-search"></span>
 viz.admin.merge.search.title=Rechercher une contribution à fusionner
 viz.admin.merge.title=Fusionner cette contribution
@@ -1917,7 +1920,7 @@ viz.actor.title.1=Organisation
 viz.actor.title.2=Projet, marque, évènement
 viz.actor.pill.cartography2=Personnes
 viz.actor.pill.cartography=Affiliations
-viz.actor.desc.cartography.1=Personnes qui composent cette organisation.
+viz.actor.desc.cartography.1=Personnes qui composent cette organisation
 viz.actor.desc.cartography.1.bis=A quelles organisations est lié cet acteur ? 
 viz.actor.desc.cartography.0=Le CV de {0}
 viz.actor.pill.radiography=Propos
@@ -2035,11 +2038,11 @@ viz.actor.citations.debates.title=Débats
 viz.actor.citations.tags.title=Dossiers
 viz.actor.citations.texts.title=Textes
 
-viz.actor.citations.list.empty.title.0=Cet acteur n''est auteur d''aucune citation.
-viz.actor.citations.empty.debates.title.0=Cet acteur n''est auteur d''aucune citation dans aucun débat.
+viz.actor.citations.list.empty.title.0=Cet acteur n''est auteur d''aucune citation recensée sur WebDeb.
+viz.actor.citations.empty.debates.title.0=Cet acteur n''est auteur d''aucune citation, dans aucun débat recensé sur WebDeb.
 
-viz.actor.citations.list.empty.title.3=Cet acteur n''est cité dans aucune citation.
-viz.actor.citations.empty.debates.title.3=Cet acteur n''est cité dans aucune citation dans aucun débat.
+viz.actor.citations.list.empty.title.3=Cet acteur n''est cité dans aucune citation recensée sur WebDeb.
+viz.actor.citations.empty.debates.title.3=Cet acteur n''est cité dans aucune citation, dans aucun débat recensé sur WebDeb.
 
 # Actor type
 viz.actor.type.-1=Inconnus :
@@ -2118,7 +2121,7 @@ viz.debate.position.-1.2=Indécis (peut-être ou ne sait pas)
 viz.debate.position.-1.3=Pas d''accord
 viz.debate.position.-1.4=Pas du tout d''accord
 
-viz.debate.position.instructions=Déplacez le curseur pour changer le degré de positionnement
+viz.debate.position.instructions=Déplacez le curseur pour changer le degré de conviction
 
 viz.debate.arguments.argument=Argument
 viz.debate.arguments.author=Auteur
@@ -2230,12 +2233,12 @@ viz.tag.arguments.citations.children.empty=Il n''y a pas de sous-dossier
 
 viz.tag.debates.debates.empty=Ce dossier ne contient pas de débat
 
-viz.citations.empty=Il n''y a pas de citations dans lié à cette contribution
+viz.citations.empty=Aucun texte signé par cet acteur ou comportant une citation de cet acteur n''a été recensé sur WebDeb.
 viz.citations.arguments.empty=Il n''y a pas de citations dans les arguments du débat
 viz.citations.positions.empty=Il n''y a pas de citations dans les positions du débat
 viz.citations.positions.subdebate.empty=Il n''y a pas de citations dans les positions du sous-débat
 
-viz.positions.actor.empty=Cet acteur ne s''est positionné dans aucun débat.
+viz.positions.actor.empty=Aucune position de cet acteur n''a été recensée dans un débat analysé sur WebDeb.
 viz.positions.actor.title=Degré d’accord ou de désaccord d’acteurs avec les positions défendues par {0}
 viz.positions.actor.debate.title=Proximité/éloignement des positions défendues par {0} par rapport à celles de {1} dans divers débats
 viz.positions.actor.debate.close=Proche
@@ -3515,9 +3518,9 @@ bubble.entry.text.area=Vous ne pouvez copier l''intégralité d''un texte que s'
   (texte tombé dans le domaine public, ou avec autorisation de reproduction, ou émanant d''instances publiques). \
   Si le texte est un PDF, veuillez si possible insérer son URL (elle doit finir par .pdf), ou alors l''importer depuis vos fichier en appuyant sur le bouton "parcourir". \
   Dans les autres cas, WebDeb insèrera automatiquement la page du site web si le site qui héberge le texte l''autorise. <br/><br/> \
-  Si vous souhaitez intégrer une vidéo ou une post sur un réseau social, WebDeb l''affichera automatiquement depuis l'URL fourni plus haut. <br/><br/> \
-  <b>Attention :</b> Si vous entrez l'URL d'une vidéo, d'un extrait audio ou d'un post d'un réseau social, vous n'aurez pas accès au script ou au texte. \
-  Si vous souhaitez analyser le texte d'une vidéo, par exemple, vous devrez en encoder le texte manuellement.
+  Si vous souhaitez intégrer une vidéo ou une post sur un réseau social, WebDeb l''affichera automatiquement depuis l''URL fourni plus haut. <br/><br/> \
+  <b>Attention :</b> Si vous entrez l''URL d''une vidéo, d''un extrait audio ou d''un post d'un réseau social, vous n''aurez pas accès au script ou au texte. \
+  Si vous souhaitez analyser le texte d''une vidéo, par exemple, vous devrez en encoder le texte manuellement.
 
 bubble.entry.text.area.2=Vous ne pouvez copier l''intégralité d''un texte que s''il est libre de droit \
   (texte tombé dans le domaine public, ou avec autorisation de reproduction, ou émanant d'instances publiques). \
@@ -3979,7 +3982,7 @@ election.2019.stats.6.subject.1.headtitle=Partis et individus
 election.2019.stats.6.subject.1.subtitle.1=Élu
 election.2019.stats.6.subject.1.subtitle.2=Genre
 election.2019.stats.6.subject.1.subtitle.3=Age
-election.2019.stats.6.subject.1.subtitle.4=Résidence
+election.2019.stats.6.subject.1.subtitle.4=Pays de résidence
 election.2019.stats.6.subject.1.subtitle.5=Mandat communal actuel
 election.2019.stats.6.subject.1.subtitle.6=Fonction à la fin de la législature bruxelloise précédente
 election.2019.stats.6.subject.1.subtitle.7=A déjà été ministre ou secrétaire d''état
@@ -4083,8 +4086,8 @@ bubble.entry.text.title=Indiquez ici le titre du texte tel qu''il apparait dans 
 S''il s''agit d''un extrait, indiquez clairement qu''il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
  du premier volume de Harry Potter, encodez : <i>Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.</i>
 bubble.entry.text.URL=Entrez ici l''adresse internet précise du site d''où provient le texte.\
-Si le texte n''est pas disponible en ligne, ou que vous n''en connaissez pas l''adresse \
-Laissez ce champ vide.
+Si le texte n''est pas disponible en ligne, ou que vous n''en connaissez pas l''adresse, \
+laissez ce champ vide, et/ou cochez "Non" à la question précédente.
 bubble.entry.debate.multiple=Si le débat ne consiste pas à comparer plusieurs propositions différentes, ne cochez rien. <br>\
 Dans le cas contraire, cochez la case. <br><br>\
 <b>Exemples</b> : <br>\
@@ -4112,7 +4115,7 @@ Un pronom peu clair, un adjectif démonstratif sans sujet évident,… Il faut r
 soit compréhensible sans devoir retourner dans le texte original.
 bubble.entry.argument.start=Sélectionnez dans la liste un début de phrase pour votre argument. Choisissez "Il est vrai que..." pour une phrase descriptive, \
 "Il faut..." pour une phrase prescriptive, et [Début d''argument libre] pour écrire un argument librement, sans début de phrase pré-sélectionné.
-bubble.entry.argument.rest=Écrivez ici la suite de votre argument. Donnez tous les éléments nécessaire à la bonne compréhension de l'argument \
+bubble.entry.argument.rest=Écrivez ici la suite de votre argument. Donnez tous les éléments nécessaire à la bonne compréhension de l''argument \
 mais tentez de laisser la phrase aussi courte et percutante que possible.
 
 bubble.entry.citation.whatsource=Indiquez ici d''où le document qui contient la citation provient. Si vous n''êtes pas sûr, indiquez "autre source". \
