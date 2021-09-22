@@ -4126,8 +4126,8 @@ joueur de foot au monde", je pourrais indiquer "l''identité du plus grand joueu
 Remplissez au moins l''un des deux champs.
 bubble.entry.citation.citedactors=Si la citation mentionne clairement et directement un individu ou une organisation, indiquez-le(s) ici. \
 Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand joueur de foot au monde", indiquez "Romelu Lukaku". <br><br>\
-Pour une personne, indiquez son prénom et son nom. Pour une organisation, indiquez son nom complet (ex. : Organisation des Nations Unies plutôt qu’ONU). <br>/
-Lors de l’encodage, WebDeb vous proposera peut-être un ou plusieurs noms. Si l’un d’entre eux correspond à celui que vous vouliez encoder, sélectionnez-le. <br>
+Pour une personne, indiquez son prénom et son nom. Pour une organisation, indiquez son nom complet (ex. : Organisation des Nations Unies plutôt qu’ONU). <br>\
+Lors de l’encodage, WebDeb vous proposera peut-être un ou plusieurs noms. Si l’un d’entre eux correspond à celui que vous vouliez encoder, sélectionnez-le. <br>\
 Sinon, achevez votre encodage. Si la citation parle de plusieurs personnes ou organisations, distinguez-les en utilisant le bouton +. 
 bubble.entry.citation.citedplace=Si la citation concerne un territoire limité, cochez "oui" et indiquez le lieu concerné. \
 Si la citation n''est pas limitée à une région, mais est valide partout dans le monde, cochez "non". <br><br>\
