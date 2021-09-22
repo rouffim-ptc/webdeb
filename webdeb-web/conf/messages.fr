@@ -3471,9 +3471,9 @@ en lettre(s) capitale(s) (excepté les particules), suivies de lettres minuscule
 Neruda</i> et non <i>Pablo NERUDA</i>.<p> Si l''auteur est une <b>organisation</b>, le nom entier doit être encodé et non \
 le sigle ou l''acronyme.<p class="indent">Ainsi, on écrira <i>Organisation des Nations unies</i> dans le champ du nom complet \
 et non <i>ONU</i>.</p>
-bubble.entry.text.sourceTitle=Indiquez ici l'éditeur qui a publié ce texte. Il peut s'agir par exemple:\
+bubble.entry.text.sourceTitle=Indiquez ici l''éditeur qui a publié ce texte. Il peut s''agir par exemple:\
 <ul>\
-<li>De la maison d'édition qui a publié le livre ou l''article dont est issu le texte.</li>\
+<li>De la maison d''édition qui a publié le livre ou l''article dont est issu le texte.</li>\
 <li>Du nom du magazine ou de la revue qui contient l''article.</li>\
 <li>Du site internet, de l''émission télévisée ou du réseau social à l'origine du texte.\
 </ul>
@@ -3488,14 +3488,13 @@ Pour que la base de données WebDeb soit la plus cohérente possible, voici quel
 Tenir compte des suggestions qui apparaissent en-dessous du tag que vous êtes en train d’écrire. Si une suggestion vous convient, la sélectionner.\
 
 
-bubble.entry.text.publication= Pour un texte non \
-traduit, la date de publication est la date à laquelle le texte a été publié ou énoncé la première fois. Ainsi, lorsque vous encodez un \
-passage du célèbre discours <i>I&nbsp;have a dream</i> de Martin Luther King que vous trouvez sur votre blog préféré, vous n''indiquez \
-pas l''année de sortie sur votre blog, vous indiquez <i>28/08/1963</i>.<br /><br />\
+bubble.entry.text.publication= Pour un texte non traduit, la date de publication est la date à laquelle le texte a été publié ou <br>
+énoncé la première fois. Ainsi, lorsque vous encodez un passage du célèbre discours <i>I&nbsp;have a dream</i> de Martin Luther King <br>
+que vous trouvez sur votre blog préféré, vous n''indiquez pas l''année de sortie sur votre blog, vous indiquez <i>28/08/1963</i>.<br><br>\
 Pour un texte traduit, la date de publication est la date à laquelle le texte est publié dans la source que \
 vous détaillez ci-après, par exemple via le lien Internet (et qui n''est pas forcément la source d''origine).<br /><br />\
-<br />La date de publication est une information obligatoire. Il se peut que vous ne la connaissiez pas ; dans ce cas, nous \
-vous demandons de cliquer sur le bouton <b>Date inconnue</b>. <br /><br />
+La date de publication est une information obligatoire. Il se peut que vous ne la connaissiez pas ; dans ce cas, nous \
+vous demandons de cliquer sur le bouton <b>Date inconnue</b>.
 
 bubble.entry.text.textType=Veuillez choisir un des types suivants :\
 <ul>\
@@ -4081,10 +4080,11 @@ N''indiquez pas l''adresse exacte, même si vous la connaissez : limitez-vous à
 bubble.entry.actor.placelang=Même pour un individu, une traduction peut exister. \
 Par exemple, le nom du président chinois, Xi Jinping, se traduit en mandarin par 习近平.
 bubble.entry.text.title=Indiquez ici le titre du texte tel qu''il apparait dans la source originale. \
-S'il s''agit d'un extrait, indiquez clairement qu'il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
- du premier volume de Harry Potter, encodez : Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.
+S''il s''agit d''un extrait, indiquez clairement qu''il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
+ du premier volume de Harry Potter, encodez : <i>Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.</i>
 bubble.entry.text.URL=Entrez ici l''adresse internet précise du site d''où provient le texte.\
-Si vous ne la connaissez pas, cochez "non" à la question précédente et n''encodez pas d''URL.
+Si le texte n''est pas disponible en ligne, ou que vous n''en connaissez pas l''adresse \
+Laissez ce champ vide.
 bubble.entry.debate.multiple=Si le débat ne consiste pas à comparer plusieurs propositions différentes, ne cochez rien. <br>\
 Dans le cas contraire, cochez la case. <br><br>\
 <b>Exemples</b> : <br>\
