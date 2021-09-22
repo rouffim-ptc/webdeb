@@ -3488,12 +3488,12 @@ Pour que la base de données WebDeb soit la plus cohérente possible, voici quel
 Tenir compte des suggestions qui apparaissent en-dessous du tag que vous êtes en train d’écrire. Si une suggestion vous convient, la sélectionner.\
 
 
-bubble.entry.text.publication= Pour un texte non traduit, la date de publication est la date à laquelle le texte a été publié ou <br>
-énoncé la première fois. Ainsi, lorsque vous encodez un passage du célèbre discours <i>I&nbsp;have a dream</i> de Martin Luther King <br>
+bubble.entry.text.publication= Pour un texte non traduit, la date de publication est la date à laquelle le texte a été publié ou <br>\
+énoncé la première fois. Ainsi, lorsque vous encodez un passage du célèbre discours <i>I&nbsp;have a dream</i> de Martin Luther King <br>\
 que vous trouvez sur votre blog préféré, vous n''indiquez pas l''année de sortie sur votre blog, vous indiquez <i>28/08/1963</i>.<br><br>\
-Pour un texte traduit, la date de publication est la date à laquelle le texte est publié dans la source que \
-vous détaillez ci-après, par exemple via le lien Internet (et qui n''est pas forcément la source d''origine).<br /><br />\
-La date de publication est une information obligatoire. Il se peut que vous ne la connaissiez pas ; dans ce cas, nous \
+Pour un texte traduit, la date de publication est la date à laquelle le texte est publié dans la source que <br>\
+vous détaillez ci-après, par exemple via le lien Internet (et qui n''est pas forcément la source d''origine).<br><br>\
+La date de publication est une information obligatoire. Il se peut que vous ne la connaissiez pas ; dans ce cas, nous <br>\
 vous demandons de cliquer sur le bouton <b>Date inconnue</b>.
 
 bubble.entry.text.textType=Veuillez choisir un des types suivants :\
