@@ -801,11 +801,11 @@ entry.citation.new=Ajouter une citation
 entry.citation.modify=Modifier une citation existante
 entry.citation.edit=Éditer la citation
 
-entry.citation.original.label=Extrait original
+entry.citation.original.label=Extrait original*
 entry.citation.working1.label=Supprimez du texte ci-dessous les parties en trop
 entry.citation.working2.label=Ajouter les informations supplémentaires entre crochets
 
-entry.citation.text.source.label=La citation provient-elle…
+entry.citation.text.source.label=La citation provient-elle…*
 entry.citation.text.source.internet.label=d''une page web
 entry.citation.text.source.pdf.label=d''un pdf
 entry.citation.text.source.other.label=d''une autre source
@@ -975,13 +975,13 @@ debate.edit.more.externalurls.alias.label=Titre
 debate.edit.more.externalurls.alias.place=Exemple : Page wikipédia d'Albert Einstein
 debate.edit.more.image.label=Ajouter une illustration au débat
 
-debate.edit.tags.places.label=Le débat concerne-t-il un ou des territoires particuliers ?
+debate.edit.tags.places.label=Le débat concerne-t-il un territoire particulier ?
 debate.edit.tags.authors.label=Le débat porte-t-il sur un ou plusieurs acteurs (individus ou organisations) ?
 debate.tags.label=À quelle(s) question(s) répond le débat ?*
 bubble.entry.tags.debate.tags.label=Exemple : pour le débat "faut-il ou non ajouter des bulles explicatives dans les \
   formulaires de WebDeb", on pourrait indiquer "...les bulles d''aides explicatives" et \
   "...les formulaires WebDeb". <br><br>\
-  Remplissez au moins l'un des deux champs.
+  Remplissez au moins l''un des deux champs.
 
 bubble.citation.title.extraitoriginal=Bulle de test
 bubble.citation.content.extraitoriginal=Contenu de la bulle de test. <br>\
@@ -1305,9 +1305,9 @@ text.extract.error.title=Erreur dans l''extraction du PDF
 text.label.author=Auteur(s)*
 text.label.author.name=Nom
 text.label.author.org.name=Nom
-text.label.author.pers.name=Prénom et nom
+text.label.author.pers.name=Prénom et nom*
 text.label.author.place.name=Personne ou organisation
-text.label.author.org.place.name=Nom de l''organisation
+text.label.author.org.place.name=Nom de l''organisation*
 text.label.author.pers.place.name=Prénom et nom de la personne
 text.label.author.function=Fonction ou mandat
 text.label.author.place.function=(optionnel)
@@ -4093,10 +4093,10 @@ bubble.entry.debate.urlstitle=Donnez un titre à cet hyperlien, qui sera visible
 bubble.entry.citation.originalexcerpt=Copiez ici le contenu original exact, <b>sans aucune modification</b>, de l''extrait de texte que vous souhaitez encoder.
 bubble.entry.citation.url.url=Entrez l''adresse internet précise de la page qui accueille le texte qui contient la citation.
 bubble.entry.citation.url.ortitle=Entrez l''adresse internet précise de la page qui accueille le pdf qui contient la citation. \
-Si vous n'avez pas trouvé ce texte en ligne, indiquez simplement son titre complet.
+Si vous n''avez pas trouvé ce texte en ligne, indiquez simplement son titre complet.
 bubble.entry.citation.url.justtitle=Indiquez ici le titre du texte tel qu''il apparait dans la source originale. \
-S''il s'agit d'un extrait, indiquez clairement qu''il s'agit d'un extrait du texte. Exemple : pour un extrait du second chapitre \
-du premier volume de Harry Potter, encodez : Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16.
+S''il s'agit d'un extrait, indiquez clairement qu''il s'agit d''un extrait du texte. Exemple : pour un extrait du second chapitre \
+du premier volume de Harry Potter, encodez : <i>Harry Potter à l''école des sorciers, chapitre 1, paragraphes 3 à 16</i>.
 bubble.entry.citation.toomuchinfo=Supprimez les éléments de langage inutiles, les digressions, les informations personnelles \
 et autres éléments qui ne sont pas nécessaire à la bonne compréhension de la citation. \
 Effacez simplement le texte excédentaire, et WebDeb mettra automatiquement les […] nécessaires.
@@ -4108,10 +4108,10 @@ bubble.entry.argument.start=Sélectionnez dans la liste un début de phrase pour
 bubble.entry.argument.rest=Écrivez ici la suite de votre argument. Donnez tous les éléments nécessaire à la bonne compréhension de l'argument \
 mais tentez de laisser la phrase aussi courte et percutante que possible.
 
-bubble.entry.citation.whatsource=Indiquez ici d''où le document qui contient la citation provient. Si vous n'êtes pas sûr, indiquez "autre source". \
-Si vous n'êtes pas certain du site internet exact, ou que vous ne retrouvez pas le PDF dont la citation est extraite, indiquez également "autre source".
-bubble.entry.citation.whosaydit=Qui parle dans cette citation? S''agit-il d'une personne isolée ou d''un groupe d'individus, ou bien d''une organisation structurée? \
-Commencez à entrer le nom et sélectionnez-le dans le menu déroulant s'il y apparait. <br> \
+bubble.entry.citation.whatsource=Indiquez ici d''où le document qui contient la citation provient. Si vous n''êtes pas sûr, indiquez "autre source". \
+Si vous n''êtes pas certain du site internet exact, ou que vous ne retrouvez pas le PDF dont la citation est extraite, indiquez également "autre source".
+bubble.entry.citation.whosaydit=Qui parle dans cette citation ? S''agit-il d''une personne isolée ou d''un groupe d''individus, ou bien d''une organisation structurée ? \
+Commencez à entrer le nom et sélectionnez-le dans le menu déroulant s''il y apparait. Si la citation est signée par plusieurs auteurs, distinguez-les en utilisant le bouton +<br><br> \
 <b>Attention :</b> ne confondez pas l''auteur de la citation et l''auteur du texte, il s''agit parfois de personnes différentes. Dans une interview, par exemple, \
 il faut bien différencier le journaliste de l''autre personne, qui peut être auteur de la citation mais pas du texte.
 bubble.entry.citation.tags=Exemple : pour la citation "Je suis convaincu que Romelu Lukaku est le plus grand \
@@ -4133,12 +4133,13 @@ Considérez la portée du débat que vous souhaitez lancer. Des questions larges
 qu’à quelques arguments. <br><br> \
 Exemple : pour un débat autour de la 5G, vous pouvez encoder votre débat sous la forme « Faut-il implémenter la 5G en Belgique? », « Est-il vrai ou non que la 5G est dangereuse pour la santé ? » \
 ou encore « Quels sont les points forts et faibles de la 5G ? ». Chaque formulation modifiera l’angle de réflexion.
-bubble.entry.debate.geolimits=Encodez le territoire concerné, si le débat est limité dans l’espace. Si ce n’'est pas le cas, cochez Non. Si vous souhaitez \
-limiter votre débat à une région précise, indiquez-le également dans la question de débat.
+bubble.entry.debate.geolimits=Encodez le territoire concerné, si le débat est limité dans l’espace. Si ce n’'est pas le cas, cochez "Non". Si vous souhaitez \
+limiter votre débat à une région précise, indiquez-le également dans la question de débat. <br><br> \
+Commencez à taper le début du nom, puis choisir obligatoirement parmi les suggestions.
 bubble.entry.debate.actorsin=Si le débat concerne directement un acteur (s'’il s’agit d’un débat à propos de quelqu'’un, par exemple), \
- cochez Oui et indiquez son nom. Si WebDeb connait l'’acteur, son nom est proposé dans un menu déroulant. Si le débat ne concerne pas directement une personne, \
- cochez Non. <br> \
-<b>Attention :</b>Un acteur est une personne physique ou morale, un projet, une marque, ...  clairement identifiée. « Les belges » ou « les sociétés de \
+ cochez "Oui" et indiquez son nom. Si WebDeb connait l'’acteur, son nom est proposé dans un menu déroulant. Si le débat ne concerne pas directement une personne, \
+ cochez "Non". <br> \
+<b>Attention :</b> Un acteur est une personne physique ou morale, un projet, une marque, ...  clairement identifiée. « Les belges » ou « les sociétés de \
  télécommunications » ne sont pas considérés comme des acteurs. Par contre, « WebDeb », « Philippe 1er » ou « Coca-Cola » sont valides.
 bubble.entry.text.isonweb=Indiquez ici si vous avez trouvé ce texte sur internet, ou savez où le trouver en ligne.
 bubble.entry.actor.translate.orgname=Si l''organisation a un autre nom dans une langue différente, ajoutez le ici.
@@ -4149,6 +4150,9 @@ bubble.entry.actor.headoffice=Encodez-ici le lieu qui accueille le siège social
 Lors de l'encodage, des propositions aparaissent dans un menu déroulant. Si le lieu que vous souhaitez <br>\
 encoder apparait dans la listen sélectionnez-le.
 bubble.entry.actor.sector=Si c'est nécessaire, cochez plusieurs cases.
+bubble.entry.citation.orgauthor=Entrez le nom complet de l''organisation, et non l''acronyme (Organisation des Nations Unies et non ONE).
+
+
 
 #covid-19
 covid19.title=Surfez sur les nombreuses pages « Covid-19 »
