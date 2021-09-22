@@ -4160,7 +4160,6 @@ Lors de l'encodage, des propositions aparaissent dans un menu déroulant. Si le 
 encoder apparait dans la listen sélectionnez-le.
 bubble.entry.actor.sector=Si c'est nécessaire, cochez plusieurs cases.
 bubble.entry.citation.orgauthor=Entrez le nom complet de l''organisation, et non l''acronyme (Organisation des Nations Unies et non ONE).
-bubble.entry.author.text.label.author=L''auteur d'un texte 
 
 
 #covid-19
