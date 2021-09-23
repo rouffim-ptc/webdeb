@@ -4227,7 +4227,7 @@ debagora.module8.text=Prendre part au débat sur les enjeux de société
 debagora.download.title=Télécharger l’entièreté de l’outil
 
 debagora.title=Débagora
-debagora.descritpion=Un outil d''éducation au politique et au débat
+debagora.description=Un outil d''éducation au politique et au débat
 
 debagora.div1.title=Un outil d''éducation au débat
 debagora.div1.text=L’'outil pédagogique Débagora propose des activités et des repères pour :\
