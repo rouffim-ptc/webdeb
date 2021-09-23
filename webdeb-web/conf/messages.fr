@@ -4226,7 +4226,7 @@ debagora.module8.text=Prendre part au débat sur les enjeux de société
 
 debagora.download.title=Télécharger l’entièreté de l’outil
 
-debagora.div1.title=Outil d''éducation au débat
+debagora.div1.title=Un outil d''éducation au débat
 debagora.div1.text=L’'outil pédagogique Débagora propose des activités et des repères pour :\
 <ul> \
    <li>collecter du contenu ; </li> \
@@ -4235,7 +4235,7 @@ debagora.div1.text=L’'outil pédagogique Débagora propose des activités et d
    <li>mettre cette opinion en débat dans un cadre respectueux ; </li> \
 </ul>
 
-debagora.div2.title=Outil d''éducation au politique
+debagora.div2.title=Un outil d''éducation au politique
 debagora.div2.text=L’'outil pédagogique Débagora propose des activités et des repères pour : \
 <ul> \
    <li>initier les jeunes au processus de délibération conflictuelle et égalitaire ; </li> \
@@ -4252,7 +4252,8 @@ debagora.div3.text=L’'outil pédagogique Débagora : \
    <li>propose l’usage de la <b>plateforme numérique <a class="primary" href="https://webdeb.be">WebDeb</a></b> pour favoriser les échanges entre participants.</li> \
 </ul>
 
-debagora.div4.title=Conçu par des professionnels de l’'éducation
+debagora.div4.title=Un outil vivant
 debagora.div4.text=Débagora est le <b>fruit d’une collaboration</b> entre trois centres de recherche (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
 et quatre associations (Jeune et Citoyen, le musée BELvue, Infor-Jeunes asbl et la Ligue des Droits Humains).
-debagora.div4.a1=Pour toute demande d’information : <a href="mailto:info@debagora.be">info@debagora.be</a>
+debagora.div4.a1=Cet outil peut être enrichi gràce à vos commentaires, questions, récits d'expériences,... <br>\
+<b>N'hésitez pas à nous contacter à :</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
