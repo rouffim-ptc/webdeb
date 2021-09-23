@@ -39,12 +39,13 @@
 
 @scripts = {
     <title></title>
-    <meta name="description" content="">
+    <meta name="description" content="@Messages("debagora.description")">
 
-    <meta property="og:title" content="Debagora" />
-    <meta property="og:description" content="" />
-    <meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.debagora().absoluteURL()" />
-    <meta property="og:image" content="@routes.Assets.at("images/webdeb_sharable.png").absoluteURL()" />
+	<meta property="og:title" content="@Messages("debagora.title")" />
+	<meta property="og:description" content="@Messages("debagora.description")" />
+	<meta property="og:url" content="@be.webdeb.presentation.web.controllers.routes.Application.debagora().absoluteURL()" />
+
+    <meta property="og:image" content="@routes.Assets.at("images/logo/debagora.png").absoluteURL()" />
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/teach_styles.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/design/contribuer_styles.css")">
