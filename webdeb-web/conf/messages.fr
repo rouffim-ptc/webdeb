@@ -4224,7 +4224,9 @@ debagora.module7.text=Défendre une opinion oralement
 debagora.module8.title=Module 8
 debagora.module8.text=Prendre part au débat sur les enjeux de société
 
-debagora.download.title=Télécharger l’entièreté de l’outil
+debagora.download.title=Télécharger l''entièreté de l''outil
+debagora.formation=Inscrivez-vous à la formation Débagora du 27 octobre, au musée BELvue. <br><br>
+Plus d'infos via info@debagora.be
 
 debagora.title=Débagora
 debagora.description=Un outil d''éducation au politique et au débat
