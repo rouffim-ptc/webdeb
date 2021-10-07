@@ -4259,4 +4259,4 @@ debagora.div4.title=Un outil vivant
 debagora.div4.text=Débagora est le <b>fruit d’une collaboration</b> entre trois centres de recherche (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
 et quatre associations (Jeune et Citoyen, le musée BELvue, Infor-Jeunes asbl et la Ligue des Droits Humains).
 debagora.div4.a1=Cet outil peut être enrichi grâce à vos commentaires, questions, récits d''expériences,... <br>\
-<b>N'hésitez pas à nous contacter à :</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
+<b>N''hésitez pas à nous contacter à :</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
