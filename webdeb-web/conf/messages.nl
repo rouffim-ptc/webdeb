@@ -2455,7 +2455,7 @@ group.changerole.btn=Functiewijzigingen toepassen
 
 group.mark.title=Nakijken en verbeteren van groepsbijdragen
 group.mark.desc=Kies een bijdrager om zijn/haar bijdragen na te kijken. \
- Enkel nagekeken bijdragen kunnen geüpload worden naar de site "webdeb publiek".<br>\ 
+ Enkel nagekeken bijdragen kunnen geüpload worden naar de site "webdeb publiek". <br>\
  Als een tekst grijs is, betekendt dit dat de bijdrager er aan heeft gewerkt maar de tekst niet zelf heeft geïmporteerd.
 group.mark.validated=Nakijken
 group.mark.showall=Alle bijdragen tonen
