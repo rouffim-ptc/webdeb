@@ -3316,14 +3316,14 @@ Als socioloog werkt hij als onderzoeker bij de <a href=http://www.uclouvain.be/ 
  de groep <a href=http://www.toutautrechose.be/toutautreecole target=_blank>Tout Autre École.</a> \
   <br><a class="btn btn-link secondary pull-right" href="http://www.uclouvain.be/bernard.delvaux" target="_blank">Meer informatie...</
 
-aboutus.webdeb.cedrick=Cédrick Fairon is professor aan de Université Catholique de Louvain waar hij taalkunde en taalkundige engineering doceert.
+aboutus.webdeb.cedrick=Cédrick Fairon is professor aan de Université Catholique de Louvain waar hij taalkunde en taalkundige engineering doceert. \
  Hij is houder van een doctoraat in taalkundige informatica (Université Paris VII Diderot) en heeft een master in de letterkunde.
  Momenteel is hij decaan van de Faculteit filosofie, kunst en letterkunde aan UCLouvain. Hij was ook lang directeur \
  van CENTAL, een onderzoekslaboratorium voor automatische taalverwerking, vooral toegespitst op literaire teksten. \
- Verder was hij ook co-promotor van het WebDeb-project gefinancieerd door het Waals Gewest.
+ Verder was hij ook co-promotor van het WebDeb-project gefinancieerd door het Waals Gewest. \
   <br><a class="btn btn-link secondary pull-right" href="https://uclouvain.be/fr/repertoires/cedrick.fairon" target="_blank">Meer informatie...</a>
 
-aboutus.webdeb.fabian=Fabian was verantwoordelijk voor de informaticakant van het project tot september 2017.
+aboutus.webdeb.fabian=Fabian was verantwoordelijk voor de informaticakant van het project tot september 2017. \
  Hij werkt in de afdeling <a href=http://cosc.canterbury.ac.nz target=_blank>>Computer Science and Software Engineering</a> van de<a \
   href=http://www.canterbury.ac.nz/ target=_blank>>universiteit van Canterbury</a>. Na twee jaar bij \
  consultancybureau <a href=http://www.accenture.com target=_blank>Accenture</a> en een \
