@@ -3467,7 +3467,7 @@ bubble.entry.actor.parentsForm=Vader of moeder van speler alleen ingeven als hij
 bubble.entry.text.language=Als je klikt op "Tekst is een vertaling", geef dan alsjeblieft ook de titel van de tekst in haar oorspronkelijke \
 taal en specifieer om welke taal het gaat.
 bubble.entry.author.text.label.author=Een auteur kan een echte persoon of een organisatie zijn, bijvoorbeeld een persagentschap. <br /><br /> Als de auteur een \
-echte persoon is, geef dan alsjeblieft eerst zijn of haar voornaam en dan zijn of haar achternaam.
+echte persoon is, geef dan alsjeblieft eerst zijn of haar voornaam en dan zijn of haar achternaam. \
 <p class=indent>Schrijf dus bijvoorbeeld <i>Barack Obama</i> en niet <i>Obama Barack</i>.</p>\
 Geef alsjeblieft de voornaam van de speler op de <b>traditionele manier</b> in: de eerste letter(s) van elk woord\
 in hoofdletters , gevolgd door kleine letters. <p class=indent>Schrijf dus bijvoorbeeld <i>Pablo \
