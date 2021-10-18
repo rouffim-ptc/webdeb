@@ -2480,7 +2480,7 @@ group.empty.modal.text=Ben je zeker dat je alle leden wil verwijderen en alle bi
 
 group.close.modal.title=Groep sluiten
 group.close.modal.text=Ben je zeker dat je de groep <span class=strong>{0}</span> wil sluiten? Alle leden worden \ 
- uit de groep gezet, alle bijdragen die niet geüpload zijn naar "webdeb publiek" worden onherroepelijk verwijderd \
+ uit de groep gezet, alle bijdragen die niet geüpload zijn naar "webdeb publiek" worden onherroepelijk verwijderd <br>\
  en deze groep zal ook verwijderd worden. <span class=strong>Deze actie kan niet ongedaan gemaakt worden.</span>
 
 group.close.ok.false=Groep {0} is leeggemaakt. Leden en bijdragen zijn verwijderd.
