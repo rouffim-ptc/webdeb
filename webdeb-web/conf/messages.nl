@@ -4145,9 +4145,9 @@ De meeste zoekmachines hebben een optie om enkel naar rechtenvrije afbeeldingen 
 bubble.entry.imagedebate=Voeg een <b>rechtenvrije</b> afbeelding toe als illustratie van het debat. \
 De meeste zoekmachines hebben een optie om enkel naar rechtenvrije afbeeldingen tezoeken.
 bubble.entry.debate.shade=Selecteer de start van je debatonderwerp. Als geen van de voorgestelde opties je bevalt, kies dan "<i>[Start van een open debat]</i>" <br>\
-Denk goed na over de reikwijdte van het debat dat je wil starten. Een breed debat kan tot erg complexe en uitgebreide discussies leiden. Een te nauwe afbakening
+Denk goed na over de reikwijdte van het debat dat je wil starten. Een breed debat kan tot erg complexe en uitgebreide discussies leiden. Een te nauwe afbakening \
 kan dan weer tot een beperkt aantal argumenten leiden. <br><br> \
-Voorbeeld: voor een 5G-debat, zou je het debat kunnen econderen als "Moet 5G in België ingevoerd worden?", "Is het waar dat 5G tot gezondheidsproblemen leidt?"
+Voorbeeld: voor een 5G-debat, zou je het debat kunnen econderen als "Moet 5G in België ingevoerd worden?", "Is het waar dat 5G tot gezondheidsproblemen leidt?" \
 of "Wat zijn de sterke en zwakke punten van 5G?". Elke formulering leidt tot andere invalshoeken.
 bubble.entry.debate.geolimits=Encodeer de betrokken plaats als het debat plaatsgerelateerd is. Als dat niet zo is, kruis dan "Nee" aan. Als je het debat \
 wil beperken tot een bepaalde plaats, geeft dit dan aan in het debatonderwerp. <br><br> \
