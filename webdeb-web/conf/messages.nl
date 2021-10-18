@@ -3515,7 +3515,7 @@ bubble.entry.text.textType=Kies alsjeblieft een van volgende types: \
 </ul> 
 
 bubble.entry.text.area=Je kan een tekst alleen volledig kopiëren als hij rechtenvrij is \
- (tekst afkomstig uit een openbare bron of met toestemming voor reproductie of van officiële instanties). \ 
+ (tekst afkomstig uit een openbare bron of met toestemming voor reproductie of van officiële instanties). \
  Als de tekst een pdf is, geef dan alsjeblieft zijn url (moet eindigen op .pdf) of upload hem vanuit je bestanden door op de knop "bladeren" te drukken. \
  In alle andere gevallen zal WebDeb automatisch de inhoud van een webpagina ophalen als de website dit toelaat. <br/><br/> \
  Als je een video of een socialemedia-post wil uploaden, zal WebDeb deze automatisch tonen via de url die je hierboven ingeeft. <br/><br/> \
@@ -3523,7 +3523,7 @@ bubble.entry.text.area=Je kan een tekst alleen volledig kopiëren als hij rechte
  Als je bijvoorbeeld de tekst van een video wil analyseren, zal je de tekst manueel moeten invoeren.
 
 bubble.entry.text.area.2=Je kan een tekst alleen volledig kopiëren als hij rechtenvrij is \
- (tekst afkomstig uit een openbare bron of met toestemming voor reproductie of van officiële instanties). \ 
+ (tekst afkomstig uit een openbare bron of met toestemming voor reproductie of van officiële instanties). \
  Als het om een pdf gaat, kan je het bestand uploaden vanuit je bestanden door op de knop "bladeren" te drukken.
 
 bubble.entry.text.visibility=De inhoud van de tekst kan <b>publiek</b> zichtbaar zijn, elke bijdrager \
@@ -3533,7 +3533,7 @@ bubble.entry.text.visibility=De inhoud van de tekst kan <b>publiek</b> zichtbaar
 
 #workwith
 
-bubble.work.instructions=Om een bestaande tekst op te zoeken, kan je de titel van de tekst in de zoekbalk ingeven.
+bubble.work.instructions=Om een bestaande tekst op te zoeken, kan je de titel van de tekst in de zoekbalk ingeven. \
 Na enkele tekens geeft de zoekmachine zelf suggesties weer. Je kan dan \
 gewoon met je cursor of met de pijltjestoetsen (en dan de <i>Enter</i>-knop een tekst selecteren.\
 <br /><br />Als je niet op zoek bent naar een specifieke tekst, kan je klikken op <i>Wil je een willekeurige tekst openen?</i>\
