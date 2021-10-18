@@ -3264,7 +3264,7 @@ te helpen bij de classificatie en encodering van bijdragen. Voor meer informatie
 href={1}>documentation WDTAL</a>.
 
 aboutus.webdeb=Projectpartners
-aboutus.webdeb.desc=Het WebDeb-project steunt op een consortium van verschillende universiteiten en onderzoekscentra,
+aboutus.webdeb.desc=Het WebDeb-project steunt op een consortium van verschillende universiteiten en onderzoekscentra, \
  industriële partners en sponors.
 aboutus.webdeb.consortium=Consortium
 aboutus.webdeb.consortium.ucl=Université Catholique de Louvain
