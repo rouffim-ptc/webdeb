@@ -3212,7 +3212,7 @@ mail.userToUser.answer=Merci de répondre à ce mail à l''adresse <a class="pri
 # About
 about.webdeb.title=Het WebDeb-project
 about.webdeb.descr=Projectomschrijving
-about.webdeb.jumbo=WebDeb is een gratis deelplatform om
+about.webdeb.jumbo=WebDeb is een gratis deelplatform om \
 argumenten en tegenargumenten over een debatonderwerp en de standpunten van personen en organisaties <a href={0}>te bekijken</a> <br><br>\
 Net zoals Wikipedia, kan elke internetgebruiker <a href={1}>bijdragen</a> na registratie en mits inachtneming van de regels van het platform. <br><br> \
 WebDeb wordt daarnaast ook gebruikt als <a href={2}>educatief hulpmiddel</a>
