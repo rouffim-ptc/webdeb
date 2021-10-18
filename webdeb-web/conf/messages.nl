@@ -4255,5 +4255,5 @@ debagora.div3.text=Débagora is een educatief hulpmiddel:\
 debagora.div4.title=Een hulpmiddel in voortdurende evolutie
 debagora.div4.text=Débagora is <b>het resultaat van een samenwerking</b> tussen drie onderzoekscentra (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
 en vier verenigingen (Jeune et Citoyen, het BELvue-museum, Infor-Jeunes vzw en de Ligue des Droits Humains).
-debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, … de ontwikkeling van dit platform vooruit helpen.
+debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, … de ontwikkeling van dit platform vooruit helpen. \
 <b>Aarzel niet om ons te contacteren via:</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
