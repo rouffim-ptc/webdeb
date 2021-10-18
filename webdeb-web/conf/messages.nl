@@ -3161,7 +3161,7 @@ mail.btn.confirm_change_password=Naar WebDeb gaan
 mail.subject.unknown_change_password=WebDeb - Onbekend addres
 mail.title.unknown_change_password=Heb je geprobeerd je wachtwoord opnieuw in te stellen?
 mail.content.unknown_change_password=Jij of iemand anders heeft geprobeerd een nieuw wachtwoord voor WebDeb in te stellen. \
- Helaas kennen we dit mailadres niet. Als je vergeten bent met welk mailadres je je hebt aangemeld, contacteer ons dan alsjeblieft.
+ Helaas kennen we dit mailadres niet. Als je vergeten bent met welk mailadres je je hebt aangemeld, contacteer ons dan alsjeblieft. \
  Als je niet hebt geprobeerd je wachtwoord te veranderen, dan zal iemand anders een foutje gemaakt hebben. 
 mail.btn.unknown_change_password=Naar WebDeb gaan
 
