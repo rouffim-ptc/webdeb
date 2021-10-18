@@ -4261,9 +4261,9 @@ en vier verenigingen (Jeune et Citoyen, het BELvue-museum, Infor-Jeunes vzw en d
 debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, … de ontwikkeling van dit platform vooruit helpen. \
 <b>Aarzel niet om ons te contacteren via:</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
 
-contrib.already=Déjà membre ?
-contrib.notyet=Pas encore inscrit ?
-contrib.connect=se connecter
-contrib.register=s'enregistrer
-contrib.okconnect=Vous êtes bien connecté !
-contrib.diffuse=Diffuser
+contrib.already=Al lid ?
+contrib.notyet=nog niet geregistreerd ?
+contrib.connect=zich aanmelden
+contrib.register=account aanmaken?
+contrib.okconnect=Succesvolle aanmelding
+contrib.diffuse=Verspreiden
