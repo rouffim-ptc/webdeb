@@ -3317,7 +3317,7 @@ Als socioloog werkt hij als onderzoeker bij de <a href=http://www.uclouvain.be/ 
   <br><a class="btn btn-link secondary pull-right" href="http://www.uclouvain.be/bernard.delvaux" target="_blank">Meer informatie...</
 
 aboutus.webdeb.cedrick=Cédrick Fairon is professor aan de Université Catholique de Louvain waar hij taalkunde en taalkundige engineering doceert. \
- Hij is houder van een doctoraat in taalkundige informatica (Université Paris VII Diderot) en heeft een master in de letterkunde.
+ Hij is houder van een doctoraat in taalkundige informatica (Université Paris VII Diderot) en heeft een master in de letterkunde. \
  Momenteel is hij decaan van de Faculteit filosofie, kunst en letterkunde aan UCLouvain. Hij was ook lang directeur \
  van CENTAL, een onderzoekslaboratorium voor automatische taalverwerking, vooral toegespitst op literaire teksten. \
  Verder was hij ook co-promotor van het WebDeb-project gefinancieerd door het Waals Gewest. \
@@ -3357,7 +3357,7 @@ aboutus.webdeb.pyschobb=Pierre-Yves Schobbens is professor informatica, gespecia
 <br><a class="btn btn-link secondary pull-right" href="https://directory.unamur.be/staff/pyschobb" target="_blank">Meer informatie...</a>
 
 aboutus.webdeb.pierre=Pierre was onderzoeker voor het project "Jongeren en Politiek".
-Hij raakte in november 2017 betrokken bij het project en heeft het in juni 2018 verlaten.
+Hij raakte in november 2017 betrokken bij het project en heeft het in juni 2018 verlaten. \
 Pierre was onder meer verantwoordelijk, samen met andere collega's, voor het uitwerken van het pedagogisch luik van het project \
 en haar uitvoering bij leerkrachten en leerlingen. Als doctorandus in de politieke wetenschappen en sociologie van sociale bewegingen, \ 
 animator en lesgever actief in permanente vormingen en het jeugdwerk, muzikant bij meerdere groepen, heeft Pierre \
