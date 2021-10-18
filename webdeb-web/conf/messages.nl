@@ -1,5 +1,5 @@
 #
-# WebDeb - Copyright (C) <2014-2019> <Université catholique de Louvain (UCL), Belgique ; Université de Namur (UNamur), Belgique>
+# WebDeb - Copyright (C) <2014-2019> <UniversitÃ© catholique de Louvain (UCL), Belgique ; UniversitÃ© de Namur (UNamur), Belgique>
 #
 # List of the contributors to the development of WebDeb: see AUTHORS file.
 # Description and complete License: see LICENSE file.
@@ -39,7 +39,7 @@ welcome.example.actor.name=Mohamed Ali
 welcome.example.text.content=Ik droom van de dag ons land opstaat en voluit haar lijfspreuk verwerkelijkt: \
 "We beschouwen deze waarheid als vanzelfsprekend, dat alle mensen gelijk zijn  \
 geschapen." Ik droom van de dag dat op de rode heuvels van Georgia de zonen van vroegere slaven en \
-vroegere slavenhouders zich zullen kunnen verenigen aan de tafel van broederschap. (…)
+vroegere slavenhouders zich zullen kunnen verenigen aan de tafel van broederschap. (â€¦)
 welcome.example.tag.content=Onderwijs
 welcome.example.debate.content=Moeten migranten wel of niet opgevangen worden?
 welcome.example.text.author=Martin Luther King
@@ -63,7 +63,7 @@ welcome.slogan.2=debatten
 welcome.slogan.3=Het deelplatform om te (laten) weten wie wie is en wie wat zegt.
 welcome.slogan.4=Alle informatie is vrij toegangkelijk en kan door jou aangevuld worden.
 
-welcome.index.title=WebDeb —
+welcome.index.title=WebDeb â€”
 welcome.index.desc=The WebDeb index page
 
 welcome.index.1.title=Verkennen
@@ -74,7 +74,7 @@ welcome.index.3.title=Leren met
 welcome.index.1.subtitle=Om te weten wie wie is en wie wat zegt.</br>En goed te verstaan waar het over gaat.
 welcome.index.2.subtitle=Om overtuigende argumenten te delen.</br> En banden tussen spelers aan het licht te brengen.
 welcome.index.3.subtitle=Om te leren het nieuws grondig te volgen.</br> En standpunten goed te begrijpen.
-welcome.index.3.subtitle.nohtml=Pour apprendre à traiter les infos avec rigueur. Et à décoder les prises de position.
+welcome.index.3.subtitle.nohtml=Pour apprendre Ã  traiter les infos avec rigueur. Et Ã  dÃ©coder les prises de position.
 
 welcome.index.whatis.1=Het is
 welcome.index.whatis.2=Een gedeeld geheugen
@@ -135,24 +135,24 @@ general.btn.prev=Vorige
 general.btn.cancel=Annuleren
 general.btn.saveleave=Opslaan en verlaten
 general.btn.save=Opslaan en verlaten
-general.btn.savein=Opslaan in …
+general.btn.savein=Opslaan in â€¦
 general.btn.delete=Verwijderen
 general.btn.close=Sluiten
 general.btn.goback=Terug
 general.btn.goback.title=Teruggaan naar de vorige pagina
 general.btn.goback.main=Teruggaan naar de hoofdpagina
 general.btn.confirm=Bevestigen
-general.btn.confirmin=Bevestigen in …
+general.btn.confirmin=Bevestigen in â€¦
 general.btn.edit=Aanpassen
 general.btn.submit=Verzenden
-general.btn.ok=Oké
+general.btn.ok=OkÃ©
 general.btn.see=Bekijken
 general.btn.display=Tonen
 general.btn.display.by=Tonen op:
 general.btn.in=In:
 general.btn.select=Selecteren
 general.btn.undo=Annuleren
-general.btn.copy=kopiëren
+general.btn.copy=kopiÃ«ren
 general.btn.nothanks=Nee bedankt!
 general.btn.merge=Samenvoegen
 general.btn.contribution.see.tooltip=De bijdrage visualiseren
@@ -165,7 +165,7 @@ general.delete.error=Verwijderen mislukt
 general.sort.label=Elementen sorteren
 general.thisway=Langs hier
 general.overthere=Langs daar
-general.underconstruct=Deze visualisering is nog niet beschikbaar…
+general.underconstruct=Deze visualisering is nog niet beschikbaarâ€¦
 general.share=Delen
 general.more=Meer weten
 general.group=Groep
@@ -203,7 +203,7 @@ general.actor.none=Speler ontbreekt
 general.text.none=Tekst ontbreekt
 general.tag.none=Dossier ontbreekt
 
-general.message.danger=Handeling mislukt…
+general.message.danger=Handeling misluktâ€¦
 general.message.warning=Er moet informatie worden aangepast of toegevoegd
 general.message.success=Succes!
 
@@ -217,7 +217,7 @@ general.order.relevance.title=Meest relevant
 general.order.version.desc.title=Meest recent
 general.order.version.asc.title=Datum van toevoegen (oudste eerst)
 
-general.metatitle= — WebDeb
+general.metatitle= â€” WebDeb
 
 general.metatitle.explore.title=Ontdekken
 general.metatitle.explore.desc=Zien wat er gebeurt op WebDeb
@@ -226,13 +226,13 @@ general.metatitle.teach.title=Leren
 
 general.metatitle.title.person.title={0} - CV en standpunten
 general.metatitle.title.person.desc=Wie is {0} ? Wat zijn haar/zijn standpunten, bondgenoten en tegenstanders? \
-  Voir et compléter ces infos sur la plateforme collaborative WebDeb
+  Voir et complÃ©ter ces infos sur la plateforme collaborative WebDeb
 
 general.metatitle.title.org.title={0}
 general.metatitle.title.org.desc={0}. Wat wordt er gezegd over deze organisatie? Wie zijn haar leden? In welke debatten is ze actief? 
 
 general.metatitle.title.debate.title=Een debat over {0}
-general.metatitle.title.debate.desc=«{0}». WebDeb toont de argumenten en standpunten in het debat
+general.metatitle.title.debate.desc=Â«{0}Â». WebDeb toont de argumenten en standpunten in het debat
 
 general.metatitle.title.tag.title={0}
 general.metatitle.title.tag.desc=WebDeb verzamelt citaten over dit thema. Je kan deze lijst zelf verder aanvullen.
@@ -257,7 +257,7 @@ general.metatitle.og.text.desc=Vind citaten en argumenten over de tekst op het d
 
 general.dialog.confirm.title=Ben je zeker?
 general.dialog.confirm.delete=Ben je zeker dat je het geselecteerde element wil verwijderen?
-general.dialog.wait=Even geduld alsjeblieft…
+general.dialog.wait=Even geduld alsjeblieftâ€¦
 general.btn.load.more=Meer tonen
 general.more.details=Meer details
 general.more.details.tooltip=Bekijk alle details voor deze bijdrage
@@ -267,7 +267,7 @@ Als je een smartphone gebruikt, gelieve je scherm dan horizontaal te houden.
 
 general.goto.source=bekijk de bron
 general.edit.properties=Eigenschappen aanpassen
-general.implemented.soon=Binnenkort beschikbaar…
+general.implemented.soon=Binnenkort beschikbaarâ€¦
 general.got.it=Ik begrijp het!
 
 general.chart.export=Exporteren
@@ -276,12 +276,12 @@ general.chart.export.desc=Exportformaat kiezen
 
 general.label.pic=Foto (rechtenvrij!)
 general.label.logo=Logo
-general.label.btn.browse=Bladeren…
+general.label.btn.browse=Bladerenâ€¦
 general.label.btn.clear=Verwijderen
 general.label.btn.clearlink=Deze link verwijderen
 general.label.btn.dowload=Downloaden
 general.label.pic.preview=Overzicht
-general.label.pic.noimage=Geen afbeelding…
+general.label.pic.noimage=Geen afbeeldingâ€¦
 general.label.pic.error=De afbeelding is te groot (max. 5 MB)
 general.upload.pic.error=De foto kon niet geregistreerd worden
 general.upload.pic.unsafe=De foto lijkt ongepast omdat ze naaktheid of geweld afbeeldt
@@ -361,7 +361,7 @@ general.filter.label.topic=Thema
 general.filter.title.topic=Filteren op thema
 
 general.filter.label.origin=Soort bron van de tekst
-general.filter.title.origin=Filteren op soort bron van de tekst (boek, media, …)
+general.filter.title.origin=Filteren op soort bron van de tekst (boek, media, â€¦)
 
 general.filter.label.source=Bron
 general.filter.title.source=Filteren op bron waar de bijdragen vandaan komen
@@ -370,7 +370,7 @@ general.filter.label.source.citation=Bron van citaat
 general.filter.label.source.text=Bron van de tekst
 
 general.filter.label.ttype=Soort tekst
-general.filter.title.ttype=Filteren op soort tekst (journalistiek, wetenschappelijk, …)
+general.filter.title.ttype=Filteren op soort tekst (journalistiek, wetenschappelijk, â€¦)
 
 general.filter.label.tag=Dossier
 general.filter.title.tag=Filteren op dossier
@@ -440,7 +440,7 @@ menu.terms=Algemene voorwaarden
 menu.contact=Contact
 menu.lang=Taal
 menu.lang.en=English
-menu.lang.fr=Français
+menu.lang.fr=FranÃ§ais
 menu.lang.nl=Nederlands
 
 # breadcrumb
@@ -476,7 +476,7 @@ footer.project.support=met de steun van:
 database.freesource.remove.error=Een fout heeft ervoor gezorgd dat de open bron niet is verwijderd.
 
 # general error messages
-error.hack=Het lijkt dat je een pagina probeert te bereiken waar je geen toegang toe hebt…
+error.hack=Het lijkt dat je een pagina probeert te bereiken waar je geen toegang toe hebtâ€¦
 error.crash=Onverwachte fout, gelieve over enkele minuten opnieuw te proberen. <br>\
  Als de fout blijft terugkomen, contacteer dan de websitebeheerder.
 error.oops=De pagina die je zoekt bestaat niet (meer).
@@ -488,7 +488,7 @@ permission.not.group.member=Je bent geen lid van deze groep.
 permission.not.group.owner=Je bent geen beheerder van deze groep.
 permission.not.public.group=Deze groep is een afgeschermde groep.
 permission.text.not.visible=Je hebt niet de machtiging om de inhoud van deze tekst te visualiseren.
-permission.text.not.private=Deze tekst kan niet afgeschermd worden want ze is niet geëncodeerd door een afgeschermde groep.
+permission.text.not.private=Deze tekst kan niet afgeschermd worden want ze is niet geÃ«ncodeerd door een afgeschermde groep.
 permission.error.scope=Je kan deze bijdrage niet veranderen vanuit je huidige groep. \
  Verplaats je naar de overeenkomstige groep en probeer opnieuw.
 
@@ -514,7 +514,7 @@ persistence.error.add.member=Fout. De bijdrager kon niet toegevoegd worden aan d
 persistence.error.remove.member=Fout. De bijdrager kon niet verwijderd worden uit de geselecteerde groep.
 persistence.error.default.group=Fout. We konden je nieuwe groep niet automatisch opslaan.
 persistence.error.save.group=Fout. Je groep kon niet opgeslagen worden.
-persistence.error.invite.group=Fout. Minstens één lid is niet uitgenodigd.
+persistence.error.invite.group=Fout. Minstens Ã©Ã©n lid is niet uitgenodigd.
 
 persistence.error.mark.group=Je handelingen konden niet worden opgeslagen, contacteer alsjeblieft de beheerder.
 persistence.error.merge=Door een fout konden de bijdragen niet samengevoegd worden.
@@ -656,8 +656,8 @@ contributor.validate.expired=Je inschrijvingsvraag is verlopen, schrijf je alsje
 
 contributor.edit.nosuch=Er konden geen bijdragers gevonden worden.
 contributor.edit.error=Het ingediende formulier bevat fouten.
-contributor.edit.success=Je hebt je profiel succesvol geüpdatet.
-contributor.edit.other.success=Je hebt het profiel van {0} succesvol geüpdatet.
+contributor.edit.success=Je hebt je profiel succesvol geÃ¼pdatet.
+contributor.edit.other.success=Je hebt het profiel van {0} succesvol geÃ¼pdatet.
 
 contributor.new.title=Lid worden van WebDeb?
 contributor.edit.title=Profiel updaten
@@ -755,8 +755,8 @@ contributor.isDeleted=Bijdrager verwijderd
 
 contributor.contributions.recent.true=Bekijk al je bijdragen, geordend op datum
 contributor.contributions.recent.false=Bekijk alle bijdragen van deze persoon, geordend op datum
-contributor.contributions.search.addon.true=Eén van je bijdragen zoeken
-contributor.contributions.search.addon.false=Eén van de bijdraegn van deze persoon zoeken
+contributor.contributions.search.addon.true=EÃ©n van je bijdragen zoeken
+contributor.contributions.search.addon.false=EÃ©n van de bijdraegn van deze persoon zoeken
 contributor.contributions.search.place.true=Begin met typen om te zoeken in jouw bijdragen
 contributor.contributions.search.place.false=Begin met typen om te zoeken in de bijdragen van deze persoon
 
@@ -807,7 +807,7 @@ entry.citation.original.label=Oorspronkelijk uittreksel*
 entry.citation.working1.label=Onnodige delen verwijderen uit onderstaande tekst
 entry.citation.working2.label=Extra informatie tussen haakjes toevoegen
 
-entry.citation.text.source.label=Het citaat komt van…*
+entry.citation.text.source.label=Het citaat komt vanâ€¦*
 entry.citation.text.source.internet.label=een website
 entry.citation.text.source.pdf.label=een pdf
 entry.citation.text.source.other.label=een andere bron
@@ -826,7 +826,7 @@ entry.citation.tags.label=Op welke vraag/vragen antwoordt het citaat?*
 entry.citation.tags.tag.label=Wat zegt men over
 entry.citation.citedauthors.label=Gaat het citaat over een persoon of een organisatie?*
 entry.citation.places.label=Gaat het citaat over een of meerdere plaatsen (bv. land, stad, ..)?*
-entry.citation.skip.form=Weinig tijd? Je kan het citaat nu opslaan… Maar er blijven nog maar 3 stappen over!
+entry.citation.skip.form=Weinig tijd? Je kan het citaat nu opslaanâ€¦ Maar er blijven nog maar 3 stappen over!
 
 entry.citation.workingExcerpt.label1=Dit is het citaat dat je wil toevoegen. Kan je onnodige delen weglaten?
 entry.citation.workingExcerpt.label2=Kan het vervangen van voornaamwoorden of het toevoegen van informatie het citaat begrijpelijker maken buiten haar oorspronkelijke context?
@@ -854,7 +854,7 @@ entry.citation.selection.1.place=naam of url van een tekst waar het citaat vanda
 entry.citation.selection.2.place=titel van het debat waar het het citaat over gaat
 entry.citation.selection.3.place=naam van het dossier waar het citaat aan verbonden is
 entry.citation.selection.4.place=uittreksel uit het citaat
-entry.citation.selection.5.place=uittreksel uit één van de door jou toegevoegde citaten
+entry.citation.selection.5.place=uittreksel uit Ã©Ã©n van de door jou toegevoegde citaten
 
 #citations errors
 citation.error.original.blank=Het uittreksel ontbreekt.
@@ -940,7 +940,7 @@ argument.label.cited.function=Beroep (optioneel)
 argument.label.cited.place.function=Beroep of mandaat
 argument.label.cited.affname=Affiliatie (optioneel)
 argument.label.cited.place.affname=Affiliatie
-argument.error.noauthor=Minstens één speler nodig
+argument.error.noauthor=Minstens Ã©Ã©n speler nodig
 argument.error.authorisreporter=Een speler kan niet tegelijk verslaggever zijn.
 argument.error.authoriscited=Een geciteerde speler kan geen auteur of verslaggever zijn.
 
@@ -964,7 +964,7 @@ debate.type.multiple=Heeft het debat meerdere antwoorden?
 debate.edit.select.label=Selecteer een debattype
 debate.edit.title.label=Vervolg van het onderwerp
 
-debate.edit.ambiguity.title=Dit zijn debatten met een gelijkaardige titel die al aan WebDeb zijn toegevoegd. Komt één van hen al overeen met het jouwe?
+debate.edit.ambiguity.title=Dit zijn debatten met een gelijkaardige titel die al aan WebDeb zijn toegevoegd. Komt Ã©Ã©n van hen al overeen met het jouwe?
 debate.edit.ambiguity.yes.label=Welke? Selecteer:
 debate.edit.more.title=Meer informatie over je debat (bv. om een term uit te leggen of de context kort te schetsen)
 debate.edit.more.description.label=Vrije tekst (maximaal 1500 tekens)
@@ -983,7 +983,7 @@ debate.tags.label=Wat is het debatonderwerp?*
 bubble.entry.tags.debate.tags.label=Voorbeeld: voor het debat "moeten er pop-ups met info worden toegevoegd aan  \
 de WebDeb-formulieren", zou je "pop-ups met info" en "WebDeb-formulieren"  \
 kunnen aanduiden. <br><br>\
-Vul minstens één van beide velden in.
+Vul minstens Ã©Ã©n van beide velden in.
 
 bubble.citation.title.extraitoriginal=Bulle de test
 bubble.citation.content.extraitoriginal=Contenu de la bulle de test. <br>\
@@ -1023,7 +1023,7 @@ argument.error.shade=Betekenisnuance is verplicht.
 argument.label.standard=Citaat afkomstig uit onderstaand uittreksel*
 argument.label.standard.edit=Een gestandaardiseerde vorm van het citaat (zonder punt ".")
 argument.label.techexcerpt=Pas de tekst alleen aan om hem begrijpelijk of korter te maken. \
-Zorg ervoor dat de oorspronkelijke betekenis behouden blijft en zet alle aanpassingen tussen haakjes […]
+Zorg ervoor dat de oorspronkelijke betekenis behouden blijft en zet alle aanpassingen tussen haakjes [â€¦]
 argument.place.standard=migranten verwelkomen
 argument.place.standard2=Let erop om het citaat begrijpelijk te maken voor wie de tekst niet gelezen heeft, vervang voornaamwoorden door waar ze naar verwijzen
 argument.error.standard=De gestandaardiseerde vorm is verplicht
@@ -1048,13 +1048,13 @@ entry.actor.from.signup=Je registreert je met een of meerdere onbekende affiliat
 entry.actor.title.person=Een individu
 entry.actor.title.org=Een organisatie
 entry.actor.new=Een speler toevoegen
-entry.actor.create=Speler toevoegen aan …
+entry.actor.create=Speler toevoegen aan â€¦
 entry.actor.new.unknown=Nieuwe speler
 entry.actor.edit.btn.tooltip=Eigenschappen van deze speler bewerken
 entry.actor.instructions=Klik op het spelertype als je informatie wil toevoegen
 entry.actor.modify=Details aanpassen van
 entry.actor.modify.btn=Updaten
-entry.actor.modifyin.btn=Updaten in …
+entry.actor.modifyin.btn=Updaten in â€¦
 entry.actor.notnow=Niet nu
 entry.actor.new.description=Informatie over een nieuwe speler toevoegen aan de kennisbank van WebDeb
 entry.actor.save=Je hebt succevol een speler toegevoegd of aangepast
@@ -1073,7 +1073,7 @@ actor.label.actortype=Kies alsjeblieft het spelertype
 actor.label.actortype.-1=Onbekend
 actor.label.actortype.0=Individu
 actor.label.actortype.desc.0=Een echte persoon
-actor.label.actortype.1=Organistie (of project, merk, evenement, …)
+actor.label.actortype.1=Organistie (of project, merk, evenement, â€¦)
 actor.label.actortype.desc.1=Een organisatie, bedrijf, overheid, project, merk, evenement, e.d.
 actor.label.unknowntype=Onbekend spelertype
 actor.error.actortype=Selecteer alsjeblieft een spelertype 
@@ -1104,7 +1104,7 @@ actor.label.affiliation.place.endtype=Nauwkeurigheid van de datum
 
 actor.label.affiliation.person.affiliations=Beroepen en affiliaties van de persoon
 actor.label.affiliation.person.affiliationsForm=Beroepen en affiliaties van de persoon
-actor.label.affiliation.person.name=Naam van de organisatie (project, evenement, …)
+actor.label.affiliation.person.name=Naam van de organisatie (project, evenement, â€¦)
 actor.label.affiliation.person.function=Beroep of titel
 
 actor.label.affiliation.qualification.qualifications=Opleidingen
@@ -1143,7 +1143,7 @@ actor.place.affiliated.org.afftype=Type kiezen
 actor.aff.ownedby.label=In handen van of gefinancierd door
 actor.aff.owns.label=Bezit of financieert
 
-actor.aff.no.label=Geen resultaat…
+actor.aff.no.label=Geen resultaatâ€¦
 
 actor.label.birthdate=Geboortedatum
 actor.label.deathdate=Sterfdatum
@@ -1246,7 +1246,7 @@ entry.text.new=Een tekst toevoegen
 entry.text.modify=Een bestaande tekst aanpassen
 entry.text.new.btn=Nieuwe tekst
 entry.text.new.description=Een nieuwe tekst of een nieuw tekstuittreksel toevoegen aan WebDeb.
-entry.text.submit=Een nieuwe tekst toevoegen in …
+entry.text.submit=Een nieuwe tekst toevoegen in â€¦
 entry.text.btn.modify=Tekst aanpassen
 entry.text.success=Je tekst is succevol opgeslagen in WebDeb.
 entry.text.edit.btn.tooltip=Eigenschappen van deze tekst aanpassen.
@@ -1263,7 +1263,7 @@ entry.text.argument.structure.first=Een stelling toevoegen
 
 text.visibility.0=publiek
 text.visibility.1=enkel voor educatief gebruik
-text.visibility.2=privégebruik (afgeschermd)
+text.visibility.2=privÃ©gebruik (afgeschermd)
 
 text.label.import.content=Tekstinhoud importeren
 text.label.delete.content=Tekstinhoud verwijderen
@@ -1277,7 +1277,7 @@ text.label.upload.error=Het bestand mag niet groter zijn dan 50 MB.
 text.label.visibility=Inhoud is zichtbaar voor:*
 text.error.visibility=Je bent verplicht om de zichtbaarheid in te stellen.
 text.error.copyright=Inhoud van de ingevoerde url is niet oplaadbaar, \
-de bron is door ons niet geïdentificeerd als rechtenvrij.
+de bron is door ons niet geÃ¯dentificeerd als rechtenvrij.
 text.label.content.notviewable=Door zichtbaarheidsbeperkingen is deze inhoud afgeschermd.
 text.title.notviewable=Inhoud is afgeschermd
 text.desc.notviewable=De inhoud van deze tekst is voor jou afgeschermd. Ze is enkel toegankelijk voor educatief gebruik \
@@ -1292,7 +1292,7 @@ text.error.notfound=Door een fout kon de tekst niet aangepast worden, probeer al
 
 text.place.title=Een titel
 text.label.title=Volledige titel van de tekst*
-text.help.title=Volledige titel van de geïmporteerde tekst
+text.help.title=Volledige titel van de geÃ¯mporteerde tekst
 text.error.title=Titel is verplicht.
 text.error.length.title=Titel mag niet langer zijn dan 255 karakters.
 text.error.title.name=Kies alsjeblieft een titel.
@@ -1315,7 +1315,7 @@ text.label.author.function=Beroep of mandaat
 text.label.author.place.function=(optioneel)
 text.label.author.affname=Affiliatie
 text.label.author.place.affname=(optioneel)
-text.error.author=Minstens één auteur vereist
+text.error.author=Minstens Ã©Ã©n auteur vereist
 
 text.label.tag=Dossiers
 text.label.places=plaatsen
@@ -1323,19 +1323,19 @@ text.label.tag.place.name=Permacultuur
 
 text.place.language=Kies alsjeblieft de taal van de tekst uit onderstaande lijst
 text.label.language=Taal van de tekst hiernaast*
-text.help.language=Taal van de geïmporteerde tekst
+text.help.language=Taal van de geÃ¯mporteerde tekst
 text.error.language=Taal is verplicht.
 
 text.label.sourceTitle=Website of uitgever
 text.place.sourceTitle=standaard.be of De Bezige Bij
 text.error.sourceTitle=Aangezien de tekst niet op het internet staat, verduidelijk alsjeblieft haar bron
 
-text.place.topic=bv. politiek, sociologie, literatuur, sociale klasse, hip-hop, artificiële intelligentie
+text.place.topic=bv. politiek, sociologie, literatuur, sociale klasse, hip-hop, artificiÃ«le intelligentie
 text.label.topic=Thema("s)*
 text.help.topic=Voer alsjeblieft de thema"s van de tekst in. Scheid de thema"s met een komma of door op enter te drukken.
-text.error.topic=Minstens één thema vereist.
+text.error.topic=Minstens Ã©Ã©n thema vereist.
 text.error.topic.dupl=Je hebt meerdere keren hetzelfde thema ingevoerd. Dubbels zijn niet toegestaan.
-text.error.tag.name=Minstens één dossier vereist.
+text.error.tag.name=Minstens Ã©Ã©n dossier vereist.
 
 text.place.publicationDate=bv. 15/12/2015, 12/2015 of 2015
 text.label.publicationDate=Publicatiedatum
@@ -1363,7 +1363,7 @@ text.error.url.exiting2=Een tekst waarvoor deze url is gebruikt is al beschikbaa
 
 text.place.textOrigin=Selecteer alsjeblieft bronsoort uit de lijst.
 text.label.textOrigin=Bronsoort*
-text.help.textOrigin=Bronsoort van de geïmporteerde tekst
+text.help.textOrigin=Bronsoort van de geÃ¯mporteerde tekst
 text.error.textOrigin=Je moet een bronsoort kiezen
 
 text.place.wordgender=Kies het woordgeslacht
@@ -1410,7 +1410,7 @@ text.args.unautautorized=De inhoud van deze tekst is beschermd. Bekijk de bron v
 text.args.external.content=Tekstinhoud is niet zichtbaar omdat het gaat om een <a href={0}>extern bestand</a>.
 text.onlyonsource=Tekstinhoud is alleen beschikbaar via de oorspronkelijke website: <a href="{0}" target="_blank">{1}</a>
 
-text.args.preview=De inhoud van de tekst wordt geladen, even geduld alsjeblieft…  <span class=fa fa-spinner fa-spin></span>
+text.args.preview=De inhoud van de tekst wordt geladen, even geduld alsjeblieftâ€¦  <span class=fa fa-spinner fa-spin></span>
 text.args.label.load=hier
 
 text.args.label.title=titel
@@ -1449,10 +1449,10 @@ text.tags.label=Dossiers
 text.args.label.tab.links=Argumentstructuur opbouwen
 text.args.links.links=Verdedigingen
 text.args.tooltip.links.save=Klik op deze knop om wijzigingen op te slaan.
-text.args.links.save=Linken opslaan in …
+text.args.links.save=Linken opslaan in â€¦
 text.args.tooltip.links.cancel=Klik op deze knop om je niet opgeslane wijzigingen te annuleren
 text.args.links.cancel=Annuleren
-text.links.success=De onderbouwingskoppelingen in deze tekst zijn succesvol geüpdatet
+text.links.success=De onderbouwingskoppelingen in deze tekst zijn succesvol geÃ¼pdatet
 text.links.shade.select=Selecteren
 text.links.missing.type=Je moet voor alle koppelingen een onderbouwingstype selecteren
 text.links.nothing=Je hebt nog geen koppeling geselecteerd
@@ -1528,8 +1528,8 @@ tag.child=Ondergeschikt dossier
 tag.child.place.name=Nucleaire veiligheid en geopolitiek
 
 tag.hierarchy.notfound=Het geselecteerde dossier bestaat niet
-tag.hierarchy.noparent=Duid alsjeblieft minstens één bijhorend dossier aan
-tag.hierarchy.admin.noparent=Duid alsjeblieft minstens één bijhorend dossier aan
+tag.hierarchy.noparent=Duid alsjeblieft minstens Ã©Ã©n bijhorend dossier aan
+tag.hierarchy.admin.noparent=Duid alsjeblieft minstens Ã©Ã©n bijhorend dossier aan
 
 tag.place.tagType=Kies dossiersoort uit onderstaande lijst
 tag.label.tagType=Dossiersoort
@@ -1761,7 +1761,7 @@ viz.contributor.change.pwd=Wachtwoord aanpassen
 viz.contributor.change.mail=Mailadres aanpassen
 
 viz.contribution.actor=Alle aangemaakte of bewerkte spelers
-viz.contribution.text=Alle geïmporteerde teksten
+viz.contribution.text=Alle geÃ¯mporteerde teksten
 viz.contribution.debate=Alle aangemaakte of bewerkte debatten
 viz.contribution.citations=Citaten afkomstig uit deze tekst
 viz.contributor.creator=Aangemaakt door
@@ -1825,15 +1825,15 @@ viz.argument.label.shade=Nuance
 viz.argument.label.classes=Classificatie(s)
 viz.argument.label.topics=Thema("s)
 viz.argument.label.text=Tekst
-viz.argument.box.title.rejects=… betwist
-viz.argument.box.title.is_rejected=… wordt betwist door
-viz.argument.box.title.shades=… nuanceert
-viz.argument.box.title.is_shaded=… wordt genuanceerd door
-viz.argument.box.title.supports=… steunt
-viz.argument.box.title.is_supported=… wordt gesteund door
-viz.argument.box.title.similar=… is gelijkaardig aan
-viz.argument.box.title.qualifies=… nuanceert
-viz.argument.box.title.opposes=… verzet zich tegen
+viz.argument.box.title.rejects=â€¦ betwist
+viz.argument.box.title.is_rejected=â€¦ wordt betwist door
+viz.argument.box.title.shades=â€¦ nuanceert
+viz.argument.box.title.is_shaded=â€¦ wordt genuanceerd door
+viz.argument.box.title.supports=â€¦ steunt
+viz.argument.box.title.is_supported=â€¦ wordt gesteund door
+viz.argument.box.title.similar=â€¦ is gelijkaardig aan
+viz.argument.box.title.qualifies=â€¦ nuanceert
+viz.argument.box.title.opposes=â€¦ verzet zich tegen
 
 # for context cartography pov
 viz.argument.display.pov.title=Tonen
@@ -1931,7 +1931,7 @@ viz.actor.pill.texts=Teksten
 viz.actor.desc.texts=Teksten die de speler heeft geschreven of waar hij/zij geciteerd wordt
 viz.actor.pill.details=Bestand
 viz.actor.contributions=Bijdragen waar deze speler in voorkomt
-viz.actor.contributions.error=Voor deze speler zijn geen bijdragen gevonden…
+viz.actor.contributions.error=Voor deze speler zijn geen bijdragen gevondenâ€¦
 viz.actor.avatar.btn=Foto toevoegen
 viz.actor.avatar.tooltip=Foto toevoegen voor deze speller
 viz.actor.former=Vroeger:
@@ -2051,7 +2051,7 @@ viz.actor.type.1=Organisaties:
 viz.actor.type.2=Projecten, merken, evenementen:
 
 #debate
-debate.creation.error=Debat kan niet worden opgeslagen…
+debate.creation.error=Debat kan niet worden opgeslagenâ€¦
 
 debate.candidate.desc=Je voegt een debat toe waarvan we denken dat ie zich al in onze database bevindt. Kijk alsjeblieft na \
  of het debat al voorkomt in onderstaande lijst. Als geen enkele van onderstaande voorstellen overeenkomt, \
@@ -2065,7 +2065,7 @@ debate.categorty.unclassified=Niet geclassificeerd
 viz.debate.tags.label=Dossiers*
 viz.debate.desc.radiography=Citaten met een standpunt over het debatonderwerp.
 viz.debate.desc.cited=Spelers die een standpunt innemen over het debatonderwerp.
-viz.debate.desc.sociography=Standpunt van verschillende spelerscategorieën m.b.t. het debatonderwerp
+viz.debate.desc.sociography=Standpunt van verschillende spelerscategorieÃ«n m.b.t. het debatonderwerp
 
 viz.debate.position.0.0=VRAI
 viz.debate.position.0.1=Waar in het merendeel van de gevallen
@@ -2208,7 +2208,7 @@ excerpt.add.instruction=Om een citaat te selecteren, klik je op het icoon van he
 # tag
 viz.tag.pill.cartography=Debatten
 viz.tag.pill.texts=Teksten
-viz.tag.pill.radiography=Hiërarchie
+viz.tag.pill.radiography=HiÃ«rarchie
 viz.tag.pill.details=Bestand
 viz.tag.title=Dossier
 viz.tag.debates=Debatten verbonden aan dit dossier
@@ -2249,7 +2249,7 @@ viz.citations.empty.test=tests
 #
 # validate
 #
-validate.link.none=Op dit moment zijn er geen koppelingen om na te kijken, je kan later opnieuw proberen…
+validate.link.none=Op dit moment zijn er geen koppelingen om na te kijken, je kan later opnieuw proberenâ€¦
 validate.link.shade.0=gelijkaardige
 validate.link.shade.1=genuanceerde
 validate.link.shade.2=tegengestelde
@@ -2258,7 +2258,7 @@ validate.success=van de zoekopdracht
 validate.error=Door een fout kon je zoekopdracht niet uitgevoerd worden, probeer alsjeblieft opnieuw of contacteer de beheerder.
 validate.link.success=De koppeling is succesvol opgeslagen.
 
-validate.argument.none=Op dit moment zijn er geen beweringen om na te kijken, je kan later opnieuw proberen…
+validate.argument.none=Op dit moment zijn er geen beweringen om na te kijken, je kan later opnieuw proberenâ€¦
 validate.argument.question=Wil je iets toevoegen aan dit uittreksel of deze bewering in onze databank?
 validate.argument.confirmed=Deze bewering is toegevoegd aan onze kennisbank.
 validate.argument.unconfirmed=Deze bewering kan niet worden toegevoegd aan onze kennisbank.
@@ -2318,7 +2318,7 @@ group.search.followed=groep die je volgt
 group.search.isadmin=beheerder
 group.search.ismember=lid
 group.search.public=De bijdragen van deze groep zijn publiek.
-group.search.private=De bijdragen van deze groep zijn privé.
+group.search.private=De bijdragen van deze groep zijn privÃ©.
 
 group.seeall.label=Bijdragen bekijken
 group.seeall.title=Alle bijdragen van deze groep bekijken
@@ -2444,7 +2444,7 @@ group.invite.members.role.error=Je moet een functie selecteren in de lijst
 group.invite.btn.title=Leden hieronder toevoegen, niet-geregistreerde leden zullen uitgenodigd worden om zich te registreren op WebDeb
 group.invite.btn=Toevoegen of uitnodigen van leden
 group.invite.ok=Geregistreerde bijdragers zijn toegevoegd aan groep {0}, de anderen zijn via mail uitgenodigd om lid te worden van WebDeb
-group.invitation.error=Het lijkt erop dat je probeert leden toe te voegen aan een groep waar je geen beheerder van bent…
+group.invitation.error=Het lijkt erop dat je probeert leden toe te voegen aan een groep waar je geen beheerder van bentâ€¦
 group.invitation.notinvited={0} kon niet uitgenodigd worden voor deze groep
 group.invitation.nomail=De uitnodigingsmail naar {0} kon niet verzonden worden.
 
@@ -2455,8 +2455,8 @@ group.changerole.btn=Functiewijzigingen toepassen
 
 group.mark.title=Nakijken en verbeteren van groepsbijdragen
 group.mark.desc=Kies een bijdrager om zijn/haar bijdragen na te kijken. \
- Enkel nagekeken bijdragen kunnen geüpload worden naar de site "webdeb publiek".<br>\ 
- Als een tekst grijs is, betekendt dit dat de bijdrager er aan heeft gewerkt maar de tekst niet zelf heeft geïmporteerd.
+ Enkel nagekeken bijdragen kunnen geÃ¼pload worden naar de site "webdeb publiek".<br>\ 
+ Als een tekst grijs is, betekendt dit dat de bijdrager er aan heeft gewerkt maar de tekst niet zelf heeft geÃ¯mporteerd.
 group.mark.validated=Nakijken
 group.mark.showall=Alle bijdragen tonen
 group.mark.submit=Nagekeken bijdragen opslaan
@@ -2467,20 +2467,20 @@ group.mark.success=Nagekeken bijdragen zijn opgeslagen.
 group.merge.checkall=Alles aanduiden
 group.merge.title=Bijdragen van groep {0} de site WebDeb publiek verzenden.
 group.merge.desc=Je kan nagekeken bijdragen naar de site "webdeb publiek" uploaden door ze hieronder te selecteren en het formulier te verzenden. \
- Geüploade bijdragen zullen niet meer beschikbaar zijn in hun oorspronkelijke groep.
+ GeÃ¼ploade bijdragen zullen niet meer beschikbaar zijn in hun oorspronkelijke groep.
 group.merge.sendto=naar WebDeb publiek
 group.merge.submit=Samenvoegen naar WebDeb-publiek
-group.merge.success=Je hebt de geselecteerde bijdragen succesvol geüpload naar de publieke groep.
-group.merge.error=Door een fout konden de bijdragen niet naar de publieke groep geüpload worden. Contacteer alsjeblieft de beheerder.
+group.merge.success=Je hebt de geselecteerde bijdragen succesvol geÃ¼pload naar de publieke groep.
+group.merge.error=Door een fout konden de bijdragen niet naar de publieke groep geÃ¼pload worden. Contacteer alsjeblieft de beheerder.
 
 group.empty.modal.title=Groep leegmaken
 group.empty.modal.text=Ben je zeker dat je alle leden wil verwijderen en alle bijdragen wil verwijderen van \
- groep <span class=strong>{0}</span>? Alle bijdragen die niet geüpload zijn naar "webdeb \
+ groep <span class=strong>{0}</span>? Alle bijdragen die niet geÃ¼pload zijn naar "webdeb \
  publiek" worden onherroepelijk verwijderd. <span class=strong>Deze actie kan niet ongedaan gemaakt worden.</span>
 
 group.close.modal.title=Groep sluiten
 group.close.modal.text=Ben je zeker dat je de groep <span class=strong>{0}</span> wil sluiten? Alle leden worden \ 
- uit de groep gezet, alle bijdragen die niet geüpload zijn naar "webdeb publiek" worden onherroepelijk verwijderd \
+ uit de groep gezet, alle bijdragen die niet geÃ¼pload zijn naar "webdeb publiek" worden onherroepelijk verwijderd \
  en deze groep zal ook verwijderd worden. <span class=strong>Deze actie kan niet ongedaan gemaakt worden.</span>
 
 group.close.ok.false=Groep {0} is leeggemaakt. Leden en bijdragen zijn verwijderd.
@@ -2500,13 +2500,13 @@ group.preferences.changefollow.unfollow.btn=Groep niet meer volgen
 # feeders and imports
 admin.csv.title=Importeren uit een csv-bestand
 admin.csv.doc.title=Handleiding bekijken
-admin.csv.doc.bubble.0=Toujours laisser la première colonne du cdv vide !!! \
+admin.csv.doc.bubble.0=Toujours laisser la premiÃ¨re colonne du cdv vide !!! \
 ##################################################### <br> \
 Affiliatie(s) importeren: <br> \
 ##################################################### <br> \
  <br> \
    <br> \
-<span><b>order</b> : utilisé pour localisé si la ligne a été importé ou non. Ou pour faire le lien entre une ligne affiliation et une ligne acteur. <br> \
+<span><b>order</b> : utilisÃ© pour localisÃ© si la ligne a Ã©tÃ© importÃ© ou non. Ou pour faire le lien entre une ligne affiliation et une ligne acteur. <br> \
 </span> \
   <br> \
    <br> \
@@ -2554,7 +2554,7 @@ Affiliatie(s) importeren: <br> \
 Importation acteur(s) : <br> \
 ##################################################### <br> \
  <br> \
-<span><b>order</b> : utilisé pour localisé si la ligne a été importé ou non. Ou pour faire le lien entre une ligne affiliation et une ligne acteur. <br> \
+<span><b>order</b> : utilisÃ© pour localisÃ© si la ligne a Ã©tÃ© importÃ© ou non. Ou pour faire le lien entre une ligne affiliation et une ligne acteur. <br> \
 </span> \
   <br> \
 <span><b>webdebId</b> : <br> \
@@ -2729,13 +2729,13 @@ Importation acteur(s) : <br> \
   </span> \
  <br> \
 <span><b>socialObject3</b> : </span>
-admin.csv.doc.bubble.3=Toujours laisser la première colonne du cdv vide !!! \
+admin.csv.doc.bubble.3=Toujours laisser la premiÃ¨re colonne du cdv vide !!! \
 ##################################################### <br> \
 Importation auteur(s) : <br> \
 ##################################################### <br> \
  <br> \
    <br> \
-<span><b>order</b> : utilisé pour localisé si la ligne a été importé ou non. Ou pour faire le lien entre une ligne auteur et une ligne citation.<br> \
+<span><b>order</b> : utilisÃ© pour localisÃ© si la ligne a Ã©tÃ© importÃ© ou non. Ou pour faire le lien entre une ligne auteur et une ligne citation.<br> \
 </span> \
   <br> \
    <br> \
@@ -2759,11 +2759,11 @@ Importation auteur(s) : <br> \
 </span> \
   <br> \
    <br> \
-<span><b>isCited</b> : 1 si l'acteur est cité, 0 sinon<br> \
+<span><b>isCited</b> : 1 si l'acteur est citÃ©, 0 sinon<br> \
 </span> \
   <br> \
    <br> \
-<span><b>isTextAuthor</b> : 1 si l'acteur est également l''auteur du texte (mettre 1 si auteur citation = auteur texte), 0 sinon <br> \
+<span><b>isTextAuthor</b> : 1 si l'acteur est Ã©galement l''auteur du texte (mettre 1 si auteur citation = auteur texte), 0 sinon <br> \
 </span> \
   <br> \
    <br> \
@@ -2775,7 +2775,7 @@ Importation auteur(s) : <br> \
 </span> \
   <br> \
    <br> \
-<span><b>functionName</b> : Intitulé de la fonction si pas existante en DB<br> \
+<span><b>functionName</b> : IntitulÃ© de la fonction si pas existante en DB<br> \
 </span> \
   <br> \
    <br> \
@@ -2800,7 +2800,7 @@ Importation texte(s) : <br> \
 ##################################################### <br> \
  <br> \
    <br> \
-<span><b>order</b> :  utilisé pour localisé si la ligne a été importé ou non. Ou pour faire le lien entre une ligne auteur et une ligne citation.<br> \
+<span><b>order</b> :  utilisÃ© pour localisÃ© si la ligne a Ã©tÃ© importÃ© ou non. Ou pour faire le lien entre une ligne auteur et une ligne citation.<br> \
  </span> \
   <br> \
    <br> \
@@ -2812,7 +2812,7 @@ Importation texte(s) : <br> \
 </span> \
   <br> \
    <br> \
-<span><b>working_excerpt</b> : Extrait retravaillé<br> \
+<span><b>working_excerpt</b> : Extrait retravaillÃ©<br> \
  </span> \
   <br> \
    <br> \
@@ -2824,11 +2824,11 @@ Importation texte(s) : <br> \
 </span> \
   <br> \
    <br> \
-<span><b>placeId2</b> : Id d'un autre territoire si nécessaire<br> \
+<span><b>placeId2</b> : Id d'un autre territoire si nÃ©cessaire<br> \
  </span> \
   <br> \
    <br> \
-<span><b>placeId3</b> : Id d'un autre territoire si nécessaire<br> \
+<span><b>placeId3</b> : Id d'un autre territoire si nÃ©cessaire<br> \
 </span> \
    <br> \
  <br> \
@@ -2897,7 +2897,7 @@ admin.csv.modal.title.3=Kies csv-bestand(en) voor het uploaden van citaten en/of
 admin.csv.submit.title.3=Upload citaten of auteurs uit csv-bestanden
 admin.csv.instructions.3=Kies csv-bestand(en) voor het uploaden van citaten en/of auteurs in {0}. \
  Je kan een van beide bestanden uploaden, of allebei in een keer. Er zal een verslag in csv-formaat aangemaakt worden.
-admin.csv.btn=Kies…
+admin.csv.btn=Kiesâ€¦
 admin.csv.tooltip=Kies een .csv-bestand om up te loaden.
 admin.csv.actor=csv-bestanden met spelers
 admin.csv.affiliation=csv-bestanden met affiliaties
@@ -2906,12 +2906,12 @@ admin.csv.author=csv-bestanden met auteurs
 admin.csv.charset=Encodering (gebruikte afscheidingstekens)
 admin.csv.charset.UTF-8=UTF-8 (UNIX ou open/libreoffice)
 admin.csv.charset.ISO-8859-1=ISO-8859-1 (Latin1 - Windows excel)
-admin.csv.separator=Séparateur de colonnes CSV
+admin.csv.separator=SÃ©parateur de colonnes CSV
 admin.csv.separator.comma=Komma (",")
 admin.csv.separator.semicolon=Puntkomma (";")
 admin.csv.group=De groep die je koos om naar te uploaden, bestaat niet.
 admin.csv.nocharset=Geen encodering gekozen.
-admin.csv.empty=Minstens één csv-bestand vereist
+admin.csv.empty=Minstens Ã©Ã©n csv-bestand vereist
 admin.csv.result=Het eindresultaat kan gedownload worden <a href
 admin.csv.noresult=Het eindresultaat kon niet opgeslagen worden in een csv-bestand, contacteer alsjeblieft de beheerder om \
  het resultaat te kennen (via het logboek) en het probleem op te lossen.
@@ -2922,9 +2922,9 @@ admin.rss.ignore=Feed gedeactiveerd
 admin.rss.showmore=andere RSS-feeds
 admin.rss.actions=andere acties
 admin.rss.activate.true.btn=Feed activeren
-admin.rss.activate.true.title=RSS-feed activeren (teksten zullen automatisch geüpload worden)
+admin.rss.activate.true.title=RSS-feed activeren (teksten zullen automatisch geÃ¼pload worden)
 admin.rss.activate.false.btn=Feed deactiveren
-admin.rss.activate.false.title=RSS-feed deactiveren (teksten zullen niet meer automatisch geüpload worden)
+admin.rss.activate.false.title=RSS-feed deactiveren (teksten zullen niet meer automatisch geÃ¼pload worden)
 admin.rss.remove.btn=Feed verwijderen
 admin.rss.remove.title=RSS-feed definitief verwijderen
 admin.rss.edit.title=RSS-feed aanpassen
@@ -2933,7 +2933,7 @@ admin.rss.label.name=Naam van de feed*
 admin.rss.place.name=RSS-feed
 admin.rss.error.name=Naam is verplicht
 admin.rss.label.category=Inhoudscategorie*
-admin.rss.place.category=bv. internationaal, politiek, …
+admin.rss.place.category=bv. internationaal, politiek, â€¦
 admin.rss.error.category=Categorie is verplicht
 admin.rss.label.subcategory=Ondercategorie (optioneel)
 admin.rss.label.url=Feedadres*
@@ -2969,41 +2969,41 @@ admin.twitter.title=Comptes Twitter
 admin.twitter.new=Ajouter un compte
 admin.twitter.actions=autres actions
 admin.twitter.actions.desc=Action pour ce compte Twitter
-admin.twitter.edit.btn=Éditer les propriétés
+admin.twitter.edit.btn=Ã‰diter les propriÃ©tÃ©s
 admin.twitter.showmore=autres comptes Twitter
 admin.twitter.remove.btn=Supprimer compte
-admin.twitter.remove.title=Supprimer définitivement le compte Twitter
+admin.twitter.remove.title=Supprimer dÃ©finitivement le compte Twitter
 admin.twitter.edit.title=Modifier le compte Twitter de
 admin.twitter.create.title=Ajouter un compte Twitter
 admin.twitter.label.fullname=Nom complet *
 admin.twitter.place.fullname=Chercher parmi les acteurs connus
-admin.twitter.error.fullname=Le nom est obligatoire et doit correspondre à un acteur existant
+admin.twitter.error.fullname=Le nom est obligatoire et doit correspondre Ã  un acteur existant
 admin.twitter.error.idfullname=Veuillez choisir un nom explicitement de la liste des suggestions
 admin.twitter.label.account=Compte Twitter *
-admin.twitter.place.account=@Compte (sensible à la casse)
+admin.twitter.place.account=@Compte (sensible Ã  la casse)
 admin.twitter.error.account=Le compte est obligatoire
-admin.twitter.duplicate.account=Ce compte existe déjà
+admin.twitter.duplicate.account=Ce compte existe dÃ©jÃ 
 admin.twitter.error.gender=Le genre est obligatoire
 admin.twitter.label.languages=Langue(s) des tweets
 admin.twitter.place.languages=Choisissez une langue
-admin.twitter.edit.btn.title=Sauvegarder les propriétés de ce compte Twitter
+admin.twitter.edit.btn.title=Sauvegarder les propriÃ©tÃ©s de ce compte Twitter
 admin.twitter.btn.create=Ajouter compte
 admin.twitter.btn.edit=Modifier compte
 
 admin.twitter.remove.modal.title=Supprimer un compte Twitter
-admin.twitter.remove.modal.text=Êtes-vous sûr de vouloir supprimer le compte Twitter de {0} ?
+admin.twitter.remove.modal.text=ÃŠtes-vous sÃ»r de vouloir supprimer le compte Twitter de {0} ?
 
-admin.twitter.nolist=Impossible de récupérer les comptes Twitter car une erreur est survenue depuis le service externe WDTAL
-admin.twitter.notfound=Impossible de récupérer le compte Twitter demandé car une erreur est survenue depuis le service externe WDTAL
-admin.twitter.save.success=Le compte Twitter a été sauvegardé avec succès
+admin.twitter.nolist=Impossible de rÃ©cupÃ©rer les comptes Twitter car une erreur est survenue depuis le service externe WDTAL
+admin.twitter.notfound=Impossible de rÃ©cupÃ©rer le compte Twitter demandÃ© car une erreur est survenue depuis le service externe WDTAL
+admin.twitter.save.success=Le compte Twitter a Ã©tÃ© sauvegardÃ© avec succÃ¨s
 admin.twitter.save.error=Impossible de sauvegarder le compte Twitter car une erreur est survenue depuis le service externe WDTAL
-admin.twitter.remove.success=Le compte Twitter a été supprimé avec succès
+admin.twitter.remove.success=Le compte Twitter a Ã©tÃ© supprimÃ© avec succÃ¨s
 admin.twitter.remove.error=Impossible de supprimer le compte Twitter car une erreur est survenue depuis le service externe WDTAL
 
 # profession administration
-admin.profession.error.spelling=Geen vertaling van het geëncodeerde beroep
-admin.profession.error.lang=Geen vertalingstaal geëncodeerd
-admin.profession.error.gender=Geen geslachtsnaam geëncodeerd
+admin.profession.error.spelling=Geen vertaling van het geÃ«ncodeerde beroep
+admin.profession.error.lang=Geen vertalingstaal geÃ«ncodeerd
+admin.profession.error.gender=Geen geslachtsnaam geÃ«ncodeerd
 admin.profession.error.haslink.substitute=""
 admin.profession.error.haslink.link=""
 admin.profession.error.recursivelink=Een beroep kan niet met zichzelf verbonden zijn
@@ -3031,13 +3031,13 @@ admin.edit.profession.admin.title=Beroep bewerken
 admin.edit.profession.label.gender=Soort
 admin.edit.profession.label=Beroepsnaam
 admin.edit.profession.edit.btn=Bevestigen
-admin.edit.profession.edit.name=Regisseur, leerkracht, voetballer, …
+admin.edit.profession.edit.name=Regisseur, leerkracht, voetballer, â€¦
 admin.edit.profession.edit.like=Algemeen beroep
 admin.edit.profession.edit.displayhierarchy=Meer specifieke beroepen
 admin.edit.profession.edit.sublink=Gekoppeld beroep
 admin.edit.profession.edit.name.title=Varianten van hetzelfde beroep bewerken
 admin.edit.profession.ok=Beroep succesvol opgeslagen
-admin.profession.modify.btn=Beroep succesvol geüpdatet
+admin.profession.modify.btn=Beroep succesvol geÃ¼pdatet
 admin.merge.professions.ok=Beroepen succesvol samengevoegd
 admin.merge.professions.title=Beroepen samenvagen
 admin.merge.professions.label=Beroep om samen te voegen
@@ -3058,7 +3058,7 @@ profession.name.error=(Waarschuwing) Probeer het volgende alsjeblieft te vermijd
 <br> - de naam van een land of een nationaliteit \
 <br> - woorden zoals "ere", "ex-", "emeritus" en "federaal"
 
-profession.update.success=Beroep {0} succesvol geüpdatet
+profession.update.success=Beroep {0} succesvol geÃ¼pdatet
 
 # contributor administration
 admin.search.contributor.addon=Een bijdrager zoeken
@@ -3194,7 +3194,7 @@ mail.btn.unban_from_group=Naar WebDeb gaan
 
 mail.subject.group_closed=WebDeb - Een van je groepen is verwijderd
 mail.title.group_closed=Een groep is verwijderd
-mail.content.group_closed=<i>{1}</i> heeft de groep <i>{0}</i> verwijderd. Alle bijdragen die niet naar het openbare platform waren geüpload, zijn verwijderd.
+mail.content.group_closed=<i>{1}</i> heeft de groep <i>{0}</i> verwijderd. Alle bijdragen die niet naar het openbare platform waren geÃ¼pload, zijn verwijderd.
 mail.btn.group_closed=Naar WebDeb gaan
 
 mail.subject.report_rss=WebDeb - Upload via RSS-feed
@@ -3208,7 +3208,7 @@ mail.userToUser.modal.title=Een bijdrager contacteren
 mail.userToUser.modal.desc=Je gaat een mail sturen naar {0}. Je mailadres zal voor hem/haar ook zichtbaar zijn, \
  zodat hij/zij je kan antwoorden via het mailadres dat je hebt opgegeven ({1}).
 mail.userToUser.answer=Dankjewel om je antwoord op deze mail te versturen naar <a class="primary" href="mailto:{0}">{0}</a>
-mail.userToUser.answer=Merci de répondre à ce mail à l''adresse <a class="primary" href="mailto:{0}">{0}</a>
+mail.userToUser.answer=Merci de rÃ©pondre Ã  ce mail Ã  l''adresse <a class="primary" href="mailto:{0}">{0}</a>
 # About
 about.webdeb.title=Het WebDeb-project
 about.webdeb.descr=Projectomschrijving
@@ -3217,7 +3217,7 @@ argumenten en tegenargumenten over een debatonderwerp en de standpunten van pers
 Net zoals Wikipedia, kan elke internetgebruiker <a href={1}>bijdragen</a> na registratie en mits inachtneming van de regels van het platform. <br><br> \
 WebDeb wordt daarnaast ook gebruikt als <a href={2}>educatief hulpmiddel</a>
 about.webdeb.content=WebDeb vindt zijn oorsprong in het Europees onderzoeksproject KNOWandPOL (2006-2011), \
- gecoördineerd door UCLouvain en met als doel het verband tussen kennis en politiek te onderzoeken. \
+ gecoÃ¶rdineerd door UCLouvain en met als doel het verband tussen kennis en politiek te onderzoeken. \
  Als deel van dit onderzoek, werd als een eerste proefplatform "Wikideb" opgericht. \
  Met de resultaten van dit eerste experiment kon een nieuw project ontworpen worden. \
  Het Waals Gewest selecteerde dit nieuwe project voor financiering in het kader van de oproep "Germaine Tillion".
@@ -3244,13 +3244,13 @@ about.webdeb.contribute.content=WebDeb geeft iedereen die wil de kans om zelf na
 about.webdeb.usage.title=Gebruik
 about.webdeb.usage.content=Het platform richt zich momenteel op het grote publiek, scholen en universiteiten. \
 Leerkrachten kunnen zich op het platform inschrijven en de activiteiten van hun klas in goede banen leiden: \
-een argument opstellen, een zin indelen naar retorische functie, teksten analyseren… Wil je meer weten? \
+een argument opstellen, een zin indelen naar retorische functie, teksten analyserenâ€¦ Wil je meer weten? \
 Aarzel niet om ons te <a href=mailto:info@webdeb.be>contacteren</a>!
 about.webdeb.usage.content.2=WebDeb geeft aan iedereen die wil de kans om zelf na gratis <a href={1}>inschrijving</a> \
 <a href={0}>bij te dragen</a> door spelers, argumenten en citaten toe te voegen. <br><br> \
 Het platform richt zich momenteel op het grote publiek, scholen en universiteiten. \
 Leerkrachten kunnen zich op het platform inschrijven en de activiteiten van hun klas in goede banen leiden: \
-een argument opstellen, teksten analyseren… Wil je meer weten? Aarzel niet om ons te <a href=mailto:info@webdeb.be>contacteren</a>! \
+een argument opstellen, teksten analyserenâ€¦ Wil je meer weten? Aarzel niet om ons te <a href=mailto:info@webdeb.be>contacteren</a>! \
 about.webdeb.status.title=Vooruitgang van het project
 about.webdeb.status.content=We testen momenteel een prototype uit bij een vijftigtal leerlingen uit het middelbaar. \
  Dit protoype maakt het mogelijk om alle soorten bijdragen te encorden en op verschillende manieren te visualiseren. \
@@ -3265,15 +3265,15 @@ href={1}>documentation WDTAL</a>.
 
 aboutus.webdeb=Projectpartners
 aboutus.webdeb.desc=Het WebDeb-project steunt op een consortium van verschillende universiteiten en onderzoekscentra,
- industriële partners en sponors.
+ industriÃ«le partners en sponors.
 aboutus.webdeb.consortium=Consortium
-aboutus.webdeb.consortium.ucl=Université Catholique de Louvain
-aboutus.webdeb.consortium.unamur=Université de Namur
+aboutus.webdeb.consortium.ucl=UniversitÃ© Catholique de Louvain
+aboutus.webdeb.consortium.unamur=UniversitÃ© de Namur
 aboutus.webdeb.partners=Sponsors en partners van het project
 aboutus.webdeb.promoters=Ontwikkelaars
 aboutus.webdeb.actors.team=Huidige ploeg
 aboutus.webdeb.actors.formerteam=Oudmedewerkers
-aboutus.webdeb.amelie.title=Amélie Cougnon
+aboutus.webdeb.amelie.title=AmÃ©lie Cougnon
 aboutus.webdeb.andre.title=Andre Bittar
 aboutus.webdeb.bernard.title=Bernard Delvaux
 aboutus.webdeb.fabian.title=Fabian Gilson
@@ -3283,18 +3283,18 @@ aboutus.webdeb.pyschobb.title=Pierre-Yves Schobbens
 aboutus.webdeb.pierre.title=Pierre Beaulieu
 aboutus.webdeb.robin.title=Robin Dumont
 aboutus.webdeb.marie.title=Marie Defreyne
-aboutus.webdeb.cedrick.title=Cédrick Fairon
-aboutus.webdeb.amelie=Amélie werkte twee jaar lang aan de oprichting van het platform. Ook vandaag \
+aboutus.webdeb.cedrick.title=CÃ©drick Fairon
+aboutus.webdeb.amelie=AmÃ©lie werkte twee jaar lang aan de oprichting van het platform. Ook vandaag \
  blijft ze de ontwikkeling van WebDeb opvolgen. Ze is nog steeds verbonden aan UCLouvain, \
  waar ze onderzoeksdirecteur is aan het <a href= https://acougnon.wixsite.com/profile target=_blank>MiiL (Media innovation and intelligibility Lab)</a>. \
- Via dit innovatieplatform voor digitale ontwikkeling en eigendom, voert Amélie wetenschappelijk onderzoek \
+ Via dit innovatieplatform voor digitale ontwikkeling en eigendom, voert AmÃ©lie wetenschappelijk onderzoek \
  in nationaal en internationaal verband. \
 <br><a class="btn btn-link secondary pull-right" href=" https://acougnon.wixsite.com/profile" target="_blank">  Meer informatie...</a>
-aboutus.webdeb.andre=André was verantwoordelijk voor de automatische taalverwerking binnen het WebDeb-project en projectleider \
- bij <a href=https://www.uclouvain.be/cental.html target=_blank>Cental</a>. Tijdens zijn doctoraat (<a href=http://www.univ-paris-diderot.fr/english/ target=_blank>Université Paris Diderot</a>, 2010) \
+aboutus.webdeb.andre=AndrÃ© was verantwoordelijk voor de automatische taalverwerking binnen het WebDeb-project en projectleider \
+ bij <a href=https://www.uclouvain.be/cental.html target=_blank>Cental</a>. Tijdens zijn doctoraat (<a href=http://www.univ-paris-diderot.fr/english/ target=_blank>UniversitÃ© Paris Diderot</a>, 2010) \
  spitste hij zich toe op de automatische analyse van tijd in Franstalige teksten. Na zijn doctoraat ging hij aan de slag als \
  onderzoeker bij de onderzoeksgroep Parsing and Semantics van het <a href=http://www.xrce.xerox.com/ target=_blank>Xerox Research Centre Europe</a> \
- te Grenoble. Vervolgens werkte André als onderzoeker linguïstiek en informatica bij <a href=http://www.ho2s.com/ \
+ te Grenoble. Vervolgens werkte AndrÃ© als onderzoeker linguÃ¯stiek en informatica bij <a href=http://www.ho2s.com/ \
   target=_blank>Holmes Semantic Solutions</a>, een bedrijf gespecialiseerd in de het op de markt brengen \
  van toepassingen gebaseerd op automatische taalverwerking. Hij interesseert zich in \
  verschillende thema's, zoals grondige semantische analyse, detectie van gevoelens en emoties, opinie-monitoring, \
@@ -3303,21 +3303,21 @@ aboutus.webdeb.andre=André was verantwoordelijk voor de automatische taalverwerk
 aboutus.webdeb.bernard=Bernard Delvaux is de oprichter van het WebDeb-project. Hij kreeg het idee voor WebDeb in het kader van \
  het Europese <a href=http://www.knowandpol.eu/ target=_blank>KNOWandPOL</a> (Knowledge and Policy) onderzoeksproject, \
  waar hij copromotor van was. KNOWandPOL onderzocht het verband tussen kennis en politiek. \
-Als socioloog werkt hij als onderzoeker bij de <a href=http://www.uclouvain.be/ target=_blank>Université catholique de Louvain</a>.\
+Als socioloog werkt hij als onderzoeker bij de <a href=http://www.uclouvain.be/ target=_blank>UniversitÃ© catholique de Louvain</a>.\
  Hij is er lid van <a href=https://www.uclouvain.be/girsef.html target=_blank>Girsef</a> (interdisciplinaire \
   over socialisatie, onderwijs en vorming).<br>Naast WebDeb specialiseert hij zich ook in \
  onderzoek naar onderwijs, in het bijzonder onderwijsongelijkheid, segregatie en concurrentie \
- tussen scholen. Recent raakte hij ook geïnteresseerd in hoe de verhouding tussen onderwijs en samenleving \
+ tussen scholen. Recent raakte hij ook geÃ¯nteresseerd in hoe de verhouding tussen onderwijs en samenleving \
  is gewijzigd ten gevolge van grote maatschappelijke veranderingen. Zijn laatste werken zijn "<a href=https://www.uclouvain.be/530706.html \
- target=_blank>Une tout autre École</a>" en "<a href=http://www.deboecksuperieur.com/ouvrage/9782807301726-reflechir-lecole-de-demain \
-  target=_blank>Réfléchir l''École de demain</a>". Hij is overtuigd van het belang van langetermijndenken \
+ target=_blank>Une tout autre Ã‰cole</a>" en "<a href=http://www.deboecksuperieur.com/ouvrage/9782807301726-reflechir-lecole-de-demain \
+  target=_blank>RÃ©flÃ©chir l''Ã‰cole de demain</a>". Hij is overtuigd van het belang van langetermijndenken \
  voor de ontwikkeling van een nieuw onderwijsmodel. Dit is ook een van de redenen waarom hij zich engageert \
  bij de burgerbeweging <a href=http://www.toutautrechose.be/ target=_blank>Tout Autre Chose</a> en meer in het bijzonder bij \
- de groep <a href=http://www.toutautrechose.be/toutautreecole target=_blank>Tout Autre École.</a> \
+ de groep <a href=http://www.toutautrechose.be/toutautreecole target=_blank>Tout Autre Ã‰cole.</a> \
   <br><a class="btn btn-link secondary pull-right" href="http://www.uclouvain.be/bernard.delvaux" target="_blank">Meer informatie...</
 
-aboutus.webdeb.cedrick=Cédrick Fairon is professor aan de Université Catholique de Louvain waar hij taalkunde en taalkundige engineering doceert.
- Hij is houder van een doctoraat in taalkundige informatica (Université Paris VII Diderot) en heeft een master in de letterkunde.
+aboutus.webdeb.cedrick=CÃ©drick Fairon is professor aan de UniversitÃ© Catholique de Louvain waar hij taalkunde en taalkundige engineering doceert.
+ Hij is houder van een doctoraat in taalkundige informatica (UniversitÃ© Paris VII Diderot) en heeft een master in de letterkunde.
  Momenteel is hij decaan van de Faculteit filosofie, kunst en letterkunde aan UCLouvain. Hij was ook lang directeur \
  van CENTAL, een onderzoekslaboratorium voor automatische taalverwerking, vooral toegespitst op literaire teksten. \
  Verder was hij ook co-promotor van het WebDeb-project gefinancieerd door het Waals Gewest.
@@ -3330,24 +3330,24 @@ aboutus.webdeb.fabian=Fabian was verantwoordelijk voor de informaticakant van he
   <a href=https://sites.google.com/site/memodiaresearchproject/ target=_blank>>doctoraat</a> in de ingenieurswetenschappen \
  gericht op Agile ontwikkelingsmethoden en modelomzettingen, werd Fabian deel van \
  het WebDeb-team als ontwerper, analyst en ontwikkelaar van het WebDeb-platform en de bijhorende website. <br>\
- Fabian coördineert momenteel de lessen en practica in de ingenieursopleiding computerwetenschappen aan de afdeling <a href=http://cosc.canterbury.ac.nz target=_blank>\
+ Fabian coÃ¶rdineert momenteel de lessen en practica in de ingenieursopleiding computerwetenschappen aan de afdeling <a href=http://cosc.canterbury.ac.nz target=_blank>\
   CSSE</a> van de universiteit van Canterbury. Verder interesseert hij zich in modelgebaseerde ingenieurstoepassingen, \
  traceerbaarheid tussen verschillende modellen en modelvisualisatie. <br><a class=btn btn-link secondary pull-right href=\
   http://www.canterbury.ac.nz/engineering/contact-us/people/fabian-gilson.html" target=_blank>Meer informatie...</a>
 
 aboutus.webdeb.deniz=Deniz was verantwoordelijk voor de communicatie rond het WebDeb-project. Als taalkundige en literatuurtheoretica, \
- werkt ze als onderzoeksassistent aan de <a http://www.uclouvain.be/" target=_blank>Université catholique de Louvain</a>. \
+ werkt ze als onderzoeksassistent aan de <a http://www.uclouvain.be/" target=_blank>UniversitÃ© catholique de Louvain</a>. \
  Ze is ook lid van <a href=https://www.uclouvain.be/girsef.html target=_blank>Girsef</a> (interdisciplinaire \
  onderzoeksgroep over socialisatie, onderwijs en vorming). Haar onderzoek richt zich op sur (inter)subjectief \
  taalgebruik en identiteitsconstructie in literatuur. Ze werk als taalkundig analyst en consultant \
  bij TexTrix, een bedrijf dat beheerstoepassingen voor teksten ontwikkelt. In het kader van haar job \
  begeleidde ze de Belgische teams van Allianz, Dentsu en Petercam. Recent behaalde ze ook haar diploma lesgever secundair onderwijs. \
  Deniz heeft een passie voor hoe jongeren op school hun identiteit ontwikkelen in het nieuwe internettijdperk. \
- Verder is ze ook actief in de burgerbeweging <a href=https://www.toutautrechose.be/toutautreecole target=_blank>Tout Autre École</a>.\
+ Verder is ze ook actief in de burgerbeweging <a href=https://www.toutautrechose.be/toutautreecole target=_blank>Tout Autre Ã‰cole</a>.\
   <br><a class="btn btn-link secondary pull-right" href="http://www.uclouvain.be/deniz.uygur" target="_blank">Meer informatie...</a>
 
 aboutus.webdeb.martin=Martin is in september 2017 betrokken geraakt bij het project. Momenteel is hij verantwoordelijk \ 
- voor de ontwikkeling van het platform. Hij is houder van een bachelordiploma handelsingenieur aan Hénallux. \
+ voor de ontwikkeling van het platform. Hij is houder van een bachelordiploma handelsingenieur aan HÃ©nallux. \
  Voor zijn eindwerk ontwierp en onderzocht hij een online platform voor de uurroosters van een hogeschool. \
 <br><a class="btn btn-link secondary pull-right" href="https://www.linkedin.com/in/martin-rouffiange-013235127" target="_blank">Meer informatie...</a>
 
@@ -3367,13 +3367,13 @@ tegengaan van ongelijkheid, verhogen van politieke participatie of de dialoog tu
 
 aboutus.webdeb.robin=Robin is sinds juni 2018 betrokken bij het project en vervangt Pierre Bealieu als onderzoeker voor \
  het "Jongeren en Politiek"-project. In het begin van zijn universitaire loopbaan was Robin vooral \
- geïntrigeerd door jeugdeliquentie, maar al snel is hij zich steeds meer gaan richten op onderwijs. <br> \
+ geÃ¯ntrigeerd door jeugdeliquentie, maar al snel is hij zich steeds meer gaan richten op onderwijs. <br> \
 Als lid van Girsef (interdisciplinaire onderzoeksgroep over socialisatie, onderzoek en vorming), \
  is hij vandaag een van de onderzoekers die de resultaten van het onderzoek naar \
  "Jongeren en regionale verkiezingen 2019" zullen analyseren. Hij houdt zich ook bezig met \
  de verdere ontwikkeling van het WebDeb-platform, vormingen over het gebruik van WebDeb en haar verspreiding. \
- Sinds 2020 werkt hij aan de totstandkoming van het Débagora-hulpmiddel, bedoeld om \
- jongeren meer bij de politiek te betrekken. Débagora steunt ook deels op het WebDeb-platform. \
+ Sinds 2020 werkt hij aan de totstandkoming van het DÃ©bagora-hulpmiddel, bedoeld om \
+ jongeren meer bij de politiek te betrekken. DÃ©bagora steunt ook deels op het WebDeb-platform. \
 <br><a class="btn btn-link secondary pull-right" href="https://uclouvain.be/fr/repertoires/robin.dumont" target="_blank">Meer informatie...</a>
 
 #
@@ -3454,11 +3454,11 @@ bubble.entry.actor.qualificationsForm=Geef hier de opleiding van de speler in. S
 
 bubble.entry.actor.legal=Selecteer alsjeblieft het wettelijk statuut van de organisatie uit onderstaande lijst: \
 <ul>\
-<li><i>Onderneming</i>: een commerciële vereniging.</li>\
+<li><i>Onderneming</i>: een commerciÃ«le vereniging.</li>\
 <li><i>Politieke partij</i>: een politieke partij op lokaal, nationaal of internationaal niveau.</li>\
 <li><i>Overheidsadministratie, overheidsinstantie, of publiek adviesorgaan </i>: een overheid, een van haar diensten, de ambtenarij van een staat.</li>\
 <li><i>Vakbond, netwerk van organisaties, lobbygroep of sociale beweging</i>: elke groep mensen voor het beheer, de drukking of de verdediging van gemeenschappelijke belangen.</li>\
-<li><i>Elke andere organisatie die geen winst nastreeft</i> : VZW, coöperatieve of elk andere type vereniging die geen winst nastreeft.</li>\
+<li><i>Elke andere organisatie die geen winst nastreeft</i> : VZW, coÃ¶peratieve of elk andere type vereniging die geen winst nastreeft.</li>\
 </ul>
 bubble.entry.actor.parentsForm=Vader of moeder van speler alleen ingeven als hij/zij ook publiek actief is.
 
@@ -3481,14 +3481,14 @@ bubble.entry.text.sourceTitle=Voer hier de uitgever in die deze tekst gepublicee
 <li>Over de website, televisie-uitzending of sociaal netwerk waar de tekst te vinden is.\
 </ul>
 
-bubble.entry.tags=Pas de hashtag, mais un, deux ou trois mots ou groupes de mots qui rendent compte des « variables » que contient la phrase.<br><br>\
-Pour que la base de données WebDeb soit la plus cohérente possible, voici quelques règles à respecter : <br>\
+bubble.entry.tags=Pas de hashtag, mais un, deux ou trois mots ou groupes de mots qui rendent compte des Â« variables Â» que contient la phrase.<br><br>\
+Pour que la base de donnÃ©es WebDeb soit la plus cohÃ©rente possible, voici quelques rÃ¨gles Ã  respecter : <br>\
 <ul>\
 <li>minimum 1 tag, maximum 3</li>\
-<li>pas plus de deux mots par tag (sans compter un ou deux mots de liaison comme dans « diminution de la mortalité »  par exemple)</li>\
-<li>pas de référence à des entités géographiques, des individus ou des organisations puisque les deux dernières cases du formulaire permettent de les mentionner.\
+<li>pas plus de deux mots par tag (sans compter un ou deux mots de liaison comme dans Â« diminution de la mortalitÃ© Â»  par exemple)</li>\
+<li>pas de rÃ©fÃ©rence Ã  des entitÃ©s gÃ©ographiques, des individus ou des organisations puisque les deux derniÃ¨res cases du formulaire permettent de les mentionner.\
 </ul><br><br>\
-Tenir compte des suggestions qui apparaissent en-dessous du tag que vous êtes en train d’écrire. Si une suggestion vous convient, la sélectionner.\
+Tenir compte des suggestions qui apparaissent en-dessous du tag que vous Ãªtes en train dâ€™Ã©crire. Si une suggestion vous convient, la sÃ©lectionner.\
 
 
 bubble.entry.text.publication=Voor een onvertaalde tekst is de publicatiedatum de datum waarop de tekst gepubliceerd is <br>\
@@ -3510,26 +3510,26 @@ bubble.entry.text.textType=Kies alsjeblieft een van volgende types: \
 <li><b>Toekomstgericht</b>: project, plan of toekomstgericht programma.</li>\
 <li><b>Praktisch</b>: technisch of praktisch handboek, toeristische gids, keukenrecept...</li>\
 <li><b>Reclame</b>: slogan, commercieel argument.</li>\
-<li><b>Wetenschappelijk</b>: artikel, academisch boek, publicatie-overzicht, doctoraat, thesis, marktonderzoek… opgesteld/gepubliceerd in een academische context.</li>\
+<li><b>Wetenschappelijk</b>: artikel, academisch boek, publicatie-overzicht, doctoraat, thesis, marktonderzoekâ€¦ opgesteld/gepubliceerd in een academische context.</li>\
 <li><b>Ander</b></li>\
 </ul> 
 
-bubble.entry.text.area=Je kan een tekst alleen volledig kopiëren als hij rechtenvrij is \
- (tekst afkomstig uit een openbare bron of met toestemming voor reproductie of van officiële instanties). \ 
+bubble.entry.text.area=Je kan een tekst alleen volledig kopiÃ«ren als hij rechtenvrij is \
+ (tekst afkomstig uit een openbare bron of met toestemming voor reproductie of van officiÃ«le instanties). \ 
  Als de tekst een pdf is, geef dan alsjeblieft zijn url (moet eindigen op .pdf) of upload hem vanuit je bestanden door op de knop "bladeren" te drukken. \
  In alle andere gevallen zal WebDeb automatisch de inhoud van een webpagina ophalen als de website dit toelaat. <br/><br/> \
  Als je een video of een socialemedia-post wil uploaden, zal WebDeb deze automatisch tonen via de url die je hierboven ingeeft. <br/><br/> \
   <b>Opgelet:</b> Als je dus de url van een video, een audio-extract of een socialemedia-post ingeeft, heb je dus geen toegang tot het script of de tekst. \
  Als je bijvoorbeeld de tekst van een video wil analyseren, zal je de tekst manueel moeten invoeren.
 
-bubble.entry.text.area.2=Je kan een tekst alleen volledig kopiëren als hij rechtenvrij is \
- (tekst afkomstig uit een openbare bron of met toestemming voor reproductie of van officiële instanties). \ 
+bubble.entry.text.area.2=Je kan een tekst alleen volledig kopiÃ«ren als hij rechtenvrij is \
+ (tekst afkomstig uit een openbare bron of met toestemming voor reproductie of van officiÃ«le instanties). \ 
  Als het om een pdf gaat, kan je het bestand uploaden vanuit je bestanden door op de knop "bladeren" te drukken.
 
 bubble.entry.text.visibility=De inhoud van de tekst kan <b>publiek</b> zichtbaar zijn, elke bijdrager \
  heeft dan toegang tot de inhoud. <br><br>De tekst kan ook voor <b>educatief</b> gebruik zijn, alleen gebruikers die geregistreerd zijn \
  als student, onderzoeker of leerkracht hebben dan toegang. <br><br>Als de tekst "afgeschermd" is dan is de zichtbaarheid beperkt \
- tot de bijdrager die tekst geëncodeerd heeft. Elke bijdrager kan zijn eigen inhoud toevoegen.
+ tot de bijdrager die tekst geÃ«ncodeerd heeft. Elke bijdrager kan zijn eigen inhoud toevoegen.
 
 #workwith
 
@@ -3542,7 +3542,7 @@ deze knop klikken voor een nieuwe tekst.
 
 bubble.work.nlp=Het WebDeb-systeem markeert bepaalde zinsdelen om uitspraken gemakkelijker te selecteren \
 en te encoderen. <br /><br />\
-Gemarkeerde zinsdelen kunnen van verschillende types zijn die uiteenvallen in drie grote categorieën: \
+Gemarkeerde zinsdelen kunnen van verschillende types zijn die uiteenvallen in drie grote categorieÃ«n: \
 <ul>\
 <li>spelers (in kleur): personen of organisaties geciteerd in de tekst</li>\
 <li>informatie over de context (in kleur): plaats en tijd vermeld in de tekst</li>\
@@ -3551,7 +3551,7 @@ Gemarkeerde zinsdelen kunnen van verschillende types zijn die uiteenvallen in dr
 
 bubble.work.arg.instructions=Het uittreksel is dat deel van de tekst dat het hoofdidee bevat dat je wil opslaan. Dit uittreksel \
 mag niet te lang zijn en hoeft niet alle informatie te bevatten die voorkomt in de uitdrukking die je wil encoderen (zoals bijvoorbeeld \
-voornamen van vermelde spelers). In de volgende tekst zou je bijvoorbeeld enkel het gedeelte in het "vet" kunnen kopiëren, ook al \
+voornamen van vermelde spelers). In de volgende tekst zou je bijvoorbeeld enkel het gedeelte in het "vet" kunnen kopiÃ«ren, ook al \
 komt <i>Roodkapje</i> er niet in voor (je kan dit oplossen bij het bewerken): <p class=quote>Roodkapje vertrekt \
 onmiddellijk om haar grootmoeder te bezoeken, die in een ander dorp woont. <b>Terwijl ze door het bos wandelt, komt ze de Wolf tegen \
 die haar wil verorberen. ;</b></p>\
@@ -3563,7 +3563,7 @@ bubble.entry.argument.links=Hier kan je koppelingen tussen twee beweringen opsla
 <u>het koppelingstype</u>. Er zijn verschillende koppelingstypes: \
 <ul>\
 <li><b>Koppeling door gelijkaardigheid</b> : twee beweringen ondersteunen een gelijkaardig of tegengesteld voorstel.<br /> Voorbeeld:\
-<p class=quote>Een onderwijshervorming is nodig om meer gelijkheid te creëren.<p>\
+<p class=quote>Een onderwijshervorming is nodig om meer gelijkheid te creÃ«ren.<p>\
 <b>is gelijkaardig aan:</b>\
 <p class=quote>We moeten het onderwijssysteem veranderen om de ongelijkheid te verminderen.</p></li>\
 <li><b>Koppeling door onderbouwing/ondermijning</b>: een bewering onderbouwt, nuanceert of ondermijnt een andere bewering.<br /> Voorbeeld:\
@@ -3583,9 +3583,9 @@ Via het derde dropdown-menu kan je de bewering kiezen die gekoppeld is met de ge
 
 bubble.entry.argument.excerpt=Bekijk hier het uittrekstel dat je geselecteerd hebt in de tekst. Dit uittreksel kan je niet bewerken. \
 <ul>\
-<li>Als je wat al geëncodeerd is wil aanpassen, moet je teruggaan naar de vorige pagina (bewerken van beweringen) \
+<li>Als je wat al geÃ«ncodeerd is wil aanpassen, moet je teruggaan naar de vorige pagina (bewerken van beweringen) \
 en je uittreksel verwijderen door op <span class=fa fa-trash> te klikken.</li>\
-<li>Als je iets wil aanpassen dat nog niet geëncodeerd is, kan je gewoon teruggaan naar het bewerkingsscherm \
+<li>Als je iets wil aanpassen dat nog niet geÃ«ncodeerd is, kan je gewoon teruggaan naar het bewerkingsscherm \
 van de tekst en beweringen door op <i>Annuleren</i> te klikken, onderaan de pagina.</li>\
 </ul>
 
@@ -3601,15 +3601,15 @@ Verwijder of voeg een naam toe via de knoppen <span class=fa fa-plus></span> en 
 
 bubble.entry.author.argument.label.arg=Dit veld is optioneel. Vul dit veld in als er in de zin sprake is van een individu of een tekst.\
 Opgelet. Als het individu of de organisatie geciteerd wordt, geef deze speler dan in het veld hieronder in. <br><br>\
-Ajouter ou retirer un nom à l’aide des boutons <span class=fa fa-plus></span> et <span class=fa fa-minus></span>
+Ajouter ou retirer un nom Ã  lâ€™aide des boutons <span class=fa fa-plus></span> et <span class=fa fa-minus></span>
 
-bubble.entry.argument.type=Deze classificatie laat je toe om de mate van betrokkenheid van een individu met zijn/haar tekst te bepalen. Ons programma doet je automatisch een voorstel. Je kan dit voorstel aanvaarden of een andere categorie kiezen door op een ander vierkantje te klikken. Er zijn vier grote categorieën van betrokkenheid:\
+bubble.entry.argument.type=Deze classificatie laat je toe om de mate van betrokkenheid van een individu met zijn/haar tekst te bepalen. Ons programma doet je automatisch een voorstel. Je kan dit voorstel aanvaarden of een andere categorie kiezen door op een ander vierkantje te klikken. Er zijn vier grote categorieÃ«n van betrokkenheid:\
 <ol>\
 <li><b>Beschrijvend</b>: elke overblijvend soort zin.<br />Voorbeeld:<p class=quote>Barack Obama gaat elke zaterdag joggen in Central Park.</p>\
 <li><b>Voorschrijvend</b>: gaat over wat zou moeten gebeuren. In voorschrijvende beweringen komen vaak woorden voor zoals <i>moeten, nodig zijn</i>...\
 <br />Voorbeeld:<p class=quote>Om groot en sterk te worden moet je soep drinken.</p></li>\
 <li><b>Gevoelsuitdrukkend</b>: gaat over gevoelens/emoties. In gevoelsuitdrukkingen komen vaak werkwoorden voor zoals \
-<i>houden van, haten, appreciëren, wantrouwen, vieren, gelukkig/triest zijn, zich gepassioneerd voelen, \
+<i>houden van, haten, appreciÃ«ren, wantrouwen, vieren, gelukkig/triest zijn, zich gepassioneerd voelen, \
 zich schamen, zich ergeren, zich goed/slecht voelen</i>...<br />Voorbeelden:<p class=quote>Ik hou er net zoveel van om naar mensen te kijken \
 als om ze te horen lachen.</p><p class=quote>Je vertrek doet me pijn.</p></li>\
 <li><b>Toekomstgericht</b>: gaat over (wilsuitdrukkingen over) de toekomst. In toekomstgerichte beweringen komen werkwoorden voor zoals <i>beloven, \
@@ -3624,7 +3624,7 @@ Tijd: verleden</p>
 bubble.entry.argument.shade=Kies welke beschrijving over de zekerheid/waarschijnlijkheid van de bewering het meest van toepassing is.<br />Voorbeeld:\
 <p class=quote>De actrice gaat elke middag misschien 3 kilometer wandelen om in vorm te blijven.</p><p class=indent>Betekenisnuance: Het is waarschijnlijk</p>
 
-bubble.entry.argument.standard=Bewerken van het uittreksel (<b>altijd haakjes gebruiken […]</b>) is heel belangrijk wanneer het uittreksel onbruikbaar lang is\
+bubble.entry.argument.standard=Bewerken van het uittreksel (<b>altijd haakjes gebruiken [â€¦]</b>) is heel belangrijk wanneer het uittreksel onbruikbaar lang is\
 of wanneer het uittreksel op zichzelf niet begrijpelijk is voor iemand die de tekst niet gelezen heeft.<br><br>\
 Voorbeeld:\
 <ol>\
@@ -3633,18 +3633,18 @@ Voorbeeld:\
 <li>als er context ontbreekt die noodzakelijk is voor een goed begrip, voeg deze context tussen haakjes toe op de juiste plaats in de zin.\
 (het is niet nodig om plaatsen toe te voegen want dat kan je hieronder doen)</li>\
 <li>als de context noodzakelijk voor een goed begrip voorkomt in de voorgaande zin en deze zin vrij lang is,\
-zou je het citaat kunnen beginnen met een samenvatting van deze zin, tussen haakjes […]. </li>\
+zou je het citaat kunnen beginnen met een samenvatting van deze zin, tussen haakjes [â€¦]. </li>\
 </ol>
 
 bubble.entry.argument.class.excerpt=Bekijk hier het uittrekstel dat je geselecteerd hebt in de tekst. Dit uittreksel kan je niet bewerken. \
-Als je een al geëncodeerd uittreksel wil bewerken, ga dan terug naar het bewerken van beweringen uit de tekst en verwijder je uittreksel. \
-Als je een nog niet geëncodeerd uittreksel wil aanpassen, kan je gewoon terug gaan naar de vorige stap door op <i>Vorige</i> \
+Als je een al geÃ«ncodeerd uittreksel wil bewerken, ga dan terug naar het bewerken van beweringen uit de tekst en verwijder je uittreksel. \
+Als je een nog niet geÃ«ncodeerd uittreksel wil aanpassen, kan je gewoon terug gaan naar de vorige stap door op <i>Vorige</i> \
 en dan <i>Annuleren</i> te klikken.
 
 bubble.entry.argument.class.standard=Bekijk hier de standaardvorm van je bewering. Deze standaardvorm kan je niet aanpassen. \
 Als je je bewering toch wil aanpassen, ga dan terug naar de vorige stap door op <i>Vorige</i> te klikken, onderaan de pagina.
 
-bubble.entry.place.placename=plaatsen waar de zin over gaat (gemeenschap, regio, land, continent, …) <br> \
+bubble.entry.place.placename=plaatsen waar de zin over gaat (gemeenschap, regio, land, continent, â€¦) <br> \
 Als het niet over een bepaalde plaats gaat, geef dan "Wereld" in. <br> \
 Als de zin naar meerdere plaatsen verwijst (bijv. een vergelijking van twee landen), druk dan op + om een andere plaats toe te voegen. <br> \
 Start met het begin van een naam te typen, kies dan uit de suggesties.
@@ -3688,14 +3688,14 @@ toolbox.menu.project=Projecten beheren
 project.edit=Project bewerken
 project.submit=Project opslaan
 project.save.success=Succesvol opgeslagen!
-project.save.error=Opslaan is niet mogelijk…
+project.save.error=Opslaan is niet mogelijkâ€¦
 project.title=Projecten
 project.name=Projectnaam*
 project.technicalName=Technische projectnaam (eerste deel van het pseudoniem)*
 project.beginDate=Startdatum van het project*
 project.endDate=Einddatum van het project*
 project.pedagogic=Is het een educatief project?*
-project.inprogress=Het project is lopende…
+project.inprogress=Het project is lopendeâ€¦
 
 projet.group.edit=Projectgroep (school) bewerken
 project.group.name=Groepsnaam*
@@ -3714,7 +3714,7 @@ project.contributors.create=Bijdragers (leerlingen) aanmaken
 #Dictionary
 
 dictionary.save.error=Item succesvol opgeslagen in het woordenboek!
-dictionary.save.success=Door een fout is dit item helaas niet opgeslagen in het woordenboek…
+dictionary.save.success=Door een fout is dit item helaas niet opgeslagen in het woordenboekâ€¦
 dictionary.search.instructions=Begin met typen om te zoeken in het woordenboek
 dictionary.search.label=Zoeken in woordenboek
 dictionary.search.title=Zoekopdracht in woordenboek starten
@@ -3749,153 +3749,153 @@ admin.mail.content.place=Geef hier de inhoud van je mail op.
 admin.mail.content.error=Mail vereist inhoud
 
 admin.mail.general.success=mail succesvol verstuurd!
-admin.mail.general.error=mail kon niet verstuurd worden…
+admin.mail.general.error=mail kon niet verstuurd wordenâ€¦
 
 #election 2019
-election.2019.title=Accédez aux CV de tous les candidats aux élections régionales bruxelloises du 26 mai 2019.
+election.2019.title=AccÃ©dez aux CV de tous les candidats aux Ã©lections rÃ©gionales bruxelloises du 26 mai 2019.
 election.2019.title.2=Voir les CV des 771 candidat.es
-election.2019.desc=CV incomplet ? Erreur ? WebDeb vous donne la possibilité d’enrichir et modifier les données. Voici comment :
+election.2019.desc=CV incomplet ? Erreur ? WebDeb vous donne la possibilitÃ© dâ€™enrichir et modifier les donnÃ©es. Voici comment :
 election.2019.browse=Chercher un candidat :
 
-election.2019.stats.title=Comment les partis ont-ils composé leurs listes pour les élections régionales bruxelloises ?
-election.2019.stats.subtitle=Autres chiffres sur les élections régionales bruxelloises :
-election.2019.stats.desc=Voici quelques statistiques à partir des données accumulées dans WebDeb
+election.2019.stats.title=Comment les partis ont-ils composÃ© leurs listes pour les Ã©lections rÃ©gionales bruxelloises ?
+election.2019.stats.subtitle=Autres chiffres sur les Ã©lections rÃ©gionales bruxelloises :
+election.2019.stats.desc=Voici quelques statistiques Ã  partir des donnÃ©es accumulÃ©es dans WebDeb
 
 election.2019.stats.ad.title=pour faire savoir <br> qui est qui
-election.2019.stats.ad.subtitle.1=Derrières ces chiffres, WebDeb
+election.2019.stats.ad.subtitle.1=DerriÃ¨res ces chiffres, WebDeb
 election.2019.stats.ad.subtitle.2=Voir les CV
-election.2019.stats.ad.subtitle.3=Résumé en image
+election.2019.stats.ad.subtitle.3=RÃ©sumÃ© en image
 election.2019.stats.ad.subtitle.4=Autres chiffres
-election.2019.stats.ad.desc.1=Ces statistiques n’auraient pas été possibles sans les données accumulées dans WebDeb. \
-Cette plateforme permet en effet d’établir des liens d’affiliation entre acteurs pour faire savoir <b>qui est qui</b>.
-election.2019.stats.ad.desc.2=<b>Faire savoir qui est qui vous intéresse ?</b> WebDeb est alors fait pour vous. \
-C’est en effet une plateforme collaborative dans l’esprit de Wikipédia.
-election.2019.stats.ad.desc.3=<b>Vous pouvez y contribuer librement</b> à propos de n’importe quel thème ou territoire, \
-même si WebDeb est actuellement surtout centré sur la politique bruxelloise.
-election.2019.stats.ad.desc.4=Pour savoir <b>comment compléter les informations sur un acteur</b>
-election.2019.stats.ad.desc.5=voir la vidéo tutorielle
+election.2019.stats.ad.desc.1=Ces statistiques nâ€™auraient pas Ã©tÃ© possibles sans les donnÃ©es accumulÃ©es dans WebDeb. \
+Cette plateforme permet en effet dâ€™Ã©tablir des liens dâ€™affiliation entre acteurs pour faire savoir <b>qui est qui</b>.
+election.2019.stats.ad.desc.2=<b>Faire savoir qui est qui vous intÃ©resse ?</b> WebDeb est alors fait pour vous. \
+Câ€™est en effet une plateforme collaborative dans lâ€™esprit de WikipÃ©dia.
+election.2019.stats.ad.desc.3=<b>Vous pouvez y contribuer librement</b> Ã  propos de nâ€™importe quel thÃ¨me ou territoire, \
+mÃªme si WebDeb est actuellement surtout centrÃ© sur la politique bruxelloise.
+election.2019.stats.ad.desc.4=Pour savoir <b>comment complÃ©ter les informations sur un acteur</b>
+election.2019.stats.ad.desc.5=voir la vidÃ©o tutorielle
 
-election.2019.stats.1.title=Quels sont les partis qui font le plus appel à des candidat.es néophytes ?
-election.2019.stats.1.desc=70 % des candidat.es aux élections régionales bruxelloises de 2019 ne se sont encore jamais présenté.es aux élections régionales bruxelloises. \
-  C’est ce que révèlent nos données, limitées aux élections de 2004, 2009 et 2014. Six partis ne sont d’ailleurs composés que de néophytes. \
-  A l’opposé, Open VLD et CD&V n’en comptent qu’un tiers. Les transfuges ne sont pas très nombreux (moins de 4% en moyenne).
-election.2019.stats.1.graph=A noter que nous avons considéré que le ou la candidat.e l’avait été dans le même parti quand celui-ci était en cartel avec d’autres.
-election.2019.stats.1.list=A quelles élections régionales bruxelloises ont déjà participé les candidat.es ? Et au sein de quel parti  ?
-election.2019.stats.1.list.legend=Les candidatures présentées dans d’autres partis, en cartel ou sous un autre nom du même parti figurent en brun
-election.2019.stats.1.stat.desc.1=70 % des candidat·es aux élections régionales bruxelloises ne se sont encore jamais présenté·es aux élections régionales bruxelloises.
-election.2019.stats.1.stat.desc.2=Six partis ne sont composés que de néophytes. A l’opposé, Open VLD et CD&V n’est comptent qu’un tiers.
-election.2019.stats.1.stat.desc.3=Côté francophone, la proportion d’ancien·nes parlementaires ou ministres est au moins 2,5 fois supérieure au PS que dans les autres partis.
+election.2019.stats.1.title=Quels sont les partis qui font le plus appel Ã  des candidat.es nÃ©ophytes ?
+election.2019.stats.1.desc=70 % des candidat.es aux Ã©lections rÃ©gionales bruxelloises de 2019 ne se sont encore jamais prÃ©sentÃ©.es aux Ã©lections rÃ©gionales bruxelloises. \
+  Câ€™est ce que rÃ©vÃ¨lent nos donnÃ©es, limitÃ©es aux Ã©lections de 2004, 2009 et 2014. Six partis ne sont dâ€™ailleurs composÃ©s que de nÃ©ophytes. \
+  A lâ€™opposÃ©, Open VLD et CD&V nâ€™en comptent quâ€™un tiers. Les transfuges ne sont pas trÃ¨s nombreux (moins de 4% en moyenne).
+election.2019.stats.1.graph=A noter que nous avons considÃ©rÃ© que le ou la candidat.e lâ€™avait Ã©tÃ© dans le mÃªme parti quand celui-ci Ã©tait en cartel avec dâ€™autres.
+election.2019.stats.1.list=A quelles Ã©lections rÃ©gionales bruxelloises ont dÃ©jÃ  participÃ© les candidat.es ? Et au sein de quel parti  ?
+election.2019.stats.1.list.legend=Les candidatures prÃ©sentÃ©es dans dâ€™autres partis, en cartel ou sous un autre nom du mÃªme parti figurent en brun
+election.2019.stats.1.stat.desc.1=70 % des candidatÂ·es aux Ã©lections rÃ©gionales bruxelloises ne se sont encore jamais prÃ©sentÃ©Â·es aux Ã©lections rÃ©gionales bruxelloises.
+election.2019.stats.1.stat.desc.2=Six partis ne sont composÃ©s que de nÃ©ophytes. A lâ€™opposÃ©, Open VLD et CD&V nâ€™est comptent quâ€™un tiers.
+election.2019.stats.1.stat.desc.3=CÃ´tÃ© francophone, la proportion dâ€™ancienÂ·nes parlementaires ou ministres est au moins 2,5 fois supÃ©rieure au PS que dans les autres partis.
 
 election.2019.stats.2.title=Les futurs parlement et gouvernement bruxellois compteront au moins 46 % de nouveaux membres
-election.2019.stats.2.desc.1=Le 26 mai, 97 responsables politiques devront être remplacés : 89 députés mais aussi 5 ministres et 3 secrétaires d’état. \
-  Parmi eux, un peu plus de la moitié (52) se représente devant les électeurs. Il y aura donc au moins 46 % de nouvelles têtes au gouvernement et au parlement bruxellois.
-election.2019.stats.2.desc.2=Côté francophone, il y aura un peu plus de nouvelles têtes. En effet, 51 % des 77 responsables actuels ne se représentent pas. \
-  Parmi eux, le ministre Didier Gosuin (DéFI) et les 5 parlementaires qui sont devenus indépendants en cours de législature \
-  (la cdH Mahinur Ozdemir, les libéraux Armand De Decker et Alain Destexhe et les socialistes Mahamed Azzouzi et Zahoor Manzoor). \
-  Le PS est le parti le plus « conservateur » : près de 3/4 des responsables sortants se représentent. \
-  A l’autre bout de la distribution, seuls 1 parlementaire MR sur 3 se représente.
-election.2019.stats.2.desc.3=Côté flamand, la continuité est plus forte puisque 70 % des responsables actuels se représentent et que, dans certains partis, \
+election.2019.stats.2.desc.1=Le 26 mai, 97 responsables politiques devront Ãªtre remplacÃ©s : 89 dÃ©putÃ©s mais aussi 5 ministres et 3 secrÃ©taires dâ€™Ã©tat. \
+  Parmi eux, un peu plus de la moitiÃ© (52) se reprÃ©sente devant les Ã©lecteurs. Il y aura donc au moins 46 % de nouvelles tÃªtes au gouvernement et au parlement bruxellois.
+election.2019.stats.2.desc.2=CÃ´tÃ© francophone, il y aura un peu plus de nouvelles tÃªtes. En effet, 51 % des 77 responsables actuels ne se reprÃ©sentent pas. \
+  Parmi eux, le ministre Didier Gosuin (DÃ©FI) et les 5 parlementaires qui sont devenus indÃ©pendants en cours de lÃ©gislature \
+  (la cdH Mahinur Ozdemir, les libÃ©raux Armand De Decker et Alain Destexhe et les socialistes Mahamed Azzouzi et Zahoor Manzoor). \
+  Le PS est le parti le plus Â« conservateur Â» : prÃ¨s de 3/4 des responsables sortants se reprÃ©sentent. \
+  A lâ€™autre bout de la distribution, seuls 1 parlementaire MR sur 3 se reprÃ©sente.
+election.2019.stats.2.desc.3=CÃ´tÃ© flamand, la continuitÃ© est plus forte puisque 70 % des responsables actuels se reprÃ©sentent et que, dans certains partis, \
   cette proportion atteint 100 %.
-election.2019.stats.2.desc.4=Parmi les partants, il y a celles et ceux qui quittent définitivement la politique supra-communale, mais d’autres aussi, moins nombreux, \
-  qui se présentent au niveau fédéral. Plusieurs partants faisaient partie des meubles du Parlement puisqu’ils étaient déjà là lors de sa création en 1989. \
-  Parmi eux, le président sortant Charles Picqué (PS), qui a aussi été ministre et ministre-président, mais aussi Serge de Patoul (DéFI) \
-  et Marion Lemesre (MR), qui ont été parlementaires sans discontinuer pendant 30 ans, et d’autres comme Willem Draps (MR), \
-  Evelyne Huytebroeck (Ecolo) ou Martine Payfa (DéFI) qui y ont siégé par intermittence. Une page se tourne…
+election.2019.stats.2.desc.4=Parmi les partants, il y a celles et ceux qui quittent dÃ©finitivement la politique supra-communale, mais dâ€™autres aussi, moins nombreux, \
+  qui se prÃ©sentent au niveau fÃ©dÃ©ral. Plusieurs partants faisaient partie des meubles du Parlement puisquâ€™ils Ã©taient dÃ©jÃ  lÃ  lors de sa crÃ©ation en 1989. \
+  Parmi eux, le prÃ©sident sortant Charles PicquÃ© (PS), qui a aussi Ã©tÃ© ministre et ministre-prÃ©sident, mais aussi Serge de Patoul (DÃ©FI) \
+  et Marion Lemesre (MR), qui ont Ã©tÃ© parlementaires sans discontinuer pendant 30 ans, et dâ€™autres comme Willem Draps (MR), \
+  Evelyne Huytebroeck (Ecolo) ou Martine Payfa (DÃ©FI) qui y ont siÃ©gÃ© par intermittence. Une page se tourneâ€¦
 election.2019.stats.2.graph=% de parlementaires et ministres sortants parmi les candidats
-election.2019.stats.2.list=Les parlementaires qui quittent la politique régionale bruxelloise (et leur période de présence au Parlement et/ou au gouvernement)
-election.2019.stats.2.stat.desc.1= Il y aura au moins 46 % de nouvelles têtes au gouvernement et au parlement bruxellois.
-election.2019.stats.2.stat.desc.2=Près de 3/4 des ministres ou député·es socialistes sortant·es se représentent. À l’autre bout de la distribution, seul 1 parlementaire MR sur 3 se représente.
-election.2019.stats.2.stat.desc.3=Côté flamand, 70 % des responsables actuels se représentent et, dans certains partis, cette proportion atteint 100 %.
+election.2019.stats.2.list=Les parlementaires qui quittent la politique rÃ©gionale bruxelloise (et leur pÃ©riode de prÃ©sence au Parlement et/ou au gouvernement)
+election.2019.stats.2.stat.desc.1= Il y aura au moins 46 % de nouvelles tÃªtes au gouvernement et au parlement bruxellois.
+election.2019.stats.2.stat.desc.2=PrÃ¨s de 3/4 des ministres ou dÃ©putÃ©Â·es socialistes sortantÂ·es se reprÃ©sentent. Ã€ lâ€™autre bout de la distribution, seul 1 parlementaire MR sur 3 se reprÃ©sente.
+election.2019.stats.2.stat.desc.3=CÃ´tÃ© flamand, 70 % des responsables actuels se reprÃ©sentent et, dans certains partis, cette proportion atteint 100 %.
 
-election.2019.stats.3.title=Quelles fonctions ont exercé les 64 candidat.es ayant déjà eu des responsabilités régionales ?
-election.2019.stats.3.desc.1=Sur les 771 candidats qui se présentent aux élections régionales bruxelloises, seuls 64 (8,3 %) \
-  ont déjà exercé des responsabilités à l’échelle de la région bruxelloise, que ce soit en tant que ministre, secrétaire d’état ou député, \
-  et qu’ils l’aient fait lors de la législature qui touche à son terme ou auparavant. Mais si on fait le même calcul pour \
-  les seuls partis ayant actuellement des députés, ce taux monte à 12 %. Il est très variable selon les partis, et d’autant plus élevé \
-  que ces partis ont précédemment envoyé beaucoup de députés au Parlement.
-election.2019.stats.3.desc.2=La proportion d’ancien mandataires parmi les candidats est en moyenne plus élevée dans les partis néerlandophones. \
-  Explication partielle : ces partis ne peuvent présenter que 17 candidats (contre 72 pour les partis francophones).
-election.2019.stats.3.desc.3=Côté francophone, la proportion d’anciens parlementaires ou ministres est au moins 2,5 fois supérieure au PS que dans les autres partis. \
-  En effet, un candidat socialiste sur quatre a un passé ministériel ou parlementaire à la Région contre moins d’un sur dix au MR. \
-  Cet écart s’explique en grande partie par le différentiel du nombre d’élus ou ministres obtenu par ces deux partis lors des \
-  deux précédentes législatures (respectivement 23 et 24 pour le PS, contre 13 et 15 pour le MR, soit un rapport de 2,6 à 1 sur \
-  les deux législatures).
+election.2019.stats.3.title=Quelles fonctions ont exercÃ© les 64 candidat.es ayant dÃ©jÃ  eu des responsabilitÃ©s rÃ©gionales ?
+election.2019.stats.3.desc.1=Sur les 771 candidats qui se prÃ©sentent aux Ã©lections rÃ©gionales bruxelloises, seuls 64 (8,3 %) \
+  ont dÃ©jÃ  exercÃ© des responsabilitÃ©s Ã  lâ€™Ã©chelle de la rÃ©gion bruxelloise, que ce soit en tant que ministre, secrÃ©taire dâ€™Ã©tat ou dÃ©putÃ©, \
+  et quâ€™ils lâ€™aient fait lors de la lÃ©gislature qui touche Ã  son terme ou auparavant. Mais si on fait le mÃªme calcul pour \
+  les seuls partis ayant actuellement des dÃ©putÃ©s, ce taux monte Ã  12 %. Il est trÃ¨s variable selon les partis, et dâ€™autant plus Ã©levÃ© \
+  que ces partis ont prÃ©cÃ©demment envoyÃ© beaucoup de dÃ©putÃ©s au Parlement.
+election.2019.stats.3.desc.2=La proportion dâ€™ancien mandataires parmi les candidats est en moyenne plus Ã©levÃ©e dans les partis nÃ©erlandophones. \
+  Explication partielle : ces partis ne peuvent prÃ©senter que 17 candidats (contre 72 pour les partis francophones).
+election.2019.stats.3.desc.3=CÃ´tÃ© francophone, la proportion dâ€™anciens parlementaires ou ministres est au moins 2,5 fois supÃ©rieure au PS que dans les autres partis. \
+  En effet, un candidat socialiste sur quatre a un passÃ© ministÃ©riel ou parlementaire Ã  la RÃ©gion contre moins dâ€™un sur dix au MR. \
+  Cet Ã©cart sâ€™explique en grande partie par le diffÃ©rentiel du nombre dâ€™Ã©lus ou ministres obtenu par ces deux partis lors des \
+  deux prÃ©cÃ©dentes lÃ©gislatures (respectivement 23 et 24 pour le PS, contre 13 et 15 pour le MR, soit un rapport de 2,6 Ã  1 sur \
+  les deux lÃ©gislatures).
 election.2019.stats.3.graph=% de parlementaires et ministres sortants parmi les candidats
-election.2019.stats.3.list=Fonctions exercées à la Région par les candidat.es ayant déjà été député, ministre ou secrétaire d'état à la Région Bruxelloise
-election.2019.stats.3.stat.desc.1=64 candidat·es (8,3 %) ont déjà été ministre, secrétaire d’état ou député·e bruxellois·e. Pour les partis ayant actuellement des député·es, ce taux monte à 12 %.
-election.2019.stats.3.stat.desc.2=La proportion d’ancien·nes mandataires parmi les candidats est en moyenne plus élevée dans les partis néerlandophones. 
-election.2019.stats.3.stat.desc.3=Côté francophone, la proportion d’ancien·nes parlementaires ou ministres est au moins 2,5 fois supérieure au PS que dans les autres partis.
+election.2019.stats.3.list=Fonctions exercÃ©es Ã  la RÃ©gion par les candidat.es ayant dÃ©jÃ  Ã©tÃ© dÃ©putÃ©, ministre ou secrÃ©taire d'Ã©tat Ã  la RÃ©gion Bruxelloise
+election.2019.stats.3.stat.desc.1=64 candidatÂ·es (8,3 %) ont dÃ©jÃ  Ã©tÃ© ministre, secrÃ©taire dâ€™Ã©tat ou dÃ©putÃ©Â·e bruxelloisÂ·e. Pour les partis ayant actuellement des dÃ©putÃ©Â·es, ce taux monte Ã  12 %.
+election.2019.stats.3.stat.desc.2=La proportion dâ€™ancienÂ·nes mandataires parmi les candidats est en moyenne plus Ã©levÃ©e dans les partis nÃ©erlandophones. 
+election.2019.stats.3.stat.desc.3=CÃ´tÃ© francophone, la proportion dâ€™ancienÂ·nes parlementaires ou ministres est au moins 2,5 fois supÃ©rieure au PS que dans les autres partis.
 
-election.2019.stats.4.title=30 candidat.es sont actuellement bourgmestre ou échevin.es. Quels seront leurs choix si elles et ils sont élu.es ?
-election.2019.stats.4.desc.1=5 bourgmestres et 25 échevin.es se présentent comme candidat.es aux élections régionales bruxelloises. \
-  Pour l’instant, rien ne leur interdit de cumuler un poste de député avec leur mandat dans l’exécutif communal{0}. \
-  Par contre, s’il leur était proposé de devenir ministre ou secrétaire d’état, ils ou elles devraient faire un choix.
-election.2019.stats.4.desc.2=4 de ces candidat.es se présentent sur des listes flamandes. \
-  Côté francophone, près de la moitié (12sur 26) proviennent du PS. Et ce parti est, de loin, celui qui intègre le plus \
-  d’échevin.es ou de bourgmestres dans sa liste (près de 17 %
-election.2019.stats.4.desc.3=Pour composer leurs listes, les 9 partis qui disposent d’échevins ou de bourgmestres n’ont pas adopté les mêmes règles. \
-  Ecolo est le seul à avoir renoncé à intégrer des membres de collèges communaux dans ses listes. \
-  Les autres l’ont accepté, mais certains comme DéFI, le cdH ou le PS pourraient imposer aux éventuel.les élu.es de choisir\
-   entre leur poste de député.e et celui de bourgmestre ou échevin.e.
-election.2019.stats.4.desc.4=Si vous envisagez de voter pour ces candidat.es, mieux vaut dès lors savoir si leur souhait \
-  est de siéger au parlement ou si leur objectif est de faire profiter les autres membres de leur renommée.
-election.2019.stats.4.desc.legend.1=1. Après les « affaires », une proposition d’ordonnance voulait interdire tout cumul \
-  de mandat de parlementaire bruxellois avec celui de bourgmestre ou d’échevin au niveau communal. \
-  Bien que plus de 2/3 des parlementaires ont voté en faveur de ce projet, celui-ci n’est pas passé du fait de l’opposition \
-  d’une majorité de partis flamands. Ont voté contre : MR, Open VLD, N-VA, CD&V et Vlaams Belang. Se sont abstenus : \
-  Benoît Cerexhe (cdH), Bernard Clerfayt (DéFI) et Alain Destexhe (MR).
-election.2019.stats.4.list=Qui sont les bourgmestres et échevin.es présent.es sur les listes régionales ?
-election.2019.stats.4.stat.desc.1=5 bourgmestres et 25 échevin.es se présentent comme candidat·es. Il ne leur est pas interdit de devenir député·e, mais bien d’être ministre ou secrétaire d’état tout en restant bourgmestre ou échevin·e.
-election.2019.stats.4.stat.desc.2=4 de ces candidat·es se présentent sur des listes flamandes. Côté francophone, près de la moitié proviennent du PS. 
-election.2019.stats.4.stat.desc.3=Ecolo est le seul parti disposant de bourgmestres et échevin.es à avoir renoncé à en intégrer dans ses listes.
+election.2019.stats.4.title=30 candidat.es sont actuellement bourgmestre ou Ã©chevin.es. Quels seront leurs choix si elles et ils sont Ã©lu.es ?
+election.2019.stats.4.desc.1=5 bourgmestres et 25 Ã©chevin.es se prÃ©sentent comme candidat.es aux Ã©lections rÃ©gionales bruxelloises. \
+  Pour lâ€™instant, rien ne leur interdit de cumuler un poste de dÃ©putÃ© avec leur mandat dans lâ€™exÃ©cutif communal{0}. \
+  Par contre, sâ€™il leur Ã©tait proposÃ© de devenir ministre ou secrÃ©taire dâ€™Ã©tat, ils ou elles devraient faire un choix.
+election.2019.stats.4.desc.2=4 de ces candidat.es se prÃ©sentent sur des listes flamandes. \
+  CÃ´tÃ© francophone, prÃ¨s de la moitiÃ© (12sur 26) proviennent du PS. Et ce parti est, de loin, celui qui intÃ¨gre le plus \
+  dâ€™Ã©chevin.es ou de bourgmestres dans sa liste (prÃ¨s de 17 %
+election.2019.stats.4.desc.3=Pour composer leurs listes, les 9 partis qui disposent dâ€™Ã©chevins ou de bourgmestres nâ€™ont pas adoptÃ© les mÃªmes rÃ¨gles. \
+  Ecolo est le seul Ã  avoir renoncÃ© Ã  intÃ©grer des membres de collÃ¨ges communaux dans ses listes. \
+  Les autres lâ€™ont acceptÃ©, mais certains comme DÃ©FI, le cdH ou le PS pourraient imposer aux Ã©ventuel.les Ã©lu.es de choisir\
+   entre leur poste de dÃ©putÃ©.e et celui de bourgmestre ou Ã©chevin.e.
+election.2019.stats.4.desc.4=Si vous envisagez de voter pour ces candidat.es, mieux vaut dÃ¨s lors savoir si leur souhait \
+  est de siÃ©ger au parlement ou si leur objectif est de faire profiter les autres membres de leur renommÃ©e.
+election.2019.stats.4.desc.legend.1=1. AprÃ¨s les Â« affaires Â», une proposition dâ€™ordonnance voulait interdire tout cumul \
+  de mandat de parlementaire bruxellois avec celui de bourgmestre ou dâ€™Ã©chevin au niveau communal. \
+  Bien que plus de 2/3 des parlementaires ont votÃ© en faveur de ce projet, celui-ci nâ€™est pas passÃ© du fait de lâ€™opposition \
+  dâ€™une majoritÃ© de partis flamands. Ont votÃ© contre : MR, Open VLD, N-VA, CD&V et Vlaams Belang. Se sont abstenus : \
+  BenoÃ®t Cerexhe (cdH), Bernard Clerfayt (DÃ©FI) et Alain Destexhe (MR).
+election.2019.stats.4.list=Qui sont les bourgmestres et Ã©chevin.es prÃ©sent.es sur les listes rÃ©gionales ?
+election.2019.stats.4.stat.desc.1=5 bourgmestres et 25 Ã©chevin.es se prÃ©sentent comme candidatÂ·es. Il ne leur est pas interdit de devenir dÃ©putÃ©Â·e, mais bien dâ€™Ãªtre ministre ou secrÃ©taire dâ€™Ã©tat tout en restant bourgmestre ou Ã©chevinÂ·e.
+election.2019.stats.4.stat.desc.2=4 de ces candidatÂ·es se prÃ©sentent sur des listes flamandes. CÃ´tÃ© francophone, prÃ¨s de la moitiÃ© proviennent du PS. 
+election.2019.stats.4.stat.desc.3=Ecolo est le seul parti disposant de bourgmestres et Ã©chevin.es Ã  avoir renoncÃ© Ã  en intÃ©grer dans ses listes.
 
-election.2019.stats.5.title=Les partis présentent sur leurs listes beaucoup d’élus communaux
-election.2019.stats.5.desc.1=197 des candidat.es qui se présentent aux élections régionales bruxelloises occupent actuellement\
-   des fonctions de bourgmestre, d’échevin.e ou de conseiller.ère communal.e. C’est loin d’être négligeable : \
-  ce nombre représente en effet plus du quart des mandataires communaux (28,4 %) et plus du quart des candidat.es (25,5 %).\
-   Et même plus d’un tiers (33,4 %) de ces candidat.es si on se limite aux 12 partis ayant au moins un.e mandataire communal.e. 
-election.2019.stats.5.desc.2=Qui plus est, ce type de candidat.es est généralement mieux placé, plus visible, et donc plus \
-  susceptible d’être élu.e. Comme le montrent les graphiques, la proportion de mandataires communaux est décroissante \
-  à mesure qu’on descend dans la liste des candidat.es, avec un rebond dans les dernières places « de combat ».
-election.2019.stats.5.desc.3=Les justifications et raisons avancées par les partis qui adoptent de telles pratiques sont variées : \
-  la notoriété plus grande des élu.es communaux sert d’attrape-voix ; l’ancrage sur le terrain communal permet aux députés d’être plus \
-  conscients des problèmes quotidiens ; la présence de mandataires communaux au Parlement ou au Gouvernement sert \
-  les intérêts de la commune, etc. Mais Les stratégies des partis varient significativement.
-election.2019.stats.5.desc.4=Cela dépend évidemment d’abord de la présence ou non de mandataires communaux dans ces partis et \
-  du nombre de candidat.es à trouver (72 sur les listes francophones et 17 sur les listes néerlandophones). \
-  Mais si l’on compare des partis ayant un vivier communal de taille similaire, on note d’importantes différences.
-election.2019.stats.5.desc.5=Côté francophone, PS, MR et Ecolo, les trois partis dominants, qui comptent un nombre assez \
-  similaire de mandataires (environ 140), n’en n’envoient pas tous autant aux élections régionales. Alors qu’Ecolo réserve 37,5 % \
-  des places à ses conseillers communaux (et aucune à ses bourgmestres et échevins), le PS en envoie 58,3 %, dont un tiers \
-  d’échevins et bourgmestres, tandis que le MR adopte une stratégie intermédiaire.
-election.2019.stats.5.graph=A noter que les mandataires communales féminines sont presque aussi nombreuses que les hommes \
-  à avoir accepter d’être présentes sur les listes régionales (94 contre 103).
-election.2019.stats.5.list=Candidat.es qui sont déjà mandataires communaux (comme bourgmestre, échevin ou conseiller communal)
-election.2019.stats.5.stat.desc.1=Plus du quart des candidat·es occupent actuellement des fonctions de bourgmestre, d’échevin·e ou de conseiller·ère communal·e.
-election.2019.stats.5.stat.desc.2=Bourgmestres, échevin.es ou membres de conseils communaux occupent généralement les places les plus en vue.
-election.2019.stats.5.stat.desc.3=Alors qu’Ecolo réserve 37,5 % des places à ses mandataires communaux (et aucune à ses bourgmestres et échevins), le PS en envoie 58,3 %, dont un tiers d’échevin·es et bourgmestres.
+election.2019.stats.5.title=Les partis prÃ©sentent sur leurs listes beaucoup dâ€™Ã©lus communaux
+election.2019.stats.5.desc.1=197 des candidat.es qui se prÃ©sentent aux Ã©lections rÃ©gionales bruxelloises occupent actuellement\
+   des fonctions de bourgmestre, dâ€™Ã©chevin.e ou de conseiller.Ã¨re communal.e. Câ€™est loin dâ€™Ãªtre nÃ©gligeable : \
+  ce nombre reprÃ©sente en effet plus du quart des mandataires communaux (28,4 %) et plus du quart des candidat.es (25,5 %).\
+   Et mÃªme plus dâ€™un tiers (33,4 %) de ces candidat.es si on se limite aux 12 partis ayant au moins un.e mandataire communal.e. 
+election.2019.stats.5.desc.2=Qui plus est, ce type de candidat.es est gÃ©nÃ©ralement mieux placÃ©, plus visible, et donc plus \
+  susceptible dâ€™Ãªtre Ã©lu.e. Comme le montrent les graphiques, la proportion de mandataires communaux est dÃ©croissante \
+  Ã  mesure quâ€™on descend dans la liste des candidat.es, avec un rebond dans les derniÃ¨res places Â« de combat Â».
+election.2019.stats.5.desc.3=Les justifications et raisons avancÃ©es par les partis qui adoptent de telles pratiques sont variÃ©es : \
+  la notoriÃ©tÃ© plus grande des Ã©lu.es communaux sert dâ€™attrape-voix ; lâ€™ancrage sur le terrain communal permet aux dÃ©putÃ©s dâ€™Ãªtre plus \
+  conscients des problÃ¨mes quotidiens ; la prÃ©sence de mandataires communaux au Parlement ou au Gouvernement sert \
+  les intÃ©rÃªts de la commune, etc. Mais Les stratÃ©gies des partis varient significativement.
+election.2019.stats.5.desc.4=Cela dÃ©pend Ã©videmment dâ€™abord de la prÃ©sence ou non de mandataires communaux dans ces partis et \
+  du nombre de candidat.es Ã  trouver (72 sur les listes francophones et 17 sur les listes nÃ©erlandophones). \
+  Mais si lâ€™on compare des partis ayant un vivier communal de taille similaire, on note dâ€™importantes diffÃ©rences.
+election.2019.stats.5.desc.5=CÃ´tÃ© francophone, PS, MR et Ecolo, les trois partis dominants, qui comptent un nombre assez \
+  similaire de mandataires (environ 140), nâ€™en nâ€™envoient pas tous autant aux Ã©lections rÃ©gionales. Alors quâ€™Ecolo rÃ©serve 37,5 % \
+  des places Ã  ses conseillers communaux (et aucune Ã  ses bourgmestres et Ã©chevins), le PS en envoie 58,3 %, dont un tiers \
+  dâ€™Ã©chevins et bourgmestres, tandis que le MR adopte une stratÃ©gie intermÃ©diaire.
+election.2019.stats.5.graph=A noter que les mandataires communales fÃ©minines sont presque aussi nombreuses que les hommes \
+  Ã  avoir accepter dâ€™Ãªtre prÃ©sentes sur les listes rÃ©gionales (94 contre 103).
+election.2019.stats.5.list=Candidat.es qui sont dÃ©jÃ  mandataires communaux (comme bourgmestre, Ã©chevin ou conseiller communal)
+election.2019.stats.5.stat.desc.1=Plus du quart des candidatÂ·es occupent actuellement des fonctions de bourgmestre, dâ€™Ã©chevinÂ·e ou de conseillerÂ·Ã¨re communalÂ·e.
+election.2019.stats.5.stat.desc.2=Bourgmestres, Ã©chevin.es ou membres de conseils communaux occupent gÃ©nÃ©ralement les places les plus en vue.
+election.2019.stats.5.stat.desc.3=Alors quâ€™Ecolo rÃ©serve 37,5 % des places Ã  ses mandataires communaux (et aucune Ã  ses bourgmestres et Ã©chevins), le PS en envoie 58,3 %, dont un tiers dâ€™Ã©chevinÂ·es et bourgmestres.
 
-election.2019.stats.6.title=Les ingrédients du Parlement bruxellois
-election.2019.stats.6.desc.1=Lorsque le verdict des élections du 26 mai est tombé, les regards ont surtout été attirés par la répartition \
-  des sièges entre partis. Mais d’autres critères sont également pertinents pour saisir ce qui fera et ce que fera le \
-  Parlement : sexe, âge, lieu de résidence, ancrage communal ou expérience parlementaire antérieure sont en effet d’autres paramètres \
+election.2019.stats.6.title=Les ingrÃ©dients du Parlement bruxellois
+election.2019.stats.6.desc.1=Lorsque le verdict des Ã©lections du 26 mai est tombÃ©, les regards ont surtout Ã©tÃ© attirÃ©s par la rÃ©partition \
+  des siÃ¨ges entre partis. Mais dâ€™autres critÃ¨res sont Ã©galement pertinents pour saisir ce qui fera et ce que fera le \
+  Parlement : sexe, Ã¢ge, lieu de rÃ©sidence, ancrage communal ou expÃ©rience parlementaire antÃ©rieure sont en effet dâ€™autres paramÃ¨tres \
   qui peuvent avoir un impact sur le travail parlementaire. Examinons donc la composition du Parlement sous ces divers angles.
-election.2019.stats.6.desc.2=Les statistiques qui suivent ont été calculées sur la base des 89 élu·es. \
+election.2019.stats.6.desc.2=Les statistiques qui suivent ont Ã©tÃ© calculÃ©es sur la base des 89 Ã©luÂ·es. \
   Une partie de ces personnes quittera le Parlement dans les prochaines semaines ou les prochains mois pour devenir ministre ou \
-  ne rester que bourgmestre ou échevin·e. Il faudra alors voir si cela modifie sensiblement certains traits du Parlement.
+  ne rester que bourgmestre ou Ã©chevinÂ·e. Il faudra alors voir si cela modifie sensiblement certains traits du Parlement.
 
-election.2019.stats.6.seemore=Voir les données par parti et par élu·e
+election.2019.stats.6.seemore=Voir les donnÃ©es par parti et par Ã©luÂ·e
 
-election.2019.stats.6.subject.1.title=54 % de nouvelles têtes au Parlement
-election.2019.stats.6.subject.1.desc.1=54 % de nouvelles têtes, cela signifie que 46 % des élu·es étaient déjà dans le \
-  Parlement ou le Gouvernement bruxellois sortants. 7 des 8 ministres ou secrétaires se représentaient. \
-  Ils ont été réélus. Mais 11 des 45 parlementaires sortants qui se représentaient n’ont pas été réélus. On compte 5 francophones \
+election.2019.stats.6.subject.1.title=54 % de nouvelles tÃªtes au Parlement
+election.2019.stats.6.subject.1.desc.1=54 % de nouvelles tÃªtes, cela signifie que 46 % des Ã©luÂ·es Ã©taient dÃ©jÃ  dans le \
+  Parlement ou le Gouvernement bruxellois sortants. 7 des 8 ministres ou secrÃ©taires se reprÃ©sentaient. \
+  Ils ont Ã©tÃ© rÃ©Ã©lus. Mais 11 des 45 parlementaires sortants qui se reprÃ©sentaient nâ€™ont pas Ã©tÃ© rÃ©Ã©lus. On compte 5 francophones \
   (les PS  \
-<a class=primary href=/viz/actor/20059>Véronique Jamoulle</a>,  \
+<a class=primary href=/viz/actor/20059>VÃ©ronique Jamoulle</a>,  \
 <a class=primary href=/viz/actor/164229>Simone Susskind</a>,  \
 <a class=primary href=/viz/actor/21898>Kenza Yacubi</a> et  \
 <a class=primary href=/viz/actor/5512>Bea Diallo</a> ; le cdH  \
-<a class=primary href=/viz/actor/20107>Ahmed El Khannouss</a>) et 6 néerlandophones \
+<a class=primary href=/viz/actor/20107>Ahmed El Khannouss</a>) et 6 nÃ©erlandophones \
   (les CD&V  \
 <a class=primary href=/viz/actor/5508>Paul Delva</a> et  \
 <a class=primary href=/viz/actor/6372>Brigitte Grouwels</a> ; les Open VLD  \
@@ -3903,104 +3903,104 @@ election.2019.stats.6.subject.1.desc.1=54 % de nouvelles têtes, cela signifie qu
 <a class=primary href=/viz/actor/5403>Stefan Cornelis</a> ; le N-VA  \
 <a class=primary href=/viz/actor/21668>Johan Van den Driessche</a> et le Groen !  \
 <a class=primary href=/viz/actor/5502>Bruno de Lille</a>).
-election.2019.stats.6.subject.1.desc.2=Certain·es pourraient être repêché·es du fait que des parlementaires entreront au\
-   Gouvernement ou choisiront de ne pas cumuler leur poste au Parlement avec celui de bourgmestre ou d’échevin.
+election.2019.stats.6.subject.1.desc.2=CertainÂ·es pourraient Ãªtre repÃªchÃ©Â·es du fait que des parlementaires entreront au\
+   Gouvernement ou choisiront de ne pas cumuler leur poste au Parlement avec celui de bourgmestre ou dâ€™Ã©chevin.
 
-election.2019.stats.6.subject.2.title=Beaucoup de parlementaires cumulent commune et région
-election.2019.stats.6.subject.2.desc.1=L’assemblée parlementaire aurait pu n’être composée que de mandataires communaux \
-  puisqu’il y avait sur les listes 2,2 fois plus de mandataires communaux que de sièges à pourvoir (197 candidat·es pour 89 sièges). \
-  De nombreux non mandataires ont pourtant réussi à se glisser dans l’hémicycle. Ils ne représentent cependant que 30 % des élu·es.  \
-  Ils étaient nombreux sur les listes, mais avec une probabilité nettement inférieure d’être élus (5,2 % contre 31 % pour les mandataires)
-election.2019.stats.6.subject.2.desc.2=A noter que sur les 62 élu·es impliqué·es dans la gestion communale, 10 sont bourgmestre ou échevin·e. \
-  Plusieurs de ces personnes pourraient choisir de ne pas cumuler et de laisser ainsi leur lace à un·e suppléant·e.
+election.2019.stats.6.subject.2.title=Beaucoup de parlementaires cumulent commune et rÃ©gion
+election.2019.stats.6.subject.2.desc.1=Lâ€™assemblÃ©e parlementaire aurait pu nâ€™Ãªtre composÃ©e que de mandataires communaux \
+  puisquâ€™il y avait sur les listes 2,2 fois plus de mandataires communaux que de siÃ¨ges Ã  pourvoir (197 candidatÂ·es pour 89 siÃ¨ges). \
+  De nombreux non mandataires ont pourtant rÃ©ussi Ã  se glisser dans lâ€™hÃ©micycle. Ils ne reprÃ©sentent cependant que 30 % des Ã©luÂ·es.  \
+  Ils Ã©taient nombreux sur les listes, mais avec une probabilitÃ© nettement infÃ©rieure dâ€™Ãªtre Ã©lus (5,2 % contre 31 % pour les mandataires)
+election.2019.stats.6.subject.2.desc.2=A noter que sur les 62 Ã©luÂ·es impliquÃ©Â·es dans la gestion communale, 10 sont bourgmestre ou Ã©chevinÂ·e. \
+  Plusieurs de ces personnes pourraient choisir de ne pas cumuler et de laisser ainsi leur lace Ã  unÂ·e supplÃ©antÂ·e.
 
 election.2019.stats.6.subject.3.title=Aucun pont entre le Parlement et les conseils communaux de Saint-Gilles et Woluwe-Saint-Lambert
-election.2019.stats.6.subject.3.desc.1=Nombreux sont les parlementaires bruxellois qui ont également un mandat communal. Et pourtant, certains conseils \
-  communaux n’envoient aucun·e de ses membres au Parlement. C’est le cas de Woluwe-Saint-Lambert et de Saint-Gilles. À l’opposé, Bruxelles en envoie 10, \
-  ce qui est cependant plus ou moins proportionnel à sa population en âge de voter. 
-election.2019.stats.6.subject.3.desc.2=Les communes de Ganshoren, Evere, Woluwe-Saint-Pierre et Forest ont, quant à elles, une représentation parlementaire importante, \
-  sans commune mesure avec leur taille, tandis qu’Ixelles et Anderlecht se trouvent dans une situation inverse de sous-représentation.
+election.2019.stats.6.subject.3.desc.1=Nombreux sont les parlementaires bruxellois qui ont Ã©galement un mandat communal. Et pourtant, certains conseils \
+  communaux nâ€™envoient aucunÂ·e de ses membres au Parlement. Câ€™est le cas de Woluwe-Saint-Lambert et de Saint-Gilles. Ã€ lâ€™opposÃ©, Bruxelles en envoie 10, \
+  ce qui est cependant plus ou moins proportionnel Ã  sa population en Ã¢ge de voter. 
+election.2019.stats.6.subject.3.desc.2=Les communes de Ganshoren, Evere, Woluwe-Saint-Pierre et Forest ont, quant Ã  elles, une reprÃ©sentation parlementaire importante, \
+  sans commune mesure avec leur taille, tandis quâ€™Ixelles et Anderlecht se trouvent dans une situation inverse de sous-reprÃ©sentation.
 
-election.2019.stats.6.subject.4.title=Les plus jeunes sont sous-représenté·es… et les plus âgé·es totalement absent·es
-election.2019.stats.6.subject.4.desc.1=Le Parlement bruxellois reste l’affaire des 35-54 ans. \
-  Cette tranche d’âge occupe en effet deux-tiers des strapontins, soit presque deux fois plus que son poids dans la population en âge de voter (33,9 %). \
-  Les deux classes d’âge qui les suivent ou les précèdent sont, quant à elles, raisonnablement représentées : les 25-34 et 55-64 ans \
-  envoient en effet un nombre de parlementaires équivalant à leur poids dans la population. \
- Mais les plus jeunes et les plus vieux sont nettement sous-représentés. Les 18-24 ans ne pèsent que 2,2 % au \
-  Parlement alors qu’ils représentent 10,2 % des votants. Cet écart va d’ailleurs encore s’accentuer à mesure que \
-  les parlementaires vont vieillir en cours de législature. Quant aux plus vieux, la distorsion est encore plus forte \
-  puisqu’un seul parlementaire (\
+election.2019.stats.6.subject.4.title=Les plus jeunes sont sous-reprÃ©sentÃ©Â·esâ€¦ et les plus Ã¢gÃ©Â·es totalement absentÂ·es
+election.2019.stats.6.subject.4.desc.1=Le Parlement bruxellois reste lâ€™affaire des 35-54 ans. \
+  Cette tranche dâ€™Ã¢ge occupe en effet deux-tiers des strapontins, soit presque deux fois plus que son poids dans la population en Ã¢ge de voter (33,9 %). \
+  Les deux classes dâ€™Ã¢ge qui les suivent ou les prÃ©cÃ¨dent sont, quant Ã  elles, raisonnablement reprÃ©sentÃ©es : les 25-34 et 55-64 ans \
+  envoient en effet un nombre de parlementaires Ã©quivalant Ã  leur poids dans la population. \
+ Mais les plus jeunes et les plus vieux sont nettement sous-reprÃ©sentÃ©s. Les 18-24 ans ne pÃ¨sent que 2,2 % au \
+  Parlement alors quâ€™ils reprÃ©sentent 10,2 % des votants. Cet Ã©cart va dâ€™ailleurs encore sâ€™accentuer Ã  mesure que \
+  les parlementaires vont vieillir en cours de lÃ©gislature. Quant aux plus vieux, la distorsion est encore plus forte \
+  puisquâ€™un seul parlementaire (\
   <a class=primary href=/viz/actor/22698>Pierre Kompany</a>\
-  ) compte plus de 65 ans, alors que cette classe d’âge représente près du \
-  quart de la population en âge de voter (23,5 %).
-election.2019.stats.6.subject.4.desc.2=Ces statistiques soulèvent deux questions : comment accentuer encore la place des \
-  plus jeunes ? comment réserver une place aux plus âgé·es sans pour autant promouvoir les carrières interminables de \
-  politicien·nes professionnel·les et en privilégiant donc plutôt des candidatures de personnes plus âgées mais néophytes en politique ?
+  ) compte plus de 65 ans, alors que cette classe dâ€™Ã¢ge reprÃ©sente prÃ¨s du \
+  quart de la population en Ã¢ge de voter (23,5 %).
+election.2019.stats.6.subject.4.desc.2=Ces statistiques soulÃ¨vent deux questions : comment accentuer encore la place des \
+  plus jeunes ? comment rÃ©server une place aux plus Ã¢gÃ©Â·es sans pour autant promouvoir les carriÃ¨res interminables de \
+  politicienÂ·nes professionnelÂ·les et en privilÃ©giant donc plutÃ´t des candidatures de personnes plus Ã¢gÃ©es mais nÃ©ophytes en politique ?
 
-election.2019.stats.6.subject.5.title=Pas encore tout à fait une moitié de femmes
-election.2019.stats.6.subject.5.desc.1=Parité sur les listes ne signifie pas encore parité sur les bancs du Parlement. \
-  On comptait, du fait de la règle de la « tirette », 49,67 % de femmes sur les listes. Or, il n’y a « que » 43,8 % d’élues. \
-  Sur ce point, le Parlement bruxellois ne se différencie guère des autres assemblées élues ce 26 mai 2019. En effet, \
-  le taux de 43,8 % correspond exactement à la moyenne observée dans l’ensemble des assemblées parlementaires belges. 
-election.2019.stats.6.subject.5.desc.2=Mais l’écart entre hommes et femmes n’est pas anodin. Il apparaît plus nettement \
-  lorsqu’on regarde les chiffres absolus plutôt que les pourcentages. Le Parlement bruxellois compte en effet 39 élues \
-  pour 50 élus. Soit 11 unités d’écart. Mais il y a une légère progression : de 36 en 2014, elles sont aujourd’hui 39 \
-  (passant ainsi de 40,5% à 43,8%).
+election.2019.stats.6.subject.5.title=Pas encore tout Ã  fait une moitiÃ© de femmes
+election.2019.stats.6.subject.5.desc.1=ParitÃ© sur les listes ne signifie pas encore paritÃ© sur les bancs du Parlement. \
+  On comptait, du fait de la rÃ¨gle de la Â« tirette Â», 49,67 % de femmes sur les listes. Or, il nâ€™y a Â« que Â» 43,8 % dâ€™Ã©lues. \
+  Sur ce point, le Parlement bruxellois ne se diffÃ©rencie guÃ¨re des autres assemblÃ©es Ã©lues ce 26 mai 2019. En effet, \
+  le taux de 43,8 % correspond exactement Ã  la moyenne observÃ©e dans lâ€™ensemble des assemblÃ©es parlementaires belges. 
+election.2019.stats.6.subject.5.desc.2=Mais lâ€™Ã©cart entre hommes et femmes nâ€™est pas anodin. Il apparaÃ®t plus nettement \
+  lorsquâ€™on regarde les chiffres absolus plutÃ´t que les pourcentages. Le Parlement bruxellois compte en effet 39 Ã©lues \
+  pour 50 Ã©lus. Soit 11 unitÃ©s dâ€™Ã©cart. Mais il y a une lÃ©gÃ¨re progression : de 36 en 2014, elles sont aujourdâ€™hui 39 \
+  (passant ainsi de 40,5% Ã  43,8%).
 
-election.2019.stats.6.subject.6.title=Des différences sensibles selon les partis
-election.2019.stats.6.subject.6.desc.1=Déjà à propos de la constitution des listes, \
-  <a class=primary href=/election2019/stats>nous avions souligné</a> \
-  combien les stratégies pouvaient différer selon les partis. Ces différences ne tenaient pas seulement au fait qu’ils disposaient \
-  dans leurs rangs d’aucun, de peu ou de beaucoup de ministres, parlementaires ou mandataires communaux. \
-  D’autres facteurs intervenaient puisque des partis ayant des effectifs similaires n’y puisaient pas de la même manière pour composer leurs listes.
-election.2019.stats.6.subject.6.desc.2=Des différences, il y en a aussi lorsqu’on observe les listes d’élu·es. Le tableau ci-contre en témoigne. \
-  Il situe chaque parti par rapport à 7 critères. Plus les couleurs sont foncées, plus cela indique que le parti a, pour cet indicateur, \
-  des indices supérieurs à la moyenne mentionnée en bas de colonne. Chacun de ces indicateurs peut être vu comme une \
-  mesure du degré de « conservatisme » du parti, les élus de ce parti étant plus souvent des parlementaires ou ministres sortants, \
-  des mandataires communaux, des hommes plutôt que des femmes, ou des personnes de plus de 50 ans.
+election.2019.stats.6.subject.6.title=Des diffÃ©rences sensibles selon les partis
+election.2019.stats.6.subject.6.desc.1=DÃ©jÃ  Ã  propos de la constitution des listes, \
+  <a class=primary href=/election2019/stats>nous avions soulignÃ©</a> \
+  combien les stratÃ©gies pouvaient diffÃ©rer selon les partis. Ces diffÃ©rences ne tenaient pas seulement au fait quâ€™ils disposaient \
+  dans leurs rangs dâ€™aucun, de peu ou de beaucoup de ministres, parlementaires ou mandataires communaux. \
+  Dâ€™autres facteurs intervenaient puisque des partis ayant des effectifs similaires nâ€™y puisaient pas de la mÃªme maniÃ¨re pour composer leurs listes.
+election.2019.stats.6.subject.6.desc.2=Des diffÃ©rences, il y en a aussi lorsquâ€™on observe les listes dâ€™Ã©luÂ·es. Le tableau ci-contre en tÃ©moigne. \
+  Il situe chaque parti par rapport Ã  7 critÃ¨res. Plus les couleurs sont foncÃ©es, plus cela indique que le parti a, pour cet indicateur, \
+  des indices supÃ©rieurs Ã  la moyenne mentionnÃ©e en bas de colonne. Chacun de ces indicateurs peut Ãªtre vu comme une \
+  mesure du degrÃ© de Â« conservatisme Â» du parti, les Ã©lus de ce parti Ã©tant plus souvent des parlementaires ou ministres sortants, \
+  des mandataires communaux, des hommes plutÃ´t que des femmes, ou des personnes de plus de 50 ans.
 
-election.2019.stats.6.subject.7.title=Faut-il avoir fait le droit pour être député ?
-election.2019.stats.6.subject.7.desc.1=Nos informations sur les études qu’ont suivies les parlementaires sont incomplètes, \
-  mais elles interpellent. D’abord – et ce n’est guère une surprise – la proportion de député·es ayant suivi une maîtrise \
-  est nettement supérieure à la moyenne observée dans la population en âge de voter. Nous savons en effet qu’au moins 61 % des député·es \
-  détiennent un diplôme de maîtrise. A comparer avec les statistiques de la population en âge de voter : selon les calculs de l’IBSA en 2016, \
-  41 % des Bruxellois de plus de 25 ans détenaient un diplôme d’enseignement supérieur (maîtrise ou baccalauréat). \
-  Cette population est donc surreprésentée au Parlement. Le différentiel est d’ailleurs supérieur que ce que laisse imaginer \
-  le rapport entre 61 et 41 %. Puisque, dans les 41 %, sont inclus les détenteurs d’un baccalauréat et que le nombre réel \
-  de député·es détenant une maîtrise est certainement plus élevé car nous ignorons quel est le niveau de formation de la \
-  plupart des autres député·es.  
-election.2019.stats.6.subject.7.desc.2=Au sein de ce sous-groupe de personnes dont on sait qu’elles détiennent un master, \
-  il est frappant d’observer que le domaine d’études le plus fréquent est – de loin – le droit : plus de 40 % des personnes \
-  pour lesquelles nous avons l’information ont en effet suivi cette filière. C’est nettement plus que les sciences politiques. \
-  Toutes les autres disciplines citées au moins deux fois relèvent du secteur des sciences humaines. Cela peut sembler presque \
-  logique si l’on considère la politique comme une activité professionnelle. Mais pourquoi des citoyens ayant suivi \
-  des études en sciences de la santé ou en sciences et technologies ne prendraient-ils pas aussi part à la délibération parlementaire ? \
-  Sans compter celles et ceux qui n’ont pas fait d’études supérieures ou se sont limité·es à un baccalauréat.
+election.2019.stats.6.subject.7.title=Faut-il avoir fait le droit pour Ãªtre dÃ©putÃ© ?
+election.2019.stats.6.subject.7.desc.1=Nos informations sur les Ã©tudes quâ€™ont suivies les parlementaires sont incomplÃ¨tes, \
+  mais elles interpellent. Dâ€™abord â€“ et ce nâ€™est guÃ¨re une surprise â€“ la proportion de dÃ©putÃ©Â·es ayant suivi une maÃ®trise \
+  est nettement supÃ©rieure Ã  la moyenne observÃ©e dans la population en Ã¢ge de voter. Nous savons en effet quâ€™au moins 61 % des dÃ©putÃ©Â·es \
+  dÃ©tiennent un diplÃ´me de maÃ®trise. A comparer avec les statistiques de la population en Ã¢ge de voter : selon les calculs de lâ€™IBSA en 2016, \
+  41 % des Bruxellois de plus de 25 ans dÃ©tenaient un diplÃ´me dâ€™enseignement supÃ©rieur (maÃ®trise ou baccalaurÃ©at). \
+  Cette population est donc surreprÃ©sentÃ©e au Parlement. Le diffÃ©rentiel est dâ€™ailleurs supÃ©rieur que ce que laisse imaginer \
+  le rapport entre 61 et 41 %. Puisque, dans les 41 %, sont inclus les dÃ©tenteurs dâ€™un baccalaurÃ©at et que le nombre rÃ©el \
+  de dÃ©putÃ©Â·es dÃ©tenant une maÃ®trise est certainement plus Ã©levÃ© car nous ignorons quel est le niveau de formation de la \
+  plupart des autres dÃ©putÃ©Â·es.  
+election.2019.stats.6.subject.7.desc.2=Au sein de ce sous-groupe de personnes dont on sait quâ€™elles dÃ©tiennent un master, \
+  il est frappant dâ€™observer que le domaine dâ€™Ã©tudes le plus frÃ©quent est â€“ de loin â€“ le droit : plus de 40 % des personnes \
+  pour lesquelles nous avons lâ€™information ont en effet suivi cette filiÃ¨re. Câ€™est nettement plus que les sciences politiques. \
+  Toutes les autres disciplines citÃ©es au moins deux fois relÃ¨vent du secteur des sciences humaines. Cela peut sembler presque \
+  logique si lâ€™on considÃ¨re la politique comme une activitÃ© professionnelle. Mais pourquoi des citoyens ayant suivi \
+  des Ã©tudes en sciences de la santÃ© ou en sciences et technologies ne prendraient-ils pas aussi part Ã  la dÃ©libÃ©ration parlementaire ? \
+  Sans compter celles et ceux qui nâ€™ont pas fait dâ€™Ã©tudes supÃ©rieures ou se sont limitÃ©Â·es Ã  un baccalaurÃ©at.
 
 election.2019.stats.6.subject.1.headtitle=Partis et individus
 
-election.2019.stats.6.subject.1.subtitle.1=Élu
+election.2019.stats.6.subject.1.subtitle.1=Ã‰lu
 election.2019.stats.6.subject.1.subtitle.2=Genre
 election.2019.stats.6.subject.1.subtitle.3=Age
-election.2019.stats.6.subject.1.subtitle.4=Pays de résidence
+election.2019.stats.6.subject.1.subtitle.4=Pays de rÃ©sidence
 election.2019.stats.6.subject.1.subtitle.5=Mandat communal actuel
-election.2019.stats.6.subject.1.subtitle.6=Fonction à la fin de la législature bruxelloise précédente
-election.2019.stats.6.subject.1.subtitle.7=A déjà été ministre ou secrétaire d''état
-election.2019.stats.6.subject.1.subtitle.8=A déjà été bourgmestre ou échevin·e
-election.2019.stats.6.subject.1.subtitle.9=A un moins un diplôme de maîtrise
-election.2019.stats.6.subject.1.subtitle.10=Domaine d''études en master
+election.2019.stats.6.subject.1.subtitle.6=Fonction Ã  la fin de la lÃ©gislature bruxelloise prÃ©cÃ©dente
+election.2019.stats.6.subject.1.subtitle.7=A dÃ©jÃ  Ã©tÃ© ministre ou secrÃ©taire d''Ã©tat
+election.2019.stats.6.subject.1.subtitle.8=A dÃ©jÃ  Ã©tÃ© bourgmestre ou Ã©chevinÂ·e
+election.2019.stats.6.subject.1.subtitle.9=A un moins un diplÃ´me de maÃ®trise
+election.2019.stats.6.subject.1.subtitle.10=Domaine d''Ã©tudes en master
 election.2019.stats.6.subject.1.subtitle.11=Place sur la liste
-election.2019.stats.6.subject.1.subtitle.12=Voix de préférence
-election.2019.stats.6.subject.1.subtitle.13=Ordre d''élection au sein de son parti
+election.2019.stats.6.subject.1.subtitle.12=Voix de prÃ©fÃ©rence
+election.2019.stats.6.subject.1.subtitle.13=Ordre d''Ã©lection au sein de son parti
 
-election.2019.stats.6.subject.2.subtitle.1=Nombre d''élus
+election.2019.stats.6.subject.2.subtitle.1=Nombre d''Ã©lus
 election.2019.stats.6.subject.2.subtitle.2=% de parlementaires ou ministres sortants
-election.2019.stats.6.subject.2.subtitle.3=% de mandataires communaux (bourg. et éch. Compris)
-election.2019.stats.6.subject.2.subtitle.4=% de bourg. et échevins
+election.2019.stats.6.subject.2.subtitle.3=% de mandataires communaux (bourg. et Ã©ch. Compris)
+election.2019.stats.6.subject.2.subtitle.4=% de bourg. et Ã©chevins
 election.2019.stats.6.subject.2.subtitle.5=Age moyen
 election.2019.stats.6.subject.2.subtitle.6=% d''hommes
-election.2019.stats.6.subject.2.subtitle.7=Nombre d''anciens ministres ou secrétaires d''état
-election.2019.stats.6.subject.2.subtitle.8=Nombre d''anciens ou actuels bourgmestres ou échevins
+election.2019.stats.6.subject.2.subtitle.7=Nombre d''anciens ministres ou secrÃ©taires d''Ã©tat
+election.2019.stats.6.subject.2.subtitle.8=Nombre d''anciens ou actuels bourgmestres ou Ã©chevins
 
 contribute.do.title=Drie manieren om aan WebDeb bij te dragen:
 contribute.do.1.title=Vanop deze pagina:
@@ -4033,7 +4033,7 @@ contribute.contribute.2.title=Als team
 contribute.contribute.2.text=<p>Er is gigantisch veel informatie. Al die informatie alleen verzamelen is onmogelijk.</p> \
 <p><a href={0}>Word lid bij of maak</a> een groep die zich toespitst op een onderwerp dat je interesseert.</p> \
 <p>Nodig mensen uit die je kent en verdeel het verzamelen en opvolgen van informatie over je groep.</p>
-contribute.contribute.3.title=In privémodus
+contribute.contribute.3.title=In privÃ©modus
 contribute.contribute.3.text=<p>Wil je WebDeb gebruiken voor een vak, opleiding of een debat binnen je organisatie?</p> \
 <p><a href={0}>Afgeschermde groepen</a> zijn alleen zichtbaar van groepsleden, maar kunnen wel \
 steunen op openbare WebDeb-bijdragen. </p>
@@ -4042,7 +4042,7 @@ contribute.difuse.title=Je bijdragen verspreiden en opnieuw gebruiken
 contribute.difuse.1.title=Je bijdragen bijhouden
 contribute.difuse.1.text=<p>Vind en filter je bijdragen gemakkelijk via de "Mijn bijdragen"-pagina</p>
 contribute.difuse.2.title=Verspreid je werk
-contribute.difuse.2.text=<p>Heb je het organigram van een organisatie geüpdatet, filialen van een multinational opgelijst of standpunten en argument in een debat verduidelijkt?</p> \
+contribute.difuse.2.text=<p>Heb je het organigram van een organisatie geÃ¼pdatet, filialen van een multinational opgelijst of standpunten en argument in een debat verduidelijkt?</p> \
 <p>Deel het adres van de webpagina gewoon op Facebook, Twitter of via e-mail.</p>
 contribute.difuse.3.title=Exporteer je gegevens
 contribute.difuse.3.text=<p>Gaandeweg maken we het mogelijk om de gevens van elke pagina gemakkelijk te exporteren. Analyse en hergebruik worden daardoor heel makkelijke.</p>
@@ -4109,12 +4109,12 @@ Als het gaat over een uittreksel, maak dat dan ook duidelijk. Voorbeeld: voor ee
 van het eerste Harry-Potter-boek, schrijf: "<i>Harry Potter en de Steen der Wijzen, hoofdstuk 2, alinea's 3 t.e.m. 16.</i>
 bubble.entry.citation.toomuchinfo=Verwijder onnodigige taalelementen, uitweidingen, persoonlijke informatie \
 en andere zaken die niet nodig zijn om het citaat goed te begrijpen. \
-Als je overbodige tekst verwijdert zal WebDeb automatisch de nodige […] voorzien.
+Als je overbodige tekst verwijdert zal WebDeb automatisch de nodige [â€¦] voorzien.
 bubble.entry.citation.toolittleinfo=Voeg toe of verplaats, tussen haakjes ([]), tekst die nodig is om het citaat te begrijpen. \
 Vervang bijvoorbeeld weinig bekende voornamen, voornaamwoorden, enz. voor zover dat nodig is om \
 het citaat te begrijpen zonder de originele tekst te moeten lezen.
-bubble.entry.argument.start=Selecteer in de lijst de start van een zin voor je argument. Kies "Het is waar dat…" voor een beschrijvende zin, \
-"Het zou moeten dat…" voor een voorschrijvende zin en [Start van een open argument] om volledig zelf een argument te schrijven, zonder voorgeselecteerde opening. 
+bubble.entry.argument.start=Selecteer in de lijst de start van een zin voor je argument. Kies "Het is waar datâ€¦" voor een beschrijvende zin, \
+"Het zou moeten datâ€¦" voor een voorschrijvende zin en [Start van een open argument] om volledig zelf een argument te schrijven, zonder voorgeselecteerde opening. 
 bubble.entry.argument.rest=Schrijf hier het vervolg van je argument. Zorg ervoor dat het argument goed te begrijpen is \
 maar ook zo kort en snedig mogelijk blijft.
 
@@ -4123,7 +4123,7 @@ Als je niet zeker bent van het webadres of je het originele pdf-bestand niet kan
 bubble.entry.citation.whosaydit=Van wie is dit citaat? Gaat het om een individu, een groep individuen of een formele organisatie? \
 Begin met het typen van de naam en selecteer hem in het dropdown-menu als hij er in voorkomt. Als het citaat van meerdere auteurs is, voeg dan nemen toe met de "+"-knop.<br> \
 <b>Opgelet:</b> verwar de auteur van het citaat niet met de auteur van de tekst. In een interview \
-is het belangrijk om een verschil te maken tussen de journalist en de geïnterviewde, die de auteur kan zijn van een citaat maar niet van de tekst.
+is het belangrijk om een verschil te maken tussen de journalist en de geÃ¯nterviewde, die de auteur kan zijn van een citaat maar niet van de tekst.
 bubble.entry.citation.tags=Bijvoorbeeld: voor het citaat "Ik denk dat Romelu Lukaku de grootste voetballer \
 aller tijden is", kan je "identiteit van de grootste voetballer aller tijden" invoeren. <br>\
 Vul minstens een van beide velden in.
@@ -4147,7 +4147,7 @@ De meeste zoekmachines hebben een optie om enkel naar rechtenvrije afbeeldingen 
 bubble.entry.debate.shade=Selecteer de start van je debatonderwerp. Als geen van de voorgestelde opties je bevalt, kies dan "<i>[Start van een open debat]</i>" <br>\
 Denk goed na over de reikwijdte van het debat dat je wil starten. Een breed debat kan tot erg complexe en uitgebreide discussies leiden. Een te nauwe afbakening
 kan dan weer tot een beperkt aantal argumenten leiden. <br><br> \
-Voorbeeld: voor een 5G-debat, zou je het debat kunnen econderen als "Moet 5G in België ingevoerd worden?", "Is het waar dat 5G tot gezondheidsproblemen leidt?"
+Voorbeeld: voor een 5G-debat, zou je het debat kunnen econderen als "Moet 5G in BelgiÃ« ingevoerd worden?", "Is het waar dat 5G tot gezondheidsproblemen leidt?"
 of "Wat zijn de sterke en zwakke punten van 5G?". Elke formulering leidt tot andere invalshoeken.
 bubble.entry.debate.geolimits=Encodeer de betrokken plaats als het debat plaatsgerelateerd is. Als dat niet zo is, kruis dan "Nee" aan. Als je het debat \
 wil beperken tot een bepaalde plaats, geeft dit dan aan in het debatonderwerp. <br><br> \
@@ -4164,7 +4164,7 @@ Als de organisatie meerdere sociale doelen heeft, voeg ze dan afzonderlijk toe m
 Uit het dropdown-menu kan je een suggestie voor het sociale doel selecteren.
 bubble.entry.actor.headoffice=Encodeer waar de hoofdzetel zich bevindt. <br>\
 Bij het encoderen kan je uit het dropdown-menu een suggestie selecteren. <br>\
-encoder apparait dans la listen sélectionnez-le.
+encoder apparait dans la listen sÃ©lectionnez-le.
 bubble.entry.actor.sector=Duid indien nodig meerdere hokjes aan.
 bubble.entry.citation.orgauthor=Geef de volledige naam van de organisatie op en niet de afkorting ("Verenigde Naties" en niet "VN").
 
@@ -4181,8 +4181,8 @@ tag.category.edit.title=Categorie bewerken
 tag.delete.title=Dossier verwijderen
 tag.category.delete.title=Categorie verwijderen
 
-argument.copy.title=Argument kopiëren
-citation.copy.title=Citaat kopiëren
+argument.copy.title=Argument kopiÃ«ren
+citation.copy.title=Citaat kopiÃ«ren
 
 
 #teach
@@ -4191,19 +4191,19 @@ teach.d1.p1=WebDeb is ontworpen om in klassen of opleidingen te gebruiken. Via h
 teach.d1.p2=Naast de ontwikkeling van onderzoeks- en tekstanalysevaardigheden, kan je via WebDeb ook gemakkelijk de standpunten van een debat begrijpen.
 teach.d1.p3=Het WebDeb-platform heeft verschillende troeven:
 teach.d1.p4=<ul> \
-    <li><b>Systematiseren en standardiseren </b> van de geëncodeerde gegevens;</li> \
+    <li><b>Systematiseren en standardiseren </b> van de geÃ«ncodeerde gegevens;</li> \
     <li><b>opslaan</b> van de uitgevoerde analyses;</li> \
     <li><b>samenbrengen </b>van het werk van verschillende subgroepen;</li> \
-    <li><b>gemakkelijk aanpassen</b> van de geëncodeerde gegevens en ze steeds beter organiseren;</li> \
+    <li><b>gemakkelijk aanpassen</b> van de geÃ«ncodeerde gegevens en ze steeds beter organiseren;</li> \
     <li><b>op afstand werken</b>;</li> \
     <li><b>zelf groepen maken </b>die afgeschermd zijn en geschikt voor educatief gebruik ;</li> \
     <li><b>gemakkelijk nakijken</b> van bijdragen.</li> \
 </ul>
 teach.d1.a1=Handleidingen bekijken en downloaden
 
-teach.d2.title=Débagora: een educatief hulpmiddel dat steunt op WebDeb
-teach.d2.p1=Débagora is een hulpmiddel voor onderwijs over politiek en debateren. Er zijn acht modules en WebDeb wordt gebruikt in modules 2 t.e.m. 6.
-teach.d2.p2=Je kan Débagora bekijken om te zien hoe WebDeb past binnen grotere projecten of hoe WebDeb gericht gebruikt kan worden
+teach.d2.title=DÃ©bagora: een educatief hulpmiddel dat steunt op WebDeb
+teach.d2.p1=DÃ©bagora is een hulpmiddel voor onderwijs over politiek en debateren. Er zijn acht modules en WebDeb wordt gebruikt in modules 2 t.e.m. 6.
+teach.d2.p2=Je kan DÃ©bagora bekijken om te zien hoe WebDeb past binnen grotere projecten of hoe WebDeb gericht gebruikt kan worden
 teach.d2.a1=Hulpmiddel bekijken en downloaden
 
 #debagora
@@ -4224,10 +4224,10 @@ debagora.module7.text=Mondeling een standpunt verdedigen
 debagora.module8.title=Module 8
 debagora.module8.text=Deelnemen aan een debat over de uitdagingen van onze samenleving
 
-debagora.download.title=Alle modules in één keer downloaden
+debagora.download.title=Alle modules in Ã©Ã©n keer downloaden
 
 debagora.div1.title=Een educatief hulpmiddel om te leren debateren
-debagora.div1.text=Débagora is een educatief hulpmiddel. Je vindt er activitetiten en een kader om:\
+debagora.div1.text=DÃ©bagora is een educatief hulpmiddel. Je vindt er activitetiten en een kader om:\
 <ul> \
    <li>inhoud te verzamelen; </li> \
    <li>een mening met geldige argumenten te onderbouwen; </li> \
@@ -4236,7 +4236,7 @@ debagora.div1.text=Débagora is een educatief hulpmiddel. Je vindt er activitetit
 </ul>
 
 debagora.div2.title=Een educatief hulpmiddel om te leren over politiek
-debagora.div2.text=Débagora is een educatief hulpmiddel. Je vindt er activiteiten en een kader om:\
+debagora.div2.text=DÃ©bagora is een educatief hulpmiddel. Je vindt er activiteiten en een kader om:\
 <ul> \
    <li>jongeren in te leiden in conflictgebaseerde en egalitaire deliberatieprocessen; </li> \
    <li>spelers in een debat te identificeren alsook hun onderlinge krachtsverhoudingen; </li> \
@@ -4244,7 +4244,7 @@ debagora.div2.text=Débagora is een educatief hulpmiddel. Je vindt er activiteite
 </ul>
 
 debagora.div3.title=Een moduleerbaar hulpmiddel
-debagora.div3.text=Débagora is een educatief hulpmiddel:\
+debagora.div3.text=DÃ©bagora is een educatief hulpmiddel:\
 <ul> \
    <li>richt zich op een publiek van <b>15 jaar en ouder; </b></li> \
    <li>bestaat uit <b>acht modules</b> die samen of apart bruikbaar zijn; </li> \
@@ -4253,7 +4253,7 @@ debagora.div3.text=Débagora is een educatief hulpmiddel:\
 </ul>
 
 debagora.div4.title=Een hulpmiddel in voortdurende evolutie
-debagora.div4.text=Débagora is <b>het resultaat van een samenwerking</b> tussen drie onderzoekscentra (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
+debagora.div4.text=DÃ©bagora is <b>het resultaat van een samenwerking</b> tussen drie onderzoekscentra (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
 en vier verenigingen (Jeune et Citoyen, het BELvue-museum, Infor-Jeunes vzw en de Ligue des Droits Humains).
-debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, … de ontwikkeling van dit platform vooruit helpen.
+debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, â€¦ de ontwikkeling van dit platform vooruit helpen.
 <b>Aarzel niet om ons te contacteren via:</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
