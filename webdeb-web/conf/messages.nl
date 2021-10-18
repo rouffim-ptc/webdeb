@@ -3220,7 +3220,7 @@ about.webdeb.content=WebDeb vindt zijn oorsprong in het Europees onderzoeksproje
  gecoördineerd door UCLouvain en met als doel het verband tussen kennis en politiek te onderzoeken. \
  Als deel van dit onderzoek, werd als een eerste proefplatform "Wikideb" opgericht. \
  Met de resultaten van dit eerste experiment kon een nieuw project ontworpen worden. \
- Het Waals Gewest selecteerde dit nieuwe project voor financiering in het kader van de oproep "Germaine Tillion".
+ Het Waals Gewest selecteerde dit nieuwe project voor financiering in het kader van de oproep "Germaine Tillion". \
  Vervolgens voerden drie Belgische onderzoeksinstellingen gedurende drie jaar (2014-2017) verder onderzoek uit: \
  het Namur Digital Institute (<a href=https://nadi.unamur.be target=_blank}>NADI</a>) van de Universiteit van Namen, \
  de interdisciplinaire Onderzoeksgroep over Socialisatie, Onderwijs en Vorming (<a href=https://uclouvain.be/fr/chercher/girsef target=_blank>GIRSEF</a>), \
