@@ -4008,7 +4008,7 @@ contribute.do.1.text=voeg inhoud toe door op de afbeeldingen hieronder te klikke
 contribute.do.2.title=Vanop elke pagina:
 contribute.do.2.text=je verrijkt of bewerkt inhoud door op de plusjes, potloden of tandwieltjes te klikken.
 contribute.do.3.title=Vanop elke internetpagina
-contribute.do.3.text=door deze extensie voor <a href="https://chrome.google.com/webstore/detail/webdeb-extension/jajhkepdfeglimnjjopjgkigofoadfhc"><i class="fab fa-chrome"></i> Chrome</a>
+contribute.do.3.text=door deze extensie voor <a href="https://chrome.google.com/webstore/detail/webdeb-extension/jajhkepdfeglimnjjopjgkigofoadfhc"><i class="fab fa-chrome"></i> Chrome</a> \
 of <a href=https://addons.mozilla.org/en-US/firefox/addon/webdeb-extension/><i class=fab fa-firefox></i> Firefox</a>, kan je citaten makkelijk onderlijnen en op WebDeb uploaden.
 
 contribute.entry.title=Opslaan
