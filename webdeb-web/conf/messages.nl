@@ -4262,7 +4262,7 @@ debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, … de ontw
 <b>Aarzel niet om ons te contacteren via:</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
 
 contrib.already=Al lid ?
-contrib.notyet=nog niet geregistreerd ?
+contrib.notyet=Nog niet geregistreerd ?
 contrib.connect=zich aanmelden
 contrib.register=account aanmaken?
 contrib.okconnect=Succesvolle aanmelding

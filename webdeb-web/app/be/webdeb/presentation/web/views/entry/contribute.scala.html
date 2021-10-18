@@ -112,10 +112,10 @@
                 <div class="col-12 mt-3">
                 @if(user.getERole == EContributorRole.VIEWER) {
                     <div>
-                        @Messages("contrib.already")<a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.login">@Messages("contrib.connect")</a>
+                        @Messages("contrib.already")<a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.login"> @Messages("contrib.connect")</a>
                     </div>
                     <div class="mt-2">
-                         @Messages("contrib.notyet")<a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.signup">@Messages("contrib.register")</a>
+                         @Messages("contrib.notyet")<a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.signup"> @Messages("contrib.register")</a>
                     </div>
                 } else {
                     <div>@Messages("contrib.okconnect")<i class="far fa-check-circle color_green"></i></div>
