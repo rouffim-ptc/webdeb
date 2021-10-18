@@ -4078,7 +4078,7 @@ bubble.entry.actor.url=Kopieer en plak hier het adres van de wikipediapagina \
 bubble.entry.datecreation=Voor data voor het begin van onze tijdrekening (v.C.): plaats een <i>"-"</i> voor het jaartal. <br>\
 Laat bij twijfel beide velden leeg.
 bubble.entry.datetermination=Voor data voor het begin van onze tijdrekening (v.C.): plaats een <i>"-"</i> voor het jaartal. 
-bubble.entry.actor.residence=Geef hier de hoofdverblijfplaats op, als er meerdere zijn.
+bubble.entry.actor.residence=Geef hier de hoofdverblijfplaats op, als er meerdere zijn. \
 Voer alleen de gemeente in en niet het exacte adres, ook als je dat zou kennen.
 bubble.entry.actor.placelang=Zelfs voor een individu zou een vertaling kunnen bestaan. \
 De naam van de Chinese president Xi Jingping wordt in het Mandarijns als ??? geschreven.
