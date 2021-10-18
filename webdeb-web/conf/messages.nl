@@ -4260,3 +4260,10 @@ debagora.div4.text=Débagora is <b>het resultaat van een samenwerking</b> tussen
 en vier verenigingen (Jeune et Citoyen, het BELvue-museum, Infor-Jeunes vzw en de Ligue des Droits Humains).
 debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, … de ontwikkeling van dit platform vooruit helpen. \
 <b>Aarzel niet om ons te contacteren via:</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
+
+contrib.already=Déjà membre ?
+contrib.notyet=Pas encore inscrit ?
+contrib.connect=se connecter
+contrib.register=s'enregistrer
+contrib.okconnect=Vous êtes bien connecté !
+contrib.diffuse=Diffuser

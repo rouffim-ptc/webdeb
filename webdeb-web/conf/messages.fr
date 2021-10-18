@@ -4168,7 +4168,6 @@ encoder apparait dans la listen sélectionnez-le.
 bubble.entry.actor.sector=Si c'est nécessaire, cochez plusieurs cases.
 bubble.entry.citation.orgauthor=Entrez le nom complet de l''organisation, et non l''acronyme (Organisation des Nations Unies et non ONE).
 
-
 #covid-19
 covid19.title=Surfez sur les nombreuses pages « Covid-19 »
 covid19.desc=En ce temps de Covid-19, les débats n’ont jamais été aussi nombreux. WebDeb permet d’engranger et classer les innombrables prises de positions et arguments.
@@ -4263,3 +4262,11 @@ debagora.div4.text=Débagora est le <b>fruit d’une collaboration</b> entre tro
 et quatre associations (Jeune et Citoyen, le musée BELvue, Infor-Jeunes asbl et la Ligue des Droits Humains).
 debagora.div4.a1=Cet outil peut être enrichi grâce à vos commentaires, questions, récits d''expériences,... <br>\
 <b>N''hésitez pas à nous contacter à :</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
+
+#ajouts
+contrib.already=Déjà membre ?
+contrib.notyet=Pas encore inscrit ?
+contrib.connect=se connecter
+contrib.register=s'enregistrer
+contrib.okconnect=Vous êtes bien connecté !
+contrib.diffuse=Diffuser
