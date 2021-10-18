@@ -3346,7 +3346,7 @@ aboutus.webdeb.deniz=Deniz was verantwoordelijk voor de communicatie rond het We
  Verder is ze ook actief in de burgerbeweging <a href=https://www.toutautrechose.be/toutautreecole target=_blank>Tout Autre École</a>.\
   <br><a class="btn btn-link secondary pull-right" href="http://www.uclouvain.be/deniz.uygur" target="_blank">Meer informatie...</a>
 
-aboutus.webdeb.martin=Martin is in september 2017 betrokken geraakt bij het project. Momenteel is hij verantwoordelijk \ 
+aboutus.webdeb.martin=Martin is in september 2017 betrokken geraakt bij het project. Momenteel is hij verantwoordelijk \
  voor de ontwikkeling van het platform. Hij is houder van een bachelordiploma handelsingenieur aan Hénallux. \
  Voor zijn eindwerk ontwierp en onderzocht hij een online platform voor de uurroosters van een hogeschool. \
 <br><a class="btn btn-link secondary pull-right" href="https://www.linkedin.com/in/martin-rouffiange-013235127" target="_blank">Meer informatie...</a>
@@ -3356,10 +3356,10 @@ aboutus.webdeb.pyschobb=Pierre-Yves Schobbens is professor informatica, gespecia
  koppelingen tussen softwareproducten en software-engineering gericht op agents. Hij is ook verantwoordelijk voor de internationale relaties van zijn Faculteit. \
 <br><a class="btn btn-link secondary pull-right" href="https://directory.unamur.be/staff/pyschobb" target="_blank">Meer informatie...</a>
 
-aboutus.webdeb.pierre=Pierre was onderzoeker voor het project "Jongeren en Politiek".
+aboutus.webdeb.pierre=Pierre was onderzoeker voor het project "Jongeren en Politiek". \
 Hij raakte in november 2017 betrokken bij het project en heeft het in juni 2018 verlaten. \
 Pierre was onder meer verantwoordelijk, samen met andere collega's, voor het uitwerken van het pedagogisch luik van het project \
-en haar uitvoering bij leerkrachten en leerlingen. Als doctorandus in de politieke wetenschappen en sociologie van sociale bewegingen, \ 
+en haar uitvoering bij leerkrachten en leerlingen. Als doctorandus in de politieke wetenschappen en sociologie van sociale bewegingen, \
 animator en lesgever actief in permanente vormingen en het jeugdwerk, muzikant bij meerdere groepen, heeft Pierre \
  - zowel buiten als binnen het "Jongeren en Politiek"-project - een grote betrokkenheid bij thema's zoals interculturaliteit, \
 tegengaan van ongelijkheid, verhogen van politieke participatie of de dialoog tussen Oost en West. \
