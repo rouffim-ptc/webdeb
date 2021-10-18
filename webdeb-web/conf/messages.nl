@@ -1063,7 +1063,7 @@ entry.actor.existing.title=Een bestaande speler aanpassen?
 entry.actor.existing.text=Je hebt een bestaande speler geselecteerd, wil je deze speler updaten of een andere speler met dezelfde naam toevoegen?
 entry.actor.namesake.title=Speler al gekend?
 entry.actor.namesake.desc=Je voegt een speler toe die we misschien al kennen. \
- Kijk alsjeblieft na in onderstaande lijst. Als geen van onderstaande voorstellen je correct lijkt,
+ Kijk alsjeblieft na in onderstaande lijst. Als geen van onderstaande voorstellen je correct lijkt, \
  bevestig dan alsjeblieft dat je een andere speler met dezelfde naam wil toevoegen.
 entry.actor.existing.ok=Bestaande speler aanpassen
 entry.actor.existing.use=Bestaande speler gebruiken
