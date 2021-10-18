@@ -4226,6 +4226,9 @@ debagora.module8.text=Deelnemen aan een debat over de uitdagingen van onze samen
 
 debagora.download.title=Alle modules in één keer downloaden
 
+debagora.formation= 
+debagora.formationonline= 
+
 debagora.div1.title=Een educatief hulpmiddel om te leren debateren
 debagora.div1.text=Débagora is een educatief hulpmiddel. Je vindt er activitetiten en een kader om:\
 <ul> \
