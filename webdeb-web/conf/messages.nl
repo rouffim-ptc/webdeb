@@ -4127,7 +4127,7 @@ is het belangrijk om een verschil te maken tussen de journalist en de geïntervi
 bubble.entry.citation.tags=Bijvoorbeeld: voor het citaat "Ik denk dat Romelu Lukaku de grootste voetballer \
 aller tijden is", kan je "identiteit van de grootste voetballer aller tijden" invoeren. <br>\
 Vul minstens een van beide velden in.
-bubble.entry.citation.citedactors=Duid het aan wanneer een citaat duidelijk en direct een persoon of een organsatie vermeldt.
+bubble.entry.citation.citedactors=Duid het aan wanneer een citaat duidelijk en direct een persoon of een organsatie vermeldt. \
 Voorbeeld: voor het citaat "Ik denk dat Romelu Lukaku de grootste voetballer aller tijden is", duid "Romelu Lukaku" aan. <br><br>\
 Voor een persoon geef je voor- en achternaam op. Voer ook bij organisaties alsjeblieft de volledige naam in (bv. "Verenigde Naties" en niet "VN"). <br>\
 Tijdens het encoderen kan WebDeb je een of meerdere namen voorstellen, die je dan meteen kan selecteren. <br>\
