@@ -97,7 +97,7 @@ welcome.index.whatshows.4=De verbanden tussen organisatie
 welcome.index.whatshows.5=Wat er gezegd wordt over een organisatie of een speler
 welcome.index.whatshows.6=De argumenten van een debat
 welcome.index.whatshows.7=De spelers voor of tegen een standpunt
-welcome.index.whatshows.8=De achtergrond van een debat
+welcome.index.whatshows.8=De bibliografie van een debat
 
 welcome.index.join.1=Om informatie op WebDeb te bekijken
 welcome.index.join.2=ga je gang
