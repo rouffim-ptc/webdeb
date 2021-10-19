@@ -490,7 +490,7 @@ permission.not.public.group=Ce groupe est un groupe privé.
 permission.text.not.visible=Vous n''êtes pas autorisé à visualiser le contenu de ce texte.
 permission.text.not.private=La visibilité de ce texte ne peut pas être privée car il n''a pas été encodé dans un groupe privé.
 permission.error.scope=Vous ne pouvez pas apporter de changement à cette contribution depuis le groupe.\
- Rendez vous dans le grope correspondant et réessayez.
+ Rendez vous dans le groupe correspondant et réessayez.
 
 # persistence exception messages
 persistence.error.delete.contribution=Une erreur est survenue, votre contribution n''a pas pu être supprimée.

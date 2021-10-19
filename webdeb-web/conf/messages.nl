@@ -4208,21 +4208,21 @@ teach.d2.a1=Hulpmiddel bekijken en downloaden
 
 #debagora
 debagora.module1.title=Module 1
-debagora.module1.text=Omstandigheden voor een democratisch debat tot stand brengen
+debagora.module1.text=Een democratisch kader voor het debat creëren
 debagora.module2.title=Module 2
-debagora.module2.text=Een debatonderwerp vinden en verwoorden
+debagora.module2.text=Een debatvraag naar voren brengen en formuleren
 debagora.module3.title=Module 3
-debagora.module3.text=Vooroordelen over een debatonderwerp verzamelen
+debagora.module3.text=De vooroordelen over een debatvraag verzamelen
 debagora.module4.title=Module 4
 debagora.module4.text=Bronnen selecteren om argumenten te verzamelen
 debagora.module5.title=Module 5
-debagora.module5.text=Argumenten analyseren om het debat te nuanceren en te verdiepen
+debagora.module5.text=Argumenten analyseren om het debat te nuanceren en uit te diepen
 debagora.module6.title=Module 6
-debagora.module6.text=Spelers in het debat identificeren en hun positie bepalen
+debagora.module6.text=De belanghebbende partijen van het debat identificeren en positioneren
 debagora.module7.title=Module 7
-debagora.module7.text=Mondeling een standpunt verdedigen
+debagora.module7.text=Een mening mondeling verdedigen
 debagora.module8.title=Module 8
-debagora.module8.text=Deelnemen aan een debat over de uitdagingen van onze samenleving
+debagora.module8.text=Deelnemen aan een debat over maatschappelijke vraagstukken
 
 debagora.download.title=Alle modules in één keer downloaden
 
