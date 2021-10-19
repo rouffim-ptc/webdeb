@@ -4123,7 +4123,7 @@ bubble.entry.citation.whatsource=Indicate here where the document that contains 
 If you are not sure of the exact website, or cannot find the PDF from which the citation is extracted, also indicate "other source".
 bubble.entry.citation.whosaydit=Who is speaking in the citation ? Is it a single person or a group of individuals, or is it a structured organization ? \
 Start entering the name and select it from the drop-down menu if it appears. If the citation is signed by more than one author, distinguish between them by using the +<br><br> button. \
-<b>Caution:</b> do not confuse the author of the citation and the author of the text, they are sometimes different people. In an interview, for example
+<b>Caution:</b> do not confuse the author of the citation and the author of the text, they are sometimes different people. In an interview, for example \
 it is important to distinguish between the journalist and the other person, who may be the author of the citation but not of the text.
 bubble.entry.citation.tags=Example: for the citation "I am convinced that Romelu Lukaku is the greatest \
 soccer player in the world", I could indicate "the identity of the greatest soccer player in the world".<br>\
