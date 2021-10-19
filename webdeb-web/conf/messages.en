@@ -3456,7 +3456,7 @@ bubble.entry.actor.legal=Please choose from the following legal status of the co
 <ul>\
 <li><i>Company</i>: a business corporation.</li>\
 <li><i>Political Party</i> : a political party, locally, nationally or internationally.</li>\
-<li><i>Public administration, government, policy-making instance or advisory instance </i> : a government, a department of this government, the administration of a state or other local authority.</li>
+<li><i>Public administration, government, policy-making instance or advisory instance </i> : a government, a department of this government, the administration of a state or other local authority.</li>\
 <li><i>Syndicate, federation of organizations, lobby or social movement</i> : any group of people for the management, pressure or defense of common interests.</li>\
 <li><i>Any other type of non-profit organization</i>: ASBL, cooperative or other type of association whose purpose is non-financial.</li>\
 </ul>
