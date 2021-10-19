@@ -3372,8 +3372,8 @@ Als lid van Girsef (interdisciplinaire onderzoeksgroep over socialisatie, onderz
  is hij vandaag een van de onderzoekers die de resultaten van het onderzoek naar \
  "Jongeren en regionale verkiezingen 2019" zullen analyseren. Hij houdt zich ook bezig met \
  de verdere ontwikkeling van het WebDeb-platform, vormingen over het gebruik van WebDeb en haar verspreiding. \
- Sinds 2020 werkt hij aan de totstandkoming van het Débagora-hulpmiddel, bedoeld om \
- jongeren meer bij de politiek te betrekken. Débagora steunt ook deels op het WebDeb-platform. \
+ Sinds 2020 werkt hij aan de totstandkoming van het Debagora-hulpmiddel, bedoeld om \
+ jongeren meer bij de politiek te betrekken. Debagora steunt ook deels op het WebDeb-platform. \
 <br><a class="btn btn-link secondary pull-right" href="https://uclouvain.be/fr/repertoires/robin.dumont" target="_blank">Meer informatie...</a>
 
 #
@@ -4201,9 +4201,9 @@ teach.d1.p4=<ul> \
 </ul>
 teach.d1.a1=Handleidingen bekijken en downloaden
 
-teach.d2.title=Débagora: een educatief hulpmiddel dat steunt op WebDeb
-teach.d2.p1=Débagora is een hulpmiddel voor onderwijs over politiek en debateren. Er zijn acht modules en WebDeb wordt gebruikt in modules 2 t.e.m. 6.
-teach.d2.p2=Je kan Débagora bekijken om te zien hoe WebDeb past binnen grotere projecten of hoe WebDeb gericht gebruikt kan worden
+teach.d2.title=Debagora: een educatief hulpmiddel dat steunt op WebDeb
+teach.d2.p1=Debagora is een hulpmiddel voor onderwijs over politiek en debateren. Er zijn acht modules en WebDeb wordt gebruikt in modules 2 t.e.m. 6.
+teach.d2.p2=Je kan Debagora bekijken om te zien hoe WebDeb past binnen grotere projecten of hoe WebDeb gericht gebruikt kan worden
 teach.d2.a1=Hulpmiddel bekijken en downloaden
 
 #debagora
@@ -4230,7 +4230,7 @@ debagora.formation=
 debagora.formationonline= 
 
 debagora.div1.title=Een educatief hulpmiddel om te leren debateren
-debagora.div1.text=Débagora is een educatief hulpmiddel. Je vindt er activitetiten en een kader om:\
+debagora.div1.text=Debagora is een educatief hulpmiddel. Je vindt er activitetiten en een kader om:\
 <ul> \
    <li>inhoud te verzamelen; </li> \
    <li>een mening met geldige argumenten te onderbouwen; </li> \
@@ -4239,7 +4239,7 @@ debagora.div1.text=Débagora is een educatief hulpmiddel. Je vindt er activiteti
 </ul>
 
 debagora.div2.title=Een educatief hulpmiddel om te leren over politiek
-debagora.div2.text=Débagora is een educatief hulpmiddel. Je vindt er activiteiten en een kader om:\
+debagora.div2.text=Debagora is een educatief hulpmiddel. Je vindt er activiteiten en een kader om:\
 <ul> \
    <li>jongeren in te leiden in conflictgebaseerde en egalitaire deliberatieprocessen; </li> \
    <li>spelers in een debat te identificeren alsook hun onderlinge krachtsverhoudingen; </li> \
@@ -4247,7 +4247,7 @@ debagora.div2.text=Débagora is een educatief hulpmiddel. Je vindt er activiteit
 </ul>
 
 debagora.div3.title=Een moduleerbaar hulpmiddel
-debagora.div3.text=Débagora is een educatief hulpmiddel:\
+debagora.div3.text=Debagora is een educatief hulpmiddel:\
 <ul> \
    <li>richt zich op een publiek van <b>15 jaar en ouder; </b></li> \
    <li>bestaat uit <b>acht modules</b> die samen of apart bruikbaar zijn; </li> \
@@ -4256,7 +4256,7 @@ debagora.div3.text=Débagora is een educatief hulpmiddel:\
 </ul>
 
 debagora.div4.title=Een hulpmiddel in voortdurende evolutie
-debagora.div4.text=Débagora is <b>het resultaat van een samenwerking</b> tussen drie onderzoekscentra (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
+debagora.div4.text=Debagora is <b>het resultaat van een samenwerking</b> tussen drie onderzoekscentra (Girsef-UCLouvain, Cevipol-ULB, Poli-VUB), \
 en vier verenigingen (Jeune et Citoyen, het BELvue-museum, Infor-Jeunes vzw en de Ligue des Droits Humains).
 debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, … de ontwikkeling van dit platform vooruit helpen. \
 <b>Aarzel niet om ons te contacteren via:</b> <a href="mailto:info@debagora.be">info@debagora.be</a>
