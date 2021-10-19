@@ -3467,7 +3467,7 @@ bubble.entry.actor.parentsForm=Indicate the actor''s father and/or mother only i
 bubble.entry.text.language=If you click on « The text is a translation », please indicate the title of the text in its original language \
 and specify the original language.
 bubble.entry.author.text.label.author=An author can be an individual or an organization, for example a news agency. <br /><br /> If the author is an \
-individual, please enter the author''s first name(s) followed by the author''s family name(s).
+individual, please enter the author''s first name(s) followed by the author''s family name(s). \
 <p class=indent>Thus, we will write <i>Barack Obama</i> and not <i>Obama Barack</i>.</p>\
 Please enter the author's last name respecting the traditional case: the first letter(s) of each word \
 in capital letter(s) (except for particles), followed by lower case letters.<p class=indent>So we would indicate <i>Pablo \
@@ -3491,7 +3491,7 @@ Pour que la base de données WebDeb soit la plus cohérente possible, voici quel
 Tenir compte des suggestions qui apparaissent en-dessous du tag que vous êtes en train d’écrire. Si une suggestion vous convient, la sélectionner.\
 
 
-bubble.entry.text.publication= For a non-translated text, the publication date is the date the text was first published or
+bubble.entry.text.publication= For a non-translated text, the publication date is the date the text was first published or \
 stated the first time. Thus, when you encode a passage from the speech <i>I&nbsp;have a dream</i> of Martin Luther King <br>\
 that you found on your favorite blog, you don''t indicate the year of release on your blog, you indicate <i>28/08/1963</i>.<br><br>\
 For a translated text, the publication date is the date the text is published in the source that <br>\
@@ -3549,7 +3549,7 @@ The elements are of several types that can be grouped into three main categories
 <li>connectors (underlined) : conjunctions, connectors, and other elements of speech that allow us to see the structure of a sentence and a text.</li>\
 </ul>
 
-bubble.work.arg.instructions=The extract is the part of text that includes the main idea you want to register. This extract
+bubble.work.arg.instructions=The extract is the part of text that includes the main idea you want to register. This extract \
 should not be very large and should not contain all the elements referenced in the statement you are going to encode (such as the \
 actors represented by a pronoun). Thus, in the following text, you can only copy and paste the "bold" parts, even if it is \
 <i>Little Red Riding Hood</i> is not explicitly included (you will re-enter it when editing) : <p class=quote>Little Red Riding Hood left \
@@ -3560,7 +3560,7 @@ To encode a new statement, simply highlight the part in the text and click on th
 #argument links
 
 bubble.entry.argument.links=In this part, you can define the links that connect two affirmations. We ask you \
-first to choose the <u>type of relationship</u>. There are several types of relationships between affirmations.
+first to choose the <u>type of relationship</u>. There are several types of relationships between affirmations. \
 <ul>\
 <li><b>The relation of similarity</b> : when two affirmations support an identical or contrary statement. <br/> Example :\
 <p class=quote>Education must be reformed so that it finally and sustainably becomes equal.<p>\
@@ -3581,9 +3581,9 @@ in the first place. <br /><br />By clicking on the "+" sign, you can add another
 
 #argument
 
-bubble.entry.argument.excerpt=Here is the extract you selected in the text. This extract is not editable.
+bubble.entry.argument.excerpt=Here is the extract you selected in the text. This extract is not editable. \
 <ul>\
-<li>If you want to modify it after it has already been encoded, you must go back to the previous page, in the affirmations edit
+<li>If you want to modify it after it has already been encoded, you must go back to the previous page, in the affirmations edit \
 of the text, and delete your extract by clicking on <span class=fa fa-trash>.</li>\
 <li>If you want to modify it while it has not yet been encoded, simply return to editing interface of the \
 text and affirmations by clicking on <i>Cancel</i>, at the very bottom of the page.</li>\
@@ -3599,11 +3599,12 @@ bubble.entry.author.argument.label.reporter=This field is optional. Fill in this
 by citing them in quotation marks or by summarizing them. For example, when a journalist reports in his article an extract of an interview or a citation. <br /><br /> \
 Add or remove a name using the <span class=fa fa-plus></span> and <span class=fa fa-minus></span> buttons
 
-bubble.entry.author.argument.label.arg=This field is optional. Fill in this field only when an individual or organization is mentioned in the sentence.
+bubble.entry.author.argument.label.arg=This field is optional. Fill in this field only when an individual or organization is mentioned in the sentence. \
 However, in the case of an individual or organization being reported on, mention that actor in the field above.<br><br>\
 Ajouter ou retirer un nom à l’aide des boutons <span class=fa fa-plus></span> et <span class=fa fa-minus></span>
 
-bubble.entry.argument.type=This classification allows you to define an individual''s type of engagement in their speech. Our tool will automatically suggest a category. You can keep your choice or modify it as you wish by clicking on another small square. There are 4 main types of engagement in the speech :\
+bubble.entry.argument.type=This classification allows you to define an individual''s type of engagement in their speech. Our tool will automatically suggest a category. \
+You can keep your choice or modify it as you wish by clicking on another small square.There are 4 main types of engagement in the speech :\
 <ol>\
 <li><b>Descriptive</b> : any other type of sentence.<br />Example :<p class=quote>Barack Obama runs every Saturday morning in Central Park.</p>\
 <li><b>Prescriptive</b> : that which has to do with order, in the imperative. Prescriptive statements are usually phrased with the verbs <i>should, must</i>...\
