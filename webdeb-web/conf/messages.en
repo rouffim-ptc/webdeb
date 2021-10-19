@@ -4185,6 +4185,8 @@ tag.category.delete.title=Delete the category
 argument.copy.title=Copy the argument
 citation.copy.title=Copy the citation
 
+debagora.formation= 
+debagora.formationonline= 
 
 #teach
 teach.d1.title=WebDeb, an all-field educational tool
