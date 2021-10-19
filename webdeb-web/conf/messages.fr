@@ -4266,7 +4266,7 @@ debagora.div4.a1=Cet outil peut être enrichi grâce à vos commentaires, questi
 #ajouts
 contrib.already=Déjà membre ?
 contrib.notyet=Pas encore inscrit ?
-contrib.connect=se connecter
-contrib.register=s''enregistrer
+contrib.connect=Se connecter
+contrib.register=S''enregistrer
 contrib.okconnect=Vous êtes bien connecté !
 contrib.diffuse=Diffuser

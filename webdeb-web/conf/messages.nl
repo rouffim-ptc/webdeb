@@ -4263,7 +4263,7 @@ debagora.div4.a1=Ook jij kan met je opmerkingen, vragen, ervaringen, … de ontw
 
 contrib.already=Al lid ?
 contrib.notyet=Nog niet geregistreerd ?
-contrib.connect=zich aanmelden
-contrib.register=account aanmaken?
+contrib.connect=Zich aanmelden
+contrib.register=Account aanmaken?
 contrib.okconnect=Succesvolle aanmelding
 contrib.diffuse=Verspreiden
