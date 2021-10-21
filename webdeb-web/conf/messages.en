@@ -4227,6 +4227,10 @@ debagora.module7.text=Defend an opinion orally
 debagora.module8.title=Module 8
 debagora.module8.text=Take part in the debate on social challenges
 
+debagora.title=Debagora
+debagora.description=An educational tool to learn about politics and debate
+debagora.overall.descr=Debagora, the educational tool to learn about politics and debate
+
 debagora.download.title=Download the complete tool
 
 debagora.div1.title=A tool for debate education

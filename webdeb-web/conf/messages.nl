@@ -4229,6 +4229,10 @@ debagora.download.title=Alle modules in één keer downloaden
 debagora.formation= 
 debagora.formationonline= 
 
+debagora.title=Debagora
+debagora.description=Een educatief hulpmiddel ter ondersteuning van politiek en debatten
+debagora.overall.descr=Debagora, het educatief hulpmiddel ter ondersteuning van politiek en debatten
+
 debagora.div1.title=Een educatief hulpmiddel om te leren debateren
 debagora.div1.text=Debagora is een educatief hulpmiddel. Je vindt er activitetiten en een kader om:\
 <ul> \

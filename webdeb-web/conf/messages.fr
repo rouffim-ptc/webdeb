@@ -4230,8 +4230,7 @@ debagora.formationonline=Une formation en ligne aura également lieu via TEAMS l
 
 debagora.title=Débagora
 debagora.description=Un outil d''éducation au politique et au débat
-debagora.description2=<b>Un outil d''éducation au politique et au débat</b>
-debagora.overall.descr=Débagora, l'outil d'éducation au politique et au débat.
+debagora.overall.descr=Débagora, l''outil d''éducation au politique et au débat.
 
 debagora.div1.title=Un outil d''éducation au débat
 debagora.div1.text=L’'outil pédagogique Débagora propose des activités et des repères pour :\
