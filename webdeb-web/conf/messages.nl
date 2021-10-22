@@ -78,7 +78,7 @@ welcome.index.3.subtitle.nohtml=Pour apprendre à traiter les infos avec rigueur
 
 welcome.index.whatis.1=Het is
 welcome.index.whatis.2=Een gedeeld geheugen
-welcome.index.whatis.3=Om te weten wie wies is en wie wat zegt en om goed te verstaan waar het over gaat
+welcome.index.whatis.3=Om te weten wie wie is en wie wat zegt en om goed te verstaan waar het over gaat
 welcome.index.whatis.4=Een schat aan informatie
 welcome.index.whatis.5=Over spelers, debatten, standpunten en argumenten
 welcome.index.whatis.6=Een gratis en open website
@@ -93,7 +93,7 @@ welcome.index.whatis.13=Alle debatten mogen aangegaan worden, in alle talen
 welcome.index.whatshows.1=De website toont
 welcome.index.whatshows.2=De levensloop van een persoon
 welcome.index.whatshows.3=De samenstelling van een organisatie
-welcome.index.whatshows.4=De verbanden tussen organisatie
+welcome.index.whatshows.4=De verbanden tussen organisaties
 welcome.index.whatshows.5=Wat er gezegd wordt over een organisatie of een speler
 welcome.index.whatshows.6=De argumenten van een debat
 welcome.index.whatshows.7=De spelers voor of tegen een standpunt
@@ -211,7 +211,7 @@ general.contribution.action.viz.title=Visualisering:
 general.contribution.action.edit.title=Bewerking:
 general.contribution.action.add.title=Aanvulling:
 
-general.order.title=Rangeschikken naar
+general.order.title=Rangschikken naar
 general.order.popular.title=Meest populair
 general.order.relevance.title=Meest relevant
 general.order.version.desc.title=Meest recent
@@ -3295,7 +3295,7 @@ aboutus.webdeb.andre=André was verantwoordelijk voor de automatische taalverwer
  spitste hij zich toe op de automatische analyse van tijd in Franstalige teksten. Na zijn doctoraat ging hij aan de slag als \
  onderzoeker bij de onderzoeksgroep Parsing and Semantics van het <a href=http://www.xrce.xerox.com/ target=_blank>Xerox Research Centre Europe</a> \
  te Grenoble. Vervolgens werkte André als onderzoeker linguïstiek en informatica bij <a href=http://www.ho2s.com/ \
-  target=_blank>Holmes Semantic Solutions</a>, een bedrijf gespecialiseerd in de het op de markt brengen \
+  target=_blank>Holmes Semantic Solutions</a>, een bedrijf gespecialiseerd in het op de markt brengen \
  van toepassingen gebaseerd op automatische taalverwerking. Hij interesseert zich in \
  verschillende thema's, zoals grondige semantische analyse, detectie van gevoelens en emoties, opinie-monitoring, \
  analyse van medische teksten, tekstclassificatie en detectie van tijdindicatoren. \
@@ -4045,7 +4045,7 @@ contribute.difuse.2.title=Verspreid je werk
 contribute.difuse.2.text=<p>Heb je het organigram van een organisatie geüpdatet, filialen van een multinational opgelijst of standpunten en argument in een debat verduidelijkt?</p> \
 <p>Deel het adres van de webpagina gewoon op Facebook, Twitter of via e-mail.</p>
 contribute.difuse.3.title=Exporteer je gegevens
-contribute.difuse.3.text=<p>Gaandeweg maken we het mogelijk om de gevens van elke pagina gemakkelijk te exporteren. Analyse en hergebruik worden daardoor heel makkelijke.</p>
+contribute.difuse.3.text=<p>Gaandeweg maken we het mogelijk om de gevens van elke pagina gemakkelijk te exporteren. Analyse en hergebruik worden daardoor heel makkelijk.</p>
 
 
 test.viz.actor.pane.0.title=Identiteit
@@ -4186,7 +4186,7 @@ citation.copy.title=Citaat kopiëren
 
 
 #teach
-teach.d1.title=WebDeb, een multi-inzetbaar pedagogisch hulpmiddel
+teach.d1.title=WebDeb, een multi-inzetbaar educatief hulpmiddel
 teach.d1.p1=WebDeb is ontworpen om in klassen of opleidingen te gebruiken. Via het platform kan een groep op een grondige manier nadenken over om het even welk debat. Samen kunnen standpunten en argumenten gestructureerd geanalyseerd worden.
 teach.d1.p2=Naast de ontwikkeling van onderzoeks- en tekstanalysevaardigheden, kan je via WebDeb ook gemakkelijk de standpunten van een debat begrijpen.
 teach.d1.p3=Het WebDeb-platform heeft verschillende troeven:
