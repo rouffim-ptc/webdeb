@@ -181,6 +181,10 @@ general.continue.title=Continue
 general.classify.title=Classify
 general.results.see.more=More results
 
+entry.citation.authors.textauthors2.label=The author of the text
+entry.citation.authors.person.label2=An other person
+entry.citation.authors.org.label2=An other organisation
+
 general.add.btn.debate=Add a debate
 general.add.btn.argument=Add an argument
 general.add.btn.argument.sub=Add a sub argument

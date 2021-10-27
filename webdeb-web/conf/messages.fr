@@ -820,6 +820,10 @@ entry.citation.authors.person.label=Une ou des personnes ?
 entry.citation.authors.org.label=Une ou des organisations ?
 entry.citation.authors.textauthors.label=S''agit-il du ou des auteurs du texte ?*
 
+entry.citation.authors.textauthors2.label=Les auteurs du texte
+entry.citation.authors.person.label2=Un autre individu
+entry.citation.authors.org.label2=Une autre organisation
+
 
 entry.citation.tags.title=Classez la citation dans WebDeb
 entry.citation.tags.label=A quelle(s) question(s) répond la citation ?*

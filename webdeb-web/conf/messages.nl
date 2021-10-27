@@ -998,6 +998,10 @@ context.dragndrop.close.title=De classificatie sluiten
 context.alliesopponents.title=Argumenten per auteur weergeven
 context.alliesopponents.close.title=Weergave per auteur sluiten
 
+entry.citation.authors.textauthors2.label=De auteurs van de tekst
+entry.citation.authors.person.label2=Een ander individu
+entry.citation.authors.org.label2=Een andere organisatie
+
 debate.new.added=Het debat is succevol toegevoegd!
 
 argument.label.type.error=De inhoud van de tekst kan niet worden weergegeven..
