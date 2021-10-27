@@ -174,7 +174,7 @@ general.contributors=met {0} bijdragers
 general.contributions=bevat {0} bijdragen
 general.contributions.complete=en
 general.contributions.no.result=Geen resultaat
-general.contributions.search.instructions=Begin met typen om te zoeken, druk vervolgens op enter of op het vergrootglas om de resultaten te zien.  \
+general.contributions.search.instructions=Begin met typen om te zoeken, druk vervolgens op enter of op het vergrootglas om de resultaten te zien.
 general.citations.search.instructions=Begin met typen om te zoeken, druk vervolgens op enter of op het vergrootglas om de resultaten te zien.  \
  Selecteer vervolgens een of meerdere citaten, klik dan op de knop 'opslaan'.
 general.continue.title=Doorgaan
