@@ -161,7 +161,7 @@ public class ContributorActions extends CommonController {
           user.setLoginForm(form);
           return badRequest(login.render(user, message));
         }
-      } else if (!contributor.isValidated() && (contributor.getTmpContributor() == null || !contributor.getTmpContributor().getProject().isInProgress())) {
+      } else if (!contributor.isValidated()) {
         // user has not yet validated his account, ask him to check his email
         message.put("warning", i18n.get(ctx().lang(), "login.not.validated"));
         form.reject(new ValidationError(EMAIL_OR_PSEUDO, "signin.not.validated"));

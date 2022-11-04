@@ -2226,6 +2226,19 @@ function searchContributorsAndRoles(query, sort) {
 }
 
 /**
+ * Validate a contributor inscription
+ *
+ * @param contributor id of contributor
+ * @returns {*}
+ */
+function validateContributor(contributor) {
+    return jsRoutes.be.webdeb.presentation.web.controllers.account.admin.AdminActions.validateContributor(contributor).ajax({
+        type: 'POST',
+        async: true
+    });
+}
+
+/**
  * Search for contributor's contributions
  *
  * @param searchText a query string

@@ -174,6 +174,37 @@ public class AdminActions extends CommonController {
   }
 
   /**
+   * Validate a contributor inscription
+   *
+   * @param contributor id of the contributor
+   * @return ok
+   */
+  @Restrict(@be.objectify.deadbolt.java.actions.Group(WebdebRole.ADMIN))
+  public CompletionStage<Result> validateContributor(Long contributor) {
+
+    Map<String, String> messages = new HashMap<>();
+    Contributor c = contributorFactory.retrieveContributor(contributor);
+
+    if (c == null) {
+      logger.error("no contributor could be retrieved");
+      messages.put(SessionHelper.ERROR, i18n.get(ctx().lang(), "error.crash"));
+      return CompletableFuture.supplyAsync(() -> badRequest(message.render(messages)), context.current());
+    }
+
+    c.isValidated(true);
+
+    try {
+      c.save(0);
+    } catch (PersistenceException e) {
+      logger.error("unable to validate contributor", e);
+      messages.put(SessionHelper.ERROR, i18n.get(ctx().lang(), "error.crashr"));
+      return CompletableFuture.supplyAsync(() -> internalServerError(message.render(messages)), context.current());
+    }
+
+    return CompletableFuture.completedFuture(ok(""));
+  }
+
+  /**
    * Get the partial page to discpaly csv reports
    *
    * @param type the contribution type that need reports

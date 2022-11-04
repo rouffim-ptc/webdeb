@@ -49,6 +49,7 @@ public class ContributorHolder extends SimpleContributorHolder {
   protected boolean isDeleted;
   protected boolean isPedagogic;
   protected boolean isNewsletter;
+  protected boolean isUserValid;
   protected String pedagogic;
   protected String newsletter;
   protected boolean browserWarned = false;
@@ -80,6 +81,7 @@ public class ContributorHolder extends SimpleContributorHolder {
     super(contributor, user, lang);
 
     isBanned = contributor.isBanned();
+    isUserValid = contributor.isValidated();
     isDeleted = contributor.isDeleted();
     isPedagogic = contributor.isPedagogic();
     pedagogic = contributor.isPedagogic() ? "true" : "false";
@@ -154,6 +156,10 @@ public class ContributorHolder extends SimpleContributorHolder {
    */
   public Boolean isDeleted() {
     return isDeleted;
+  }
+
+  public Boolean isUserValidated() {
+    return isUserValid;
   }
 
   /**

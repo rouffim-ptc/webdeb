@@ -140,7 +140,7 @@ public class EbeanContributorAccessor implements ContributorAccessor {
           logger.debug("token for user " + emailOrPseudo + " has expired");
           throw new TokenExpiredException();
         }
-        if (contributor.isValidated() && checkPassword(password, contributor.getPassword())) {
+        if (checkPassword(password, contributor.getPassword())) {
           return contributor;
         }
       }else if (checkPassword(password, contributor.getPassword())) {
@@ -1695,6 +1695,7 @@ public class EbeanContributorAccessor implements ContributorAccessor {
     c.setOpenId(contributor.getOpenId());
     c.setOpenIdToken(contributor.getOpenIdToken());
     c.setOpenIdType(contributor.getOpenIdType() != null ? TOpenIdType.find.byId(contributor.getOpenIdType().id()) : null);
+    c.setValidated(contributor.isValidated());
 
     if(!values.isBlank(contributor.getOpenId())) {
       c.setValidated(true);

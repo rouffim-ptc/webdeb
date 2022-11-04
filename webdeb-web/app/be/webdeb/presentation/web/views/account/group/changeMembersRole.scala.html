@@ -57,6 +57,19 @@
     modal.find('.searchable-container').searchableContainerJs({
       sortElements : true
     });
+
+    modal.find('[id^="validate_subscription_"]').on('click', function () {
+      let btn = $(this);
+
+      validateContributor(btn.data('user')).done(function (data) {
+        slideDefaultSuccessMessage();
+        setTimeout(function() {
+          window.location.reload();
+        }, 2000)
+      }).fail(function (jqXHR) {
+        showErrorMessage(jqXHR);
+      });
+    });
   });
 
 </script>
@@ -112,6 +125,12 @@
                 @if(user.belongsTo(group.getId) != null && member.getRole.id() <= user.belongsTo(group.getId).getRole.id() && member.getContributor.getId != user.getId) {
                   <button id="open-change-member-role_@group.getGroup.getGroupId" class="btn btn-link btn-sm primary" data-user="@member.getContributor.getId" data-dismiss="modal">
                   @Messages("group.member.changerole")
+                  </button>
+                }
+
+                @if(!member.getContributor.isValidated) {
+                  <button id="validate_subscription_@user.getContributor.getId.toString.concat("_-1")" class="btn btn-link btn-sm primary" data-user="@member.getContributor.getId" data-dismiss="modal">
+                    Valider l'inscription
                   </button>
                 }
 

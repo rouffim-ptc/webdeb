@@ -328,6 +328,7 @@ POST        /group/groups                  be.webdeb.presentation.web.controller
 
 # admin
 GET         /admin/roles                     be.webdeb.presentation.web.controllers.account.admin.AdminActions.searchContributorsAndRoles(query : String, sort : String)
+POST        /admin/validate/contributor      be.webdeb.presentation.web.controllers.account.admin.AdminActions.validateContributor(contributor : Long)
 GET         /admin/role                      be.webdeb.presentation.web.controllers.account.admin.AdminActions.changeRole(id : Long, group: Int, role : Int)
 GET         /admin/reportcsv                 be.webdeb.presentation.web.controllers.account.admin.AdminActions.getCsvReports(type : Int)
 GET         /admin/uploadcsv                 be.webdeb.presentation.web.controllers.account.admin.AdminActions.importCsvFile(type : Int)

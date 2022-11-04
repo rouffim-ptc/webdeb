@@ -1337,6 +1337,7 @@ public class Application extends CommonController {
     // admin
         be.webdeb.presentation.web.controllers.account.admin.routes.javascript.AdminActions.changeRole(),
         be.webdeb.presentation.web.controllers.account.admin.routes.javascript.AdminActions.searchContributorsAndRoles(),
+        be.webdeb.presentation.web.controllers.account.admin.routes.javascript.AdminActions.validateContributor(),
         be.webdeb.presentation.web.controllers.account.admin.routes.javascript.AdminActions.getCsvReports(),
         be.webdeb.presentation.web.controllers.account.admin.routes.javascript.AdminActions.importCsvFile(),
         be.webdeb.presentation.web.controllers.account.admin.routes.javascript.AdminActions.uploadCsvFile(),
