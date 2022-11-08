@@ -50,9 +50,12 @@
       </div>
 
       <div class="offset-sm-3 col-sm-6">
-        <p class="large-font">@Messages("contributor.signup.msg.success")
+        <p class="large-font">
+          @Html(Messages("contributor.signup.msg.success"))
+        </p>
+        <p>
           <a href="@be.webdeb.presentation.web.controllers.routes.Application.index" class="btn btn-link">
-            @Messages("general.btn.goback.main")
+           @Messages("general.btn.goback.main")
           </a>
         </p>
       </div>

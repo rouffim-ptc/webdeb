@@ -25,6 +25,7 @@ import be.webdeb.infra.persistence.accessor.api.ContributorAccessor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -128,7 +129,7 @@ class ConcreteGroup implements Group {
   @Override
   public List<GroupSubscription> getMembers() {
     List<GroupSubscription> result = accessor.retrieveGroupMembers(id, EContributorRole.CONTRIBUTOR);
-    Collections.sort(result);
+    result.sort(Comparator.comparing(a -> a.getContributor().getVersion(), Comparator.reverseOrder()));
     return result;
   }
 

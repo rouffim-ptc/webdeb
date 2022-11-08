@@ -63,14 +63,32 @@
 
       validateContributor(btn.data('user')).done(function (data) {
         slideDefaultSuccessMessage();
-        setTimeout(function() {
-          window.location.reload();
-        }, 2000)
+
+        btn.parent('.searchable-element').data("validates", true);
+
+        searchValidated(true);
+
       }).fail(function (jqXHR) {
         showErrorMessage(jqXHR);
       });
     });
+
+    modal.find('#search-validated').on('click', function () {
+      let input = $(this);
+
+      searchValidated(input.is(":checked"));
+    });
+
   });
+
+  function searchValidated(val) {
+
+    if(val) {
+      $('.searchable-element[data-validated="true"]').hide();
+    } else {
+      $('.searchable-element').show();
+    }
+  }
 
 </script>
 
@@ -90,13 +108,18 @@
               <input type="text" class="form-control searchable-input" placeholder="@Messages("group.gen.members.search")">
             </div>
 
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="search-validated">
+              <label class="form-check-label" for="search-validated">uniquement non validés</label>
+            </div>
+
             <hr>
 
           </div>
 
           @for(member <- group.getGroup.getMembers) {
             @if(member.getRole.id < EContributorRole.ADMIN.id || user.getERole == EContributorRole.ADMIN) {
-              <div class="col-12 group-member-detail searchable-element" data-search="@member.getContributor.getPseudo @member.getContributor.getFirstname @member.getContributor.getLastname @member.getContributor.getEmail">
+              <div class="col-12 group-member-detail searchable-element" data-search="@member.getContributor.getPseudo @member.getContributor.getFirstname @member.getContributor.getLastname @member.getContributor.getEmail" data-validated="@member.getContributor.isValidated">
                 <span @if(member.isBanned) {
                   style="text-decoration: line-through;" }>
                   <a href="@be.webdeb.presentation.web.controllers.account.routes.ContributorActions.settings(

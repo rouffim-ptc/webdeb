@@ -629,7 +629,8 @@ signin.register=Register ?
 signin.forgot=Forgotten your password ?
 signin.error.mailorpass=Your email (or username) and password are mandatory.
 signin.error.nomatch=Invalid email / username or password
-signin.not.validated=Account validation or new password request in progress
+signin.not.validated=Account validation in progress \
+If you do not receive any email to confirm your subscription, contact info@webdeb.be
 
 # contact
 contact.subject.label=Subject of the message *
@@ -650,7 +651,8 @@ contributor.signup.validated=You have successfully confirmed your registration, 
 contributor.signup.error=Your registration form contains errors, please correct them.
 contributor.signup.error.email=You have registered correctly, but an error has occurred while sending you an email. Please contact the administrator.
 contributor.signup.error.save=Your registration could not be saved, please contact the administrator.
-contributor.signup.msg.success=Your account has been successfully created, please check your emails to finalize your registration.
+contributor.signup.msg.success=Your account has been successfully created, please check your emails to finalize your registration.<br><br> \
+If you do not receive any email to confirm your subscription, contact <a href=mailto:info@webdeb.be>info@webdeb.be</a>
 
 contributor.validate.success=You have correctly validated your registration. Welcome to the WebDeb platform, {0}.
 contributor.validate.failure=No validation query exists. Please make sure to use the link we sent you by email.

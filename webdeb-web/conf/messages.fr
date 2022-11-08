@@ -625,7 +625,8 @@ signin.register=S''enregistrer ?
 signin.forgot=Mot de passe oublié ?
 signin.error.mailorpass=Votre email (ou pseudo) et votre mot de passe sont obligatoires.
 signin.error.nomatch=Email / pseudo ou mot de passe invalide
-signin.not.validated=Validation du compte ou demande de nouveau mot de passe en cours
+signin.not.validated=Validation du compte en cours. \
+Si vous ne recevez pas d'email pour confirmer votre inscription, contactez info@webdeb.be
 
 # contact
 contact.subject.label=Sujet du message *
@@ -646,7 +647,8 @@ contributor.signup.validated=Vous avez confirmé votre inscription avec succès,
 contributor.signup.error=Votre formulaire d''inscription contient des erreurs, veuillez les corriger, s''il vous plaît.
 contributor.signup.error.email=Vous vous êtes correctement inscrit, mais une erreur est survenue en vous envoyant un email. Veuillez contacter l''administrateur.
 contributor.signup.error.save=Votre inscription n''a pas pu être enregistrée, veuillez contacter l''administrateur.
-contributor.signup.msg.success=Votre compte a été créé avec succès, Veuillez vérifier vos emails pour finaliser votre inscription.
+contributor.signup.msg.success=Votre compte a été créé avec succès, Veuillez vérifier vos emails pour finaliser votre inscription.<br><br> \
+Si vous ne recevez pas d'email pour confirmer votre inscription, contactez <a href=mailto:info@webdeb.be>info@webdeb.be</a>
 
 contributor.validate.success=Vous avez correctement validé votre inscription. Bienvenue sur la plateforme WebDeb, {0}.
 contributor.validate.failure=Aucune requête de validation existe. Veuillez vous assurer d''utiliser le lien que nous vous avons envoyé par mail.

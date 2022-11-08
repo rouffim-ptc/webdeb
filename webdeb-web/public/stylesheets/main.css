@@ -3107,3 +3107,8 @@ ul.normal-list > li {
         max-width: 1024px;
         margin: 0 auto;
         padding: 0 4rem; } }
+
+
+.group-member-detail {
+    min-height: 60px;
+}

@@ -625,7 +625,8 @@ signin.register=Account aanmaken?
 signin.forgot=Wachtwoord vergeten?
 signin.error.mailorpass=Je e-mailadres/gebruikersnaam en wachtwoord zijn verplicht.
 signin.error.nomatch=E-mail/gebruikersnaam of wachtwoord is niet correct
-signin.not.validated=Accountbevestiging of aanvraag nieuw wachtwoord bezig
+signin.not.validated=Accountbevestiging of aanvraag nieuw wachtwoord bezig \
+If you do not receive any email to confirm your subscription, contact info@webdeb.be
 
 # contact
 contact.subject.label=Onderwerp*
@@ -646,7 +647,8 @@ contributor.signup.validated=Je inschrijving is bevestigd, meld je aan!
 contributor.signup.error=Je inschrijvingsformulier bevat fouten, gelieve ze alsjeblieft te corrigeren.
 contributor.signup.error.email=Je hebt je correct ingeschreven, maar er is een fout opgetreden bij de verzending van de bevestigingsmail. Gelieve de websitebeheerder te contacteren.
 contributor.signup.error.save=Je inschrijving kon niet geregistreerd worden, gelieve de websitebeheerder te contacteren.
-contributor.signup.msg.success=Account geregistreerd, gelieve je mailbox te bekijken om je inschrijving af te ronden.
+contributor.signup.msg.success=Account geregistreerd, gelieve je mailbox te bekijken om je inschrijving af te ronden.<br><br> \
+If you do not receive any email to confirm your subscription, contact <a href=mailto:info@webdeb.be>info@webdeb.be</a>
 
 contributor.validate.success=Je inschrijving is bevestigd. Welkom op het WebDeb-platform, {0}.
 contributor.validate.failure=Geen geldige bevestingsaanvraag. Controleer alsjeblieft of je de linkt gebruikt die we je via mail hebben toegestuurd.
